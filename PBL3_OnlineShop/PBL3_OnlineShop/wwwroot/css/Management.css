@@ -1,0 +1,1492 @@
+/* Import additional fonts from Figma */
+@import url('https://fonts.googleapis.com/css2?family=Imprima&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Header */
+.header .inner-wrap{
+    display: flex;
+    justify-content: space-between;
+    justify-items: center;
+    align-items: center;
+}
+
+.header .inner-wrap a{
+    color: #111;
+}
+
+.header .inner-wrap ul{
+    display: flex;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.header .inner-wrap .inner-menu ul li{
+    margin-left: 15px;
+    margin-right: 15px;
+    font-family: "Roboto", sans-serif;
+}
+
+.header .inner-wrap .inner-logo{
+    font-family: "Inknut Antiqua", serif;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.header .inner-wrap .inner-search input{
+    background: #D9D9D9;
+    border: none;
+    text-align: right;
+    width: 367px;
+    height: 35px;
+    margin-top: 8px;
+    padding-right: 20px;
+}
+
+.header .inner-wrap .inner-utilities{
+    margin: 0 0 0 0;
+    padding: 0;
+}
+
+.header .inner-wrap .inner-utilities li {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.header .inner-wrap .inner-utilities ul{
+    margin-right: 20px;
+    margin-top: 25px;
+    padding: 0;
+}
+
+.header .inner-wrap .inner-utilities img{
+    height: 40px;
+    width: auto;
+}
+
+.header .inner-wrap .inner-menu-logo{
+    font-size: 25px;
+}
+
+/* End Header */
+
+/* Line */
+.line{
+    margin: 20px 0;
+    background: #111;
+    height: 1px;
+}
+/* End Line */
+
+/* Section-one */
+.section-one .inner-wrap{
+    padding-top: 100px;
+}
+
+.section-one .inner-wrap .inner-content{
+    font-family: "Inknut Antiqua", serif;
+    font-size: 10px;
+    margin-left: 10px;
+}
+
+.section-one .inner-home{
+    position: relative;
+}
+
+.section-one .inner-home img{
+    height: 525px;
+}
+
+.section-one .inner-home .inner-sale{
+    position: absolute;
+    top: 130px;
+    right: 150px;
+}
+
+.section-one .inner-home .inner-sale .span1{
+    font-family: "Cardo", serif;
+    font-size: 38px;
+}
+
+.section-one .inner-home .inner-sale .span2{
+    font-family: "Cambo", serif;
+    font-size: 16px;
+}
+/* End Section-one */
+
+/* Section-two */
+.section-two .inner-wrap .inner-content{
+    display: flex;
+}
+
+.section-two .inner-wrap .inner-content .content-left{
+    font-size: 35px;
+    font-weight: 800;
+}
+
+.section-two .inner-wrap .inner-content .content-right{
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.section-two .inner-wrap .inner-content .content-right a{
+    color: #5E5E5E;
+    font-size: 20px;
+}
+
+.section-two{
+    overflow: hidden;
+}
+
+.section-two .inner-wrap .line{
+    margin: 20px 0;
+    background: #DFDFDF;
+    height: 1px;
+}
+
+.section-two .inner-wrap .inner-list{
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.section-two .inner-wrap .slide{
+    min-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.section-two .inner-wrap .inner-list .list .des-one{
+    margin: 5px 0;
+    display: flex;
+    font-size: 16px;
+}
+
+.section-two .inner-wrap .inner-list .list .des-two{
+    margin: 5px 0;
+    display: flex;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.section-two .inner-wrap .inner-list .list .right{
+    margin-left: auto;
+}
+
+.section-two .inner-wrap .inner-button{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.section-two .inner-wrap .inner-button button{
+    height: 40px;
+    width: 40px;
+    margin: 0 10px;
+    background: #fff;
+    border: 1px solid #111;
+}
+
+.section-two .inner-wrap .inner-button button:hover:not(.disabled){
+    background: #DFDFDF;
+}
+
+.section-two .inner-wrap .inner-button .disabled {
+    color: #DFDFDF;
+    border: 1px solid #B9B9B9;
+}
+/* End Section-two */
+
+/* Footer */
+.footer .container .inner-wrap .inner-box .inner-content{
+    font-size: 24px;
+    font-weight: 800;
+    color: #B30C0C;
+    margin: 10px 0;
+}
+
+
+.footer .container .inner-wrap .inner-box .inner-text{
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.footer .container .inner-wrap .inner-box .inner-utilities{
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.footer .container .inner-wrap .inner-box img{
+    margin: 0 5px;
+    margin-left: 0;
+}
+
+.footer .container .inner-wrap{
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    justify-items: left;
+}
+
+.footer .container .inner-wrap li{
+    font-weight: 450;
+}
+
+/* End Footer */
+
+/* General Layout */
+body {
+    display: flex; /* Use flexbox for overall layout */
+    margin: 0;
+    font-family: 'Roboto', sans-serif; /* Default font */
+    background-color: #F6F6F6; /* Match base */
+}
+
+.management-system {
+    display: flex;
+    width: 100%;
+    min-height: 100vh; /* Ensure it takes full viewport height */
+}
+
+/* === Sidebar Styles (Copied from Management_Customer_Account) === */
+.sidebar {
+    width: 280px; /* Approximate width based on Figma */
+    background-color: #9194A3; /* Correct grey background from Figma 4:31 etc. */
+    border-right: 1px solid #ABA5A5; /* Figma Stroke 4:31 */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0; /* Prevent sidebar from shrinking */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.user-profile {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+}
+
+.avatar-container {
+    position: relative;
+    display: inline-block; /* Center the container */
+    margin-bottom: 10px;
+}
+
+.avatar {
+    width: 80px; /* Adjust size as needed */
+    height: 80px;
+    border-radius: 50%; /* Circular avatar */
+    border: 2px solid #ddd; /* Optional border */
+    object-fit: cover; /* Ensure image covers the area */
+}
+
+.status-indicator { /* Figma 4:32 */
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 15px;
+    height: 15px;
+    background-color: #4CAF50; /* Green status, adjust color */
+    border-radius: 50%;
+    border: 2px solid #FFFFFF; /* White border around status */
+}
+
+.user-name { /* Figma 4:34 */
+    font-family: 'Imprima', sans-serif; /* Figma style_RSVSFW */
+    font-size: 24px; /* Adjusted from 32px */
+    font-weight: 400;
+    color: #000000; /* Figma fill_5FAQ7U */
+    margin: 5px 0;
+}
+
+.user-role { /* Figma 4:35 */
+    font-family: 'Inria Sans', sans-serif; /* Figma style_PCGL4D */
+    font-size: 16px; /* Adjusted from 24px */
+    color: #000000; /* Figma fill_5FAQ7U */
+    margin: 0;
+}
+
+.main-nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-nav .nav-item {
+    margin-bottom: 5px; /* Space between items */
+}
+
+.main-nav .nav-item a {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #000000; /* Default text color black (Figma 4:38 etc.) */
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-family: 'Inria Sans', sans-serif; /* Figma style_PCGL4D */
+    font-size: 18px; /* Adjusted from 24px */
+    background-color: #9194A3; /* Default background (Figma 4:37 etc.) */
+    border: 1px solid #9194A3; /* Match background for non-active */
+}
+
+.main-nav .nav-item .nav-icon {
+    width: 24px; /* Adjust icon size */
+    height: 24px;
+    margin-right: 15px;
+    object-fit: contain; /* Ensure icon fits */
+}
+
+.main-nav .nav-item a:hover {
+    background-color: #a1a4b3; /* Darker grey hover effect */
+    border-color: #a1a4b3;
+}
+
+/* Active state for Manage Coupon (assuming this page relates to it) */
+.main-nav .nav-item.active a {
+    background-color: #FFFFFF; /* White background for active item (e.g., Figma 4:49) */
+    border: 1px solid #2044E3; /* Blue border for active item (e.g., Figma 4:49 stroke_JLKBRT) */
+    color: #000; /* Black text (e.g., Figma 4:50) */
+    font-weight: bold; /* Keep bold for emphasis */
+    padding: 11px 14px; /* Adjust padding slightly for border */
+}
+
+.main-nav .nav-icon {
+    width: 24px; /* Adjust icon size */
+    height: 24px;
+    margin-right: 15px;
+    object-fit: contain;
+}
+/* === End Sidebar Styles === */
+
+/* Coupon */
+
+
+
+/* End Coupon */
+
+
+/* === Main Content Styles (Add Coupon) === */
+.main-content {
+    flex-grow: 1; /* Take remaining space */
+    padding: 25px;
+    background-color: #FFFFFF; /* Figma Rect 4:4 fill_NKHGK5 */
+    border-left: 1px solid #B7B2B2; /* Figma Rect 4:4 stroke_8DZPUM */
+    overflow-y: auto; /* Allow scrolling if content overflows */
+}
+
+/* Re-use Top Bar styles */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee; /* Separator */
+}
+
+.page-title { /* For "Management" text - Assuming reuse */
+    font-family: 'IM Fell English', serif;
+    font-size: 24px;
+    color: #000000;
+    margin: 0;
+}
+
+.account-section {
+    display: flex;
+    align-items: center;
+}
+
+.account-section img {
+    width: 40px; /* Adjust size */
+    height: 40px;
+    margin-left: 15px;
+    border-radius: 50%; /* Make placeholder circular */
+}
+
+.account-icon { /* For Account image 4:5 */
+     border: 1px solid #ccc; /* Example border */
+}
+
+.account-placeholder { /* For placeholder image 4:6 */
+     border: 1px solid #ccc; /* Example border */
+}
+
+/* Add Coupon Form Specific Styles */
+.add-coupon-form { /* Based on Figma Rect 4:7 */
+    /* background-color: #FFAAAA; /* Incorrect mapping - this is for title highlight */
+    padding: 30px;
+    border-radius: 10px; /* Guessing based on inputs */
+    max-width: 800px; /* Limit form width */
+    margin: 20px auto; /* Center form */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    /* Form background should be white */
+    background-color: #FFFFFF;
+}
+
+/* Removed .form-title styles */
+
+/* Add Coupon Dropdown Section */
+.add-coupon-dropdown-section { /* Renamed from add-coupon-button-section */
+    margin-bottom: 20px; /* Space below button */
+    position: relative; /* Needed for absolute positioning of dropdown */
+    display: inline-block; /* Fit container to content */
+}
+
+.dropdown-container {
+    position: relative; /* Context for dropdown content */
+}
+
+/* Style for the Add Coupon dropdown button */
+.add-coupon-btn { /* Renamed from add-coupon-action-btn */
+    background-color: #FFAAAA; /* Pink background like title highlight (Figma 4:7) */
+    color: #000000; /* Text color (Figma 4:8) */
+    border: 1px solid #dd9999; /* Slightly darker border */
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Inria Sans', sans-serif; /* Match title font */
+    font-size: 16px; /* Adjusted size */
+    display: inline-flex; /* Align text and arrow */
+    align-items: center;
+    gap: 5px; /* Space between text and arrow */
+}
+
+.add-coupon-btn:hover {
+    background-color: #ff9999; /* Darker pink on hover */
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none; /* Hide by default */
+  position: absolute;
+  background-color: #f9f9f9;
+  /* min-width: 160px; /* Remove fixed min-width */
+  width: 100%; /* Make dropdown match button width */
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1; /* Ensure it appears above other content */
+  border-radius: 4px;
+  top: 100%; /* Position below the button */
+  left: 0;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-family: 'Inria Sans', sans-serif;
+  font-size: 14px;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover (can be changed to click with JS) */
+.dropdown-container:hover .dropdown-content {
+  display: block;
+}
+
+.search-toggle-section{
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.rank-action-dropdown-section{
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    gap: 20px 40px; /* Row gap and Column gap */
+    margin-bottom: 30px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-group label {
+    font-family: 'Itim', cursive; /* Figma style_USKVI7 */
+    font-size: 20px; /* Adjusted from 24px */
+    font-weight: 400;
+    color: #000000; /* Figma fill_5FAQ7U */
+    margin-bottom: 8px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="date"] { /* Added date type */
+    padding: 10px 15px;
+    border: 1px solid #ccc; /* Add a default border */
+    border-radius: 10px; /* Figma borderRadius 4:11 etc. */
+    background-color: #D9D9D9; /* Figma fill_01F8VN */
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif; /* Use default body font */
+    color: #333;
+    width: 100%; /* Make inputs take full width of grid column */
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #9194A3; /* Match sidebar color on focus */
+    box-shadow: 0 0 5px rgba(145, 148, 163, 0.5);
+}
+
+/* Form Actions */
+.form-actions {
+    grid-column: 1 / -1; /* Span both columns */
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-submit { /* For Group 4:18 */
+    padding: 10px 30px;
+    border-radius: 10px; /* Figma borderRadius */
+    font-family: 'Itim', cursive; /* Figma style_USKVI7 */
+    font-size: 18px; /* Adjusted */
+    font-weight: 400;
+    color: #000000; /* Figma fill_5FAQ7U */
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    border: 1px solid #BAB7B7; /* Figma stroke_QF3QSI */
+    background-color: #FFFFFF; /* Figma fill_NKHGK5 */
+}
+
+.btn-submit:hover {
+    background-color: #f0f0f0;
+    border-color: #a0a0a0;
+}
+
+
+/* Coupon */
+.rank-action-dropdown-section, /* Specific for Rank */
+.add-coupon-dropdown-section /* From Coupon page for reference */ {
+    margin-bottom: 25px; /* Space below dropdown */
+    /* text-align: center; Reverted centering */
+}
+
+.rank-action-btn, /* Specific for Rank */
+.add-coupon-btn /* From Coupon page */ {
+    background-color: #FFAAAA; /* Color from Figma 7:6 */
+    color: #000; /* Text color from Figma 7:7 */
+    padding: 10px 20px;
+    font-size: 20px; /* Adjusted from Figma 7:7 */
+    font-family: 'Inria Sans', sans-serif; /* Font from Figma 7:7 */
+    border: none;
+    cursor: pointer;
+    border-radius: 5px; /* Add some rounding */
+    display: flex;
+    align-items: center;
+}
+
+.rank-action-btn:hover,
+.add-coupon-btn:hover {
+    background-color: #FFC0C0; /* Lighter hover */
+}
+
+.dropdown-arrow {
+    margin-left: 10px;
+    font-size: 12px; /* Smaller arrow */
+}
+
+.submit-button {
+    padding: 12px 30px;
+    font-family: 'Itim', cursive; /* Font from Figma 7:53 */
+    font-size: 20px; /* Adjusted size */
+    color: #000; /* Text color from Figma 7:53 */
+    background-color: #fff; /* Background from Figma 7:52 */
+    border: 1px solid #BAB7B7; /* Border from Figma 7:52 */
+    border-radius: 10px; /* Radius from Figma 7:52 */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #f0f0f0; /* Simple hover effect */
+}
+
+/* Rank Info Section Styles */
+.rank-info-section {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #ccc; /* Separator */
+}
+
+.rank-info-section h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 22px;
+}
+
+.rank-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 20px;
+}
+
+.rank-card {
+    background-color: #fff; /* Background from Figma 7:63 etc. */
+    border: 1px solid #8D8D8D; /* Border from Figma 7:63 etc. */
+    border-radius: 10px; /* Radius from Figma 7:63 etc. */
+    padding: 15px;
+    font-family: 'Itim', cursive; /* Font from Figma style_UGIGNQ, style_50UB43 */
+    font-size: 16px; /* Base size from Figma style_UGIGNQ */
+    color: #000; /* Text color from Figma */
+}
+
+.rank-card h4 {
+    font-size: 18px; /* Slightly larger for rank name */
+    font-weight: bold; /* Make rank name bold */
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.rank-card hr {
+    border: none;
+    border-top: 1px solid #9A9797; /* Line color from Figma 7:77 etc. */
+    margin: 10px 0;
+}
+
+.rank-card p {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.rank-card p:last-child {
+    margin-bottom: 0;
+}
+/* End Coupon */
+
+/* Search */
+.search-coupon-btn {
+    background-color: #FFAAAA; /* Pink background like title highlight */
+    color: #000000;
+    border: 1px solid #dd9999; /* Slightly darker border */
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Inria Sans', sans-serif; /* Match other buttons/titles */
+    font-size: 16px;
+    display: inline-flex; /* Align text and arrow */
+    align-items: center;
+    gap: 5px; /* Space between text and arrow */
+}
+
+.search-coupon-btn:hover {
+    background-color: #ff9999; /* Darker pink on hover */
+}
+
+.coupon-filters { /* Based on Groups 1:39, 1:42, 1:45, 1:36 */
+    display: flex;
+    align-items: flex-end; /* Align items to bottom for button alignment */
+    gap: 20px; /* Space between filter groups */
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background for filter area */
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-group label {
+    font-family: 'Itim', cursive; /* Figma style_HI7LVF */
+    font-size: 16px; /* Adjusted from 24px */
+    color: #000000; /* Figma fill_IDIZ6P */
+    margin-bottom: 5px;
+}
+
+.filter-group input[type="text"],
+.filter-group input[type="number"] { /* Added number type for Min/Max */
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px; /* Figma borderRadius 1:41 etc. */
+    font-size: 14px;
+    background-color: #D9D9D9; /* Figma fill_JTT0K2 */
+    min-width: 150px; /* Adjust width */
+}
+
+.search-button { /* Figma Group 1:36 */
+    padding: 10px 25px;
+    font-family: 'Inria Sans', sans-serif; /* Figma style_F59K7D */
+    font-size: 16px; /* Adjusted */
+    color: #000000; /* Figma fill_IDIZ6P */
+    background-color: #FEFEFE; /* Figma fill_WHD0P7 */
+    border: 1px solid #D0CDCD; /* Figma stroke_YDT6UF */
+    border-radius: 10px; /* Figma borderRadius */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: auto; /* Push search button to the right */
+}
+
+.search-button:hover {
+    background-color: #e8e8e8;
+}
+
+/* Coupon Table Section */
+.coupon-table-section { /* Based on Figma Rect 1:48 */
+    background-color: #FFFFFF; /* Figma fill_ME163W */
+    border: 1px solid #080808; /* Figma stroke_SEW9RK */
+    border-radius: 5px;
+    overflow: hidden; /* Ensures border radius applies to table */
+    margin-top: 20px; /* Add some space above table */
+}
+
+.coupon-table {
+    width: 100%;
+    border-collapse: collapse; /* Remove space between borders */
+}
+
+.coupon-table th,
+.coupon-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #000000; /* Figma Line 1:49 etc. stroke_P61WNB */
+    font-family: 'Itim', cursive; /* Figma style_HI7LVF */
+    font-size: 16px; /* Adjusted */
+    color: #000000; /* Figma fill_IDIZ6P */
+    vertical-align: middle; /* Align content vertically */
+    background-color: #FFFDFD; /* Figma Rect 1:92 etc. fill_POPCB0 */
+}
+
+/* Add vertical borders */
+.coupon-table th,
+.coupon-table td {
+    border-right: 1px solid #000000; /* Figma Line 1:55 etc. stroke_P61WNB */
+}
+.coupon-table th:last-child,
+.coupon-table td:last-child {
+    border-right: none; /* Remove border from last column */
+}
+
+
+.coupon-table thead th {
+    background-color: #f2f2f2; /* Light grey header */
+    font-weight: bold;
+}
+
+/* Remove zebra striping if background is set per cell */
+/* .coupon-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+} */
+
+.coupon-table tbody tr:hover td { /* Hover effect on cells */
+    background-color: #f1f1f1;
+}
+
+/* Action Buttons in Table - Styles from Management_Customer_Account */
+.coupon-table td.operations { /* Target the specific class */
+    text-align: center;
+    background-color: #FFFDFD; /* Ensure operations cell matches row bg */
+}
+
+.operation-btn { /* Use the correct class name */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    margin: 0 5px;
+    vertical-align: middle;
+}
+
+.operation-btn img {
+    width: 20px;
+    height: 20px; /* Explicit height */
+    vertical-align: middle;
+    display: inline-block;
+    object-fit: contain; /* Ensure icons scale nicely */
+}
+
+/* Table Footer */
+.table-footer { /* Based on Figma Text 1:113 */
+    padding: 10px 15px;
+    font-family: 'Itim', cursive; /* Figma style_HI7LVF */
+    font-size: 14px; /* Adjusted */
+    color: #000000; /* Figma fill_IDIZ6P */
+    background-color: #f9f9f9; /* Use a standard footer background */
+    border-top: 1px solid #000000; /* Match table borders */
+    text-align: left;
+}
+
+/* End Search */
+
+/* CustomerAccount */
+
+.customer-filters {
+    display: flex;
+    align-items: flex-end; /* Align items to bottom for button alignment */
+    gap: 20px; /* Space between filter groups */
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background for filter area */
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-group label {
+    font-family: 'Itim', cursive; /* Figma style_AHWAYQ */
+    font-size: 16px; /* Adjusted from 24px */
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.filter-group input[type="text"] {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #D9D9D9; /* Figma fill_8GZIAG */
+    min-width: 180px; /* Ensure inputs have some width */
+}
+
+.search-button {
+    padding: 10px 25px;
+    font-family: 'Inria Sans', sans-serif; /* Figma style_56002R */
+    font-size: 16px; /* Adjusted */
+    color: #000000; /* Figma fill_LU3YJF */
+    background-color: #FEFEFE; /* Figma fill_P92KCU */
+    border: 1px solid #D0CDCD; /* Figma stroke_MXNGT7 */
+    border-radius: 10px; /* Figma borderRadius */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: auto; /* Push search button to the right */
+}
+
+.search-button:hover {
+    background-color: #e8e8e8;
+}
+
+/* Customer Table */
+.customer-table-section {
+    background-color: #FFFFFF; /* Figma Rect 1:54 */
+    border: 1px solid #080808; /* Figma stroke_LMH2JR */
+    border-radius: 5px;
+    overflow: hidden; /* Ensures border radius applies to table */
+}
+
+.customer-table {
+    width: 100%;
+    border-collapse: collapse; /* Remove space between borders */
+}
+
+.customer-table th,
+.customer-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #000000; /* Figma Line 1:55 etc. stroke_3IDS7R */
+    font-family: 'Itim', cursive; /* Figma style_AHWAYQ */
+    font-size: 16px; /* Adjusted */
+    color: #000000; /* Figma fill_LU3YJF */
+    vertical-align: middle; /* Align content vertically */
+}
+
+/* Add vertical borders */
+.customer-table th,
+.customer-table td {
+    border-right: 1px solid #000000; /* Figma Line 1:52 etc. stroke_3IDS7R */
+}
+.customer-table th:last-child,
+.customer-table td:last-child {
+    border-right: none; /* Remove border from last column */
+}
+
+
+.customer-table thead th {
+    background-color: #f2f2f2; /* Light grey header */
+    font-weight: bold;
+}
+
+.customer-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Zebra striping for readability */
+}
+
+.customer-table tbody tr:hover {
+    background-color: #f1f1f1; /* Hover effect */
+}
+
+/* Action Buttons in Table - Styles from Management_SystemSearch */
+.customer-table td.operations { /* Target the specific class */
+    text-align: center;
+}
+
+.operation-btn { /* Use the correct class name */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px; /* Re-add padding */
+    margin: 0 5px; /* Adjust margin */
+    vertical-align: middle; /* Ensure vertical alignment */
+}
+
+.operation-btn img {
+    width: 20px; /* Use size from Search */
+    /* height: 20px; /* Let aspect ratio determine height */
+    vertical-align: middle; /* Ensure vertical alignment */
+    display: inline-block; /* Adjust display if needed */
+}
+
+/* Remove specific hover effects for now to match Search */
+.edit-btn:hover {
+   /* background-color: #e0f7fa; */
+}
+
+.delete-btn:hover {
+   /* background-color: #ffebee; */
+}
+
+/* Table Footer */
+.table-footer {
+    padding: 10px 15px;
+    font-family: 'Itim', cursive; /* Figma style_AHWAYQ */
+    font-size: 14px; /* Adjusted */
+    color: #555;
+    background-color: #f9f9f9;
+    border-top: 1px solid #000000; /* Match table borders */
+}
+
+/* End CustomerAccount */
+
+/* Edit Coupon */
+
+.edit-coupon-form { /* Based on Figma Rect 3:6 */
+    /* background-color: #FFAAAA; /* Incorrect mapping - this is for title highlight */
+    padding: 30px;
+    border-radius: 10px; /* Guessing based on inputs */
+    max-width: 800px; /* Limit form width */
+    margin: 20px auto; /* Center form */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.form-title { /* For "Edit Coupon" text 3:7 */
+    font-family: 'Inria Sans', sans-serif; /* Figma style_D8H8VV */
+    font-size: 24px;
+    font-weight: 400;
+    color: #000000; /* Figma fill_C2BRNW */
+    text-align: center;
+    margin-bottom: 30px;
+    background-color: #FFAAAA; /* Figma Rect 3:6 fill_U3EBEL - Apply highlight here */
+    display: inline-block; /* Make background fit text */
+    padding: 5px 10px; /* Add some padding */
+}
+
+/* End Edit Coupon */
+
+/* Edit Customer Account */
+
+.edit-customer-form {
+    /* background-color: #FFAAAA; /* Incorrect mapping - this is for title highlight */
+    padding: 30px;
+    border-radius: 10px; /* Guessing based on inputs */
+    max-width: 800px; /* Limit form width */
+    margin: 20px auto; /* Center form */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    padding: 10px 15px;
+    border: 1px solid #ccc; /* Add a default border */
+    border-radius: 10px; /* Figma borderRadius */
+    background-color: #D9D9D9; /* Figma fill_HEGAP5 */
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif; /* Use default body font */
+    color: #333;
+}
+
+.reset-password-section {
+    grid-column: 1 / -1; /* Span both columns */
+    margin-top: 10px;
+    padding-top: 20px;
+    border-top: 1px solid #000000; /* Figma Line 0:39/0:40 stroke_FYU5FF */
+}
+
+.reset-password-section label { /* For "Reset Password:" text 0:42 */
+    font-family: 'Itim', cursive; /* Figma style_FJMRVV */
+    font-size: 20px; /* Adjusted */
+    font-weight: 400;
+    color: #000000; /* Figma fill_KKAZ5O */
+    margin-bottom: 8px;
+    display: block; /* Make it block for spacing */
+}
+
+.reset-password-inputs {
+    display: flex;
+    gap: 20px;
+}
+
+.reset-password-inputs .form-group {
+    flex: 1; /* Make inputs share space */
+    margin-bottom: 0;
+}
+
+/* End Edit Customer Account */
+
+/* Edit Rank */
+
+.rank-action-dropdown-section {
+    margin-bottom: 25px;
+}
+
+.rank-action-btn {
+    background-color: #FFAAAA; /* Figma 10:123 */
+    color: #000; /* Figma 10:124 */
+    padding: 10px 20px;
+    font-size: 20px; /* Figma style_DH1RTL */
+    font-family: 'Inria Sans', sans-serif;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.rank-action-btn:hover {
+    background-color: #FFC0C0;
+}
+
+.edit-rank-section { /* Changed class */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.edit-rank-form { /* Changed class */
+    margin-bottom: 40px;
+}
+
+.form-group input[readonly] {
+    background-color: #e9ecef; /* Lighter grey for readonly */
+    cursor: not-allowed;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 20px;
+}
+
+
+.section-divider {
+    border: none;
+    border-top: 1px solid #838383; /* Color from Figma 10:178 */
+    margin-top: 0; /* Adjust as needed */
+    margin-bottom: 20px; /* Space below divider */
+}
+/* End Edit Rank */
+
+/* Remove Rank */
+
+.remove-rank-section { /* Changed class */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.remove-rank-form { /* Changed class */
+    margin-bottom: 40px;
+}
+
+.remove-rank-form .form-row { /* Specific styling for remove form row */
+    justify-content: center; /* Center the single input group */
+}
+
+.remove-rank-form .form-group {
+    flex: 0 1 400px; /* Allow shrinking, base width 400px, don't grow */
+    max-width: 400px; /* Max width for the input group */
+}
+
+.remove-button {
+    padding: 12px 30px;
+    font-family: 'Itim', cursive; /* Figma 11:193 */
+    font-size: 20px; /* Adjusted from Figma */
+    color: #000; /* Figma 11:193 */
+    background-color: #fff; /* Figma 11:192 */
+    border: 1px solid #BAB7B7; /* Figma 11:192 */
+    border-radius: 10px; /* Figma 11:192 */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 0 10px; /* Add some margin like submit button */
+}
+
+.remove-button:hover {
+    background-color: #f0f0f0;
+}
+
+/* End Remove Rank */
+
+/* Statictis */
+
+.statistics-section {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Space between sections */
+}
+
+/* Summary Boxes */
+.summary-boxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Responsive grid */
+    gap: 20px;
+}
+
+.summary-box {
+    background-color: #fff; /* Figma 11:288 etc. */
+    border: 1px solid #797575; /* Figma 11:288 etc. */
+    border-radius: 10px; /* Figma 11:288 etc. */
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.summary-icon {
+    width: 40px; /* Adjust size as needed */
+    height: 40px;
+    object-fit: contain;
+    flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+.summary-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.summary-title {
+    font-family: 'Inria Sans', sans-serif; /* Figma style_3PIJPH */
+    font-size: 18px; /* Adjusted size */
+    font-weight: 400;
+    color: #000; /* Figma 11:290 etc. */
+    margin-bottom: 5px;
+}
+
+.summary-value {
+    font-family: 'Inria Sans', sans-serif; /* Figma style_ZTDQ2S */
+    font-size: 20px; /* Figma style_ZTDQ2S */
+    font-weight: 400;
+    color: #000; /* Figma 11:291 etc. */
+}
+
+/* Charts Section */
+.charts-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Responsive grid */
+    gap: 20px;
+}
+
+.chart-container {
+    background-color: #EFEFEF; /* Figma 11:418, 11:422 */
+    border-radius: 20px; /* Figma 11:418, 11:422 */
+    padding: 20px;
+}
+
+.chart-header {
+    font-family: 'Itim', cursive; /* Figma style_ZKE723 */
+    font-size: 28px; /* Adjusted size */
+    font-weight: 400;
+    color: #000; /* Figma 11:419, 11:423 */
+    margin-bottom: 10px;
+}
+
+.chart-divider {
+    border: none;
+    border-top: 1px solid #BBD916; /* Figma 11:420, 11:424 */
+    margin-bottom: 20px;
+}
+
+.chart-placeholder {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    max-height: 300px; /* Limit height */
+    object-fit: contain;
+    border-radius: 12px; /* Figma 11:425, 11:426 */
+    background-color: #ccc; /* Placeholder background */
+}
+
+.tables-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); /* Responsive grid */
+    gap: 20px;
+}
+
+.table-container {
+    background-color: #EFEFEF; /* Figma 11:323, 11:377 */
+    border-radius: 20px; /* Figma 11:323, 11:377 */
+    padding: 20px;
+}
+
+.table-header {
+    font-family: 'Itim', cursive; /* Figma style_ZKE723 */
+    font-size: 28px; /* Adjusted size */
+    font-weight: 400;
+    color: #000; /* Figma 11:324, 11:378 */
+    margin-bottom: 15px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff; /* Figma 11:325, 11:379 */
+    border: 1px solid #080808; /* Figma 11:325, 11:379 */
+}
+
+.data-table th,
+.data-table td {
+    border: 1px solid #645F5F; /* Figma 11:364 etc. */
+    padding: 10px;
+    text-align: left;
+    font-family: 'Itim', cursive; /* Figma style_CXZW41 */
+    font-size: 16px; /* Adjusted size */
+    color: #000; /* Figma style_CXZW41 */
+    vertical-align: middle;
+}
+
+.data-table thead th {
+    background-color: #f2f2f2; /* Light grey header */
+    font-weight: bold;
+}
+
+.data-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Zebra striping */
+}
+
+.data-table tbody tr:hover {
+    background-color: #e9e9e9; /* Hover effect */
+}
+
+/* End Statictis */
+
+/* System Add */
+
+.user-name {
+    font-family: 'Imprima', sans-serif;
+}
+
+.section-title,
+.choose-pic-btn,
+.submit-btn {
+    font-family: 'Itim', sans-serif;
+}
+
+.add-product-section {
+    background-color: #FFFFFF; /* fill_0G9ELD */
+    padding: 0; /* Remove padding from section, apply to form if needed */
+    border: 1px solid #C1BDBD; /* stroke_DWYMXN */
+    border-radius: 10px; /* borderRadius_10px */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional shadow */
+    margin-top: 20px; /* Add some space above */
+}
+
+/* Product Action Dropdown Section */
+.product-action-dropdown-section {
+    margin-bottom: 20px; /* Space below the button */
+    position: relative; /* Needed for absolute positioning of dropdown */
+    display: inline-block; /* Fit container to content */
+    border-bottom: 1px solid #A8A8A8; /* Figma 1:911 */
+    padding-bottom: 15px; /* Match old container padding */
+}
+
+.product-action-btn { /* Style like old section-header-button */
+    background-color: #FFAAAA; /* fill_T75QUS */
+    color: #000000;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Inria Sans', sans-serif; /* Match section title font */
+    font-size: 24px; /* Match section title font size */
+    display: inline-flex; /* Align text and arrow */
+    align-items: center;
+    gap: 8px; /* Space between text and arrow */
+    width: 190px;
+}
+
+.product-action-btn .dropdown-arrow {
+    font-size: 16px; /* Adjust arrow size */
+}
+
+.product-action-btn:hover {
+    background-color: #ff9999; /* Darker pink on hover */
+}
+
+.add-product-form {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Spacing between rows */
+}
+
+.form-row {
+    display: flex;
+    gap: 30px; /* Spacing between groups in a row */
+    align-items: flex-start; /* Align items to the top */
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="date"],
+.form-group textarea,
+.form-group select { /* Apply to select as well */
+    background-color: #D9D9D9; /* fill_QBVIA6 */
+    border: none; /* Remove default border */
+    border-radius: 10px; /* borderRadius_10px */
+    padding: 10px 15px;
+    font-size: 18px; /* Adjust as needed */
+    width: 100%; /* Make inputs fill the group */
+    appearance: none; /* Remove default system appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.submit-btn {
+    background-color: #FFFFFF; /* fill_0G9ELD */
+    border: 1px solid #BAB7B7; /* stroke_S2MFBS */
+    border-radius: 10px; /* borderRadius_10px */
+    padding: 12px 30px;
+    font-size: 24px; /* style_K1KW1R */
+    font-weight: 400;
+    color: #000000; /* fill_ARFYSP */
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.modal-my-content .submit-btn:hover {
+    background-color: #f0f0f0; /* Slight hover effect */
+}
+
+.modal-content{
+    border-radius: 20px;
+}
+
+.change-picture-modal {
+    /* Assuming the main frame 1:2022 represents the modal */
+    position: relative; /* For positioning the close button */
+    background-color: #FFFFFF; /* fill_IR6I1I */
+    /* border: 1px solid #9F9797; */
+    border-radius: 20px; /* borderRadius_20px */
+    padding: 30px 40px; /* Approximate padding */
+    width: 600px;
+    max-width: 700px; /* Max width */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+.modal-my-content .choose-label, .upload-label {
+    font-size: 24px; /* style_96L8AQ */
+    color: #000000; /* fill_3SZX21 */
+    margin-bottom: 15px;
+}
+
+.modal-my-content .picture-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Responsive grid */
+    gap: 15px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eee; /* Separator */
+    padding-bottom: 30px;
+}
+
+.modal-my-content .picture-option {
+    background-color: #D9D9D9; /* fill_D1M0YZ */
+    height: 80px; /* Approximate height */
+    border-radius: 5px; /* Slight rounding */
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.modal-my-content .picture-option:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Add style for selected option if needed */
+.modal-my-content .picture-option.selected {
+    border: 2px solid #258DEE; /* Example selection indicator */
+}
+
+
+.modal-my-content .upload-area {
+    border: 1px dashed #BAB7B7; /* stroke_MHQ0BS */
+    border-radius: 10px; /* borderRadius_10px */
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.modal-my-content .upload-placeholder {
+    margin-bottom: 15px;
+}
+
+.modal-my-content .upload-placeholder img {
+    width: 100px; /* Adjust size */
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.modal-my-content .upload-btn {
+    font-size: 20px; /* style_96L8AQ (slightly smaller for button) */
+    color: #000000; /* fill_3SZX21 */
+    background-color: #D9D9D9; /* Match option background */
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-my-content .submit-container {
+    text-align: center; /* Center the submit button */
+    margin-top: 20px;
+}
+
+.modal-my-content .submit-btn {
+    display: inline-block; /* Make button fit content */
+    font-size: 24px; /* style_96L8AQ */
+    color: #000000; /* fill_3SZX21 */
+    background-color: #FFFFFF; /* fill_IR6I1I */
+    border: 1px solid #BAB7B7; /* stroke_MHQ0BS */
+    border-radius: 10px; /* borderRadius_10px */
+    padding: 10px 30px;
+    cursor: pointer;
+}
+
+.modal-my-content .submit-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.modal-my-content .close-btn {
+    position: absolute;
+    top: 15px; /* Adjust position */
+    right: 15px; /* Adjust position */
+    background: none;
+    border: none;
+    font-size: 28px; /* Make it larger */
+    line-height: 1;
+    color: #888;
+    cursor: pointer;
+}
+
+
+/* End System Add */

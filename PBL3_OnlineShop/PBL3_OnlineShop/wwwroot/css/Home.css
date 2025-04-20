@@ -1,0 +1,437 @@
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Base */
+.container {
+    max-width: 1200px;
+}
+
+
+/* Header */
+.header .inner-wrap{
+    display: flex;
+    justify-content: space-between;
+    justify-items: center;
+    align-items: center;
+}
+
+.header .inner-wrap a{
+    color: #111;
+}
+
+.header .inner-wrap ul{
+    display: flex;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.header .inner-wrap .inner-menu ul li{
+    margin-left: 15px;
+    margin-right: 15px;
+    font-family: "Roboto", sans-serif;
+}
+
+.header .inner-wrap .inner-logo{
+    font-family: "Inknut Antiqua", serif;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.header .inner-wrap .inner-search input{
+    background: #D9D9D9;
+    border: none;
+    text-align: right;
+    width: 367px;
+    height: 35px;
+    margin-top: 8px;
+    padding-right: 20px;
+}
+
+.header .inner-wrap .inner-utilities{
+    margin: 0 0 0 0;
+    padding: 0;
+}
+
+.header .inner-wrap .inner-utilities li {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.header .inner-wrap .inner-utilities ul{
+    margin-right: 20px;
+    margin-top: 25px;
+    padding: 0;
+}
+
+.header .inner-wrap .inner-utilities img{
+    height: 40px;
+    width: auto;
+}
+
+.header .inner-wrap .inner-menu-logo{
+    font-size: 25px;
+}
+
+/* End Header */
+
+/* Modal */
+.modal .login-main{
+    gap: 2;
+}
+
+.modal .login-main div{
+    display: flex;
+    flex-direction: column;
+}
+
+.modal label{
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.modal input{
+    border-radius: 15px;
+    height: 45px;
+    border: 1px solid #A5A4A4;
+    margin: 0 10px;
+    padding: 0 10px;
+}
+
+.modal .modal-inter{
+    display: flex;
+    flex-direction: column;
+}
+
+.modal .modal-inter .button{
+    text-align: center;
+    margin-top: 10px;
+}
+
+.modal .modal-inter .button button{
+    width: 200px;
+    height: 40px;
+    border-radius: 10px;
+    background: #32D663;
+    margin-top: 20px;
+    border: none;
+}
+
+.modal .modal-inter .forgot-pass{
+    font-size: 13px;
+}
+
+.modal .modal-inter .modal-sign-up{
+    text-align: center;
+}
+
+.modal .modal-inter .modal-sign-up .btn{
+    color: #0A58CA;
+    background: none;
+    border: none;
+    font-size: 13px;
+    padding: 0 0;
+}
+
+.modal-title{
+    color: #333A98;
+    font-size: 50px;
+    font-weight: 600;
+}
+
+.body-two .modal-main{
+    display: flex;
+    justify-content: space-between;
+}
+
+.body-two .modal-main div{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.body-two .modal-button{
+    text-align: center;
+}
+
+.body-two .signup-button{
+    width: 200px;
+    height: 40px;
+    border-radius: 10px;
+    background: #32D663;
+    margin-top: 20px;
+    border: none;
+}
+
+.modal-header .header-main{
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header .header-main button{
+    border: none;
+    background: none;
+    text-align: left;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.modal-header .header-main img{
+    height: 30px;
+    width: 30px;
+}
+
+.modal-content-two{
+    width: 600px;
+}
+
+.modal-text{
+    display: flex;
+    justify-content: space-between;
+}
+
+.body-three .send{
+}
+
+.body-three .modal-button{
+    display: inline;
+    width: 20%;
+}
+
+.body-three .modal-button button{
+    margin-top: 40px;
+    height: 43px;
+    width: 80px;
+    border-radius: 12px;
+    background: #28D96F;
+    border: 1px solid #475A4A;
+}
+
+.body-three .modal-main{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+.body-three .modal-comfirm{
+    text-align: center;
+    margin-top: 10px;
+}
+
+.body-three .modal-comfirm button{
+    width: 200px;
+    height: 40px;
+    border-radius: 10px;
+    background: #32D663;
+    margin-top: 20px;
+    border: none;
+}
+
+.body-three .modal-text-four{
+    display: flex;
+    flex-direction: column;
+}
+
+.body-three .modal-main-four{
+    display: flex;
+    flex-direction: column;
+}
+/* End Modal */
+
+/* Line */
+.line{
+    margin: 20px 0;
+    background: #111;
+    height: 1px;
+}
+/* End Line */
+
+/* Section-one */
+.section-one .inner-wrap{
+    padding-top: 100px;
+}
+
+.section-one .inner-wrap .inner-content{
+    font-family: "Inknut Antiqua", serif;
+    font-size: 17px;
+    margin-left: 10px;
+}
+
+.section-one .inner-home{
+    position: relative;
+}
+
+.section-one .inner-home img{
+    height: 600px;
+}
+
+.section-one .inner-home .inner-sale{
+    position: absolute;
+    top: 150px;
+    right: 100px;
+}
+
+.section-one .inner-home .inner-sale .span1{
+    font-family: "Cardo", serif;
+    font-size: 38px;
+}
+
+.section-one .inner-home .inner-sale .span2{
+    font-family: "Cambo", serif;
+    font-size: 16px;
+}
+
+/* End Section-one */
+
+/* Section-two */
+.section-two .inner-wrap .inner-content{
+    display: flex;
+}
+
+.section-two .inner-wrap .inner-content .content-left{
+    font-size: 35px;
+    font-weight: 800;
+}
+
+.section-two .inner-wrap .inner-content .content-right{
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.section-two .inner-wrap .inner-content .content-right a{
+    color: #5E5E5E;
+    font-size: 20px;
+}
+
+.section-two{
+    overflow: hidden;
+}
+
+.section-two .inner-wrap .line{
+    margin: 20px 0;
+    background: #DFDFDF;
+    height: 1px;
+}
+
+.section-two .inner-wrap .inner-list{
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.section-two .inner-wrap .slide{
+    min-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.section-two .inner-wrap .inner-list .list .des-one{
+    margin: 5px 0;
+    display: flex;
+    font-size: 16px;
+}
+
+.section-two .inner-wrap .inner-list .list .des-two{
+    margin: 5px 0;
+    display: flex;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.section-two .inner-wrap .inner-list .list .inner-sale{
+    margin-left: auto;
+}
+
+.section-two .inner-wrap .inner-list .list .right{
+    margin-left: auto;
+    display: inline-block;
+}
+
+.section-two .inner-wrap .inner-button{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.section-two .inner-wrap .inner-button button{
+    height: 40px;
+    width: 40px;
+    margin: 0 10px;
+    background: #fff;
+    border: 1px solid #111;
+}
+
+.section-two .inner-wrap .inner-button button:hover:not(.disabled){
+    background: #DFDFDF;
+}
+
+.section-two .inner-wrap .inner-button .disabled {
+    color: #DFDFDF;
+    border: 1px solid #B9B9B9;
+}
+
+.three .list{
+    position: relative;
+}
+
+.three .inner-sale span{
+    font-size: 14px;
+    text-align: center;
+    color: #fff;
+}
+
+.three .inner-sale{
+    display: flex;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #444444;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+}
+.inner-wrap .inner-list img{
+    height: 313px;
+    width: 305px;
+}
+/* End Section-two */
+
+/* Footer */
+.footer .container .inner-wrap .inner-box .inner-content{
+    font-size: 24px;
+    font-weight: 800;
+    color: #B30C0C;
+    margin: 10px 0;
+}
+
+
+.footer .container .inner-wrap .inner-box .inner-text{
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.footer .container .inner-wrap .inner-box .inner-utilities{
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.footer .container .inner-wrap .inner-box img{
+    margin: 0 5px;
+    margin-left: 0;
+}
+
+.footer .container .inner-wrap{
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    justify-items: left;
+}
+
+.footer .container .inner-wrap li{
+    font-weight: 450;
+}
+
+/* End Footer */
+

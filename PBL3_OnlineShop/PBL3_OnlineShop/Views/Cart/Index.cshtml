@@ -1,0 +1,107 @@
+﻿@*
+    
+*@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml"; // No layout for this page
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Link to Cart specific CSS -->
+    <link rel="stylesheet" href="~/css/base.css">
+    <link rel="stylesheet" href="~/css/Cart.css">
+    <title>Giỏ hàng - BLUE</title>
+</head>
+<body>
+    <!-- Cart Section -->
+    <div class="cart-section">
+        <div class="container">
+            <div class="cart-header">
+                <div class="cart-title">Your Cart</div>
+                <div class="favourite-title">favourite</div>
+            </div>
+            <div class="cart-body">
+                <div class="cart-items">
+                    <!-- Item 1 -->
+                    <div class="cart-item">
+                        <div class="item-image">
+                            <!-- Use image from root images folder -->
+                            <img src="~/images/Polo.png" alt="Polo with logo on the chest">
+                        </div>
+                        <div class="item-details">
+                            <div class="item-name">Polo with logo on the chest</div>
+                            <div class="item-options">
+                                <div class="item-color" style="background-color: #18BA20;"></div> <!-- Example color -->
+                                <div class="item-size">L</div>
+                            </div>
+                            <div class="item-quantity">
+                                <button class="quantity-btn minus">-</button>
+                                <span class="quantity-value">1</span>
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                        </div>
+                        <div class="item-price">$1</div>
+                        <div class="item-remove">
+                            <button class="remove-btn">
+                                <!-- Placeholder for trash icon -->
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <hr class="item-divider">
+                    <!-- Item 2 -->
+                    <div class="cart-item">
+                        <div class="item-image">
+                            <!-- Use image from root images folder -->
+                            <img src="~/images/PoloBasis.png" alt="Polo basis lange mouw">
+                        </div>
+                        <div class="item-details">
+                            <div class="item-name">Polo basis lange mouw</div>
+                            <div class="item-options">
+                                <div class="item-color" style="background-color: #888B0F;"></div> <!-- Example color -->
+                                <div class="item-size">L</div>
+                            </div>
+                            <div class="item-quantity">
+                                <button class="quantity-btn minus">-</button>
+                                <span class="quantity-value">1</span>
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                        </div>
+                        <div class="item-price">$1</div>
+                        <div class="item-remove">
+                            <button class="remove-btn">
+                                <!-- Placeholder for trash icon -->
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <hr class="item-divider">
+                </div>
+                <div class="order-summary">
+                    <div class="summary-title">ORDER SUMMARY</div>
+                    <div class="summary-line">
+                        <span>Subtotal</span>
+                        <span>$2</span>
+                    </div>
+                    <hr class="summary-divider">
+                    <div class="summary-line total">
+                        <span>Total</span>
+                        <span>$2</span>
+                    </div>
+                    <div class="terms">
+                        <input type="checkbox" id="terms-agree">
+                        <label for="terms-agree">I agree to the Terms and Conditions</label>
+                    </div>
+                    <button class="continue-btn">Continue</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Cart Section -->
+    <!-- Link to Cart specific JS if needed -->
+    <script src="~/js/main.js"></script>
+</body>
+</html>

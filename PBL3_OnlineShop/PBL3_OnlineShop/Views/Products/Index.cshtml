@@ -1,0 +1,317 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null; // No layout for this view
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sản phẩm</title>
+    <link rel="stylesheet" href="~/css/base.css">
+    <link rel="stylesheet" href="~/css/Product.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="inner-wrap">
+                    <!-- Removed inner-menu-logo div -->
+                    <div class="inner-logo">
+                        <a href="~/">
+                            BLUE
+                        </a>
+                    </div>
+                    <div class="inner-menu">
+                        <ul>
+                            <li>
+                                <a href="~/">
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/">
+                                    Collections
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/">
+                                    New
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="inner-search">
+                        <div class="inner-search-wrapper">
+                            <img src="~/images/pngegg.png" alt="Search Icon" class="search-icon">
+                            <input class="search" type="text" placeholder="Search" id="search-header" name="text">
+                        </div>
+                    </div>
+                    <div class="inner-utilities">
+                        <ul>
+                            <li>
+                                <a href="">
+                                    <img src="~/images/Favourite.png" alt="Favourite">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <img src="~/images/Cart.png" alt="Cart">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <img src="~/images/Account.png" alt="Account">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- End Header -->
+        <div class="container product-page-container">
+            <!-- Main content based on Figma data -->
+            <main class="product-content">
+                <!-- Breadcrumbs -->
+                <div class="breadcrumbs">
+                    Home / Products
+                </div>
+
+                <div class="product-main">
+                    <!-- Filters Section -->
+                    @Html.Partial("_FilterPartial") <!-- Assuming this is a partial view for filters -->
+                    <!-- Product Grid Section -->
+                    <section class="product-grid">
+                        <!-- Title and Category Selector (Moved inside grid section) -->
+                        <div class="product-header-grid">
+                            <!-- Product Title -->
+                            <h1 class="product-title">
+                                Products
+                            </h1>
+
+                            <!-- Category Selector Bar -->
+                            <nav class="category-selector">
+                                <div class="category-row">
+                                    <button class="category-button active">New</button> <!-- Node 16:36610 -->
+                                    <button class="category-button">Shirts</button> <!-- Node 16:36628 -->
+                                    <button class="category-button">Polo Shirts</button> <!-- Node 16:36631 -->
+                                    <button class="category-button">Shorts</button> <!-- Node 16:36634 -->
+                                    <button class="category-button">Suits</button> <!-- Node 16:36637 -->
+                                </div>
+                                <div class="category-row">
+                                    <button class="category-button">Best sellers</button> <!-- Node 16:36613 -->
+                                    <button class="category-button">T-Shirts</button> <!-- Node 16:36616 -->
+                                    <button class="category-button">Jeans</button> <!-- Node 16:36619 -->
+                                    <button class="category-button">Jackets</button> <!-- Node 16:36622 -->
+                                    <button class="category-button">Coats</button> <!-- Node 16:36625 -->
+                                </div>
+                            </nav>
+                        </div>
+
+                        <!-- Product Card Container -->
+                        <div class="product-card-container">
+                            <!-- Product Card Example (Based on Frame 292 - 16:36673) - Replicated 30 times -->
+                            <div class="product-card">
+                                <div class="product-image-container">
+                                    <!-- Assuming imageRef 86b28... corresponds to Polo.png -->
+                                    <img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-options">
+                                        <span>+6 Color</span> <!-- Node 16:36677 -->
+                                        <span>+3 Size</span>  <!-- Node 16:36678 -->
+                                    </div>
+                                    <div class="product-details">
+                                        <span class="product-name">Polo with logo on the chest</span> <!-- Node 16:36680 -->
+                                        <span class="product-price">$1</span> <!-- Node 16:36681 -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Product Card Example (Based on Frame 293 - 16:36682) -->
+                            <div class="product-card">
+                                <div class="product-image-container">
+                                    <img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-options">
+                                        <span>+6 Color</span> <!-- Node 16:36686 -->
+                                        <span>+3 Size</span>  <!-- Node 16:36687 -->
+                                    </div>
+                                    <div class="product-details">
+                                        <span class="product-name">Polo with logo on the chest</span> <!-- Node 16:36689 -->
+                                        <span class="product-price">$1</span> <!-- Node 16:36690 -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Product Card Example (Based on Frame 294 - 16:36691) -->
+                            <div class="product-card">
+                                <div class="product-image-container">
+                                    <img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-options">
+                                        <span>+6 Color</span> <!-- Node 16:36695 -->
+                                        <span>+3 Size</span>  <!-- Node 16:36696 -->
+                                    </div>
+                                    <div class="product-details">
+                                        <span class="product-name">Polo with logo on the chest</span> <!-- Node 16:36698 -->
+                                        <span class="product-price">$1</span> <!-- Node 16:36699 -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-image-container">
+                                    <img src="~/images/Jean.png" alt="Jeans basic slim" class="product-image"> <!-- Example different image -->
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-options">
+                                        <span>+3 Color</span>
+                                        <span>+3 Size</span>
+                                    </div>
+                                    <div class="product-details">
+                                        <span class="product-name">Jeans basic slim</span>
+                                        <span class="product-price">$1</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-image-container">
+                                    <img src="~/images/PoloBasis.png" alt="Polo basis lange mouw" class="product-image"> <!-- Example different image -->
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-options">
+                                        <span>+3 Color</span>
+                                        <span>+3 Size</span>
+                                    </div>
+                                    <div class="product-details">
+                                        <span class="product-name">Polo basis lange mouw</span>
+                                        <span class="product-price">$1</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Repeat block 9 more times (total 10 rows * 3 cards = 30 cards) -->
+                            <!-- Row 2 -->
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+6 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo with logo on the chest</span><span class="product-price">$1</span></div></div> </div>
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Jean.png" alt="Jeans basic slim" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Jeans basic slim</span><span class="product-price">$1</span></div></div> </div>
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/PoloBasis.png" alt="Polo basis lange mouw" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo basis lange mouw</span><span class="product-price">$1</span></div></div> </div>
+                            <!-- Row 3 -->
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+6 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo with logo on the chest</span><span class="product-price">$1</span></div></div> </div>
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Jean.png" alt="Jeans basic slim" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Jeans basic slim</span><span class="product-price">$1</span></div></div> </div>
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/PoloBasis.png" alt="Polo basis lange mouw" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo basis lange mouw</span><span class="product-price">$1</span></div></div> </div>
+                            <!-- Row 4 -->
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+6 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo with logo on the chest</span><span class="product-price">$1</span></div></div> </div>
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Jean.png" alt="Jeans basic slim" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Jeans basic slim</span><span class="product-price">$1</span></div></div> </div>
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/PoloBasis.png" alt="Polo basis lange mouw" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo basis lange mouw</span><span class="product-price">$1</span></div></div> </div>
+                            <!-- Row 5 -->
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+6 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo with logo on the chest</span><span class="product-price">$1</span></div></div> </div>
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Jean.png" alt="Jeans basic slim" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Jeans basic slim</span><span class="product-price">$1</span></div></div> </div>
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/PoloBasis.png" alt="Polo basis lange mouw" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo basis lange mouw</span><span class="product-price">$1</span></div></div> </div>
+                            <!-- Row 6 -->
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+6 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo with logo on the chest</span><span class="product-price">$1</span></div></div> </div>
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Jean.png" alt="Jeans basic slim" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Jeans basic slim</span><span class="product-price">$1</span></div></div> </div>
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/PoloBasis.png" alt="Polo basis lange mouw" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo basis lange mouw</span><span class="product-price">$1</span></div></div> </div>
+                            <!-- Row 7 -->
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+6 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo with logo on the chest</span><span class="product-price">$1</span></div></div> </div>
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Jean.png" alt="Jeans basic slim" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Jeans basic slim</span><span class="product-price">$1</span></div></div> </div>
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/PoloBasis.png" alt="Polo basis lange mouw" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo basis lange mouw</span><span class="product-price">$1</span></div></div> </div>
+                            <!-- Row 8 -->
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+6 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo with logo on the chest</span><span class="product-price">$1</span></div></div> </div>
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Jean.png" alt="Jeans basic slim" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Jeans basic slim</span><span class="product-price">$1</span></div></div> </div>
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/PoloBasis.png" alt="Polo basis lange mouw" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo basis lange mouw</span><span class="product-price">$1</span></div></div> </div>
+                            <!-- Row 9 -->
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+6 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo with logo on the chest</span><span class="product-price">$1</span></div></div> </div>
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Jean.png" alt="Jeans basic slim" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Jeans basic slim</span><span class="product-price">$1</span></div></div> </div>
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/PoloBasis.png" alt="Polo basis lange mouw" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo basis lange mouw</span><span class="product-price">$1</span></div></div> </div>
+                            <!-- Row 10 -->
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+6 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo with logo on the chest</span><span class="product-price">$1</span></div></div> </div>
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Jean.png" alt="Jeans basic slim" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Jeans basic slim</span><span class="product-price">$1</span></div></div> </div>
+                            <div class="product-card"> <div class="product-image-container"><img src="~/images/PoloBasis.png" alt="Polo basis lange mouw" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo basis lange mouw</span><span class="product-price">$1</span></div></div> </div>
+                        </div>
+
+                        <!-- Pagination -->
+                        <nav class="pagination">
+                            <a href="#" class="page-link prev"></a>
+                            <a href="#" class="page-link active">1</a>
+                            <a href="#" class="page-link">2</a>
+                            <a href="#" class="page-link">3</a>
+                            <a href="#" class="page-link">4</a>
+                            <a href="#" class="page-link">5</a>
+                            <span class="page-link ellipsis">...</span>
+                            <a href="#" class="page-link next">></a>
+                        </nav>
+                    </section>
+                </div>
+            </main>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="inner-wrap">
+                    <div class="inner-box">
+                        <div class="inner-content">
+                            Fashion BLUE
+                        </div>
+                        <div class="inner-text">
+                            The leading fashion system in Vietnam.
+                        </div>
+                        <div class="inner-utilities">
+                            Payment method
+                        </div>
+                        <div class="inner-utilities-img">
+                            <img src="~/images/VNPAY.png" alt="VNPAY">
+                            <img src="~/images/ZaloPay.png" alt="ZaloPay">
+                        </div>
+                    </div>
+                    <div class="inner-box">
+                        <div class="inner-content">
+                            Contact information
+                        </div>
+                        <div class="inner-text">
+                            <b>Address</b>: Lien Chieu District, Da Nang City.<br>
+                            <b>Fax</b>: 000000000<br>
+                            <b>Email</b>: cskh@blue.com
+                        </div>
+                        <div class="inner-utilities">
+                            Shipping methods
+                        </div>
+                        <div class="inner-utilities-img">
+                            <img src="~/images/Ninja.png" alt="Ninja">
+                            <img src="~/images/Ahamove.png" alt="Ahamove">
+                            <img src="~/images/J&T.png" alt="J&T">
+                        </div>
+                    </div>
+                    <div class="inner-box">
+                        <div class="inner-content">
+                            Affiliated Group
+                        </div>
+                        <ul>
+                            <li>
+                                Search
+                            </li>
+                            <li>
+                                Privacy Policy
+                            </li>
+                            <li>
+                                Introduction
+                            </li>
+                            <li>
+                                Contact
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- End Footer -->
+    </div>
+    <!-- Add JS if needed -->
+</body>
+</html>

@@ -1,0 +1,13 @@
+﻿Đây là note-------------------------
+// 19/4/2025
+- Migration dùng để lưu trữ các thay đổi trong cấu trúc của database
+- Nếu sửa cấu trúc trong model thì phải tạo migration (Add migration)
+
+- Lưu connection string trong appsettings.json để tăng tính bảo mật
+
+Câu hỏi: 
+- Css như vậy có hợp lý không? , mỗi component đều có css riêng ?
+// 
+
+// 20/4/2025
+- Tạo partical view để tái sử dụng code ví dụ như filer sử dụng trong nhiều view thì sửa trong partical sẽ sửa toàn bộ

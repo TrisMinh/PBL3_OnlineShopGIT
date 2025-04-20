@@ -1,0 +1,507 @@
+/* Reused styles from Home/assets/css/styles.css */
+
+/* Header */
+.header .inner-wrap{
+    display: flex;
+    justify-content: space-between;
+    justify-items: center;
+    align-items: center;
+}
+
+.header .inner-wrap a{
+    color: #111;
+}
+
+.header .inner-wrap ul{
+    display: flex;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.header .inner-wrap .inner-menu ul li{
+    margin-left: 15px;
+    margin-right: 15px;
+    font-family: "Roboto", sans-serif; /* Reusing font from base */
+}
+
+.header .inner-wrap .inner-logo{
+    font-family: "Inknut Antiqua", serif; /* Reusing font from Home */
+    font-size: 25px;
+    font-weight: 600;
+    margin-right: 30px; /* Added margin to push menu away */
+}
+
+.header .inner-wrap .inner-search input{
+    background: #D9D9D9;
+    border: none;
+    text-align: right;
+    width: 367px; /* Consider if this width is appropriate */
+    height: 35px;
+    margin-top: 8px;
+    padding-right: 20px;
+    border-radius: 2px; /* Added for consistency */
+    padding-left: 35px; /* Add padding to make space for the icon */
+    width: 100%; /* Make input fill the wrapper */
+    box-sizing: border-box; /* Include padding in width */
+    height: 100%; /* Make input fill wrapper height */
+    border: none; /* Ensure no extra border */
+    background: transparent; /* Make input background transparent, wrapper has color */
+    outline: none; /* Remove focus outline */
+}
+
+.header .inner-wrap .inner-search { /* Adjust container if needed */
+    /* flex-grow: 1; */ /* Removed flex-grow */
+    margin-left: auto; /* Push search towards the right */
+    margin-right: 20px; /* Keep some margin from utilities */
+    display: flex; /* Align wrapper */
+    align-items: center; /* Align wrapper */
+}
+
+.header .inner-wrap .inner-search-wrapper {
+    position: relative;
+    display: flex; /* Use flex for alignment */
+    align-items: center; /* Vertically center items */
+    background: #D9D9D9; /* Match input background */
+    border-radius: 2px; /* Match input radius */
+    width: 367px; /* Maintain original width for the wrapper */
+    height: 35px; /* Match input height */
+    /* margin-top: 8px; */ /* Removed margin-top to rely on flex alignment */
+    overflow: hidden; /* Hide potential overflow */
+}
+
+.header .inner-wrap .search-icon {
+    position: absolute;
+    left: 10px; /* Position icon on the left */
+    top: 50%;
+    transform: translateY(-50%); /* Vertically center */
+    height: 18px; /* Adjust icon size */
+    width: auto;
+    pointer-events: none; /* Prevent icon from blocking input clicks */
+    z-index: 1; /* Ensure icon is above input background if needed */
+}
+
+/* Remove margin-top from utilities ul to align better */
+.header .inner-wrap .inner-utilities ul{
+    margin-right: 20px;
+    /* margin-top: 25px; */ /* Removed margin-top */
+    padding: 0;
+    margin-top: 0; /* Ensure no top margin */
+    margin-bottom: 0; /* Ensure no bottom margin */
+}
+
+.header .inner-wrap .inner-utilities{
+    margin: 0;
+    padding: 0;
+}
+
+.header .inner-wrap .inner-utilities li {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.header .inner-wrap .inner-utilities ul{
+    margin-right: 20px;
+    /* margin-top: 25px; */ /* Removed conflicting margin-top */
+    padding: 0;
+    margin-top: 0; /* Ensure no top margin */
+    margin-bottom: 0; /* Ensure no bottom margin */
+}
+
+.header .inner-wrap .inner-utilities img{
+    height: 40px; /* Check if this size is correct for Product page */
+    width: auto;
+    vertical-align: middle; /* Align images better */
+}
+
+.header .inner-wrap .inner-menu-logo{
+    font-size: 25px;
+}
+
+/* Footer */
+.footer .container .inner-wrap .inner-box .inner-content{
+    font-size: 24px;
+    font-weight: 800;
+    color: #B30C0C; /* Reusing color from Home */
+    margin: 10px 0;
+}
+
+.footer .container .inner-wrap .inner-box .inner-text{
+    font-size: 14px;
+    margin: 10px 0;
+    line-height: 1.4; /* Added for readability */
+}
+
+.footer .container .inner-wrap .inner-box .inner-utilities{
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.footer .container .inner-wrap .inner-box img{
+    margin: 0 5px;
+    margin-left: 0;
+    height: 25px; /* Adjust size if needed */
+    vertical-align: middle;
+}
+
+.footer .container .inner-wrap{
+    padding: 20px 0; /* Adjusted padding */
+    display: flex;
+    justify-content: space-between;
+    justify-items: left; /* justify-items usually applies to grid */
+    gap: 20px; /* Added gap */
+}
+
+.footer .container .inner-wrap ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer .container .inner-wrap li{
+    font-weight: 450;
+    margin-bottom: 8px; /* Added spacing */
+    font-size: 14px; /* Added font size */
+}
+
+/* Product specific styles */
+
+/* Add some top margin to push content below fixed header */
+.product-page-container {
+    padding-top: 80px; /* Adjust as needed based on header height */
+    margin-bottom: 40px; /* Add space before footer */
+}
+
+.product-content {
+    /* Styles for the main content area */
+}
+
+.breadcrumbs {
+    /* Styles based on Figma node 16:36520 textStyle: style_H06IAL */
+    font-family: 'Beatrice Deck Trial', sans-serif; /* Assuming font availability */
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.083em;
+    /* text-transform: uppercase; */ /* Letter spacing in Figma often implies uppercase, but text is mixed case */
+    color: #000; /* fill_2L9T45 */
+    margin-bottom: 15px; /* Spacing */
+}
+
+.product-title {
+    /* Styles based on Figma node 16:36521 textStyle: style_ZAADQS */
+    font-family: 'Abril Fatface', serif; /* Assuming font availability */
+    font-weight: 700; /* Made bold as requested */
+    font-size: 20px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #000; /* fill_2L9T45 */
+    margin-bottom: 15px; /* Reduced spacing */
+    text-align: left; /* Align title left */
+}
+
+/* Removed .product-header-center styles */
+
+/* Container for Title and Selector inside Grid */
+.product-header-grid {
+    margin-bottom: 20px; /* Space below selector */
+}
+
+/* Category Selector Styles */
+.category-selector {
+    display: flex;
+    flex-direction: column; /* Stack rows vertically */
+    gap: 10px; /* Spacing between rows */
+    width: 100%; /* Take full width of the grid area */
+}
+
+.category-row {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping within a row */
+    gap: 10px; /* Spacing between buttons within a row */
+    width: 100%; /* Make row take full width */
+}
+
+.category-button {
+    flex: 1; /* Make all buttons in a row share width equally */
+    white-space: nowrap; /* Prevent text wrapping */
+    /* Base styles from Figma nodes like 16:36613, 16:36616 etc. */
+    /* textStyle: style_JWN4R1, style_6XW3UW */
+    font-family: 'Beatrice Trial', sans-serif; /* Assuming font availability */
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 1.48; /* Approximated */
+    text-transform: uppercase;
+    color: #5E5E5E; /* fill_A4G7JW - Inactive color */
+    border: 0.5px solid #A3A3A3; /* stroke_DIE26B - Inactive border */
+    background-color: transparent;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 2px; /* Subtle rounding */
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    text-align: center; /* Ensure text is centered */
+}
+
+.category-button.active {
+    /* Active styles from Figma node 16:36610 */
+    /* textStyle: style_MZYMV2 */
+    font-family: 'Beatrice Deck Trial', sans-serif; /* Different font for active? */
+    font-weight: 500; /* Slightly bolder for active */
+    color: #000; /* fill_2L9T45 - Active color */
+    border-color: #5E5E5E; /* stroke_ZGCWNK - Active border */
+    background-color: #f0f0f0; /* Slight background for active state */
+}
+
+.category-button:hover:not(.active) {
+    background-color: #f8f8f8; /* Hover effect for inactive buttons */
+    border-color: #888;
+    color: #333;
+}
+
+.product-main {
+    display: flex;
+    gap: 30px; /* Adjust spacing between filters and grid */
+}
+
+.filters {
+    width: 250px; /* Approximate width, adjust as needed */
+    flex-shrink: 0;
+}
+
+.filters-title {
+     /* Styles based on Figma node 16:36523 textStyle: style_XTNGCH */
+    font-family: 'Abril Fatface', serif;
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 0.125em;
+    text-transform: uppercase;
+    color: #000; /* fill_2L9T45 */
+    margin-bottom: 20px;
+}
+
+.filter-group {
+    border-bottom: 1px dashed #C9C9C9; /* Based on Line 16:36576 */
+    padding: 15px 0;
+}
+
+.filter-group:last-child {
+    border-bottom: none;
+}
+
+.filter-group-header {
+    /* Styles based on Category/Colors etc. textStyle: style_FNQQ35 */
+    font-family: 'Abril Fatface', serif;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0.142em; /* Approximated from 14.28% */
+    text-transform: uppercase;
+    color: #000; /* fill_2L9T45 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer; /* Indicate it's clickable */
+    margin-bottom: 10px;
+}
+
+.filter-group-header i {
+    font-size: 12px;
+    color: #000; /* stroke_PKITKA */
+}
+
+.filter-group-content {
+    /* Styles for the content area of each filter group */
+    padding-left: 10px; /* Indent options slightly */
+    /* Add styles for hidden/shown state if implementing dropdown */
+}
+
+/* Size Filter Specific Styles */
+.filter-size-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.size-option {
+    /* Styles based on XS/S/M etc. textStyle: style_CUKRB2 and Rectangle 16:36531 */
+    font-family: 'Beatrice Deck Trial', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #000; /* fill_2L9T45 */
+    border: 1px solid #A3A3A3; /* stroke_S4NKSR */
+    background-color: transparent;
+    padding: 5px 10px;
+    cursor: pointer;
+    min-width: 40px; /* Ensure minimum width */
+    text-align: center;
+    border-radius: 2px; /* Added consistency */
+}
+
+.size-option:hover,
+.size-option.active { /* Add an active class for selected state */
+    background-color: #eee; /* Example active/hover state */
+    border-color: #5E5E5E; /* Example active border */
+}
+
+/* Availability Filter Specific Styles */
+.filter-availability-options label {
+    display: block;
+    margin-bottom: 8px;
+    cursor: pointer;
+    /* Styles based on Availability textStyle: style_TIEJM2 and Out Of Stack textStyle: style_Q4CYGS */
+    font-size: 12px;
+    letter-spacing: 0.166em; /* Approximated from 16.66% */
+    color: #000; /* fill_2L9T45 */
+}
+
+.filter-availability-options label input {
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.filter-availability-options label:first-child {
+    font-family: 'Abhaya Libre ExtraBold', serif; /* Assuming font availability */
+    font-weight: 900;
+    font-size: 14px;
+}
+
+.filter-availability-options label:last-child {
+    font-family: 'Abhaya Libre ExtraBold', serif; /* Assuming font availability */
+    font-weight: 900;
+    font-size: 13px;
+}
+
+/* Product Grid Styles */
+.product-grid {
+    flex-grow: 1; /* Take remaining space */
+    display: flex; /* Use flex column to stack header and card container */
+    flex-direction: column;
+    gap: 0; /* Remove gap between header and cards if not needed */
+}
+
+.product-card-container { /* Container for the actual grid */
+    display: grid;
+    /* Set exactly 3 columns */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px; /* Gap between product cards */
+}
+
+.product-card {
+    /* Based on Frame 292 layout_NXBTNG, layout_OVBGXP */
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #eee; /* Add a subtle border */
+    background-color: #fff; /* fill_DCWY0H */
+    overflow: hidden; /* Ensure content fits */
+    border-radius: 4px; /* Added subtle rounding */
+    transition: box-shadow 0.3s ease; /* Add hover effect */
+}
+
+.product-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.product-image-container {
+    /* Based on Frame 281 layout_WMQ3SG */
+    position: relative; /* For potential overlays or badges */
+    width: 100%;
+    padding-top: 110%; /* Adjust aspect ratio based on typical product images */
+    background-color: #f9f9f9; /* Placeholder background */
+}
+
+.product-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure image covers the container */
+}
+
+.product-info {
+    padding: 10px; /* Padding around text */
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Space between option/details */
+}
+
+.product-options {
+    /* Based on Frame 282 layout_SQ64A5 */
+    display: flex;
+    justify-content: space-between;
+    /* Styles based on textStyle: style_JO6742 */
+    font-family: 'Indie Flower', cursive; /* Assuming font availability */
+    font-size: 14px; /* Adjusted size */
+    color: #555; /* Softened color */
+    line-height: 1.45; /* Approximated */
+}
+
+.product-details {
+     /* Based on Frame 283 layout_WMQ3SG */
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Align name and price */
+    margin-top: 5px; /* Add space above details */
+}
+
+.product-name {
+    /* Styles based on textStyle: style_978WWS */
+    font-family: 'Inder', sans-serif; /* Assuming font availability */
+    font-size: 14px;
+    color: #000; /* fill_2L9T45 */
+    line-height: 1.25;
+    flex-grow: 1; /* Allow name to take available space */
+    padding-right: 5px; /* Space before price */
+    font-weight: 500; /* Slightly bolder */
+}
+
+.product-price {
+    /* Styles based on textStyle: style_978WWS */
+    font-family: 'Inder', sans-serif;
+    font-size: 14px;
+    color: #000; /* fill_2L9T45 */
+    line-height: 1.25;
+    font-weight: bold; /* Make price stand out */
+}
+
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px; /* Space above pagination */
+    padding: 10px 0;
+}
+
+.page-link {
+    color: #5E5E5E; /* Default color */
+    text-decoration: none;
+    padding: 8px 12px;
+    margin: 0 4px;
+    border: 1px solid transparent; /* No border by default */
+    border-radius: 4px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    font-size: 14px;
+}
+
+.page-link.active {
+    background-color: #E53935; /* Red background for active page */
+    color: #fff; /* White text for active page */
+    border-color: #E53935;
+    font-weight: bold;
+}
+
+.page-link:hover:not(.active):not(.ellipsis) {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.page-link.ellipsis {
+    color: #aaa;
+    cursor: default;
+    padding: 8px 4px; /* Adjust padding for ellipsis */
+}
+
+.page-link.prev,
+.page-link.next {
+    font-weight: bold;
+    font-size: 16px; /* Make arrows slightly larger */
+}

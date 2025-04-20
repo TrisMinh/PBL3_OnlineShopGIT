@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap'); /* Added Geologica for favourite title */
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap'); /* Added Indie Flower for product options */
+@import url('https://fonts.googleapis.com/css2?family=Inder&display=swap'); /* Added Inder for product info */
+
+
+/* Header */
+.header .inner-wrap{
+    display: flex;
+    justify-content: space-between;
+    justify-items: center;
+    align-items: center;
+}
+
+.header .inner-wrap a{
+    color: #111;
+}
+
+.header .inner-wrap ul{
+    display: flex;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.header .inner-wrap .inner-menu ul li{
+    margin-left: 15px;
+    margin-right: 15px;
+    font-family: "Roboto", sans-serif;
+}
+
+.header .inner-wrap .inner-logo{
+    font-family: "Inknut Antiqua", serif;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.header .inner-wrap .inner-search input{
+    background: #D9D9D9;
+    border: none;
+    text-align: right;
+    width: 367px;
+    height: 35px;
+    margin-top: 8px;
+    padding-right: 20px;
+}
+
+.header .inner-wrap .inner-utilities{
+    margin: 0 0 0 0;
+    padding: 0;
+}
+
+.header .inner-wrap .inner-utilities li {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.header .inner-wrap .inner-utilities ul{
+    margin-right: 20px;
+    margin-top: 25px;
+    padding: 0;
+}
+
+.header .inner-wrap .inner-utilities img{
+    height: 40px;
+    width: auto;
+}
+
+.header .inner-wrap .inner-menu-logo{
+    font-size: 25px;
+}
+/* End Header */
+
+/* Main Content - Favourite Page */
+.main-content {
+    padding-top: 100px; /* Adjust based on header height */
+    padding-bottom: 40px; /* Add some padding at the bottom */
+}
+
+.page-title-container {
+    display: flex; /* Arrange titles side-by-side */
+    gap: 15px; /* Add space between titles */
+    margin-bottom: 10px; /* Add some space below titles */
+}
+
+.page-title-link {
+    font-family: 'Geologica', sans-serif; /* From Figma style_GWCYIV */
+    font-weight: 400;
+    font-size: 14px; /* From Figma style_GWCYIV */
+    line-height: 2.857; /* From Figma style_GWCYIV */
+    text-transform: uppercase; /* From Figma style_GWCYIV */
+    text-align: left; /* From Figma style_GWCYIV */
+    text-decoration: none; /* Remove underline */
+}
+
+.page-title-link.cart-title {
+     color: #A49B9B; /* Grey color from Figma fill_59H0AG */
+}
+
+.page-title-link.favourite-title {
+     color: #000000; /* Black color from Figma fill_MD2IBW */
+}
+
+/* Ensure active favourite link stays black */
+.page-title-link.favourite-title.active {
+     color: #000000;
+}
+
+.line {
+    height: 1px;
+    background-color: #C9C9C9; /* From Figma stroke_U3I1MN */
+    margin: 20px 0; /* Add vertical margin */
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Ensure 4 columns */
+    gap: 15px; /* Reduced spacing between items */
+}
+
+.product-item {
+    background-color: #FFFFFF; /* Assuming white background for items */
+    border: 1px solid #eee; /* Light border */
+    padding: 10px; /* Padding inside item */
+    display: flex;
+    flex-direction: column;
+    /* Based on Frame 284 layout_AXMOLZ */
+    gap: 1px;
+}
+
+.product-image {
+    /* Based on Frame 281 layout_3AJPQ4 */
+    width: 100%; /* Fill width */
+    height: 230px; /* Slightly reduced height */
+    background-color: #FFFFFF; /* From Figma fill_QG0FHJ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Hide overflow */
+}
+
+.product-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Scale image while preserving aspect ratio */
+}
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Spacing within details */
+    padding-top: 10px;
+}
+
+.product-options {
+    display: flex;
+    justify-content: space-between; /* Based on Frame 282 layout_Y9KBVJ */
+    font-family: 'Indie Flower', cursive; /* From Figma style_KE8TB1 */
+    font-size: 16px; /* From Figma style_KE8TB1 */
+    color: #000000; /* From Figma fill_MD2IBW */
+    text-align: center; /* From Figma style_KE8TB1 */
+}
+
+.product-info {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Inder', sans-serif; /* From Figma style_NITA7U */
+    font-size: 14px; /* From Figma style_NITA7U */
+    color: #000000; /* From Figma fill_MD2IBW */
+    line-height: 1.25; /* From Figma style_NITA7U */
+}
+
+/* End Main Content */
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px; /* Add space above pagination */
+    margin-bottom: 20px; /* Add space below pagination */
+}
+
+.pagination a, .pagination span {
+    color: #888; /* Default color for numbers and arrows */
+    padding: 8px 12px;
+    margin: 0 4px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.pagination a:hover {
+    background-color: #eee;
+}
+
+.pagination a.active {
+    background-color: #EF4444; /* Red background for active page */
+    color: white; /* White text for active page */
+    border-color: #EF4444;
+}
+
+.pagination a.arrow {
+    font-weight: bold;
+}
+
+.pagination span {
+    color: #888; /* Color for ellipsis */
+    padding: 8px 0; /* Adjust padding for ellipsis */
+}
+/* End Pagination */
+
+/* Footer */
+.footer .container .inner-wrap .inner-box .inner-content{
+    font-size: 24px;
+    font-weight: 800;
+    color: #B30C0C;
+    margin: 10px 0;
+}
+
+
+.footer .container .inner-wrap .inner-box .inner-text{
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.footer .container .inner-wrap .inner-box .inner-utilities{
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.footer .container .inner-wrap .inner-box img{
+    margin: 0 5px;
+    margin-left: 0;
+}
+
+.footer .container .inner-wrap{
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    justify-items: left;
+}
+
+.footer .container .inner-wrap li{
+    font-weight: 450;
+}
+
+/* End Footer */
