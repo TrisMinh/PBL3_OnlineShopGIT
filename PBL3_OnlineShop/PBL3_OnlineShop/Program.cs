@@ -1,3 +1,6 @@
+﻿using Microsoft.EntityFrameworkCore;
+using PBL3_OnlineShop.Data;
+
 namespace PBL3_OnlineShop
 {
     public class Program

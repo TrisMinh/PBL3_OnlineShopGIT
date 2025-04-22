@@ -1,0 +1,103 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="~/css/base.css">
+    <link rel="stylesheet" href="~/css/Detail.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Add other font links if needed based on Figma styles -->
+</head>
+<body>
+    <div class="app">
+        <!-- Container -->
+        <div class="container product-detail-container">
+            <!-- Breadcrumbs -->
+            <div class="breadcrumbs">
+                <span>Home / Products / Detail</span>
+            </div>
+            <h1 class="detail-title">Detail</h1>
+
+            <!-- Product Detail Section -->
+            <div class="product-detail">
+                <!-- Product Gallery (Thumbnails + Main Image) -->
+                <div class="product-gallery">
+                    <div class="thumbnail-images">
+                        <img src="~/images/Polo.png" alt="Thumbnail 1" class="thumbnail active">
+                        <img src="~/images/PoloBasis.png" alt="Thumbnail 2" class="thumbnail">
+                        <!-- Add more thumbnails if available -->
+                        <img src="~/images/Polo.png" alt="Thumbnail 3" class="thumbnail">
+                        <img src="~/images/PoloBasis.png" alt="Thumbnail 4" class="thumbnail">
+                        <img src="~/images/Polo.png" alt="Thumbnail 5" class="thumbnail">
+                    </div>
+                    <div class="main-image">
+                        <img src="~/images/Polo.png" alt="Polo with logo on the chest">
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div class="product-info">
+                    <h2 class="product-name">Polo with logo on the chest</h2>
+                    <div class="product-price">$1</div>
+                    <p class="product-description">
+                        Polo with logo on the chest with thick
+                        fabric, good elasticity and high color
+                        fastness. The hall does not shed or
+                        fade, absorbs sweat and is comfortable
+                        and not restrictive when moving.
+                        This is a genuine quality men's polo
+                        shirt model with the best price at BLUE.
+                    </p>
+
+                    <!-- Color Selection -->
+                    <div class="product-options">
+                        <label class="option-label">Color</label>
+                        <div class="color-selector">
+                            <button class="color-option" style="background-color: #D9D9D9;"></button>
+                            <button class="color-option active" style="background-color: #3BAB53;"></button>
+                            <button class="color-option" style="background-color: #A9A9A9;"></button>
+                            <button class="color-option" style="background-color: #1E1E1E;"></button>
+                            <button class="color-option" style="background-color: #FFFFFF; border: 1px solid #ccc;"></button>
+                            <button class="color-option" style="background-color: #B9C1E8;"></button>
+                        </div>
+                    </div>
+
+                    <!-- Size Selection -->
+                    <div class="product-options">
+                        <label class="option-label">Size</label>
+                        <div class="size-selector">
+                            <button class="size-option active">XS</button>
+                            <button class="size-option">S</button>
+                            <button class="size-option">M</button>
+                            <button class="size-option">L</button>
+                            <button class="size-option">XL</button>
+                            <button class="size-option">2X</button>
+                        </div>
+                    </div>
+
+                    <a href="#" class="size-guide">FIND YOUR SIZE | MEASUREMENT GUIDE</a>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button class="add-to-cart-btn">ADD</button>
+                        <button class="favourite-btn">
+                            <i class="fa-regular fa-heart"></i> <!-- Assuming Font Awesome is used -->
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Container -->
+    </div>
+</body>
+</html>
