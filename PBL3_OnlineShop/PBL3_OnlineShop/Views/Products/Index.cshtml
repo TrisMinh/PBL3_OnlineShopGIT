@@ -1,4 +1,4 @@
-﻿﻿@*
+﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -88,7 +88,30 @@
                     <!-- Product Grid Section -->
                     <section class="product-grid">
                         <!-- Title and Category Selector (Moved inside grid section) -->
-                        @Html.Partial("_CategoryPartial") <!-- Assuming this is a partial view for categories -->
+                        <div class="product-header-grid">
+                            <!-- Product Title -->
+                            <h1 class="product-title">
+                                Products
+                            </h1>
+
+                            <!-- Category Selector Bar -->
+                            <nav class="category-selector">
+                                <div class="category-row">
+                                    <button class="category-button active">New</button> <!-- Node 16:36610 -->
+                                    <button class="category-button">Shirts</button> <!-- Node 16:36628 -->
+                                    <button class="category-button">Polo Shirts</button> <!-- Node 16:36631 -->
+                                    <button class="category-button">Shorts</button> <!-- Node 16:36634 -->
+                                    <button class="category-button">Suits</button> <!-- Node 16:36637 -->
+                                </div>
+                                <div class="category-row">
+                                    <button class="category-button">Best sellers</button> <!-- Node 16:36613 -->
+                                    <button class="category-button">T-Shirts</button> <!-- Node 16:36616 -->
+                                    <button class="category-button">Jeans</button> <!-- Node 16:36619 -->
+                                    <button class="category-button">Jackets</button> <!-- Node 16:36622 -->
+                                    <button class="category-button">Coats</button> <!-- Node 16:36625 -->
+                                </div>
+                            </nav>
+                        </div>
 
                         <!-- Product Card Container -->
                         <div class="product-card-container">
