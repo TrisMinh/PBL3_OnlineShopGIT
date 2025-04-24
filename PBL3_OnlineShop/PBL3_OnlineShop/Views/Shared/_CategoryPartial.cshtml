@@ -1,7 +1,18 @@
 ﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+    Partial view for displaying product categories.
+    Expects:
+    - ViewBag.Categories: An IEnumerable<string> containing the category names.
+    - ViewBag.SelectedCategory: A string containing the name of the currently selected category.
 *@
 @{
+    // Default values if ViewBag is not set (optional, for safety)
+    var categories = ViewBag.Categories as IEnumerable<string> ?? new List<string>();
+    var selectedCategory = ViewBag.SelectedCategory as string;
+
+    // Split categories into two rows for display (adjust logic if needed)
+    int half = (int)Math.Ceiling(categories.Count() / 2.0);
+    var firstRowCategories = categories.Take(half);
+    var secondRowCategories = categories.Skip(half);
 }
 <div class="product-header-grid">
     <!-- Product Title -->
@@ -11,19 +22,29 @@
 
     <!-- Category Selector Bar -->
     <nav class="category-selector">
-        <div class="category-row">
-            <button class="category-button active">New</button> <!-- Node 16:36610 -->
-            <button class="category-button">Shirts</button> <!-- Node 16:36628 -->
-            <button class="category-button">Polo Shirts</button> <!-- Node 16:36631 -->
-            <button class="category-button">Shorts</button> <!-- Node 16:36634 -->
-            <button class="category-button">Suits</button> <!-- Node 16:36637 -->
-        </div>
-        <div class="category-row">
-            <button class="category-button">Best sellers</button> <!-- Node 16:36613 -->
-            <button class="category-button">T-Shirts</button> <!-- Node 16:36616 -->
-            <button class="category-button">Jeans</button> <!-- Node 16:36619 -->
-            <button class="category-button">Jackets</button> <!-- Node 16:36622 -->
-            <button class="category-button">Coats</button> <!-- Node 16:36625 -->
-        </div>
+        @if (firstRowCategories.Any())
+        {
+            <div class="category-row">
+                @foreach (var category in firstRowCategories)
+                {
+                    <a asp-controller="Products" asp-action="Index" asp-route-category="@category"
+                       class="category-button @(category == selectedCategory ? "active" : "")">
+                        @category
+                    </a>
+                }
+            </div>
+        }
+        @if (secondRowCategories.Any())
+        {
+            <div class="category-row">
+                @foreach (var category in secondRowCategories)
+                {
+                    <a asp-controller="Products" asp-action="Index" asp-route-category="@category"
+                       class="category-button @(category == selectedCategory ? "active" : "")">
+                        @category
+                    </a>
+                }
+            </div>
+        }
     </nav>
 </div>

@@ -6,89 +6,132 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/base.css">
-    <link rel="stylesheet" href="~/css/Home.css">
-    <title>Document</title>
+    <link rel="icon" href="~/images/Logo.png" style="image/x-icon">
+    <title>BLUE SHOP</title>
+
+    <!-- Script inline cho filters -->
+    <script>
+        // Chạy khi document đã sẵn sàng
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM đã sẵn sàng, tìm các phần tử filter...');
+
+            // KIỂM TRA TRỰC TIẾP: Xác định xem các phần tử có tồn tại không
+            console.log('Tất cả .custom-toggle-header:', document.querySelectorAll('.custom-toggle-header').length);
+            console.log('Tất cả .filter-group-header:', document.querySelectorAll('.filter-group-header').length);
+            console.log('Tất cả .filter-group:', document.querySelectorAll('.filter-group').length);
+            console.log('Phần tử aside.filters:', document.querySelectorAll('aside.filters').length);
+
+            // Lấy tất cả header filter dựa trên class chính xác
+            var filterHeaders = document.querySelectorAll('.custom-toggle-header');
+            console.log('Tìm thấy', filterHeaders.length, 'filter headers có class custom-toggle-header');
+
+            // Nếu không tìm thấy, thử selector khác
+            if (filterHeaders.length === 0) {
+                filterHeaders = document.querySelectorAll('.filter-group-header');
+                console.log('Thử lại với .filter-group-header:', filterHeaders.length);
+            }
+
+            // Nếu vẫn không có, thử chọn direct structure
+            if (filterHeaders.length === 0) {
+                filterHeaders = document.querySelectorAll('.filter-group > div:first-child');
+                console.log('Thử lại với .filter-group > div:first-child:', filterHeaders.length);
+            }
+
+            // Thêm click handler cho mỗi header
+            filterHeaders.forEach(function(header) {
+                console.log('Đang xử lý header:', header.textContent.trim());
+
+                // Xóa sự kiện click cũ (nếu có)
+                header.onclick = null;
+
+                // Thêm sự kiện click mới
+                header.addEventListener('click', function(e) {
+                    console.log('CLICK! trên header:', this.textContent.trim());
+                    // Ngăn sự kiện mặc định
+                    if (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+
+                    // Tìm content kế tiếp
+                    var content = this.nextElementSibling;
+                    console.log('Content element next:', content);
+
+                    if (content) {
+                        // Thử nhiều cách để toggle display
+                        if (content.style.display === 'block') {
+                            content.style.display = 'none';
+                            console.log('Ẩn content');
+                        } else {
+                            content.style.display = 'block';
+                            console.log('Hiện content');
+                        }
+                    }
+                });
+
+                console.log('Đã thêm click handler cho header:', header.textContent.trim());
+            });
+        });
+    </script>
 </head>
 <body>
-    <!-- Header -->
-    <div class="header">
-        <div class="container">
-            <div class="inner-wrap">
-                <div class="inner-logo">
-                    <a href="/">
-                        BLUE
-                    </a>
-                </div>
-                <div class="inner-menu">
-                    <ul>
-                        <li>
+    <div class="layout-wrapper">
+        <!-- Header -->
+        <header class="header">
+            <div class="header">
+                <div class="container">
+                    <div class="inner-wrap">
+                        <div class="inner-logo">
                             <a href="/">
-                                Home
+                                BLUE
                             </a>
-                        </li>
-                        <li>
-                            <a href="/">
-                                Collections
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/">
-                                New
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="inner-search">
-                    <input class="search" type="text" placeholder="Search" id="search-header" name="text">
-                </div>
-                <div class="inner-utilities">
-                    <ul>
-                        <li>
-                            <a asp-controller="Favourite" asp-action="Index">
-                                <img src="~/images/Favourite.png" alt="Favourite">
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Cart" asp-action="Index">
-                                <img src="~/images/Cart.png" alt="Cart">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">
-                                <img src="~/images/Account.png" alt="Account">
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                    <div class="container-fluid">
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <i class="fa-solid fa-bars"></i>
-                        </button>
+                        </div>
+                        <div class="inner-menu">
+                            <ul>
+                                <li>
+                                    <a asp-controller="Home" asp-action="Index">
+                                        Home
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Collections" asp-action="Index">
+                                        Collections
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="New" asp-action="Index">
+                                        New
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="inner-search">
+                            <input class="search" type="text" placeholder="Search" id="search-header" name="text">
+                        </div>
+                        <div class="inner-utilities">
+                            <ul>
+                                <li>
+                                    <a asp-controller="Favourite" asp-action="Index">
+                                        <img src="~/images/Favourite.png" alt="Favourite">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Cart" asp-action="Index">
+                                        <img src="~/images/Cart.png" alt="Cart">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">
+                                        <img src="~/images/Account.png" alt="Account">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </nav>
+                </div>
             </div>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">Collections</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">News</a>
-                    </li>
-                    <li class="inner-search nav-item nav-link">
-                        <input class="search " type="text" placeholder="Search" id="search-header" name="text">
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- End Header -->
+        </header>
+        <!-- End Header -->
         <main>
             @RenderBody()  <!-- 🚨 Quan trọng: cần có dòng này -->
         </main>
@@ -153,6 +196,11 @@
         </footer>
         <!-- End Footer -->
     </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @* <script src="~/js/custom-filters.js" asp-append-version="true"></script> *@
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>
