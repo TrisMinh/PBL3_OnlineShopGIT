@@ -1,14 +1,35 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PBL3_OnlineShop.Models;
+using System.Collections.Generic; // Required for List
+using System.Linq; // Required for FirstOrDefault, Contains
 
 namespace PBL3_OnlineShop.Controllers
 {
     public class ProductsController : Controller
     {
-        // GET: ProductController
-        public ActionResult Index()
+        // GET: ProductsController
+        public ActionResult Index(string category)
         {
-            return View();
+            var categories = new List<string> { "New", "Shirts", "Polo Shirts", "Shorts", "Suits", "Best sellers", "T-Shirts", "Jeans", "Jackets", "Coats" };
+
+            var products = new List<Product>();
+
+            string selectedCategory = null;
+
+            if (!string.IsNullOrEmpty(category) && categories.Contains(category))
+            {
+                selectedCategory = category;
+            }
+            else
+            {
+                selectedCategory = categories.FirstOrDefault();
+            }
+
+            ViewBag.Categories = categories;
+            ViewBag.SelectedCategory = selectedCategory;
+
+            return View(products);
         }
 
         // GET: ProductController/Details/5
@@ -23,7 +44,6 @@ namespace PBL3_OnlineShop.Controllers
             return View();
         }
 
-        // POST: ProductController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -51,6 +71,7 @@ namespace PBL3_OnlineShop.Controllers
         {
             try
             {
+                // Original code
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -72,6 +93,7 @@ namespace PBL3_OnlineShop.Controllers
         {
             try
             {
+                // Original code
                 return RedirectToAction(nameof(Index));
             }
             catch

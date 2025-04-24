@@ -1,23 +1,25 @@
-// Home
-
 const prevBtns = document.querySelectorAll('.prev');
 const nextBtns = document.querySelectorAll('.next');
 const slidesList = document.querySelectorAll('.inner-list');
 
 function updateSlide(slides, currentSlide) {
-  const offset = -currentSlide * 100;
+  const slide = document.querySelector('.slide');
+  const width = slide.offsetWidth;
+  const slide2 = document.querySelector('.section-two');
+  const width2 = slide2.offsetWidth;
+  const offset = -currentSlide * width / width2 * 100;
   slides.style.transform = `translateX(${offset}%)`;
 }
 
-function autoSlide(slides, currentSlide, totalSlides, intervalTime, prevBtn, nextBtn) {
-  setInterval(() => {
-    if (currentSlide < totalSlides - 1) {
-      currentSlide++;
+function autoSlide(slides, currentSlideRef, totalSlides, intervalTime, prevBtn, nextBtn) {
+  return setInterval(() => {
+    if (currentSlideRef.value < totalSlides - 1) {
+      currentSlideRef.value++;
     } else {
-      currentSlide = 0;
+      currentSlideRef.value = 0;
     }
-    updateSlide(slides, currentSlide);
-    updateNavigation(currentSlide, totalSlides, prevBtn, nextBtn);
+    updateSlide(slides, currentSlideRef.value);
+    updateNavigation(currentSlideRef.value, totalSlides, prevBtn, nextBtn);
   }, intervalTime);
 }
 
@@ -38,44 +40,48 @@ function updateNavigation(currentSlide, totalSlides, prevBtn, nextBtn) {
 prevBtns.forEach((prevBtn, index) => {
   const nextBtn = nextBtns[index];
   const slides = slidesList[index];
-  let currentSlide = 0;
-  const totalSlides = slides.querySelectorAll('.slide').length;
+  const currentSlideRef = { value: 0 };
+  const totalSlides = slides.querySelectorAll('.list').length - 2;
 
   function updateNavigationForManual() {
-    updateNavigation(currentSlide, totalSlides, prevBtn, nextBtn);
+    updateNavigation(currentSlideRef.value, totalSlides, prevBtn, nextBtn);
   }
 
   prevBtn.addEventListener('click', () => {
-    if (currentSlide > 0) {
-      currentSlide--;
+    if (currentSlideRef.value > 0) {
+      currentSlideRef.value--;
     }
-    updateSlide(slides, currentSlide);
+    updateSlide(slides, currentSlideRef.value);
     updateNavigationForManual();
   });
 
   nextBtn.addEventListener('click', () => {
-    if (currentSlide < totalSlides - 1) {
-      currentSlide++;
+    if (currentSlideRef.value < totalSlides - 1) {
+      currentSlideRef.value++;
     }
-    updateSlide(slides, currentSlide);
+    updateSlide(slides, currentSlideRef.value);
     updateNavigationForManual();
   });
 
   updateNavigationForManual();
 
-  if (index === 0) {
-    setTimeout(() => {
-      autoSlide(slides, currentSlide, totalSlides, 5000, prevBtn, nextBtn);
-    }, 0);
-  } else if (index === 2) {
-    setTimeout(() => {
-      autoSlide(slides, currentSlide, totalSlides, 4500, prevBtn, nextBtn);
-    }, 1000);
-  } else if (index === 1) {
-    setTimeout(() => {
-      autoSlide(slides, currentSlide, totalSlides, 4000, prevBtn, nextBtn);
-    }, 2000);
+  let intervalTime;
+  if (index === 0) intervalTime = 5000;
+  else if (index === 1) intervalTime = 4000;
+  else if (index === 2) intervalTime = 4500;
+
+  setTimeout(() => {
+    autoSlide(slides, currentSlideRef, totalSlides, intervalTime, prevBtn, nextBtn);
+  }, index * 1000);
+
+  const mediaQuery = window.matchMedia("(max-width: 992px)");
+
+  function onMediaChange() {
+    updateSlide(slides, currentSlideRef.value);
   }
+
+  mediaQuery.addEventListener("change", onMediaChange);
+  window.addEventListener("resize", onMediaChange);
 });
 
 // End Home
