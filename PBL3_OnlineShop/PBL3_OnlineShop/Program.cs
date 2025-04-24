@@ -35,6 +35,7 @@ namespace PBL3_OnlineShop
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
+            app.Configuration.GetConnectionString("DefaultConnection");
         }
     }
 }
