@@ -151,11 +151,6 @@ body{
 
     .footer .container .inner-wrap {
         flex-direction: column;
-        align-items: center;
-    }
-
-    .footer .inner-wrap .inner-box{
-        width: 50%;
     }
 }
 
