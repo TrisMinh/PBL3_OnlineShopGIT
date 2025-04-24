@@ -77,60 +77,83 @@
 <body>
     <div class="layout-wrapper">
         <!-- Header -->
-        <header class="header">
-            <div class="header">
-                <div class="container">
-                    <div class="inner-wrap">
-                        <div class="inner-logo">
-                            <a href="/">
-                                BLUE
-                            </a>
-                        </div>
-                        <div class="inner-menu">
-                            <ul>
-                                <li>
-                                    <a asp-controller="Home" asp-action="Index">
-                                        Home
-                                    </a>
-                                </li>
-                                <li>
-                                    <a asp-controller="Collections" asp-action="Index">
-                                        Collections
-                                    </a>
-                                </li>
-                                <li>
-                                    <a asp-controller="New" asp-action="Index">
-                                        New
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="inner-search">
-                            <input class="search" type="text" placeholder="Search" id="search-header" name="text">
-                        </div>
-                        <div class="inner-utilities">
-                            <ul>
-                                <li>
-                                    <a asp-controller="Favourite" asp-action="Index">
-                                        <img src="~/images/Favourite.png" alt="Favourite">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a asp-controller="Cart" asp-action="Index">
-                                        <img src="~/images/Cart.png" alt="Cart">
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">
-                                        <img src="~/images/Account.png" alt="Account">
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+        <div class="header">
+            <div class="container">
+                <div class="inner-wrap">
+                    <div class="inner-logo">
+                        <a href="/">
+                            BLUE
+                        </a>
                     </div>
+                    <div class="inner-menu">
+                        <ul>
+                            <li>
+                                <a href="/">
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/">
+                                    Collections
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/">
+                                    New
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="inner-search">
+                        <input class="search" type="text" placeholder="Search" id="search-header" name="text">
+                    </div>
+                    <div class="inner-utilities">
+                        <ul>
+                            <li>
+                                <a asp-controller="Favourite" asp-action="Index">
+                                    <img src="~/images/Favourite.png" alt="Favourite">
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Cart" asp-action="Index">
+                                    <img src="~/images/Cart.png" alt="Cart">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">
+                                    <img src="~/images/Account.png" alt="Account">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                        <div class="container-fluid">
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <i class="fa-solid fa-bars"></i>
+                            </button>
+                        </div>
+                    </nav>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Collections</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">News</a>
+                        </li>
+                        <li class="inner-search nav-item nav-link">
+                            <input class="search " type="text" placeholder="Search" id="search-header" name="text">
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </header>
+
+        </div>
+
         <!-- End Header -->
         <main>
             @RenderBody()  <!-- 🚨 Quan trọng: cần có dòng này -->
