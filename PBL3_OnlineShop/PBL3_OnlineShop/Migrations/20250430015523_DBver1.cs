@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PBL3_OnlineShop.Migrations
 {
     /// <inheritdoc />
-    public partial class DB1 : Migration
+    public partial class DBver1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,7 +22,7 @@ namespace PBL3_OnlineShop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Categori__19093A2B5B40D8C4", x => x.CategoryID);
+                    table.PrimaryKey("PK__Categori__19093A2B14E590B9", x => x.CategoryID);
                 });
 
             migrationBuilder.CreateTable(
@@ -32,32 +32,29 @@ namespace PBL3_OnlineShop.Migrations
                     CouponID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CouponCode = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
-                    DiscountType = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    DiscountType = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false),
                     DiscountValue = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Status = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, defaultValue: "Active")
+                    Status = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, defaultValue: "Active")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Coupons__384AF1DAB0DB4CB3", x => x.CouponID);
+                    table.PrimaryKey("PK__Coupons__384AF1DA417EBE4B", x => x.CouponID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Suppliers",
+                name: "GoodsReceipts",
                 columns: table => new
                 {
-                    SupplierID = table.Column<int>(type: "int", nullable: false)
+                    ReceiptID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SupplierName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    ContactPerson = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Phone = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ReceiptDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "(getdate())"),
+                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Supplier__4BE6669494A43BBC", x => x.SupplierID);
+                    table.PrimaryKey("PK__GoodsRec__CC08C4001F2836C9", x => x.ReceiptID);
                 });
 
             migrationBuilder.CreateTable(
@@ -67,36 +64,16 @@ namespace PBL3_OnlineShop.Migrations
                     UserID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Email = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false),
                     PhoneNumber = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: true),
                     PasswordHash = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: false),
-                    Role = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, defaultValue: "Customer"),
+                    Role = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, defaultValue: "Customer"),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "(getdate())"),
-                    Status = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, defaultValue: "Active")
+                    Status = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, defaultValue: "Active")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Users__1788CCAC536E578A", x => x.UserID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "GoodsReceipts",
-                columns: table => new
-                {
-                    ReceiptID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SupplierID = table.Column<int>(type: "int", nullable: false),
-                    ReceiptDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "(getdate())"),
-                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK__GoodsRec__CC08C400395E2835", x => x.ReceiptID);
-                    table.ForeignKey(
-                        name: "FK_GoodsReceipts_Suppliers",
-                        column: x => x.SupplierID,
-                        principalTable: "Suppliers",
-                        principalColumn: "SupplierID");
+                    table.PrimaryKey("PK__Users__1788CCAC4D3C8916", x => x.UserID);
                 });
 
             migrationBuilder.CreateTable(
@@ -106,30 +83,24 @@ namespace PBL3_OnlineShop.Migrations
                     ProductID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryID = table.Column<int>(type: "int", nullable: false),
-                    SupplierID = table.Column<int>(type: "int", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SellingPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     StockQuantity = table.Column<int>(type: "int", nullable: false),
                     ImageURL = table.Column<string>(type: "varchar(500)", unicode: false, maxLength: 500, nullable: true),
-                    Size = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Size = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "(getdate())"),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Status = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, defaultValue: "Active")
+                    Status = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, defaultValue: "Active")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Products__B40CC6EDFB70B8A8", x => x.ProductID);
+                    table.PrimaryKey("PK__Products__B40CC6ED40077AEF", x => x.ProductID);
                     table.ForeignKey(
                         name: "FK_Products_Categories",
                         column: x => x.CategoryID,
                         principalTable: "Categories",
                         principalColumn: "CategoryID");
-                    table.ForeignKey(
-                        name: "FK_Products_Suppliers",
-                        column: x => x.SupplierID,
-                        principalTable: "Suppliers",
-                        principalColumn: "SupplierID");
                 });
 
             migrationBuilder.CreateTable(
@@ -144,7 +115,7 @@ namespace PBL3_OnlineShop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Cart__51BCD79714C5C406", x => x.CartID);
+                    table.PrimaryKey("PK__Cart__51BCD797AF0DDB4E", x => x.CartID);
                     table.ForeignKey(
                         name: "FK_Cart_Users",
                         column: x => x.UserID,
@@ -153,23 +124,28 @@ namespace PBL3_OnlineShop.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ShippingAddresses",
+                name: "Orders",
                 columns: table => new
                 {
-                    AddressID = table.Column<int>(type: "int", nullable: false)
+                    OrderID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserID = table.Column<int>(type: "int", nullable: false),
-                    RecipientName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    AddressLine = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    PhoneNumber = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: true),
-                    IsDefault = table.Column<bool>(type: "bit", nullable: false)
+                    ShippingAddress = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    CouponID = table.Column<int>(type: "int", nullable: true),
+                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "(getdate())"),
+                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Status = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, defaultValue: "Pending")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Shipping__091C2A1BC1555D9B", x => x.AddressID);
+                    table.PrimaryKey("PK__Orders__C3905BAF624D738A", x => x.OrderID);
                     table.ForeignKey(
-                        name: "FK_ShippingAddresses_Users",
+                        name: "FK_Orders_Coupons",
+                        column: x => x.CouponID,
+                        principalTable: "Coupons",
+                        principalColumn: "CouponID");
+                    table.ForeignKey(
+                        name: "FK_Orders_Users",
                         column: x => x.UserID,
                         principalTable: "Users",
                         principalColumn: "UserID");
@@ -188,17 +164,17 @@ namespace PBL3_OnlineShop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__GoodsRec__82FADEDB065B8195", x => x.ReceiptDetailID);
-                    table.ForeignKey(
-                        name: "FK_GoodsReceiptDetails_GoodsReceipts",
-                        column: x => x.ReceiptID,
-                        principalTable: "GoodsReceipts",
-                        principalColumn: "ReceiptID");
+                    table.PrimaryKey("PK__GoodsRec__82FADEDB7DC3101F", x => x.ReceiptDetailID);
                     table.ForeignKey(
                         name: "FK_GoodsReceiptDetails_Products",
                         column: x => x.ProductID,
                         principalTable: "Products",
                         principalColumn: "ProductID");
+                    table.ForeignKey(
+                        name: "FK_GoodsReceiptDetails_Receipts",
+                        column: x => x.ReceiptID,
+                        principalTable: "GoodsReceipts",
+                        principalColumn: "ReceiptID");
                 });
 
             migrationBuilder.CreateTable(
@@ -214,7 +190,7 @@ namespace PBL3_OnlineShop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__CartItem__488B0B2A4BE24A93", x => x.CartItemID);
+                    table.PrimaryKey("PK__CartItem__488B0B2A102B22CC", x => x.CartItemID);
                     table.ForeignKey(
                         name: "FK_CartItems_Cart",
                         column: x => x.CartID,
@@ -225,39 +201,6 @@ namespace PBL3_OnlineShop.Migrations
                         column: x => x.ProductID,
                         principalTable: "Products",
                         principalColumn: "ProductID");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Orders",
-                columns: table => new
-                {
-                    OrderID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
-                    ShippingAddressID = table.Column<int>(type: "int", nullable: false),
-                    CouponID = table.Column<int>(type: "int", nullable: true),
-                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "(getdate())"),
-                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, defaultValue: "Pending")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK__Orders__C3905BAF642CD0F6", x => x.OrderID);
-                    table.ForeignKey(
-                        name: "FK_Orders_Coupons",
-                        column: x => x.CouponID,
-                        principalTable: "Coupons",
-                        principalColumn: "CouponID");
-                    table.ForeignKey(
-                        name: "FK_Orders_ShippingAddresses",
-                        column: x => x.ShippingAddressID,
-                        principalTable: "ShippingAddresses",
-                        principalColumn: "AddressID");
-                    table.ForeignKey(
-                        name: "FK_Orders_Users",
-                        column: x => x.UserID,
-                        principalTable: "Users",
-                        principalColumn: "UserID");
                 });
 
             migrationBuilder.CreateTable(
@@ -273,7 +216,7 @@ namespace PBL3_OnlineShop.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__OrderDet__D3B9D30C41BD5B06", x => x.OrderDetailID);
+                    table.PrimaryKey("PK__OrderDet__D3B9D30C1D1E9638", x => x.OrderDetailID);
                     table.ForeignKey(
                         name: "FK_OrderDetails_Orders",
                         column: x => x.OrderID,
@@ -295,15 +238,15 @@ namespace PBL3_OnlineShop.Migrations
                     OrderID = table.Column<int>(type: "int", nullable: false),
                     PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "(getdate())"),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PaymentMethod = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    PaymentStatus = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, defaultValue: "Pending"),
+                    PaymentMethod = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
+                    PaymentStatus = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false, defaultValue: "Pending"),
                     TransactionID = table.Column<string>(type: "varchar(255)", unicode: false, maxLength: 255, nullable: true),
                     PaymentGatewayResponse = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Notes = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK__Payments__9B556A588F04480D", x => x.PaymentID);
+                    table.PrimaryKey("PK__Payments__9B556A58E82DFFCC", x => x.PaymentID);
                     table.ForeignKey(
                         name: "FK_Payments_Orders",
                         column: x => x.OrderID,
@@ -312,7 +255,7 @@ namespace PBL3_OnlineShop.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "UQ__Cart__1788CCAD53BDFB9F",
+                name: "UQ__Cart__1788CCAD208F333C",
                 table: "Cart",
                 column: "UserID",
                 unique: true);
@@ -323,19 +266,19 @@ namespace PBL3_OnlineShop.Migrations
                 column: "ProductID");
 
             migrationBuilder.CreateIndex(
-                name: "UQ_CartItems_CartID_ProductID",
+                name: "UQ_CartItems_Cart_Product",
                 table: "CartItems",
                 columns: new[] { "CartID", "ProductID" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "UQ__Categori__8517B2E0B8999AAB",
+                name: "UQ__Categori__8517B2E047847E7F",
                 table: "Categories",
                 column: "CategoryName",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "UQ__Coupons__D3490800484BE6F4",
+                name: "UQ__Coupons__D3490800B67C3E2F",
                 table: "Coupons",
                 column: "CouponCode",
                 unique: true);
@@ -349,11 +292,6 @@ namespace PBL3_OnlineShop.Migrations
                 name: "IX_GoodsReceiptDetails_ReceiptID",
                 table: "GoodsReceiptDetails",
                 column: "ReceiptID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GoodsReceipts_SupplierID",
-                table: "GoodsReceipts",
-                column: "SupplierID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderDetails_OrderID",
@@ -371,11 +309,6 @@ namespace PBL3_OnlineShop.Migrations
                 column: "CouponID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_ShippingAddressID",
-                table: "Orders",
-                column: "ShippingAddressID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Orders_UserID",
                 table: "Orders",
                 column: "UserID");
@@ -391,24 +324,7 @@ namespace PBL3_OnlineShop.Migrations
                 column: "CategoryID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_SupplierID",
-                table: "Products",
-                column: "SupplierID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ShippingAddresses_UserID",
-                table: "ShippingAddresses",
-                column: "UserID");
-
-            migrationBuilder.CreateIndex(
-                name: "UQ__Supplier__A9D10534BD7617F6",
-                table: "Suppliers",
-                column: "Email",
-                unique: true,
-                filter: "[Email] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "UQ__Users__A9D10534049C6CC6",
+                name: "UQ__Users__A9D10534124415B8",
                 table: "Users",
                 column: "Email",
                 unique: true);
@@ -445,13 +361,7 @@ namespace PBL3_OnlineShop.Migrations
                 name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Suppliers");
-
-            migrationBuilder.DropTable(
                 name: "Coupons");
-
-            migrationBuilder.DropTable(
-                name: "ShippingAddresses");
 
             migrationBuilder.DropTable(
                 name: "Users");

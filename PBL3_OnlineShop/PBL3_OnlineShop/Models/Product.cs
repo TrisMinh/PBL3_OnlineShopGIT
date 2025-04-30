@@ -9,8 +9,6 @@ public partial class Product
 
     public int CategoryId { get; set; }
 
-    public int SupplierId { get; set; }
-
     public string ProductName { get; set; } = null!;
 
     public string? Description { get; set; }
@@ -36,6 +34,4 @@ public partial class Product
     public virtual ICollection<GoodsReceiptDetail> GoodsReceiptDetails { get; set; } = new List<GoodsReceiptDetail>();
 
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
-
-    public virtual Supplier Supplier { get; set; } = null!;
 }

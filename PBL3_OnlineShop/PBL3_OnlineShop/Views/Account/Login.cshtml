@@ -1,0 +1,45 @@
+﻿@{
+    Layout = "_Layout";  // Nếu bạn sử dụng layout chung, nếu không, xóa dòng này.
+}
+
+<!-- Modal Đăng Nhập -->
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title fs-5" id="exampleModalToggleLabel">Login</div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="login-main">
+                    <form asp-action="Login" method="post">
+                        <div class="modal-username">
+                            <label for="username">Username:</label>
+                            <input type="text" id="username" name="username" placeholder="Example: Syprovip1" required>
+                        </div>
+                        <div class="modal-password">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="password" required>
+                        </div>
+                        <div class="modal-inter">
+                            <div class="button">
+                                <button class="login-button" type="submit">
+                                    Login
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <a href="/" class="forgot-pass" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal">
+                        Forgot password?
+                    </a>
+                    <div class="modal-sign-up">
+                        <span>Don't have an account?</span>
+                        <a href="/" class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
+                            Sign up now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

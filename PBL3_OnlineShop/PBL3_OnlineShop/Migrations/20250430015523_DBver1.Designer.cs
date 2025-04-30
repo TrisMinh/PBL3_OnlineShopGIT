@@ -12,9 +12,9 @@ using PBL3_OnlineShop.Data;
 
 namespace PBL3_OnlineShop.Migrations
 {
-    [DbContext(typeof(Pbl3DbContext))]
-    [Migration("20250419113411_DB1")]
-    partial class DB1
+    [DbContext(typeof(PBL3_Db_Context))]
+    [Migration("20250430015523_DBver1")]
+    partial class DBver1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,9 +48,9 @@ namespace PBL3_OnlineShop.Migrations
                         .HasColumnName("UserID");
 
                     b.HasKey("CartId")
-                        .HasName("PK__Cart__51BCD79714C5C406");
+                        .HasName("PK__Cart__51BCD797AF0DDB4E");
 
-                    b.HasIndex(new[] { "UserId" }, "UQ__Cart__1788CCAD53BDFB9F")
+                    b.HasIndex(new[] { "UserId" }, "UQ__Cart__1788CCAD208F333C")
                         .IsUnique();
 
                     b.ToTable("Cart", (string)null);
@@ -82,11 +82,11 @@ namespace PBL3_OnlineShop.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("CartItemId")
-                        .HasName("PK__CartItem__488B0B2A4BE24A93");
+                        .HasName("PK__CartItem__488B0B2A102B22CC");
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex(new[] { "CartId", "ProductId" }, "UQ_CartItems_CartID_ProductID")
+                    b.HasIndex(new[] { "CartId", "ProductId" }, "UQ_CartItems_Cart_Product")
                         .IsUnique();
 
                     b.ToTable("CartItems");
@@ -110,9 +110,9 @@ namespace PBL3_OnlineShop.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CategoryId")
-                        .HasName("PK__Categori__19093A2B5B40D8C4");
+                        .HasName("PK__Categori__19093A2B14E590B9");
 
-                    b.HasIndex(new[] { "CategoryName" }, "UQ__Categori__8517B2E0B8999AAB")
+                    b.HasIndex(new[] { "CategoryName" }, "UQ__Categori__8517B2E047847E7F")
                         .IsUnique();
 
                     b.ToTable("Categories");
@@ -136,7 +136,8 @@ namespace PBL3_OnlineShop.Migrations
                     b.Property<string>("DiscountType")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<decimal>("DiscountValue")
                         .HasColumnType("decimal(18, 2)");
@@ -151,13 +152,14 @@ namespace PBL3_OnlineShop.Migrations
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)")
                         .HasDefaultValue("Active");
 
                     b.HasKey("CouponId")
-                        .HasName("PK__Coupons__384AF1DAB0DB4CB3");
+                        .HasName("PK__Coupons__384AF1DA417EBE4B");
 
-                    b.HasIndex(new[] { "CouponCode" }, "UQ__Coupons__D3490800484BE6F4")
+                    b.HasIndex(new[] { "CouponCode" }, "UQ__Coupons__D3490800B67C3E2F")
                         .IsUnique();
 
                     b.ToTable("Coupons");
@@ -180,14 +182,8 @@ namespace PBL3_OnlineShop.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("(getdate())");
 
-                    b.Property<int>("SupplierId")
-                        .HasColumnType("int")
-                        .HasColumnName("SupplierID");
-
                     b.HasKey("ReceiptId")
-                        .HasName("PK__GoodsRec__CC08C400395E2835");
-
-                    b.HasIndex("SupplierId");
+                        .HasName("PK__GoodsRec__CC08C4001F2836C9");
 
                     b.ToTable("GoodsReceipts");
                 });
@@ -216,7 +212,7 @@ namespace PBL3_OnlineShop.Migrations
                         .HasColumnName("ReceiptID");
 
                     b.HasKey("ReceiptDetailId")
-                        .HasName("PK__GoodsRec__82FADEDB065B8195");
+                        .HasName("PK__GoodsRec__82FADEDB7DC3101F");
 
                     b.HasIndex("ProductId");
 
@@ -243,15 +239,17 @@ namespace PBL3_OnlineShop.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("(getdate())");
 
-                    b.Property<int>("ShippingAddressId")
-                        .HasColumnType("int")
-                        .HasColumnName("ShippingAddressID");
+                    b.Property<string>("ShippingAddress")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)")
                         .HasDefaultValue("Pending");
 
                     b.Property<decimal>("TotalAmount")
@@ -262,11 +260,9 @@ namespace PBL3_OnlineShop.Migrations
                         .HasColumnName("UserID");
 
                     b.HasKey("OrderId")
-                        .HasName("PK__Orders__C3905BAF642CD0F6");
+                        .HasName("PK__Orders__C3905BAF624D738A");
 
                     b.HasIndex("CouponId");
-
-                    b.HasIndex("ShippingAddressId");
 
                     b.HasIndex("UserId");
 
@@ -297,7 +293,7 @@ namespace PBL3_OnlineShop.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("OrderDetailId")
-                        .HasName("PK__OrderDet__D3B9D30C41BD5B06");
+                        .HasName("PK__OrderDet__D3B9D30C1D1E9638");
 
                     b.HasIndex("OrderId");
 
@@ -336,13 +332,15 @@ namespace PBL3_OnlineShop.Migrations
                     b.Property<string>("PaymentMethod")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("PaymentStatus")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)")
                         .HasDefaultValue("Pending");
 
                     b.Property<string>("TransactionId")
@@ -352,7 +350,7 @@ namespace PBL3_OnlineShop.Migrations
                         .HasColumnName("TransactionID");
 
                     b.HasKey("PaymentId")
-                        .HasName("PK__Payments__9B556A588F04480D");
+                        .HasName("PK__Payments__9B556A58E82DFFCC");
 
                     b.HasIndex("OrderId");
 
@@ -396,117 +394,29 @@ namespace PBL3_OnlineShop.Migrations
 
                     b.Property<string>("Size")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)")
                         .HasDefaultValue("Active");
 
                     b.Property<int>("StockQuantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("SupplierId")
-                        .HasColumnType("int")
-                        .HasColumnName("SupplierID");
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ProductId")
-                        .HasName("PK__Products__B40CC6EDFB70B8A8");
+                        .HasName("PK__Products__B40CC6ED40077AEF");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("SupplierId");
-
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("PBL3_OnlineShop.Models.ShippingAddress", b =>
-                {
-                    b.Property<int>("AddressId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("AddressID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AddressId"));
-
-                    b.Property<string>("AddressLine")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<bool>("IsDefault")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasMaxLength(20)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(20)");
-
-                    b.Property<string>("RecipientName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int")
-                        .HasColumnName("UserID");
-
-                    b.HasKey("AddressId")
-                        .HasName("PK__Shipping__091C2A1BC1555D9B");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("ShippingAddresses");
-                });
-
-            modelBuilder.Entity("PBL3_OnlineShop.Models.Supplier", b =>
-                {
-                    b.Property<int>("SupplierId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("SupplierID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SupplierId"));
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ContactPerson")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("Phone")
-                        .HasMaxLength(20)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(20)");
-
-                    b.Property<string>("SupplierName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.HasKey("SupplierId")
-                        .HasName("PK__Supplier__4BE6669494A43BBC");
-
-                    b.HasIndex(new[] { "Email" }, "UQ__Supplier__A9D10534BD7617F6")
-                        .IsUnique()
-                        .HasFilter("[Email] IS NOT NULL");
-
-                    b.ToTable("Suppliers");
                 });
 
             modelBuilder.Entity("PBL3_OnlineShop.Models.User", b =>
@@ -526,7 +436,8 @@ namespace PBL3_OnlineShop.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -548,20 +459,22 @@ namespace PBL3_OnlineShop.Migrations
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)")
                         .HasDefaultValue("Customer");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)")
                         .HasDefaultValue("Active");
 
                     b.HasKey("UserId")
-                        .HasName("PK__Users__1788CCAC536E578A");
+                        .HasName("PK__Users__1788CCAC4D3C8916");
 
-                    b.HasIndex(new[] { "Email" }, "UQ__Users__A9D10534049C6CC6")
+                    b.HasIndex(new[] { "Email" }, "UQ__Users__A9D10534124415B8")
                         .IsUnique();
 
                     b.ToTable("Users");
@@ -597,17 +510,6 @@ namespace PBL3_OnlineShop.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("PBL3_OnlineShop.Models.GoodsReceipt", b =>
-                {
-                    b.HasOne("PBL3_OnlineShop.Models.Supplier", "Supplier")
-                        .WithMany("GoodsReceipts")
-                        .HasForeignKey("SupplierId")
-                        .IsRequired()
-                        .HasConstraintName("FK_GoodsReceipts_Suppliers");
-
-                    b.Navigation("Supplier");
-                });
-
             modelBuilder.Entity("PBL3_OnlineShop.Models.GoodsReceiptDetail", b =>
                 {
                     b.HasOne("PBL3_OnlineShop.Models.Product", "Product")
@@ -620,7 +522,7 @@ namespace PBL3_OnlineShop.Migrations
                         .WithMany("GoodsReceiptDetails")
                         .HasForeignKey("ReceiptId")
                         .IsRequired()
-                        .HasConstraintName("FK_GoodsReceiptDetails_GoodsReceipts");
+                        .HasConstraintName("FK_GoodsReceiptDetails_Receipts");
 
                     b.Navigation("Product");
 
@@ -634,12 +536,6 @@ namespace PBL3_OnlineShop.Migrations
                         .HasForeignKey("CouponId")
                         .HasConstraintName("FK_Orders_Coupons");
 
-                    b.HasOne("PBL3_OnlineShop.Models.ShippingAddress", "ShippingAddress")
-                        .WithMany("Orders")
-                        .HasForeignKey("ShippingAddressId")
-                        .IsRequired()
-                        .HasConstraintName("FK_Orders_ShippingAddresses");
-
                     b.HasOne("PBL3_OnlineShop.Models.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
@@ -647,8 +543,6 @@ namespace PBL3_OnlineShop.Migrations
                         .HasConstraintName("FK_Orders_Users");
 
                     b.Navigation("Coupon");
-
-                    b.Navigation("ShippingAddress");
 
                     b.Navigation("User");
                 });
@@ -691,26 +585,7 @@ namespace PBL3_OnlineShop.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_Products_Categories");
 
-                    b.HasOne("PBL3_OnlineShop.Models.Supplier", "Supplier")
-                        .WithMany("Products")
-                        .HasForeignKey("SupplierId")
-                        .IsRequired()
-                        .HasConstraintName("FK_Products_Suppliers");
-
                     b.Navigation("Category");
-
-                    b.Navigation("Supplier");
-                });
-
-            modelBuilder.Entity("PBL3_OnlineShop.Models.ShippingAddress", b =>
-                {
-                    b.HasOne("PBL3_OnlineShop.Models.User", "User")
-                        .WithMany("ShippingAddresses")
-                        .HasForeignKey("UserId")
-                        .IsRequired()
-                        .HasConstraintName("FK_ShippingAddresses_Users");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("PBL3_OnlineShop.Models.Cart", b =>
@@ -749,25 +624,11 @@ namespace PBL3_OnlineShop.Migrations
                     b.Navigation("OrderDetails");
                 });
 
-            modelBuilder.Entity("PBL3_OnlineShop.Models.ShippingAddress", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("PBL3_OnlineShop.Models.Supplier", b =>
-                {
-                    b.Navigation("GoodsReceipts");
-
-                    b.Navigation("Products");
-                });
-
             modelBuilder.Entity("PBL3_OnlineShop.Models.User", b =>
                 {
                     b.Navigation("Cart");
 
                     b.Navigation("Orders");
-
-                    b.Navigation("ShippingAddresses");
                 });
 #pragma warning restore 612, 618
         }
