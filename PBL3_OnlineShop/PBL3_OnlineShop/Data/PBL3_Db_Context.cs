@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PBL3_OnlineShop.Models;
 
 namespace PBL3_OnlineShop.Data;
 
-public partial class PBL3_Db_Context : DbContext
+public partial class PBL3_Db_Context : IdentityDbContext<AppUser>
 {
     public PBL3_Db_Context()
     {
@@ -36,31 +37,25 @@ public partial class PBL3_Db_Context : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
-    public virtual DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Cart>(entity =>
         {
             entity.HasKey(e => e.CartId).HasName("PK__Cart__51BCD797AF0DDB4E");
 
             entity.ToTable("Cart");
 
-            entity.HasIndex(e => e.UserId, "UQ__Cart__1788CCAD208F333C").IsUnique();
-
             entity.Property(e => e.CartId).HasColumnName("CartID");
             entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.UserId).HasColumnName("UserID");
-
-            entity.HasOne(d => d.User).WithOne(p => p.Cart)
-                .HasForeignKey<Cart>(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Cart_Users");
         });
 
         modelBuilder.Entity<CartItem>(entity =>
         {
             entity.HasKey(e => e.CartItemId).HasName("PK__CartItem__488B0B2A102B22CC");
+
+            entity.HasIndex(e => e.ProductId, "IX_CartItems_ProductID");
 
             entity.HasIndex(e => new { e.CartId, e.ProductId }, "UQ_CartItems_Cart_Product").IsUnique();
 
@@ -122,6 +117,10 @@ public partial class PBL3_Db_Context : DbContext
         {
             entity.HasKey(e => e.ReceiptDetailId).HasName("PK__GoodsRec__82FADEDB7DC3101F");
 
+            entity.HasIndex(e => e.ProductId, "IX_GoodsReceiptDetails_ProductID");
+
+            entity.HasIndex(e => e.ReceiptId, "IX_GoodsReceiptDetails_ReceiptID");
+
             entity.Property(e => e.ReceiptDetailId).HasColumnName("ReceiptDetailID");
             entity.Property(e => e.ProductId).HasColumnName("ProductID");
             entity.Property(e => e.PurchasePrice).HasColumnType("decimal(18, 2)");
@@ -142,6 +141,8 @@ public partial class PBL3_Db_Context : DbContext
         {
             entity.HasKey(e => e.OrderId).HasName("PK__Orders__C3905BAF624D738A");
 
+            entity.HasIndex(e => e.CouponId, "IX_Orders_CouponID");
+
             entity.Property(e => e.OrderId).HasColumnName("OrderID");
             entity.Property(e => e.CouponId).HasColumnName("CouponID");
             entity.Property(e => e.OrderDate).HasDefaultValueSql("(getdate())");
@@ -151,21 +152,19 @@ public partial class PBL3_Db_Context : DbContext
                 .IsUnicode(false)
                 .HasDefaultValue("Pending");
             entity.Property(e => e.TotalAmount).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.UserId).HasColumnName("UserID");
 
             entity.HasOne(d => d.Coupon).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.CouponId)
                 .HasConstraintName("FK_Orders_Coupons");
-
-            entity.HasOne(d => d.User).WithMany(p => p.Orders)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Orders_Users");
         });
 
         modelBuilder.Entity<OrderDetail>(entity =>
         {
             entity.HasKey(e => e.OrderDetailId).HasName("PK__OrderDet__D3B9D30C1D1E9638");
+
+            entity.HasIndex(e => e.OrderId, "IX_OrderDetails_OrderID");
+
+            entity.HasIndex(e => e.ProductId, "IX_OrderDetails_ProductID");
 
             entity.Property(e => e.OrderDetailId).HasColumnName("OrderDetailID");
             entity.Property(e => e.OrderId).HasColumnName("OrderID");
@@ -186,6 +185,8 @@ public partial class PBL3_Db_Context : DbContext
         modelBuilder.Entity<Payment>(entity =>
         {
             entity.HasKey(e => e.PaymentId).HasName("PK__Payments__9B556A58E82DFFCC");
+
+            entity.HasIndex(e => e.OrderId, "IX_Payments_OrderID");
 
             entity.Property(e => e.PaymentId).HasColumnName("PaymentID");
             entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
@@ -213,14 +214,26 @@ public partial class PBL3_Db_Context : DbContext
         {
             entity.HasKey(e => e.ProductId).HasName("PK__Products__B40CC6ED40077AEF");
 
+            entity.HasIndex(e => e.CategoryId, "IX_Products_CategoryID");
+
             entity.Property(e => e.ProductId).HasColumnName("ProductID");
             entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
+            entity.Property(e => e.Collections)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.Colors)
+                .HasMaxLength(255)
+                .IsUnicode(false);
             entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
+            entity.Property(e => e.Gender)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.ImageUrl)
                 .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("ImageURL");
             entity.Property(e => e.ProductName).HasMaxLength(255);
+            entity.Property(e => e.SalePercentage).HasColumnType("decimal(2, 2)");
             entity.Property(e => e.SellingPrice).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.Size)
                 .HasMaxLength(50)
@@ -234,34 +247,6 @@ public partial class PBL3_Db_Context : DbContext
                 .HasForeignKey(d => d.CategoryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Products_Categories");
-        });
-
-        modelBuilder.Entity<User>(entity =>
-        {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCAC4D3C8916");
-
-            entity.HasIndex(e => e.Email, "UQ__Users__A9D10534124415B8").IsUnique();
-
-            entity.Property(e => e.UserId).HasColumnName("UserID");
-            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.Email)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.FullName).HasMaxLength(255);
-            entity.Property(e => e.PasswordHash)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.PhoneNumber)
-                .HasMaxLength(20)
-                .IsUnicode(false);
-            entity.Property(e => e.Role)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasDefaultValue("Customer");
-            entity.Property(e => e.Status)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasDefaultValue("Active");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -3,21 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PBL3_OnlineShop.Data;
-
 
 #nullable disable
 
 namespace PBL3_OnlineShop.Migrations
 {
     [DbContext(typeof(PBL3_Db_Context))]
-    [Migration("20250430015523_DBver1")]
-    partial class DBver1
+    partial class PBL3_DbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,6 +21,204 @@ namespace PBL3_OnlineShop.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("PBL3_OnlineShop.Models.AppUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
 
             modelBuilder.Entity("PBL3_OnlineShop.Models.Cart", b =>
                 {
@@ -43,15 +237,8 @@ namespace PBL3_OnlineShop.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int")
-                        .HasColumnName("UserID");
-
                     b.HasKey("CartId")
                         .HasName("PK__Cart__51BCD797AF0DDB4E");
-
-                    b.HasIndex(new[] { "UserId" }, "UQ__Cart__1788CCAD208F333C")
-                        .IsUnique();
 
                     b.ToTable("Cart", (string)null);
                 });
@@ -84,7 +271,7 @@ namespace PBL3_OnlineShop.Migrations
                     b.HasKey("CartItemId")
                         .HasName("PK__CartItem__488B0B2A102B22CC");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex(new[] { "ProductId" }, "IX_CartItems_ProductID");
 
                     b.HasIndex(new[] { "CartId", "ProductId" }, "UQ_CartItems_Cart_Product")
                         .IsUnique();
@@ -214,9 +401,9 @@ namespace PBL3_OnlineShop.Migrations
                     b.HasKey("ReceiptDetailId")
                         .HasName("PK__GoodsRec__82FADEDB7DC3101F");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex(new[] { "ProductId" }, "IX_GoodsReceiptDetails_ProductID");
 
-                    b.HasIndex("ReceiptId");
+                    b.HasIndex(new[] { "ReceiptId" }, "IX_GoodsReceiptDetails_ReceiptID");
 
                     b.ToTable("GoodsReceiptDetails");
                 });
@@ -255,16 +442,10 @@ namespace PBL3_OnlineShop.Migrations
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int")
-                        .HasColumnName("UserID");
-
                     b.HasKey("OrderId")
                         .HasName("PK__Orders__C3905BAF624D738A");
 
-                    b.HasIndex("CouponId");
-
-                    b.HasIndex("UserId");
+                    b.HasIndex(new[] { "CouponId" }, "IX_Orders_CouponID");
 
                     b.ToTable("Orders");
                 });
@@ -295,9 +476,9 @@ namespace PBL3_OnlineShop.Migrations
                     b.HasKey("OrderDetailId")
                         .HasName("PK__OrderDet__D3B9D30C1D1E9638");
 
-                    b.HasIndex("OrderId");
+                    b.HasIndex(new[] { "OrderId" }, "IX_OrderDetails_OrderID");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex(new[] { "ProductId" }, "IX_OrderDetails_ProductID");
 
                     b.ToTable("OrderDetails");
                 });
@@ -352,7 +533,7 @@ namespace PBL3_OnlineShop.Migrations
                     b.HasKey("PaymentId")
                         .HasName("PK__Payments__9B556A58E82DFFCC");
 
-                    b.HasIndex("OrderId");
+                    b.HasIndex(new[] { "OrderId" }, "IX_Payments_OrderID");
 
                     b.ToTable("Payments");
                 });
@@ -370,6 +551,16 @@ namespace PBL3_OnlineShop.Migrations
                         .HasColumnType("int")
                         .HasColumnName("CategoryID");
 
+                    b.Property<string>("Collections")
+                        .HasMaxLength(255)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Colors")
+                        .HasMaxLength(255)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(255)");
+
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
@@ -377,6 +568,11 @@ namespace PBL3_OnlineShop.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("ImageUrl")
                         .HasMaxLength(500)
@@ -388,6 +584,9 @@ namespace PBL3_OnlineShop.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<decimal?>("SalePercentage")
+                        .HasColumnType("decimal(2, 2)");
 
                     b.Property<decimal>("SellingPrice")
                         .HasColumnType("decimal(18, 2)");
@@ -414,81 +613,60 @@ namespace PBL3_OnlineShop.Migrations
                     b.HasKey("ProductId")
                         .HasName("PK__Products__B40CC6ED40077AEF");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex(new[] { "CategoryId" }, "IX_Products_CategoryID");
 
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("PBL3_OnlineShop.Models.User", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("UserID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("(getdate())");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasMaxLength(20)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(20)");
-
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)")
-                        .HasDefaultValue("Customer");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)")
-                        .HasDefaultValue("Active");
-
-                    b.HasKey("UserId")
-                        .HasName("PK__Users__1788CCAC4D3C8916");
-
-                    b.HasIndex(new[] { "Email" }, "UQ__Users__A9D10534124415B8")
-                        .IsUnique();
-
-                    b.ToTable("Users");
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("PBL3_OnlineShop.Models.Cart", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("PBL3_OnlineShop.Models.User", "User")
-                        .WithOne("Cart")
-                        .HasForeignKey("PBL3_OnlineShop.Models.Cart", "UserId")
-                        .IsRequired()
-                        .HasConstraintName("FK_Cart_Users");
+                    b.HasOne("PBL3_OnlineShop.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.Navigation("User");
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("PBL3_OnlineShop.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PBL3_OnlineShop.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("PBL3_OnlineShop.Models.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PBL3_OnlineShop.Models.CartItem", b =>
@@ -536,15 +714,7 @@ namespace PBL3_OnlineShop.Migrations
                         .HasForeignKey("CouponId")
                         .HasConstraintName("FK_Orders_Coupons");
 
-                    b.HasOne("PBL3_OnlineShop.Models.User", "User")
-                        .WithMany("Orders")
-                        .HasForeignKey("UserId")
-                        .IsRequired()
-                        .HasConstraintName("FK_Orders_Users");
-
                     b.Navigation("Coupon");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("PBL3_OnlineShop.Models.OrderDetail", b =>
@@ -622,13 +792,6 @@ namespace PBL3_OnlineShop.Migrations
                     b.Navigation("GoodsReceiptDetails");
 
                     b.Navigation("OrderDetails");
-                });
-
-            modelBuilder.Entity("PBL3_OnlineShop.Models.User", b =>
-                {
-                    b.Navigation("Cart");
-
-                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

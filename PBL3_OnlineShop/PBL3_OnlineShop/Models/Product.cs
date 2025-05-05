@@ -29,12 +29,12 @@ public partial class Product
 
     public decimal? SalePercentage { get; set; }
 
-    public string Colors { get; set; }
-    
-    public string Collections { get; set; }
-    
-    public string Gender { get; set; }
-    
+    public string? Collections { get; set; }
+
+    public string? Colors { get; set; }
+
+    public string? Gender { get; set; }
+
     public virtual ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
 
     public virtual Category Category { get; set; } = null!;
