@@ -9,10 +9,6 @@ namespace PBL3_OnlineShop
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddDbContext<PBL3_Db_Context>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-            });
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
