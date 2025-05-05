@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PBL3_OnlineShop.Data;
 using PBL3_OnlineShop.Models;
 using System.Collections.Generic; // Required for List
 using System.Linq; // Required for FirstOrDefault, Contains
@@ -8,6 +9,12 @@ namespace PBL3_OnlineShop.Controllers
 {
     public class ProductsController : Controller
     {
+        private readonly PBL3_Db_Context _context;
+
+        public ProductsController(PBL3_Db_Context context)
+        {
+            _context = context;
+        }
         // GET: ProductsController
         public ActionResult Index(string category)
         {
@@ -33,9 +40,17 @@ namespace PBL3_OnlineShop.Controllers
         }
 
         // GET: ProductController/Details/5
-        public ActionResult Details(int id)
+        public  ActionResult Details(int id = 1)
         {
-            return View();
+            if (id == 0) return View();
+
+            var productbyId = _context.Products.FirstOrDefault(p => p.ProductId == id);
+            if (productbyId == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View(productbyId);
         }
 
         // GET: ProductController/Create
