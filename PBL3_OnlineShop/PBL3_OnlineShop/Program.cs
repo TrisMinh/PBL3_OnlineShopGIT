@@ -10,6 +10,12 @@ namespace PBL3_OnlineShop
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // Connection
+            builder.Services.AddDbContext<PBL3_Db_Context>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
@@ -35,7 +41,6 @@ namespace PBL3_OnlineShop
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
-            app.Configuration.GetConnectionString("DefaultConnection");
         }
     }
 }

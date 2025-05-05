@@ -1,4 +1,3 @@
-
 /* Add some top margin to push content below fixed header */
 .product-page-container {
     padding-top: 80px; /* Adjust as needed based on header height */
@@ -223,21 +222,28 @@
     flex-direction: column;
     border: 1px solid #eee; /* Add a subtle border */
     background-color: #fff; /* fill_DCWY0H */
-    overflow: hidden; /* Ensure content fits */
+    overflow: visible;
     border-radius: 4px; /* Added subtle rounding */
-    transition: box-shadow 0.3s ease; /* Add hover effect */
+    transition: transform 0.3s cubic-bezier(.4,2,.6,1);
+    z-index: 1;
 }
 
 .product-card:hover {
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: scale(1.02);
+    z-index: 10;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.02);
 }
 
 .product-image-container {
-    /* Based on Frame 281 layout_WMQ3SG */
-    position: relative; /* For potential overlays or badges */
+    position: relative;
     width: 100%;
-    padding-top: 110%; /* Adjust aspect ratio based on typical product images */
-    background-color: #f9f9f9; /* Placeholder background */
+    padding-top: 150%;
+    background-color: #f9f9f9;
+    overflow: hidden;
 }
 
 .product-image {
@@ -246,7 +252,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensure image covers the container */
+    object-fit: cover;
+    transition: transform 0.3s cubic-bezier(.4,2,.6,1);
 }
 
 .product-info {
@@ -268,21 +275,21 @@
 }
 
 .product-details {
-     /* Based on Frame 283 layout_WMQ3SG */
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Align name and price */
-    margin-top: 5px; /* Add space above details */
+    align-items: center;
+    margin-top: 5px;
 }
 
 .product-name {
+    flex: 1;
+    min-width: 0;
+    padding-right: 10px;
     /* Styles based on textStyle: style_978WWS */
     font-family: 'Inder', sans-serif; /* Assuming font availability */
     font-size: 14px;
     color: #000; /* fill_2L9T45 */
     line-height: 1.25;
-    flex-grow: 1; /* Allow name to take available space */
-    padding-right: 5px; /* Space before price */
     font-weight: 500; /* Slightly bolder */
 }
 
@@ -337,4 +344,97 @@
 .page-link.next {
     font-weight: bold;
     font-size: 16px; /* Make arrows slightly larger */
+}
+
+.inner-search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search {
+    width: 100%;
+    padding-left: 36px; /* Chừa chỗ cho icon bên trái */
+    height: 40px; /* hoặc chiều cao bạn muốn */
+    box-sizing: border-box;
+}
+
+.search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    pointer-events: none; /* Để click vào input không bị cản */
+}
+
+/* Ghi đè header Products cho nhỏ bằng layout chung */
+.header {
+    height: 60px !important;
+    min-height: 60px !important;
+    background: #F6F6F6;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px;
+}
+.header .inner-wrap {
+    margin: 8px 0 !important;
+    align-items: center !important;
+}
+.inner-search input.search {
+    background: #D9D9D9;
+    border: none;
+    text-align: right;
+    width: 367px;
+    height: 35px;
+    margin: 0;
+    padding-right: 20px;
+    font-size: 16px;
+}
+.header .inner-logo {
+    font-size: 25px !important;
+    font-family: "Inknut Antiqua", serif;
+    font-weight: 600;
+}
+.header .inner-utilities img {
+    height: 40px !important;
+    width: auto;
+}
+
+.out-of-stock-price {
+    text-decoration: line-through;
+    text-decoration-thickness: 3px;
+    text-decoration-color: #E53935;
+    color: #E53935;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.product-sale-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #444;
+    color: #fff;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+.sale-price {
+    color: #111;
+    font-weight: bold;
+    font-size: 13px;
+    margin-right: 2px;
+}
+.old-price {
+    text-decoration: line-through;
+    color: #888;
+    font-size: 13px;
+    margin-left: 2px;
 }

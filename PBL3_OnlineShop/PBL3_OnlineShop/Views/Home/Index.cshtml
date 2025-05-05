@@ -203,220 +203,38 @@
                         HOT<br>PRODUCTS
                     </div>
                     <div class="content-right">
-                        <a asp-controller="Products" asp-action="Index">
+                        <a asp-controller="Products" asp-action="Index" asp-route-category="Best sellers">
                             See All
                         </a>
                     </div>
                 </div>
                 <div class="line"></div>
                 <div class="inner-list">
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/Polo.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <span>
-                                    +6 color
-                                </span>
-                                <span class="right">
-                                    3 Size
-                                </span>
-                            </div>
-                            <div class="des-two">
-                                <span>
-                                    Polo with logo on the chest
-                                </span>
-                                <span class="right">
-                                    $1
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/Jean.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <div>
-                                    +3 color
-                                </div>
-                                <div class="right">
-                                    3 Size
+                    @if (ViewBag.HotProducts != null)
+                    {
+                        foreach (var product in (List<PBL3_OnlineShop.Models.Product>)ViewBag.HotProducts)
+                        {
+                            var imageArr = (product.ImageUrl ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
+                            var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";
+                            var colorCount = (product.Colors ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
+                            var sizeCount = (product.Size ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
+                            <div class="slide col-lg-4 col-sm-6 col-12">
+                                <div class="list">
+                                    <a href="/Products/Details/@product.ProductId">
+                                        <div class="inner-img"><img src="@imageUrl" alt="@product.ProductName"></div>
+                                    </a>
+                                    <div class="des-one">
+                                        <span>+@colorCount color</span>
+                                        <span class="right">@sizeCount Size</span>
+                                    </div>
+                                    <div class="des-two">
+                                        <span>@product.ProductName</span>
+                                        <span class="right">@string.Format("{0:N0}đ", product.SellingPrice)</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="des-two">
-                                <div>
-                                    Jeans basic slim
-                                </div>
-                                <div class="right">
-                                    $1
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/PoloBasis.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <span>
-                                    +3 color
-                                </span>
-                                <span class="right">
-                                    3 Size
-                                </span>
-                            </div>
-                            <div class="des-two">
-                                <span>
-                                    Polo basis lange mouw
-                                </span>
-                                <span class="right">
-                                    $1
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/Polo.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <span>
-                                    +6 color
-                                </span>
-                                <span class="right">
-                                    3 Size
-                                </span>
-                            </div>
-                            <div class="des-two">
-                                <span>
-                                    Polo with logo on the chest
-                                </span>
-                                <span class="right">
-                                    $1
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/Jean.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <div>
-                                    +3 color
-                                </div>
-                                <div class="right">
-                                    3 Size
-                                </div>
-                            </div>
-                            <div class="des-two">
-                                <div>
-                                    Jeans basic slim
-                                </div>
-                                <div class="right">
-                                    $1
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/PoloBasis.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <span>
-                                    +3 color
-                                </span>
-                                <span class="right">
-                                    3 Size
-                                </span>
-                            </div>
-                            <div class="des-two">
-                                <span>
-                                    Polo basis lange mouw
-                                </span>
-                                <span class="right">
-                                    $1
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/Polo.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <span>
-                                    +6 color
-                                </span>
-                                <span class="right">
-                                    3 Size
-                                </span>
-                            </div>
-                            <div class="des-two">
-                                <span>
-                                    Polo with logo on the chest
-                                </span>
-                                <span class="right">
-                                    $1
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/Jean.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <div>
-                                    +3 color
-                                </div>
-                                <div class="right">
-                                    3 Size
-                                </div>
-                            </div>
-                            <div class="des-two">
-                                <div>
-                                    Jeans basic slim
-                                </div>
-                                <div class="right">
-                                    $1
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="">
-                                <div class="inner-img"><img src="~/images/PoloBasis.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <span>
-                                    +3 color
-                                </span>
-                                <span class="right">
-                                    3 Size
-                                </span>
-                            </div>
-                            <div class="des-two">
-                                <span>
-                                    Polo basis lange mouw
-                                </span>
-                                <span class="right">
-                                    $1
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+                        }
+                    }
                 </div>
                 <div class="inner-button">
                     <button class="nav-btn prev">❮</button>
@@ -435,256 +253,46 @@
                         PROMOTIONAL<br>PRODUCTS
                     </div>
                     <div class="content-right">
-                        <a href="/">
+                        <a asp-controller="Products" asp-action="Index" asp-route-category="Sales">
                             See All
                         </a>
                     </div>
                 </div>
                 <div class="line"></div>
                 <div class="inner-list">
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/Polo.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <span>
-                                    +6 color
-                                </span>
-                                <span class="right">
-                                    3 Size
-                                </span>
-                            </div>
-                            <div class="des-two">
-                                <span>
-                                    Polo with logo on the chest
-                                </span>
-                                <span class="right">
-                                    $1
-                                    <em style="text-decoration:line-through; color: #666">$99</em>
-                                </span>
-                            </div>
-                            <div class="inner-sale">
-                                <span>-99%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/Jean.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <div>
-                                    +3 color
-                                </div>
-                                <div class="right">
-                                    3 Size
+                    @if (ViewBag.SaleProducts != null)
+                    {
+                        foreach (var product in (List<PBL3_OnlineShop.Models.Product>)ViewBag.SaleProducts)
+                        {
+                            var imageArr = (product.ImageUrl ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
+                            var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";
+                            var colorCount = (product.Colors ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
+                            var sizeCount = (product.Size ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
+                            var salePercent = product.SalePercentage != null ? Math.Round(product.SalePercentage.Value * 100, 0) : 0;
+                            var newPrice = product.SellingPrice * (1 - (product.SalePercentage ?? 0));
+                            <div class="slide col-lg-4 col-sm-6 col-12">
+                                <div class="list">
+                                    <a href="/Products/Details/@product.ProductId">
+                                        <div class="inner-img"><img src="@imageUrl" alt="@product.ProductName"></div>
+                                    </a>
+                                    <div class="des-one">
+                                        <span>+@colorCount color</span>
+                                        <span class="right">@sizeCount Size</span>
+                                    </div>
+                                    <div class="des-two">
+                                        <span>@product.ProductName</span>
+                                        <span class="right">
+                                            @string.Format("{0:N0}đ", newPrice)
+                                            <em style="text-decoration:line-through; color: #666">@string.Format("{0:N0}đ", product.SellingPrice)</em>
+                                        </span>
+                                    </div>
+                                    <div class="inner-sale">
+                                        <span>-@salePercent%</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="des-two">
-                                <div>
-                                    Jeans basic slim
-                                </div>
-                                <div class="right">
-                                    $1
-                                    <em style="text-decoration:line-through; color: #666">$99</em>
-                                </div>
-                            </div>
-                            <div class="inner-sale">
-                                <span>-99%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/PoloBasis.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <span>
-                                    +3 color
-                                </span>
-                                <span class="right">
-                                    3 Size
-                                </span>
-                            </div>
-                            <div class="des-two">
-                                <span>
-                                    Polo basis lange mouw
-                                </span>
-                                <span class="right">
-                                    $1
-                                    <em style="text-decoration:line-through; color: #666">$99</em>
-                                </span>
-                            </div>
-                            <div class="inner-sale">
-                                <span>-99%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/Polo.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <span>
-                                    +6 color
-                                </span>
-                                <span class="right">
-                                    3 Size
-                                </span>
-                            </div>
-                            <div class="des-two">
-                                <span>
-                                    Polo with logo on the chest
-                                </span>
-                                <span class="right">
-                                    $1
-                                    <em style="text-decoration:line-through; color: #666">$99</em>
-                                </span>
-                            </div>
-                            <div class="inner-sale">
-                                <span>-99%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/Jean.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <div>
-                                    +3 color
-                                </div>
-                                <div class="right">
-                                    3 Size
-                                </div>
-                            </div>
-                            <div class="des-two">
-                                <div>
-                                    Jeans basic slim
-                                </div>
-                                <div class="right">
-                                    $1
-                                    <em style="text-decoration:line-through; color: #666">$99</em>
-                                </div>
-                            </div>
-                            <div class="inner-sale">
-                                <span>-99%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/PoloBasis.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <span>
-                                    +3 color
-                                </span>
-                                <span class="right">
-                                    3 Size
-                                </span>
-                            </div>
-                            <div class="des-two">
-                                <span>
-                                    Polo basis lange mouw
-                                </span>
-                                <span class="right">
-                                    $1
-                                    <em style="text-decoration:line-through; color: #666">$99</em>
-                                </span>
-                            </div>
-                            <div class="inner-sale">
-                                <span>-99%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/Polo.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <span>
-                                    +6 color
-                                </span>
-                                <span class="right">
-                                    3 Size
-                                </span>
-                            </div>
-                            <div class="des-two">
-                                <span>
-                                    Polo with logo on the chest
-                                </span>
-                                <span class="right">
-                                    $1
-                                    <em style="text-decoration:line-through; color: #666">$99</em>
-                                </span>
-                            </div>
-                            <div class="inner-sale">
-                                <span>-99%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/Jean.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <div>
-                                    +3 color
-                                </div>
-                                <div class="right">
-                                    3 Size
-                                </div>
-                            </div>
-                            <div class="des-two">
-                                <div>
-                                    Jeans basic slim
-                                </div>
-                                <div class="right">
-                                    $1
-                                    <em style="text-decoration:line-through; color: #666">$99</em>
-                                </div>
-                            </div>
-                            <div class="inner-sale">
-                                <span>-99%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/PoloBasis.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <span>
-                                    +3 color
-                                </span>
-                                <span class="right">
-                                    3 Size
-                                </span>
-                            </div>
-                            <div class="des-two">
-                                <span>
-                                    Polo basis lange mouw
-                                </span>
-                                <span class="right">
-                                    $1
-                                    <em style="text-decoration:line-through; color: #666">$99</em>
-                                </span>
-                            </div>
-                            <div class="inner-sale">
-                                <span>-99%</span>
-                            </div>
-                        </div>
-                    </div>
+                        }
+                    }
                 </div>
                 <div class="inner-button">
                     <button class="nav-btn prev">❮</button>
@@ -703,220 +311,38 @@
                         ALL<br>COLLECTIONS
                     </div>
                     <div class="content-right">
-                        <a href="/">
+                        <a asp-controller="Products" asp-action="Index">
                             See All
                         </a>
                     </div>
                 </div>
                 <div class="line"></div>
                 <div class="inner-list">
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/Polo.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <span>
-                                    +6 color
-                                </span>
-                                <span class="right">
-                                    3 Size
-                                </span>
-                            </div>
-                            <div class="des-two">
-                                <span>
-                                    Polo with logo on the chest
-                                </span>
-                                <span class="right">
-                                    $1
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/Jean.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <div>
-                                    +3 color
-                                </div>
-                                <div class="right">
-                                    3 Size
+                    @if (ViewBag.AllProducts != null)
+                    {
+                        foreach (var product in (List<PBL3_OnlineShop.Models.Product>)ViewBag.AllProducts)
+                        {
+                            var imageArr = (product.ImageUrl ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
+                            var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";
+                            var colorCount = (product.Colors ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
+                            var sizeCount = (product.Size ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
+                            <div class="slide col-lg-4 col-sm-6 col-12">
+                                <div class="list">
+                                    <a href="/Products/Details/@product.ProductId">
+                                        <div class="inner-img"><img src="@imageUrl" alt="@product.ProductName"></div>
+                                    </a>
+                                    <div class="des-one">
+                                        <span>+@colorCount color</span>
+                                        <span class="right">@sizeCount Size</span>
+                                    </div>
+                                    <div class="des-two">
+                                        <span>@product.ProductName</span>
+                                        <span class="right">@string.Format("{0:N0}đ", product.SellingPrice)</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="des-two">
-                                <div>
-                                    Jeans basic slim
-                                </div>
-                                <div class="right">
-                                    $1
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/PoloBasis.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <span>
-                                    +3 color
-                                </span>
-                                <span class="right">
-                                    3 Size
-                                </span>
-                            </div>
-                            <div class="des-two">
-                                <span>
-                                    Polo basis lange mouw
-                                </span>
-                                <span class="right">
-                                    $1
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/Polo.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <span>
-                                    +6 color
-                                </span>
-                                <span class="right">
-                                    3 Size
-                                </span>
-                            </div>
-                            <div class="des-two">
-                                <span>
-                                    Polo with logo on the chest
-                                </span>
-                                <span class="right">
-                                    $1
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/Jean.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <div>
-                                    +3 color
-                                </div>
-                                <div class="right">
-                                    3 Size
-                                </div>
-                            </div>
-                            <div class="des-two">
-                                <div>
-                                    Jeans basic slim
-                                </div>
-                                <div class="right">
-                                    $1
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/PoloBasis.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <span>
-                                    +3 color
-                                </span>
-                                <span class="right">
-                                    3 Size
-                                </span>
-                            </div>
-                            <div class="des-two">
-                                <span>
-                                    Polo basis lange mouw
-                                </span>
-                                <span class="right">
-                                    $1
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/Polo.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <span>
-                                    +6 color
-                                </span>
-                                <span class="right">
-                                    3 Size
-                                </span>
-                            </div>
-                            <div class="des-two">
-                                <span>
-                                    Polo with logo on the chest
-                                </span>
-                                <span class="right">
-                                    $1
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/Jean.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <div>
-                                    +3 color
-                                </div>
-                                <div class="right">
-                                    3 Size
-                                </div>
-                            </div>
-                            <div class="des-two">
-                                <div>
-                                    Jeans basic slim
-                                </div>
-                                <div class="right">
-                                    $1
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="slide col-lg-4 col-sm-6 col-12">
-                        <div class="list">
-                            <a href="/">
-                                <div class="inner-img"><img src="~/images/PoloBasis.png" alt="Polo with logo on the chest"></div>
-                            </a>
-                            <div class="des-one">
-                                <span>
-                                    +3 color
-                                </span>
-                                <span class="right">
-                                    3 Size
-                                </span>
-                            </div>
-                            <div class="des-two">
-                                <span>
-                                    Polo basis lange mouw
-                                </span>
-                                <span class="right">
-                                    $1
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+                        }
+                    }
                 </div>
                 <div class="inner-button">
                     <button class="nav-btn prev">❮</button>

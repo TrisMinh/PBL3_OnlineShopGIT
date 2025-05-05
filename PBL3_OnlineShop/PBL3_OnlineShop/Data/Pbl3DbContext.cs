@@ -241,13 +241,33 @@ public partial class Pbl3DbContext : DbContext
             entity.Property(e => e.Status)
                 .HasMaxLength(50)
                 .HasDefaultValue("Active");
+<<<<<<< Updated upstream:PBL3_OnlineShop/PBL3_OnlineShop/Data/Pbl3DbContext.cs
             entity.Property(e => e.SupplierId).HasColumnName("SupplierID");
 
+=======
+            entity.Property(e => e.SalePercentage)
+                .HasColumnName("SalePercentage")
+                 .HasColumnType("decimal(2, 2)")
+                .IsRequired(false);
+            entity.Property(e => e.Colors)
+               .HasMaxLength(255)
+               .IsUnicode(false)
+               .IsRequired(false);
+            entity.Property(e => e.Collections)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .IsRequired(false);
+            entity.Property(e => e.Gender)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .IsRequired(false);
+>>>>>>> Stashed changes:PBL3_OnlineShop/PBL3_OnlineShop/Data/PBL3_Db_Context.cs
             entity.HasOne(d => d.Category).WithMany(p => p.Products)
                 .HasForeignKey(d => d.CategoryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Products_Categories");
 
+<<<<<<< Updated upstream:PBL3_OnlineShop/PBL3_OnlineShop/Data/Pbl3DbContext.cs
             entity.HasOne(d => d.Supplier).WithMany(p => p.Products)
                 .HasForeignKey(d => d.SupplierId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -286,6 +306,8 @@ public partial class Pbl3DbContext : DbContext
                 .HasMaxLength(20)
                 .IsUnicode(false);
             entity.Property(e => e.SupplierName).HasMaxLength(255);
+=======
+>>>>>>> Stashed changes:PBL3_OnlineShop/PBL3_OnlineShop/Data/PBL3_Db_Context.cs
         });
 
         modelBuilder.Entity<User>(entity =>
