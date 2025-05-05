@@ -1,0 +1,155 @@
+﻿@{
+    ViewData["Title"] = "Profile Customer";
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Customer</title>
+    <link rel="stylesheet" href="~/css/base.css">
+    <link rel="stylesheet" href="~/css/Profile.css">
+</head>
+<body>
+    <div class="profile-customer-page8">
+        <aside class="sidebar8">
+            <div class="user-profile8">
+                <div class="avatar-container8">
+                    <img id="sidebar-avatar" src="~/images/455123067_1470091394391641_5075587184145921216_n.jpg" alt="User Avatar" class="avatar8" style="cursor: pointer;">
+                    <span class="status-indicator8"></span>
+                </div>
+                <h2 class="user-name8">Trung Trung</h2>
+                <p class="user-role8">Customer</p>
+            </div>
+            <nav class="profile-nav8">
+                <ul>
+                    <li class="profile-nav-item8" onclick="showSection('edit-profile')">
+                        <a href="#">
+                            <img src="~/images/edit-246.png" alt="" class="profile-nav-icon8">
+                            <span>Edit Profile</span>
+                        </a>
+                    </li>
+                    <li class="profile-nav-item8" onclick="showSection('change-password')">
+                        <a href="#">
+                            <img src="~/images/chiakia.png" alt="" class="profile-nav-icon8">
+                            <span>Change Password</span>
+                        </a>
+                    </li>
+                    <li class="profile-nav-item8" onclick="showSection('coupon')">
+                        <a href="#">
+                            <img src="~/images/gift-coupon-icon-20763.png" alt="" class="profile-nav-icon8">
+                            <span>Coupon</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content8">
+            <header class="top-bar8">
+                <h1 class="page-title8">Profile</h1>
+                <div class="account-section8">
+                    <a href="ProfileEditCustomer.html" title="Edit Profile">
+                        <img src="~/images/account-icon-large.png" alt="Edit Profile" class="account-icon8">
+                    </a>
+                    <a href="index.html" title="Go to Home">
+                        <img src="~/images/360_F_66468754_86IFi1dhqwtHdXzPeMQNhGtGp8Z2D3yC.jpg" alt="Go to Home" class="account-placeholder8">
+                    </a>
+                </div>
+            </header>
+
+            <!-- Sections that show/hide based on the navigation -->
+            <section id="edit-profile" class="profile-content-wrapper8 section-active">
+                <div class="profile-details-form8">
+                    <form action="#" method="post">
+                        <div class="form-group8">
+                            <label for="username">UserName:</label>
+                            <input type="text" id="username" name="username" value="trungtrung">
+                        </div>
+                        <div class="form-group8">
+                            <label for="name">Name Customer:</label>
+                            <input type="text" id="name" name="name" value="Trung Trung">
+                        </div>
+                        <div class="form-group8">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" value="trung.example@email.com">
+                        </div>
+                        <div class="form-group8">
+                            <label for="phone">Phone:</label>
+                            <input type="tel" id="phone" name="phone" value="0123456789">
+                        </div>
+                        <div class="form-group8 gender-group8">
+                            <label>Gender:</label>
+                            <div class="radio-options8">
+                                <label for="gender-man">
+                                    <input type="radio" id="gender-man" name="gender" value="man" checked>
+                                    <span class="radio-label-text8">Man</span>
+                                </label>
+                                <label for="gender-female">
+                                    <input type="radio" id="gender-female" name="gender" value="female">
+                                    <span class="radio-label-text8">Female</span>
+                                </label>
+                                <label for="gender-other">
+                                    <input type="radio" id="gender-other" name="gender" value="other">
+                                    <span class="radio-label-text8">Other</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group8 dob-group8">
+                            <label>Date Of Birth:</label>
+                            <div class="dob-selects8">
+                                <select id="dob-day" name="dob-day" required>
+                                    <option value="">Day</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                </select>
+                                <select id="dob-month" name="dob-month" required>
+                                    <option value="">Month</option>
+                                    <option value="1">Jan</option>
+                                    <option value="2">Feb</option>
+                                </select>
+                                <select id="dob-year" name="dob-year" required>
+                                    <option value="">Year</option>
+                                    <option value="2025">2025</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr class="form-separator8">
+                        <div class="form-group8 submit-group8">
+                            <button type="submit" class="submit-button8">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <section id="change-password" class="profile-content-wrapper8">
+                <h2 class="change-password-title7">Change Your Password</h2>
+                <form action="#" method="post">
+                    <div class="form-group7">
+                        <label for="current-password">Current Password:</label>
+                        <input type="password" id="current-password" name="current-password" required>
+                    </div>
+                    <div class="form-group7">
+                        <label for="new-password">New Password:</label>
+                        <input type="password" id="new-password" name="new-password" required>
+                    </div>
+                    <div class="form-group7">
+                        <label for="confirm-password">Enter Password Again:</label>
+                        <input type="password" id="confirm-password" name="confirm-password" required>
+                    </div>
+                    <div class="form-group7 submit-group7">
+                        <button type="submit" class="submit-button7">Submit</button>
+                    </div>
+                </form>
+            </section>
+
+            <section id="coupon" class="profile-content-wrapper8">
+                <h2>Coupons</h2>
+                <p>Form for managing coupons.</p>
+            </section>
+        </main>
+    </div>
+
+    <script src="~/js/Profile.js"></script>
+</body>
+</html>
