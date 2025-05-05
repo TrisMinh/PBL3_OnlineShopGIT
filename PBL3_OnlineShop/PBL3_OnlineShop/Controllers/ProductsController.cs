@@ -127,7 +127,7 @@ namespace PBL3_OnlineShop.Controllers
         }
 
         // GET: ProductController/Details/5
-        public  ActionResult Details(int id = 1)
+        public  ActionResult Details(int id)
         {
             if (id == 0) return View();
 

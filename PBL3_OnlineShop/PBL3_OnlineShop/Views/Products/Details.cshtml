@@ -2,6 +2,8 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    var imageUrls = Model.ImageUrl.Split(",", StringSplitOptions.RemoveEmptyEntries);
+    var mainImage = imageUrls.FirstOrDefault() ?? "~/images/default.png"; // fallback nếu rỗng
 }
 @model Product
 <!DOCTYPE html>
@@ -31,18 +33,19 @@
 
             <!-- Product Detail Section -->
             <div class="product-detail">
-                <!-- Product Gallery (Thumbnails + Main Image) -->
+                <!-- Product Gallery -->
                 <div class="product-gallery">
                     <div class="thumbnail-images">
-                        <img src="~/images/@Model.ImageUrl" alt="Thumbnail 1" class="thumbnail active">
-                        <img src="~/images/PoloBasis.png" alt="Thumbnail 2" class="thumbnail">
-                        <!-- Add more thumbnails if available -->
-                        <img src="~/images/Polo.png" alt="Thumbnail 3" class="thumbnail">
-                        <img src="~/images/PoloBasis.png" alt="Thumbnail 4" class="thumbnail">
-                        <img src="~/images/Polo.png" alt="Thumbnail 5" class="thumbnail">
+                        @for (int i = 0; i < imageUrls.Length; i++)
+                        {
+                            <img src="@Url.Content(imageUrls[i])"
+                                 alt="Thumbnail @(i + 1)"
+                                 class="thumbnail @(i == 0 ? "active" : "")"
+                                 onclick="changeMainImage(this)">
+                        }
                     </div>
                     <div class="main-image">
-                        <img src="~/images/Polo.png" alt="Polo with logo on the chest">
+                        <img id="mainImage" src="@Url.Content(mainImage)" alt="Main product image">
                     </div>
                 </div>
 
@@ -99,5 +102,6 @@
         </div>
         <!-- End Container -->
     </div>
+    <script src="~/js/Animate.js"></script>
 </body>
 </html>
