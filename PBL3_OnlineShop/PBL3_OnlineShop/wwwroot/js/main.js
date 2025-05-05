@@ -571,3 +571,65 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // EndProfileEditCustomer
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.filter-category-button[data-filter-type="category"]').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            var category = btn.getAttribute('data-filter-value');
+            // Nếu đang active thì bỏ chọn (về trang /Products)
+            if (btn.classList.contains('active')) {
+                window.location.href = "/Products";
+            } else if (!category || category === "All") {
+                window.location.href = "/Products";
+            } else {
+                window.location.href = "/Products?category=" + encodeURIComponent(category);
+            }
+        });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.filter-category-button[data-filter-type="color"]').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            var color = btn.getAttribute('data-filter-value');
+            // Nếu là All thì bỏ color khỏi query string
+            if (!color || color === "All") {
+                window.location.href = "/Products";
+            } else {
+                window.location.href = "/Products?color=" + encodeURIComponent(color);
+            }
+        });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.filter-category-button[data-filter-type="availability"]').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            var availability = btn.getAttribute('data-filter-value');
+            // Nếu là All thì bỏ availability khỏi query string
+            if (!availability || availability === "All") {
+                window.location.href = "/Products";
+            } else {
+                window.location.href = "/Products?availability=" + encodeURIComponent(availability);
+            }
+        });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.filter-category-button[data-filter-type="gender"]').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            var gender = btn.getAttribute('data-filter-value');
+            // Nếu là All thì bỏ gender khỏi query string
+            if (!gender || gender === "All") {
+                window.location.href = "/Products";
+            } else {
+                window.location.href = "/Products?gender=" + encodeURIComponent(gender);
+            }
+        });
+    });
+});

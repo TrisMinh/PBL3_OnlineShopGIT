@@ -22,18 +22,16 @@
 
     <!-- Category Selector Bar -->
     <nav class="category-selector">
-        @if (firstRowCategories.Any())
-        {
-            <div class="category-row">
-                @foreach (var category in firstRowCategories)
-                {
-                    <a asp-controller="Products" asp-action="Index" asp-route-category="@category"
-                       class="category-button @(category == selectedCategory ? "active" : "")">
-                        @category
-                    </a>
-                }
-            </div>
-        }
+        <div class="category-row">
+            <a asp-controller="Products" asp-action="Index" class="category-button @(string.IsNullOrEmpty(selectedCategory) ? "active" : "")">ALL</a>
+            @foreach (var category in firstRowCategories)
+            {
+                <a asp-controller="Products" asp-action="Index" asp-route-category="@category"
+                   class="category-button @(category == selectedCategory ? "active" : "")">
+                    @(category == "Sales" ? "SALES" : category.ToUpper())
+                </a>
+            }
+        </div>
         @if (secondRowCategories.Any())
         {
             <div class="category-row">
@@ -41,7 +39,7 @@
                 {
                     <a asp-controller="Products" asp-action="Index" asp-route-category="@category"
                        class="category-button @(category == selectedCategory ? "active" : "")">
-                        @category
+                        @(category == "Sales" ? "SALES" : category.ToUpper())
                     </a>
                 }
             </div>

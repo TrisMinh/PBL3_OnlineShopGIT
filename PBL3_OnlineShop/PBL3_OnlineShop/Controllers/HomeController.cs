@@ -1,20 +1,52 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using PBL3_OnlineShop.Models;
+using PBL3_OnlineShop.Data;
 
 namespace PBL3_OnlineShop.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly PBL3_Db_Context _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, PBL3_Db_Context context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
+            // Lấy 8 sản phẩm Best sellers (hot products)
+            var hotProducts = _context.Products
+                .Where(p => p.Status != null && (p.Status == "3" || p.Status.StartsWith("3,") || p.Status.EndsWith(",3") || p.Status.Contains(",3,")))
+                .OrderByDescending(p => p.ProductId)
+                .Take(8)
+                .ToList();
+            ViewBag.HotProducts = hotProducts;
+
+            // Lấy 8 sản phẩm Sales (SalePercentage > 0 và Status chứa '2')
+            var saleProducts = _context.Products
+                .Where(p => p.SalePercentage != null && p.SalePercentage > 0 &&
+                    p.Status != null && (
+                        p.Status == "2" ||
+                        p.Status.StartsWith("2,") ||
+                        p.Status.EndsWith(",2") ||
+                        p.Status.Contains(",2,")
+                    ))
+                .OrderByDescending(p => p.SalePercentage)
+                .Take(8)
+                .ToList();
+            ViewBag.SaleProducts = saleProducts;
+
+            // Lấy 9 sản phẩm đầu tiên cho ALL COLLECTIONS (ProductId tăng dần)
+            var allProducts = _context.Products
+                .OrderBy(p => p.ProductId)
+                .Take(9)
+                .ToList();
+            ViewBag.AllProducts = allProducts;
+
             return View();
         }
 
