@@ -1,0 +1,40 @@
+﻿@{
+    Layout = null; // Bỏ nếu bạn không dùng layout chung
+    ViewData["Title"] = "Sign Up";
+}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/base.css">
+    <title>Document</title>
+</head>
+<div class="container mt-5" style="max-width: 500px;">
+    <h2 class="text-center mb-4">Sign Up</h2>
+    <form asp-action="Register" method="post">
+        <div class="mb-3">
+            <label for="FullName" class="form-label">Full Name:</label>
+            <input type="text" class="form-control" id="FullName" name="FullName" placeholder="Enter your full name" required>
+        </div>
+        <div class="mb-3">
+            <label for="Email" class="form-label">Username (Email):</label>
+            <input type="email" class="form-control" id="Email" name="Email" placeholder="Enter your email" required>
+        </div>
+        <div class="mb-3">
+            <label for="Password" class="form-label">Password:</label>
+            <input type="password" class="form-control" id="Password" name="Password" placeholder="Enter your password" required>
+        </div>
+        <div class="mb-3">
+            <label for="ConfirmPassword" class="form-label">Confirm Password:</label>
+            <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" placeholder="Confirm your password" required>
+        </div>
+        <div class="d-grid">
+            <button type="submit" class="btn btn-success">Sign Up</button>
+        </div>
+    </form>
+    <div class="mt-3 text-center">
+        <span>Already have an account?</span>
+        <a href="/Account/Login">Login now</a>
+    </div>
+</div>

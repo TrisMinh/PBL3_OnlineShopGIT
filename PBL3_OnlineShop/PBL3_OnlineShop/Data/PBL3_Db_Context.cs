@@ -1,19 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using PBL3_OnlineShop.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using PBL3_OnlineShop.Models;
 
 namespace PBL3_OnlineShop.Data;
 
-public partial class Pbl3DbContext : DbContext
+public partial class PBL3_Db_Context : DbContext
 {
-    private readonly IConfiguration _configuration;
-    public Pbl3DbContext()
+    public PBL3_Db_Context()
     {
     }
 
-    public Pbl3DbContext(DbContextOptions<Pbl3DbContext> options)
+    public PBL3_Db_Context(DbContextOptions<PBL3_Db_Context> options)
         : base(options)
     {
     }
@@ -38,26 +36,17 @@ public partial class Pbl3DbContext : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
-    public virtual DbSet<ShippingAddress> ShippingAddresses { get; set; }
-
-    public virtual DbSet<Supplier> Suppliers { get; set; }
-
     public virtual DbSet<User> Users { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        var connectionString = _configuration.GetConnectionString("DefaultConnection");
-        optionsBuilder.UseSqlServer(connectionString);
-    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Cart>(entity =>
         {
-            entity.HasKey(e => e.CartId).HasName("PK__Cart__51BCD79714C5C406");
+            entity.HasKey(e => e.CartId).HasName("PK__Cart__51BCD797AF0DDB4E");
 
             entity.ToTable("Cart");
 
-            entity.HasIndex(e => e.UserId, "UQ__Cart__1788CCAD53BDFB9F").IsUnique();
+            entity.HasIndex(e => e.UserId, "UQ__Cart__1788CCAD208F333C").IsUnique();
 
             entity.Property(e => e.CartId).HasColumnName("CartID");
             entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
@@ -71,9 +60,9 @@ public partial class Pbl3DbContext : DbContext
 
         modelBuilder.Entity<CartItem>(entity =>
         {
-            entity.HasKey(e => e.CartItemId).HasName("PK__CartItem__488B0B2A4BE24A93");
+            entity.HasKey(e => e.CartItemId).HasName("PK__CartItem__488B0B2A102B22CC");
 
-            entity.HasIndex(e => new { e.CartId, e.ProductId }, "UQ_CartItems_CartID_ProductID").IsUnique();
+            entity.HasIndex(e => new { e.CartId, e.ProductId }, "UQ_CartItems_Cart_Product").IsUnique();
 
             entity.Property(e => e.CartItemId).HasColumnName("CartItemID");
             entity.Property(e => e.AddedAt).HasDefaultValueSql("(getdate())");
@@ -93,9 +82,9 @@ public partial class Pbl3DbContext : DbContext
 
         modelBuilder.Entity<Category>(entity =>
         {
-            entity.HasKey(e => e.CategoryId).HasName("PK__Categori__19093A2B5B40D8C4");
+            entity.HasKey(e => e.CategoryId).HasName("PK__Categori__19093A2B14E590B9");
 
-            entity.HasIndex(e => e.CategoryName, "UQ__Categori__8517B2E0B8999AAB").IsUnique();
+            entity.HasIndex(e => e.CategoryName, "UQ__Categori__8517B2E047847E7F").IsUnique();
 
             entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
             entity.Property(e => e.CategoryName).HasMaxLength(255);
@@ -103,38 +92,35 @@ public partial class Pbl3DbContext : DbContext
 
         modelBuilder.Entity<Coupon>(entity =>
         {
-            entity.HasKey(e => e.CouponId).HasName("PK__Coupons__384AF1DAB0DB4CB3");
+            entity.HasKey(e => e.CouponId).HasName("PK__Coupons__384AF1DA417EBE4B");
 
-            entity.HasIndex(e => e.CouponCode, "UQ__Coupons__D3490800484BE6F4").IsUnique();
+            entity.HasIndex(e => e.CouponCode, "UQ__Coupons__D3490800B67C3E2F").IsUnique();
 
             entity.Property(e => e.CouponId).HasColumnName("CouponID");
             entity.Property(e => e.CouponCode)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.DiscountType).HasMaxLength(20);
+            entity.Property(e => e.DiscountType)
+                .HasMaxLength(20)
+                .IsUnicode(false);
             entity.Property(e => e.DiscountValue).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.Status)
                 .HasMaxLength(50)
+                .IsUnicode(false)
                 .HasDefaultValue("Active");
         });
 
         modelBuilder.Entity<GoodsReceipt>(entity =>
         {
-            entity.HasKey(e => e.ReceiptId).HasName("PK__GoodsRec__CC08C400395E2835");
+            entity.HasKey(e => e.ReceiptId).HasName("PK__GoodsRec__CC08C4001F2836C9");
 
             entity.Property(e => e.ReceiptId).HasColumnName("ReceiptID");
             entity.Property(e => e.ReceiptDate).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.SupplierId).HasColumnName("SupplierID");
-
-            entity.HasOne(d => d.Supplier).WithMany(p => p.GoodsReceipts)
-                .HasForeignKey(d => d.SupplierId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_GoodsReceipts_Suppliers");
         });
 
         modelBuilder.Entity<GoodsReceiptDetail>(entity =>
         {
-            entity.HasKey(e => e.ReceiptDetailId).HasName("PK__GoodsRec__82FADEDB065B8195");
+            entity.HasKey(e => e.ReceiptDetailId).HasName("PK__GoodsRec__82FADEDB7DC3101F");
 
             entity.Property(e => e.ReceiptDetailId).HasColumnName("ReceiptDetailID");
             entity.Property(e => e.ProductId).HasColumnName("ProductID");
@@ -149,19 +135,20 @@ public partial class Pbl3DbContext : DbContext
             entity.HasOne(d => d.Receipt).WithMany(p => p.GoodsReceiptDetails)
                 .HasForeignKey(d => d.ReceiptId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_GoodsReceiptDetails_GoodsReceipts");
+                .HasConstraintName("FK_GoodsReceiptDetails_Receipts");
         });
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.OrderId).HasName("PK__Orders__C3905BAF642CD0F6");
+            entity.HasKey(e => e.OrderId).HasName("PK__Orders__C3905BAF624D738A");
 
             entity.Property(e => e.OrderId).HasColumnName("OrderID");
             entity.Property(e => e.CouponId).HasColumnName("CouponID");
             entity.Property(e => e.OrderDate).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.ShippingAddressId).HasColumnName("ShippingAddressID");
+            entity.Property(e => e.ShippingAddress).HasMaxLength(500);
             entity.Property(e => e.Status)
                 .HasMaxLength(50)
+                .IsUnicode(false)
                 .HasDefaultValue("Pending");
             entity.Property(e => e.TotalAmount).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.UserId).HasColumnName("UserID");
@@ -169,11 +156,6 @@ public partial class Pbl3DbContext : DbContext
             entity.HasOne(d => d.Coupon).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.CouponId)
                 .HasConstraintName("FK_Orders_Coupons");
-
-            entity.HasOne(d => d.ShippingAddress).WithMany(p => p.Orders)
-                .HasForeignKey(d => d.ShippingAddressId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Orders_ShippingAddresses");
 
             entity.HasOne(d => d.User).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.UserId)
@@ -183,7 +165,7 @@ public partial class Pbl3DbContext : DbContext
 
         modelBuilder.Entity<OrderDetail>(entity =>
         {
-            entity.HasKey(e => e.OrderDetailId).HasName("PK__OrderDet__D3B9D30C41BD5B06");
+            entity.HasKey(e => e.OrderDetailId).HasName("PK__OrderDet__D3B9D30C1D1E9638");
 
             entity.Property(e => e.OrderDetailId).HasColumnName("OrderDetailID");
             entity.Property(e => e.OrderId).HasColumnName("OrderID");
@@ -203,15 +185,18 @@ public partial class Pbl3DbContext : DbContext
 
         modelBuilder.Entity<Payment>(entity =>
         {
-            entity.HasKey(e => e.PaymentId).HasName("PK__Payments__9B556A588F04480D");
+            entity.HasKey(e => e.PaymentId).HasName("PK__Payments__9B556A58E82DFFCC");
 
             entity.Property(e => e.PaymentId).HasColumnName("PaymentID");
             entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.OrderId).HasColumnName("OrderID");
             entity.Property(e => e.PaymentDate).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.PaymentMethod).HasMaxLength(50);
+            entity.Property(e => e.PaymentMethod)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.PaymentStatus)
                 .HasMaxLength(50)
+                .IsUnicode(false)
                 .HasDefaultValue("Pending");
             entity.Property(e => e.TransactionId)
                 .HasMaxLength(255)
@@ -226,7 +211,7 @@ public partial class Pbl3DbContext : DbContext
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.ProductId).HasName("PK__Products__B40CC6EDFB70B8A8");
+            entity.HasKey(e => e.ProductId).HasName("PK__Products__B40CC6ED40077AEF");
 
             entity.Property(e => e.ProductId).HasColumnName("ProductID");
             entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
@@ -237,88 +222,31 @@ public partial class Pbl3DbContext : DbContext
                 .HasColumnName("ImageURL");
             entity.Property(e => e.ProductName).HasMaxLength(255);
             entity.Property(e => e.SellingPrice).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.Size).HasMaxLength(50);
+            entity.Property(e => e.Size)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.Status)
                 .HasMaxLength(50)
+                .IsUnicode(false)
                 .HasDefaultValue("Active");
-<<<<<<< Updated upstream:PBL3_OnlineShop/PBL3_OnlineShop/Data/Pbl3DbContext.cs
-            entity.Property(e => e.SupplierId).HasColumnName("SupplierID");
 
-=======
-            entity.Property(e => e.SalePercentage)
-                .HasColumnName("SalePercentage")
-                 .HasColumnType("decimal(2, 2)")
-                .IsRequired(false);
-            entity.Property(e => e.Colors)
-               .HasMaxLength(255)
-               .IsUnicode(false)
-               .IsRequired(false);
-            entity.Property(e => e.Collections)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .IsRequired(false);
-            entity.Property(e => e.Gender)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .IsRequired(false);
->>>>>>> Stashed changes:PBL3_OnlineShop/PBL3_OnlineShop/Data/PBL3_Db_Context.cs
             entity.HasOne(d => d.Category).WithMany(p => p.Products)
                 .HasForeignKey(d => d.CategoryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Products_Categories");
-
-<<<<<<< Updated upstream:PBL3_OnlineShop/PBL3_OnlineShop/Data/Pbl3DbContext.cs
-            entity.HasOne(d => d.Supplier).WithMany(p => p.Products)
-                .HasForeignKey(d => d.SupplierId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Products_Suppliers");
-        });
-
-        modelBuilder.Entity<ShippingAddress>(entity =>
-        {
-            entity.HasKey(e => e.AddressId).HasName("PK__Shipping__091C2A1BC1555D9B");
-
-            entity.Property(e => e.AddressId).HasColumnName("AddressID");
-            entity.Property(e => e.AddressLine).HasMaxLength(255);
-            entity.Property(e => e.City).HasMaxLength(100);
-            entity.Property(e => e.PhoneNumber)
-                .HasMaxLength(20)
-                .IsUnicode(false);
-            entity.Property(e => e.RecipientName).HasMaxLength(255);
-            entity.Property(e => e.UserId).HasColumnName("UserID");
-
-            entity.HasOne(d => d.User).WithMany(p => p.ShippingAddresses)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ShippingAddresses_Users");
-        });
-
-        modelBuilder.Entity<Supplier>(entity =>
-        {
-            entity.HasKey(e => e.SupplierId).HasName("PK__Supplier__4BE6669494A43BBC");
-
-            entity.HasIndex(e => e.Email, "UQ__Supplier__A9D10534BD7617F6").IsUnique();
-
-            entity.Property(e => e.SupplierId).HasColumnName("SupplierID");
-            entity.Property(e => e.ContactPerson).HasMaxLength(255);
-            entity.Property(e => e.Email).HasMaxLength(255);
-            entity.Property(e => e.Phone)
-                .HasMaxLength(20)
-                .IsUnicode(false);
-            entity.Property(e => e.SupplierName).HasMaxLength(255);
-=======
->>>>>>> Stashed changes:PBL3_OnlineShop/PBL3_OnlineShop/Data/PBL3_Db_Context.cs
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCAC536E578A");
+            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CCAC4D3C8916");
 
-            entity.HasIndex(e => e.Email, "UQ__Users__A9D10534049C6CC6").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__Users__A9D10534124415B8").IsUnique();
 
             entity.Property(e => e.UserId).HasColumnName("UserID");
             entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.Email).HasMaxLength(255);
+            entity.Property(e => e.Email)
+                .HasMaxLength(255)
+                .IsUnicode(false);
             entity.Property(e => e.FullName).HasMaxLength(255);
             entity.Property(e => e.PasswordHash)
                 .HasMaxLength(255)
@@ -328,9 +256,11 @@ public partial class Pbl3DbContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.Role)
                 .HasMaxLength(50)
+                .IsUnicode(false)
                 .HasDefaultValue("Customer");
             entity.Property(e => e.Status)
                 .HasMaxLength(50)
+                .IsUnicode(false)
                 .HasDefaultValue("Active");
         });
 

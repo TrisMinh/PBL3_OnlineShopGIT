@@ -3,6 +3,7 @@
 *@
 @{
 }
+@model Product
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +34,7 @@
                 <!-- Product Gallery (Thumbnails + Main Image) -->
                 <div class="product-gallery">
                     <div class="thumbnail-images">
-                        <img src="~/images/Polo.png" alt="Thumbnail 1" class="thumbnail active">
+                        <img src="~/images/@Model.ImageUrl" alt="Thumbnail 1" class="thumbnail active">
                         <img src="~/images/PoloBasis.png" alt="Thumbnail 2" class="thumbnail">
                         <!-- Add more thumbnails if available -->
                         <img src="~/images/Polo.png" alt="Thumbnail 3" class="thumbnail">
@@ -47,16 +48,10 @@
 
                 <!-- Product Info -->
                 <div class="product-info">
-                    <h2 class="product-name">Polo with logo on the chest</h2>
-                    <div class="product-price">$1</div>
+                    <h2 class="product-name">@Model.ProductName</h2>
+                    <div class="product-price">$@Model.SellingPrice</div>
                     <p class="product-description">
-                        Polo with logo on the chest with thick
-                        fabric, good elasticity and high color
-                        fastness. The hall does not shed or
-                        fade, absorbs sweat and is comfortable
-                        and not restrictive when moving.
-                        This is a genuine quality men's polo
-                        shirt model with the best price at BLUE.
+                        @Model.Description
                     </p>
 
                     <!-- Color Selection -->
@@ -76,12 +71,17 @@
                     <div class="product-options">
                         <label class="option-label">Size</label>
                         <div class="size-selector">
-                            <button class="size-option active">XS</button>
-                            <button class="size-option">S</button>
-                            <button class="size-option">M</button>
-                            <button class="size-option">L</button>
-                            <button class="size-option">XL</button>
-                            <button class="size-option">2X</button>
+                            <input type="radio" id="sizeS" name="size" value="S" class="size-option">
+                            <label for="sizeS">S</label>
+
+                            <input type="radio" id="sizeM" name="size" value="M" class="size-option">
+                            <label for="sizeM">M</label>
+
+                            <input type="radio" id="sizeL" name="size" value="L" class="size-option">
+                            <label for="sizeL">L</label>
+
+                            <input type="radio" id="sizeXL" name="size" value="XL" class="size-option">
+                            <label for="sizeXL">XL</label>
                         </div>
                     </div>
 
@@ -99,6 +99,5 @@
         </div>
         <!-- End Container -->
     </div>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
