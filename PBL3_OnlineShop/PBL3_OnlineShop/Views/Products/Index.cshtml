@@ -1,8 +1,8 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿@*
+﻿﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    Layout = null; // No layout for this view
+
 }
 <!DOCTYPE html>
 <html lang="vi">
@@ -10,70 +10,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sản phẩm</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/base.css">
     <link rel="stylesheet" href="~/css/Product.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div class="app">
-        <!-- Header -->
-        <header class="header">
-            <div class="container">
-                <div class="inner-wrap">
-                    <!-- Removed inner-menu-logo div -->
-                    <div class="inner-logo">
-                        <a href="~/">
-                            BLUE
-                        </a>
-                    </div>
-                    <div class="inner-menu">
-                        <ul>
-                            <li>
-                                <a href="~/">
-                                    Home
-                                </a>
-                            </li>
-                            <li>
-                                <a href="~/">
-                                    Collections
-                                </a>
-                            </li>
-                            <li>
-                                <a href="~/">
-                                    New
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="inner-search">
-                        <div class="inner-search-wrapper">
-                            <img src="~/images/pngegg.png" alt="Search Icon" class="search-icon">
-                            <input class="search" type="text" placeholder="Search" id="search-header" name="text">
-                        </div>
-                    </div>
-                    <div class="inner-utilities">
-                        <ul>
-                            <li>
-                                <a href="">
-                                    <img src="~/images/Favourite.png" alt="Favourite">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <img src="~/images/Cart.png" alt="Cart">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <img src="~/images/Account.png" alt="Account">
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <!-- End Header -->
         <div class="container product-page-container">
             <!-- Main content based on Figma data -->
             <main class="product-content">
@@ -84,209 +27,108 @@
 
                 <div class="product-main">
                     <!-- Filters Section -->
-                    @Html.Partial("_FilterPartial") <!-- Assuming this is a partial view for filters -->
+                    @if (!ViewData.ContainsKey("SelectedCollection"))
+                    {
+                        @Html.Partial("_FilterPartial", null, new ViewDataDictionary(ViewData) { { "SelectedCollection", ViewBag.SelectedCollection } })
+                    }
+                    else
+                    {
+                        @Html.Partial("_FilterPartial")
+                    }
                     <!-- Product Grid Section -->
                     <section class="product-grid">
                         <!-- Title and Category Selector (Moved inside grid section) -->
                         @Html.Partial("_CategoryPartial") <!-- Assuming this is a partial view for categories -->
                         <!-- Product Card Container -->
                         <div class="product-card-container">
-                            <!-- Product Card Example (Based on Frame 292 - 16:36673) - Replicated 30 times -->
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <!-- Assuming imageRef 86b28... corresponds to Polo.png -->
-                                    <img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image">
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-options">
-                                        <span>+6 Color</span> <!-- Node 16:36677 -->
-                                        <span>+3 Size</span>  <!-- Node 16:36678 -->
+                            @foreach (var product in Model)
+                            {
+                                var imageArr = (product.ImageUrl ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
+                                var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";
+                                var colorCount = (product.Colors ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
+                                var sizeCount = (product.Size ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
+                                <div class="product-card">
+                                    <div class="product-image-container">
+                                        <img src="@imageUrl" alt="@product.ProductName" class="product-image">
+                                        @if (product.SalePercentage != null && product.SalePercentage > 0 && product.Status != null && (product.Status == "2" || product.Status.StartsWith("2,") || product.Status.EndsWith(",2") || product.Status.Contains(",2,")))
+                                        {
+                                            var salePercent = Math.Round(product.SalePercentage * 100, 0);
+                                            <div class="product-sale-badge">-@salePercent%</div>
+                                        }
                                     </div>
-                                    <div class="product-details">
-                                        <span class="product-name">Polo with logo on the chest</span> <!-- Node 16:36680 -->
-                                        <span class="product-price">$1</span> <!-- Node 16:36681 -->
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Product Card Example (Based on Frame 293 - 16:36682) -->
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image">
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-options">
-                                        <span>+6 Color</span> <!-- Node 16:36686 -->
-                                        <span>+3 Size</span>  <!-- Node 16:36687 -->
-                                    </div>
-                                    <div class="product-details">
-                                        <span class="product-name">Polo with logo on the chest</span> <!-- Node 16:36689 -->
-                                        <span class="product-price">$1</span> <!-- Node 16:36690 -->
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Product Card Example (Based on Frame 294 - 16:36691) -->
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image">
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-options">
-                                        <span>+6 Color</span> <!-- Node 16:36695 -->
-                                        <span>+3 Size</span>  <!-- Node 16:36696 -->
-                                    </div>
-                                    <div class="product-details">
-                                        <span class="product-name">Polo with logo on the chest</span> <!-- Node 16:36698 -->
-                                        <span class="product-price">$1</span> <!-- Node 16:36699 -->
+                                    <div class="product-info">
+                                        <div class="product-options">
+                                            <span>+@colorCount Color</span>
+                                            <span class="right">+@sizeCount Size</span>
+                                        </div>
+                                        <div class="product-details">
+                                            <span class="product-name">
+                                                @(product.StockQuantity == 0 ? "Out Of Stock" : product.ProductName)
+                                            </span>
+                                            @if (product.StockQuantity == 0)
+                                            {
+                                                <!-- Không hiển thị giá tiền nếu hết hàng -->
+                                            }
+                                            else if (product.SalePercentage != null && product.SalePercentage > 0 && product.Status != null && (product.Status == "2" || product.Status.StartsWith("2,") || product.Status.EndsWith(",2") || product.Status.Contains(",2,")))
+                                            {
+                                                var newPrice = product.SellingPrice * (1 - product.SalePercentage);
+                                                <span class="product-price sale-price">@string.Format("{0:N0}đ", newPrice)</span>
+                                                <em class="old-price" style="margin-left:6px;">@string.Format("{0:N0}đ", product.SellingPrice)</em>
+                                            }
+                                            else
+                                            {
+                                                <span class="product-price">@string.Format("{0:N0}đ", product.SellingPrice)</span>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <img src="~/images/Jean.png" alt="Jeans basic slim" class="product-image"> <!-- Example different image -->
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-options">
-                                        <span>+3 Color</span>
-                                        <span>+3 Size</span>
-                                    </div>
-                                    <div class="product-details">
-                                        <span class="product-name">Jeans basic slim</span>
-                                        <span class="product-price">$1</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <img src="~/images/PoloBasis.png" alt="Polo basis lange mouw" class="product-image"> <!-- Example different image -->
-                                </div>
-                                <div class="product-info">
-                                    <div class="product-options">
-                                        <span>+3 Color</span>
-                                        <span>+3 Size</span>
-                                    </div>
-                                    <div class="product-details">
-                                        <span class="product-name">Polo basis lange mouw</span>
-                                        <span class="product-price">$1</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Repeat block 9 more times (total 10 rows * 3 cards = 30 cards) -->
-                            <!-- Row 2 -->
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+6 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo with logo on the chest</span><span class="product-price">$1</span></div></div> </div>
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Jean.png" alt="Jeans basic slim" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Jeans basic slim</span><span class="product-price">$1</span></div></div> </div>
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/PoloBasis.png" alt="Polo basis lange mouw" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo basis lange mouw</span><span class="product-price">$1</span></div></div> </div>
-                            <!-- Row 3 -->
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+6 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo with logo on the chest</span><span class="product-price">$1</span></div></div> </div>
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Jean.png" alt="Jeans basic slim" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Jeans basic slim</span><span class="product-price">$1</span></div></div> </div>
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/PoloBasis.png" alt="Polo basis lange mouw" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo basis lange mouw</span><span class="product-price">$1</span></div></div> </div>
-                            <!-- Row 4 -->
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+6 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo with logo on the chest</span><span class="product-price">$1</span></div></div> </div>
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Jean.png" alt="Jeans basic slim" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Jeans basic slim</span><span class="product-price">$1</span></div></div> </div>
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/PoloBasis.png" alt="Polo basis lange mouw" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo basis lange mouw</span><span class="product-price">$1</span></div></div> </div>
-                            <!-- Row 5 -->
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+6 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo with logo on the chest</span><span class="product-price">$1</span></div></div> </div>
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Jean.png" alt="Jeans basic slim" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Jeans basic slim</span><span class="product-price">$1</span></div></div> </div>
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/PoloBasis.png" alt="Polo basis lange mouw" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo basis lange mouw</span><span class="product-price">$1</span></div></div> </div>
-                            <!-- Row 6 -->
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+6 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo with logo on the chest</span><span class="product-price">$1</span></div></div> </div>
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Jean.png" alt="Jeans basic slim" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Jeans basic slim</span><span class="product-price">$1</span></div></div> </div>
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/PoloBasis.png" alt="Polo basis lange mouw" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo basis lange mouw</span><span class="product-price">$1</span></div></div> </div>
-                            <!-- Row 7 -->
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+6 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo with logo on the chest</span><span class="product-price">$1</span></div></div> </div>
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Jean.png" alt="Jeans basic slim" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Jeans basic slim</span><span class="product-price">$1</span></div></div> </div>
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/PoloBasis.png" alt="Polo basis lange mouw" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo basis lange mouw</span><span class="product-price">$1</span></div></div> </div>
-                            <!-- Row 8 -->
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+6 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo with logo on the chest</span><span class="product-price">$1</span></div></div> </div>
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Jean.png" alt="Jeans basic slim" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Jeans basic slim</span><span class="product-price">$1</span></div></div> </div>
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/PoloBasis.png" alt="Polo basis lange mouw" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo basis lange mouw</span><span class="product-price">$1</span></div></div> </div>
-                            <!-- Row 9 -->
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+6 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo with logo on the chest</span><span class="product-price">$1</span></div></div> </div>
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Jean.png" alt="Jeans basic slim" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Jeans basic slim</span><span class="product-price">$1</span></div></div> </div>
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/PoloBasis.png" alt="Polo basis lange mouw" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo basis lange mouw</span><span class="product-price">$1</span></div></div> </div>
-                            <!-- Row 10 -->
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Polo.png" alt="Polo with logo on the chest" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+6 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo with logo on the chest</span><span class="product-price">$1</span></div></div> </div>
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/Jean.png" alt="Jeans basic slim" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Jeans basic slim</span><span class="product-price">$1</span></div></div> </div>
-                            <div class="product-card"> <div class="product-image-container"><img src="~/images/PoloBasis.png" alt="Polo basis lange mouw" class="product-image"></div> <div class="product-info"><div class="product-options"><span>+3 Color</span><span>+3 Size</span></div><div class="product-details"><span class="product-name">Polo basis lange mouw</span><span class="product-price">$1</span></div></div> </div>
+                            }
                         </div>
 
                         <!-- Pagination -->
                         <nav class="pagination">
-                            <a href="#" class="page-link prev"></a>
-                            <a href="#" class="page-link active">1</a>
-                            <a href="#" class="page-link">2</a>
-                            <a href="#" class="page-link">3</a>
-                            <a href="#" class="page-link">4</a>
-                            <a href="#" class="page-link">5</a>
-                            <span class="page-link ellipsis">...</span>
-                            <a href="#" class="page-link next">></a>
+                            @if (ViewBag.CurrentPage > 1)
+                            {
+                                <a href="?page=@(ViewBag.CurrentPage - 1)" class="page-link prev">&lt;</a>
+                            }
+                            @for (int i = 1; i <= (int)ViewBag.TotalPages; i++)
+                            {
+                                if (i == (int)ViewBag.CurrentPage)
+                                {
+                                    <a href="?page=@i" class="page-link active">@i</a>
+                                }
+                                else
+                                {
+                                    <a href="?page=@i" class="page-link">@i</a>
+                                }
+                            }
+                            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                            {
+                                <a href="?page=@(ViewBag.CurrentPage + 1)" class="page-link next">&gt;</a>
+                            }
                         </nav>
                     </section>
                 </div>
             </main>
         </div>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="container">
-                <div class="inner-wrap">
-                    <div class="inner-box">
-                        <div class="inner-content">
-                            Fashion BLUE
-                        </div>
-                        <div class="inner-text">
-                            The leading fashion system in Vietnam.
-                        </div>
-                        <div class="inner-utilities">
-                            Payment method
-                        </div>
-                        <div class="inner-utilities-img">
-                            <img src="~/images/VNPAY.png" alt="VNPAY">
-                            <img src="~/images/ZaloPay.png" alt="ZaloPay">
-                        </div>
-                    </div>
-                    <div class="inner-box">
-                        <div class="inner-content">
-                            Contact information
-                        </div>
-                        <div class="inner-text">
-                            <b>Address</b>: Lien Chieu District, Da Nang City.<br>
-                            <b>Fax</b>: 000000000<br>
-                            <b>Email</b>: cskh@blue.com
-                        </div>
-                        <div class="inner-utilities">
-                            Shipping methods
-                        </div>
-                        <div class="inner-utilities-img">
-                            <img src="~/images/Ninja.png" alt="Ninja">
-                            <img src="~/images/Ahamove.png" alt="Ahamove">
-                            <img src="~/images/J&T.png" alt="J&T">
-                        </div>
-                    </div>
-                    <div class="inner-box">
-                        <div class="inner-content">
-                            Affiliated Group
-                        </div>
-                        <ul>
-                            <li>
-                                Search
-                            </li>
-                            <li>
-                                Privacy Policy
-                            </li>
-                            <li>
-                                Introduction
-                            </li>
-                            <li>
-                                Contact
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!-- End Footer -->
     </div>
+    <script>
+        // Giữ lại các filter khác khi search
+        const searchForm = document.getElementById('searchForm');
+        if (searchForm) {
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const url = new URL(window.location.href);
+                const params = new URLSearchParams(url.search);
+                // Lấy text search mới
+                const text = document.getElementById('search-header').value;
+                params.set('text', text);
+                // Xóa tham số page khi search mới
+                params.delete('page');
+                // Tạo url mới giữ lại các filter khác
+                window.location.href = '/Products?' + params.toString();
+            });
+        }
+    </script>
 </body>
 </html>

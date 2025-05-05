@@ -9,19 +9,13 @@ namespace PBL3_OnlineShop
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Connection
             builder.Services.AddDbContext<PBL3_Db_Context>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
-
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddDbContext<PBL3_Db_Context>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-            });
 
             builder.Services.AddDistributedMemoryCache(); // Bộ nhớ để lưu session
             builder.Services.AddSession(options =>

@@ -10,6 +10,12 @@ namespace PBL3_OnlineShop.Controllers
 {
     public class ProductsController : Controller
     {
+        private readonly PBL3_Db_Context _context;
+
+        public ProductsController(PBL3_Db_Context context)
+        {
+            _context = context;
+        }
         // GET: ProductsController
         public ActionResult Index(string category, string color, string size, string price, string collection, string availability, string gender, string text, int page = 1)
         {

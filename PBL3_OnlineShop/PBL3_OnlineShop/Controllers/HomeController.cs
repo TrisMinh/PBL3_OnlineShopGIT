@@ -18,7 +18,7 @@ namespace PBL3_OnlineShop.Controllers
 
         public IActionResult Index()
         {
-            // Lấy 8 sản phẩm Best sellers (hot products)
+            //Lấy 8 sản phẩm Best sellers(hot products)
             var hotProducts = _context.Products
                 .Where(p => p.Status != null && (p.Status == "3" || p.Status.StartsWith("3,") || p.Status.EndsWith(",3") || p.Status.Contains(",3,")))
                 .OrderByDescending(p => p.ProductId)
