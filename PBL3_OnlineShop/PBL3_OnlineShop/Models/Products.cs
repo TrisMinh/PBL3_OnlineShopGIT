@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PBL3_OnlineShop.Models;
 
-public partial class Product
+public partial class Products
 {
     [Key]
     public int ProductId { get; set; }
@@ -35,4 +35,5 @@ public partial class Product
     public string? Gender { get; set; }
 
     public Category Category { get; set; }
+    public ICollection<ProductSize> ProductSizes { get; set; }
 }

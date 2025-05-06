@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PBL3_OnlineShop.Models;
-using PBL3_OnlineShop.Repository;
-using PBL3_OnlineShop.Models;
 using PBL3_OnlineShop.Models.ViewModels;
+using PBL3_OnlineShop.Repository;
+using System.Drawing;
 
 namespace PBL3_OnlineShop.Controllers
 {
@@ -29,15 +29,16 @@ namespace PBL3_OnlineShop.Controllers
         {
             return View();
         }
-        public async Task<IActionResult> Add(int id, string size)
+        public async Task<IActionResult> Add(int id, string size, string color)
         {
-            Product product = await _context.Products.FindAsync(id);
+            Products product = await _context.Products.FindAsync(id);
             List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart") ?? new List<CartItem>();
-            CartItem cartItem = cart.FirstOrDefault(c => c.ProductId == id && c.Size == size);
+            CartItem cartItem = cart.FirstOrDefault(c => c.ProductId == id && c.Size == size && c.Color == color);
             if (cartItem == null)
             {
                 cartItem = new CartItem(product)
                 {
+                    Color = color,
                     Size = size,
                     Quantity = 1
                 };
@@ -53,10 +54,10 @@ namespace PBL3_OnlineShop.Controllers
         }
 
         [HttpPost]
-        public IActionResult Increase(int id)
+        public IActionResult Increase(int id, string size, string color)
         {
             List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
-            CartItem item = cart?.FirstOrDefault(x => x.ProductId == id);
+            CartItem item = cart?.FirstOrDefault(x => x.ProductId == id && x.Size == size && x.Color == color);
             if (item != null)
             {
                 item.Quantity++;
@@ -66,10 +67,10 @@ namespace PBL3_OnlineShop.Controllers
         }
 
         [HttpPost]
-        public IActionResult Decrease(int id)
+        public IActionResult Decrease(int id, string size, string color)
         {
             List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
-            CartItem item = cart?.FirstOrDefault(x => x.ProductId == id);
+            CartItem item = cart?.FirstOrDefault(x => x.ProductId == id && x.Size == size && x.Color == color);
             if (item != null)
             {
                 item.Quantity--;
@@ -82,10 +83,10 @@ namespace PBL3_OnlineShop.Controllers
         }
 
         [HttpPost]
-        public IActionResult Remove(int id)
+        public IActionResult Remove(int id, string size, string color)
         {
             List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
-            CartItem item = cart?.FirstOrDefault(x => x.ProductId == id);
+            CartItem item = cart?.FirstOrDefault(x => x.ProductId == id && x.Size == size && x.Color == color);
 
             if (item != null)
             {

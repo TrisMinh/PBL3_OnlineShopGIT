@@ -9,7 +9,7 @@ namespace PBL3_OnlineShop.Models
         public string Size { get; set; } // Ví dụ: "S", "M", "L", "XL"
         public int Quantity { get; set; }
         public int ProductId { get; set; }
-        public Product Product { get; set; }
+        public Products Product { get; set; }
     }
 
 }

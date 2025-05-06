@@ -4,8 +4,9 @@
 @{
     var imageUrls = Model.ImageUrl.Split(",", StringSplitOptions.RemoveEmptyEntries);
     var mainImage = imageUrls.FirstOrDefault() ?? "~/images/default.png"; // fallback nếu rỗng
+    var colorsArray = Model.Colors.Split(',').Select(c => c.Trim()).ToArray();
 }
-@model Product
+@model Products
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,24 +60,23 @@
                         @Model.Description
                     </p>
 
-                    <!-- Color Selection -->
-                    <div class="product-options">
-                        <label class="option-label">Color</label>
-                        <div class="color-selector">
-                            <button class="color-option" style="background-color: #D9D9D9;"></button>
-                            <button class="color-option active" style="background-color: #3BAB53;"></button>
-                            <button class="color-option" style="background-color: #A9A9A9;"></button>
-                            <button class="color-option" style="background-color: #1E1E1E;"></button>
-                            <button class="color-option" style="background-color: #FFFFFF; border: 1px solid #ccc;"></button>
-                            <button class="color-option" style="background-color: #B9C1E8;"></button>
-                        </div>
-                    </div>
+                    
 
                     <form asp-action="Add" asp-controller="Cart" method="get" class="action-buttons" style="display: block;">
                         <input type="hidden" name="id" value="@Model.ProductId" />
-
+                        <!-- Color Selection -->
+                        <div class="product-options">
+                            <span>Color: </span>
+                            @foreach (var color in colorsArray)
+                            {
+                                <input type="radio" id="@color" name="color" value="@color" class="color-option" />
+                                <label for="@color">@color</label>
+                            }
+                        </div>
                         <!-- Size Selection -->
                         <div class="size-selector" style="margin-bottom: 12px;">
+                            <span>Size: </span>
+
                             <input type="radio" id="sizeS" name="size" value="S" class="size-option" checked>
                             <label for="sizeS">S</label>
 

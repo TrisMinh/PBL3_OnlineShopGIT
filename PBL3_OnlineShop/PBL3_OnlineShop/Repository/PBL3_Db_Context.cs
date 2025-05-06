@@ -8,7 +8,7 @@ namespace PBL3_OnlineShop.Repository
         public PBL3_Db_Context(DbContextOptions<PBL3_Db_Context> options) : base(options)
         {
         }
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Products> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProductSize> ProductsSize { get; set; }
     }

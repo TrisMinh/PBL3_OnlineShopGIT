@@ -6,7 +6,7 @@
         {
             
         }
-        public CartItem(Product product)
+        public CartItem(Products product)
         {
             ProductId = product.ProductId;
             ProductName = product.ProductName;

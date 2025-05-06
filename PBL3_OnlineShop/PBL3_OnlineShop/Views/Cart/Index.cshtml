@@ -36,27 +36,31 @@
 
                                 </div>
                                 <div class="item-details">
-                                    <div class="item-name">@item.ProductName</div>
-                                    <div class="item-options">
-                                        <div class="item-color">@item.Color</div> 
-                                        <div class="item-size">@item.Size</div>
+                                    <div class="item-details">
+                                        <div class="item-name">@item.ProductName</div>
+                                        <div class="item-options">
+                                            <span class="option-label"><strong>Color:</strong></span> <span class="option-value">@item.Color</span>
+                                            <span class="separator">|</span>
+                                            <span class="option-label"><strong>Size:</strong></span> <span class="option-value">@item.Size</span>
+                                        </div>
                                     </div>
+
                                     <div class="item-quantity">
-                                        <!-- Nút giảm số lượng -->
-                                        <form asp-controller="Cart" asp-action="Decrease" asp-route-id="@item.ProductId" method="post" style="display:inline;">
+                                        <form asp-controller="Cart" asp-action="Decrease" asp-route-id="@item.ProductId" asp-route-size="@item.Size" asp-route-color="@item.Color" method="post" style="display:inline;">
                                             <button class="quantity-btn minus">-</button>
                                         </form>
 
-                                        <span class="quantity-value">@item.Quantity</span>
+                                        <span class="quantity-value" id="quantity-@item.ProductId-@item.Size-@item.Color">@item.Quantity</span>
 
-                                        <!-- Nút tăng số lượng -->
-                                        <form asp-controller="Cart" asp-action="Increase" asp-route-id="@item.ProductId" method="post" style="display:inline;">
+                                        <form asp-controller="Cart" asp-action="Increase" asp-route-id="@item.ProductId" asp-route-size="@item.Size" asp-route-color="@item.Color" method="post" style="display:inline;">
                                             <button class="quantity-btn plus">+</button>
                                         </form>
+
+
                                     </div>
 
                                 </div>
-                                <div class="item-price">@Model.CartItems.Where(x => x.ProductId == item.ProductId).Sum(x => x.Quantity * x.SellingPrice).ToString()</div>
+                                <div class="item-price">@Model.CartItems.Where(x => x.ProductId == item.ProductId && x.Color == item.Color && x.Size == item.Size).Sum(x => x.Quantity * x.SellingPrice).ToString()</div>
                                 <div class="item-remove">
                                     <form asp-controller="Cart" asp-action="Remove" asp-route-id="@item.ProductId" method="post">
                                         <button type="submit" class="remove-btn">
