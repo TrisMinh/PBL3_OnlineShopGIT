@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="item-price">@Model.CartItems.Where(x => x.ProductId == item.ProductId && x.Color == item.Color && x.Size == item.Size).Sum(x => x.Quantity * x.SellingPrice).ToString()</div>
                                 <div class="item-remove">
-                                    <form asp-controller="Cart" asp-action="Remove" asp-route-id="@item.ProductId" method="post">
+                                    <form asp-controller="Cart" asp-action="Remove" asp-route-id="@item.ProductId" asp-route-size="@item.Size" asp-route-color="@item.Color" method="post" style="display:inline;">
                                         <button type="submit" class="remove-btn">
                                             <i class="fa-solid fa-trash-can"></i>
                                         </button>
