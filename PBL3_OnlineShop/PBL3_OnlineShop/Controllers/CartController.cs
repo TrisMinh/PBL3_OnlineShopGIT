@@ -29,14 +29,18 @@ namespace PBL3_OnlineShop.Controllers
         {
             return View();
         }
-        public async Task<IActionResult> Add(int id)
+        public async Task<IActionResult> Add(int id, string size)
         {
             Product product = await _context.Products.FindAsync(id);
             List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart") ?? new List<CartItem>();
             CartItem cartItem = cart.FirstOrDefault(c => c.ProductId == id);
             if (cartItem == null)
             {
-                cartItem = new CartItem(product);
+                cartItem = new CartItem(product)
+                {
+                    Size = size,
+                    Quantity = 1
+                };
                 cart.Add(cartItem);
             }
             else

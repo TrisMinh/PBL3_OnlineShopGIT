@@ -11,7 +11,7 @@
             ProductId = product.ProductId;
             ProductName = product.ProductName;
             Quantity = 1;
-            SellingPrice = product.SellingPrice;
+            SellingPrice = product.SellingPrice - (product.SellingPrice * (decimal)product.SalePercentage);
             ImageUrl = product.ImageUrl;
         }
         public int ProductId { get; set; }

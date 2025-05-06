@@ -52,7 +52,9 @@
                 <!-- Product Info -->
                 <div class="product-info">
                     <h2 class="product-name">@Model.ProductName</h2>
-                    <div class="product-price">$@Model.SellingPrice</div>
+                    <div class="product-price">
+                        @Math.Round(Model.SellingPrice - (@Model.SellingPrice * (decimal)@Model.SalePercentage), 2)
+                    </div>
                     <p class="product-description">
                         @Model.Description
                     </p>
@@ -70,11 +72,12 @@
                         </div>
                     </div>
 
-                    <!-- Size Selection -->
-                    <div class="product-options">
-                        <label class="option-label">Size</label>
-                        <div class="size-selector">
-                            <input type="radio" id="sizeS" name="size" value="S" class="size-option">
+                    <form asp-action="Add" asp-controller="Cart" method="get" class="action-buttons" style="display: block;">
+                        <input type="hidden" name="id" value="@Model.ProductId" />
+
+                        <!-- Size Selection -->
+                        <div class="size-selector" style="margin-bottom: 12px;">
+                            <input type="radio" id="sizeS" name="size" value="S" class="size-option" checked>
                             <label for="sizeS">S</label>
 
                             <input type="radio" id="sizeM" name="size" value="M" class="size-option">
@@ -86,19 +89,13 @@
                             <input type="radio" id="sizeXL" name="size" value="XL" class="size-option">
                             <label for="sizeXL">XL</label>
                         </div>
-                    </div>
 
-                    <a href="#" class="size-guide">FIND YOUR SIZE | MEASUREMENT GUIDE</a>
+                        <!-- ADD Button xuống dòng -->
+                        <div style="display: block;">
+                            <button type="submit" class="add-to-cart-btn">ADD</button>
+                        </div>
+                    </form>
 
-                    <!-- Action Buttons -->
-                    <div class="action-buttons">
-                        <a class="add-to-cart-btn"
-                           asp-action="Add"
-                           asp-controller="Cart"
-                           asp-route-id="@Model.ProductId">
-                            ADD
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
