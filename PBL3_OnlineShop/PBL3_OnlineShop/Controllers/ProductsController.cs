@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PBL3_OnlineShop.Data;
+using PBL3_OnlineShop.Repository;
 using PBL3_OnlineShop.Models;
 using System.Collections.Generic; // Required for List
 using System.Linq; // Required for FirstOrDefault, Contains
-using PBL3_OnlineShop.Data;
 
 namespace PBL3_OnlineShop.Controllers
 {

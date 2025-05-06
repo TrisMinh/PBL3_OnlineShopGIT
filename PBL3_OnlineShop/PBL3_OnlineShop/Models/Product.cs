@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PBL3_OnlineShop.Models;
 
 public partial class Product
 {
+    [Key]
     public int ProductId { get; set; }
-
     public int CategoryId { get; set; }
-
+    [Required, MinLength(4, ErrorMessage = "Please enter ProductName")]
     public string ProductName { get; set; } = null!;
 
     public string? Description { get; set; }
@@ -35,11 +36,5 @@ public partial class Product
 
     public string? Gender { get; set; }
 
-    public virtual ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
-
-    public virtual Category Category { get; set; } = null!;
-
-    public virtual ICollection<GoodsReceiptDetail> GoodsReceiptDetails { get; set; } = new List<GoodsReceiptDetail>();
-
-    public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
+    public Category Category { get; set; }
 }

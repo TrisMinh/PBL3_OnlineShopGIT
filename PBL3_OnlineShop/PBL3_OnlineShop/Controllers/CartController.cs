@@ -1,83 +1,96 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PBL3_OnlineShop.Models;
+using PBL3_OnlineShop.Repository;
+using PBL3_OnlineShop.Models;
+using PBL3_OnlineShop.Models.ViewModels;
 
 namespace PBL3_OnlineShop.Controllers
 {
     public class CartController : Controller
     {
+        private readonly PBL3_Db_Context _context;
+        public CartController(PBL3_Db_Context context)
+        {
+            _context = context;
+        }
         // GET: CartController
         public ActionResult Index()
         {
-            return View();
+            List<CartItem> cartItems = HttpContext.Session.GetJson<List<CartItem>>("Cart") ?? new List<CartItem>();
+            CartItemView cartView = new CartItemView
+            {
+                CartItems = cartItems,
+                TotalPrice = cartItems.Sum(item => item.SellingPrice * item.Quantity)
+            };
+            return View(cartView);
         }
-
-        // GET: CartController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Checkout()
         {
             return View();
         }
-
-        // GET: CartController/Create
-        public ActionResult Create()
+        public async Task<IActionResult> Add(int id)
         {
-            return View();
+            Product product = await _context.Products.FindAsync(id);
+            List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart") ?? new List<CartItem>();
+            CartItem cartItem = cart.FirstOrDefault(c => c.ProductId == id);
+            if (cartItem == null)
+            {
+                cartItem = new CartItem(product);
+                cart.Add(cartItem);
+            }
+            else
+            {
+                cartItem.Quantity++;
+            }
+            HttpContext.Session.SetJson("Cart", cart);
+            TempData["Success"] = "Added product to Cart";
+            return Redirect(Request.Headers["Referer"].ToString()); // trả về trang hiện tại
         }
 
-        // POST: CartController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public IActionResult Increase(int id)
         {
-            try
+            List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
+            CartItem item = cart?.FirstOrDefault(x => x.ProductId == id);
+            if (item != null)
             {
-                return RedirectToAction(nameof(Index));
+                item.Quantity++;
+                HttpContext.Session.SetJson("Cart", cart);
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
 
-        // GET: CartController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: CartController/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public IActionResult Decrease(int id)
         {
-            try
+            List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
+            CartItem item = cart?.FirstOrDefault(x => x.ProductId == id);
+            if (item != null)
             {
-                return RedirectToAction(nameof(Index));
+                item.Quantity--;
+                if (item.Quantity <= 0)
+                    cart.Remove(item);
+
+                HttpContext.Session.SetJson("Cart", cart);
             }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
 
-        // GET: CartController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: CartController/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Remove(int id)
         {
-            try
+            List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
+            CartItem item = cart?.FirstOrDefault(x => x.ProductId == id);
+
+            if (item != null)
             {
-                return RedirectToAction(nameof(Index));
+                cart.Remove(item);
+                HttpContext.Session.SetJson("Cart", cart);
             }
-            catch
-            {
-                return View();
-            }
+            TempData["Success"] = "Removed product";
+            return RedirectToAction("Index");
+
         }
     }
 }

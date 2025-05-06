@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PBL3_OnlineShop.Data;
+using PBL3_OnlineShop.Repository;
 
 namespace PBL3_OnlineShop
 {
@@ -21,11 +21,13 @@ namespace PBL3_OnlineShop
             builder.Services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30); // thời gian sống của session
-                options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
 
+
             var app = builder.Build();
+
+            app.UseSession();     
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -39,12 +41,16 @@ namespace PBL3_OnlineShop
 
             app.UseRouting();
 
-            app.UseSession();        // 🟢 Bây giờ gọi sau UseRouting
+            
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.MapControllerRoute(
+               name: "Areas",
+               pattern: "{area:exists}/{controller=Products}/{action=Index}/{id?}");
 
             app.Run();
         }

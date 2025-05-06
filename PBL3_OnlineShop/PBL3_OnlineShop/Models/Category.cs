@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PBL3_OnlineShop.Models;
 
 public partial class Category
 {
+    [Key]
     public int CategoryId { get; set; }
-
-    public string CategoryName { get; set; } = null!;
-
+    [Required,MinLength(4,ErrorMessage = "Please enter CategoryName")]
+    public string CategoryName { get; set; }
     public string? Description { get; set; }
 
-    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+    public int Status { get; set; }
 }

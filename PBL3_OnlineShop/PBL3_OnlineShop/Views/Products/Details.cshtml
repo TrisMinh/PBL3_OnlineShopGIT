@@ -92,10 +92,12 @@
 
                     <!-- Action Buttons -->
                     <div class="action-buttons">
-                        <button class="add-to-cart-btn">ADD</button>
-                        <button class="favourite-btn">
-                            <i class="fa-regular fa-heart"></i> <!-- Assuming Font Awesome is used -->
-                        </button>
+                        <a class="add-to-cart-btn"
+                           asp-action="Add"
+                           asp-controller="Cart"
+                           asp-route-id="@Model.ProductId">
+                            ADD
+                        </a>
                     </div>
                 </div>
             </div>

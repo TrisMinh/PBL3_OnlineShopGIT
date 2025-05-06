@@ -1,8 +1,8 @@
-﻿@*
-    
-*@
+﻿@using PBL3_OnlineShop.Models.ViewModels
+@model CartItemView
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml"; // No layout for this page
+    decimal subtotal = Model.CartItems.Sum(item => item.Quantity * item.SellingPrice);
+    decimal total = subtotal; // Nếu có thêm phí ship, thuế... thì cộng thêm sau
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -25,72 +25,73 @@
             </div>
             <div class="cart-body">
                 <div class="cart-items">
-                    <!-- Item 1 -->
-                    <div class="cart-item">
-                        <div class="item-image">
-                            <!-- Use image from root images folder -->
-                            <img src="~/images/Polo.png" alt="Polo with logo on the chest">
-                        </div>
-                        <div class="item-details">
-                            <div class="item-name">Polo with logo on the chest</div>
-                            <div class="item-options">
-                                <div class="item-color" style="background-color: #18BA20;"></div> <!-- Example color -->
-                                <div class="item-size">L</div>
+                    @if(Model.CartItems.Count > 0) {
+                        @foreach (var item in Model.CartItems)
+                        {
+                            <!-- Item 1 -->
+                            <div class="cart-item">
+                                <div class="item-image">
+                                    <!-- Use image from root images folder -->
+                                    <img src="@Url.Content(item.ImageUrl?.Split(',')[0].Trim())" alt="@item.ProductName" />
+
+                                </div>
+                                <div class="item-details">
+                                    <div class="item-name">@item.ProductName</div>
+                                    <div class="item-options">
+                                        <div class="item-color">@item.Color</div> 
+                                        <div class="item-size">@item.Size</div>
+                                    </div>
+                                    <div class="item-quantity">
+                                        <!-- Nút giảm số lượng -->
+                                        <form asp-controller="Cart" asp-action="Decrease" asp-route-id="@item.ProductId" method="post" style="display:inline;">
+                                            <button class="quantity-btn minus">-</button>
+                                        </form>
+
+                                        <span class="quantity-value">@item.Quantity</span>
+
+                                        <!-- Nút tăng số lượng -->
+                                        <form asp-controller="Cart" asp-action="Increase" asp-route-id="@item.ProductId" method="post" style="display:inline;">
+                                            <button class="quantity-btn plus">+</button>
+                                        </form>
+                                    </div>
+
+                                </div>
+                                <div class="item-price">@Model.CartItems.Where(x => x.ProductId == item.ProductId).Sum(x => x.Quantity * x.SellingPrice).ToString()</div>
+                                <div class="item-remove">
+                                    <form asp-controller="Cart" asp-action="Remove" asp-route-id="@item.ProductId" method="post">
+                                        <button type="submit" class="remove-btn">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
-                            <div class="item-quantity">
-                                <button class="quantity-btn minus">-</button>
-                                <span class="quantity-value">1</span>
-                                <button class="quantity-btn plus">+</button>
-                            </div>
-                        </div>
-                        <div class="item-price">$1</div>
-                        <div class="item-remove">
-                            <button class="remove-btn">
-                                <!-- Placeholder for trash icon -->
-                                <i class="fa-solid fa-trash-can"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <hr class="item-divider">
-                    <!-- Item 2 -->
-                    <div class="cart-item">
-                        <div class="item-image">
-                            <!-- Use image from root images folder -->
-                            <img src="~/images/PoloBasis.png" alt="Polo basis lange mouw">
-                        </div>
-                        <div class="item-details">
-                            <div class="item-name">Polo basis lange mouw</div>
-                            <div class="item-options">
-                                <div class="item-color" style="background-color: #888B0F;"></div> <!-- Example color -->
-                                <div class="item-size">L</div>
-                            </div>
-                            <div class="item-quantity">
-                                <button class="quantity-btn minus">-</button>
-                                <span class="quantity-value">1</span>
-                                <button class="quantity-btn plus">+</button>
-                            </div>
-                        </div>
-                        <div class="item-price">$1</div>
-                        <div class="item-remove">
-                            <button class="remove-btn">
-                                <!-- Placeholder for trash icon -->
-                                <i class="fa-solid fa-trash-can"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <hr class="item-divider">
+                            <hr class="item-divider">
+                        }
+                        
+                    }
+                    else
+                    {
+
+                        <h4>YOUR CART IS EMPTY</h4>
+                    }
                 </div>
                 <div class="order-summary">
                     <div class="summary-title">ORDER SUMMARY</div>
-                    <div class="summary-line">
-                        <span>Subtotal</span>
-                        <span>$2</span>
-                    </div>
+                    @foreach (var item in Model.CartItems)
+                    {
+                        decimal itemSubtotal = item.Quantity * item.SellingPrice; // Tính subtotal cho từng sản phẩm
+                        <div class="summary-line">
+                            <span>@item.ProductName</span> <!-- Tên sản phẩm -->
+                            <span>@itemSubtotal</span> <!-- Subtotal của sản phẩm -->
+                        </div>
+                    }
+
                     <hr class="summary-divider">
                     <div class="summary-line total">
                         <span>Total</span>
-                        <span>$2</span>
+                        <span>@total</span> <!-- Tổng tất cả subtotal -->
                     </div>
+
                     <div class="terms">
                         <input type="checkbox" id="terms-agree">
                         <label for="terms-agree">I agree to the Terms and Conditions</label>
