@@ -63,7 +63,7 @@
                             var imageArr = (product.ImageUrl ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
                             var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";
                             var colorCount = (product.Colors ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
-                            var sizeCount = (product.Size ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
+                            @* var sizeCount = (product.Size ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length; *@
                             <div class="slide col-lg-4 col-sm-6 col-12">
                                 <div class="list">
                                     <a href="/Products/Details/@product.ProductId">
@@ -71,7 +71,7 @@
                                     </a>
                                     <div class="des-one">
                                         <span>+@colorCount color</span>
-                                        <span class="right">@sizeCount Size</span>
+                                        @* <span class="right">@sizeCount Size</span> *@
                                     </div>
                                     <div class="des-two">
                                         <span>@product.ProductName</span>
@@ -113,7 +113,7 @@
                             var imageArr = (product.ImageUrl ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
                             var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";
                             var colorCount = (product.Colors ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
-                            var sizeCount = (product.Size ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
+                            @* var sizeCount = (product.Size ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length; *@
                             var salePercent = product.SalePercentage != null ? Math.Round(product.SalePercentage.Value * 100, 0) : 0;
                             var newPrice = product.SellingPrice * (1 - (product.SalePercentage ?? 0));
                             <div class="slide col-lg-4 col-sm-6 col-12">
@@ -123,7 +123,7 @@
                                     </a>
                                     <div class="des-one">
                                         <span>+@colorCount color</span>
-                                        <span class="right">@sizeCount Size</span>
+                                        @* <span class="right">@sizeCount Size</span> *@
                                     </div>
                                     <div class="des-two">
                                         <span>@product.ProductName</span>
@@ -171,7 +171,7 @@
                             var imageArr = (product.ImageUrl ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
                             var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";
                             var colorCount = (product.Colors ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
-                            var sizeCount = (product.Size ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
+                            @* var sizeCount = (product.Size ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length; *@
                             <div class="slide col-lg-4 col-sm-6 col-12">
                                 <div class="list">
                                     <a href="/Products/Details/@product.ProductId">
@@ -179,7 +179,7 @@
                                     </a>
                                     <div class="des-one">
                                         <span>+@colorCount color</span>
-                                        <span class="right">@sizeCount Size</span>
+                                        @* <span class="right">@sizeCount Size</span> *@
                                     </div>
                                     <div class="des-two">
                                         <span>@product.ProductName</span>

@@ -46,7 +46,7 @@
                                 var imageArr = (product.ImageUrl ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
                                 var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";
                                 var colorCount = (product.Colors ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
-                                var sizeCount = (product.Size ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
+                                @* var sizeCount = (product.Size ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length; *@
                                 <div class="product-card">
                                     <div class="product-image-container">
                                         <img src="@imageUrl" alt="@product.ProductName" class="product-image">
@@ -59,7 +59,7 @@
                                     <div class="product-info">
                                         <div class="product-options">
                                             <span>+@colorCount Color</span>
-                                            <span class="right">+@sizeCount Size</span>
+                                            @* <span class="right">+@sizeCount Size</span> *@
                                         </div>
                                         <div class="product-details">
                                             <span class="product-name">

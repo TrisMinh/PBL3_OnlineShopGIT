@@ -10,6 +10,6 @@ namespace PBL3_OnlineShop.Repository
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
-
+        public DbSet<ProductSize> ProductsSize { get; set; }
     }
 }

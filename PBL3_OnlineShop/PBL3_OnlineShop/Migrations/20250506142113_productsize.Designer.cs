@@ -12,8 +12,8 @@ using PBL3_OnlineShop.Repository;
 namespace PBL3_OnlineShop.Migrations
 {
     [DbContext(typeof(PBL3_Db_Context))]
-    [Migration("20250506072456_dbver1")]
-    partial class dbver1
+    [Migration("20250506142113_productsize")]
+    partial class productsize
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -87,9 +87,6 @@ namespace PBL3_OnlineShop.Migrations
                     b.Property<decimal>("SellingPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Size")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -107,6 +104,31 @@ namespace PBL3_OnlineShop.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("PBL3_OnlineShop.Models.ProductSize", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Size")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductsSize");
+                });
+
             modelBuilder.Entity("PBL3_OnlineShop.Models.Product", b =>
                 {
                     b.HasOne("PBL3_OnlineShop.Models.Category", "Category")
@@ -116,6 +138,17 @@ namespace PBL3_OnlineShop.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("PBL3_OnlineShop.Models.ProductSize", b =>
+                {
+                    b.HasOne("PBL3_OnlineShop.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
                 });
 #pragma warning restore 612, 618
         }

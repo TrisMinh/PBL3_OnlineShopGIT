@@ -58,10 +58,10 @@ namespace PBL3_OnlineShop.Controllers
             {
                 query = query.Where(p => p.Colors != null && p.Colors.ToLower().Contains(color.ToLower()));
             }
-            if (!string.IsNullOrEmpty(size))
-            {
-                query = query.Where(p => p.Size != null && p.Size.ToLower().Contains(size.ToLower()));
-            }
+            //if (!string.IsNullOrEmpty(size))
+            //{
+            //    query = query.Where(p => p.Size != null && p.Size.ToLower().Contains(size.ToLower()));
+            //}
             if (!string.IsNullOrEmpty(price))
             {
                 switch (price)

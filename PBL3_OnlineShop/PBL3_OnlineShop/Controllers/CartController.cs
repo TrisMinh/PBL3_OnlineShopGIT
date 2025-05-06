@@ -33,7 +33,7 @@ namespace PBL3_OnlineShop.Controllers
         {
             Product product = await _context.Products.FindAsync(id);
             List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart") ?? new List<CartItem>();
-            CartItem cartItem = cart.FirstOrDefault(c => c.ProductId == id);
+            CartItem cartItem = cart.FirstOrDefault(c => c.ProductId == id && c.Size == size);
             if (cartItem == null)
             {
                 cartItem = new CartItem(product)
