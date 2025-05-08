@@ -1,0 +1,277 @@
+﻿
+/* Basic styles based on Figma structure - Refine as needed in style.css */
+body {
+    background-color: #F6F6F6; /* Assuming default background */
+}
+
+.management-system {
+    display: flex;
+
+    height: 100vh;
+}
+
+.sidebar {
+    width: 250px; /* Approximate width */
+    background-color: #9194A3; /* From Rectangle 69 fill */
+    padding: 20px;
+    height: 100vh; /* Full height */
+    color: #000; /* Default text color from Figma */
+    /* Add other sidebar styles from Management_System1/style.css if needed */
+}
+
+.user-profile {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.avatar-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.avatar {
+    width: 80px; /* Adjust size */
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid #fff; /* Example border */
+}
+
+.status-indicator {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 15px;
+    height: 15px;
+    background-color: #34C759; /* Example online status color */
+    border-radius: 50%;
+    border: 2px solid #9194A3; /* Match sidebar background */
+}
+
+.user-name {
+    font-family: 'Imprima', sans-serif; /* From Figma style_28HQ5Q */
+    font-size: 24px; /* Adjusted from 32px */
+    margin: 5px 0;
+}
+
+.user-role {
+    font-family: 'Inria Sans', sans-serif; /* From Figma style_ZRG2TI */
+    font-size: 18px; /* Adjusted from 24px */
+    color: #FEFEFE; /* Lighter text for role */
+}
+
+.main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-nav .nav-item {
+    margin-bottom: 10px;
+    border: 1px solid #9194A3; /* Default border */
+    border-radius: 5px;
+}
+
+    .main-nav .nav-item.active {
+        background-color: #FFFFFF; /* Active background from Rectangle 70 */
+        border: 1px solid #258DEE; /* Active border */
+    }
+
+        .main-nav .nav-item.active a span {
+            color: #000; /* Black text for active item */
+        }
+
+    .main-nav .nav-item a {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        text-decoration: none;
+        color: #000; /* Default text color */
+        font-family: 'Inria Sans', sans-serif;
+        font-size: 18px; /* Adjusted */
+        border-radius: 5px;
+    }
+
+    .main-nav .nav-item:not(.active) a span {
+        color: #FEFEFE; /* White text for inactive items */
+    }
+
+    .main-nav .nav-item a:hover {
+        background-color: #A1A4B3; /* Hover effect */
+    }
+
+.nav-icon {
+    width: 24px; /* Adjust icon size */
+    height: 24px;
+    margin-right: 15px;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #FFFFFF; /* From Frame background */
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #B7B2B2; /* From Rectangle 71 stroke */
+    margin-bottom: 20px;
+}
+
+.page-title {
+    font-family: 'IM FELL English', serif; /* From Figma style_3NSLLS */
+    font-size: 24px;
+    margin: 0;
+}
+
+.account-section {
+    display: flex;
+    align-items: center;
+}
+
+.account-icon {
+    width: 40px; /* Adjust size */
+    height: 40px;
+    margin-right: 10px;
+}
+
+.account-placeholder {
+    width: 40px; /* Adjust size */
+    height: 40px;
+    border-radius: 50%;
+}
+
+.search-product-section {
+    background-color: #FEFEFE; /* From Rectangle 72 */
+    padding: 20px;
+    border: 1px solid #D0CDCD; /* From Rectangle 72 stroke */
+    border-radius: 10px; /* From Group 117 */
+    margin-bottom: 30px;
+}
+
+.search-title {
+    font-family: 'Inria Sans', sans-serif; /* From Figma style_ZRG2TI */
+    font-size: 20px; /* Adjusted */
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.search-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 15px 20px; /* Row and column gap */
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+    .form-group label {
+        font-family: 'Itim', cursive; /* From Figma style_AGRE3J */
+        font-size: 18px; /* Adjusted */
+        margin-bottom: 5px;
+    }
+
+    .form-group input, .form-group select {
+        background-color: #D9D9D9; /* From Rectangle 73 fill */
+        border: none;
+        border-radius: 5px; /* Adjusted from 10px */
+        padding: 8px 12px;
+        font-size: 16px;
+        height: 35px; /* Consistent height */
+    }
+
+.search-actions {
+    text-align: center;
+}
+
+.search-btn {
+    background-color: #FFAAAA; /* From Rectangle 72 fill */
+    border: none;
+    padding: 10px 30px;
+    border-radius: 5px;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .search-btn:hover {
+        background-color: #FF8888;
+    }
+
+.product-results-section {
+    /* Styles for the results table area */
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.results-count {
+    font-family: 'Itim', cursive;
+    font-size: 18px;
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #080808; /* From Rectangle 76 stroke */
+}
+
+    .product-table th, .product-table td {
+        border: 1px solid #000000; /* From Line strokes */
+        padding: 10px 12px;
+        text-align: left;
+        font-family: 'Itim', cursive;
+        font-size: 16px; /* Adjusted */
+        vertical-align: middle;
+    }
+
+    .product-table th {
+        background-color: #EAEAEA; /* Lighter header background */
+        font-weight: bold;
+    }
+
+    .product-table tr:nth-child(even) {
+        background-color: #FFFDFD; /* From Rectangle 77 fill */
+    }
+
+    .product-table tr:nth-child(odd) {
+        background-color: #FFFFFF; /* Slightly different for odd rows */
+    }
+
+    .product-table td.operations {
+        text-align: center;
+    }
+
+.operation-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    margin: 0 5px;
+}
+
+    .operation-btn img {
+        width: 20px; /* Adjust icon size */
+        /* height: 20px; Removed to maintain aspect ratio */
+        vertical-align: middle;
+    }
+
+.edit-btn img {
+    /* Specific styles if needed */
+}
+
+.delete-btn img {
+    /* Removed background styling to show only the trash icon */
+}

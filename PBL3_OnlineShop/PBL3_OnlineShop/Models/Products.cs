@@ -1,6 +1,8 @@
-﻿using System;
+﻿using PBL3_OnlineShop.Repository.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PBL3_OnlineShop.Models;
 
@@ -36,4 +38,8 @@ public partial class Products
 
     public Category Category { get; set; }
     public ICollection<ProductSize> ProductSizes { get; set; }
+
+    [NotMapped]
+    [FileExtensionAttributes]
+    public List<IFormFile> ImageUpload { get; set; }
 }

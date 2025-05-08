@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PBL3_OnlineShop.Models.Products>
+﻿@model IEnumerable<Products>
 @{
     ViewData["Title"] = "Search Product";
     Layout = null;
@@ -366,19 +366,6 @@
             </header>
 
             <section class="search-product-section">
-                <div class="product-action-dropdown-section">
-                    <!-- Renamed class -->
-                    <div class="dropdown-container">
-                        <button class="product-action-btn">
-                            <!-- Renamed class -->
-                            Add Product <span class="dropdown-arrow">▼</span>
-                        </button>
-                        <div class="dropdown-content">
-                            <a href="ManagementSystemSearch">Edit Product</a> <!-- Placeholder link -->
-                            <a href="ManagementSystemSearch">Search Product</a> <!-- Placeholder link -->
-                        </div>
-                    </div>
-                </div>
                 <h2 class="search-title">Search Product</h2>
                 <form class="search-form" id="search-product-form">
                     <div class="form-group">
@@ -418,6 +405,7 @@
             <section class="product-results-section">
                 <div class="results-header">
                     <span class="results-count">Show 7 products:</span>
+                    <a asp-controller="Admin" asp-action="Create" class="product-action-btn">Add Products</a>
                     <!-- Add pagination or other controls if needed -->
                 </div>
                 <table class="product-table">
@@ -442,7 +430,7 @@
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
-                        {                            
+                        {
                             <tr>
                                 <td>@item.ProductId</td>
                                 <td>@item.Category.CategoryName</td>
