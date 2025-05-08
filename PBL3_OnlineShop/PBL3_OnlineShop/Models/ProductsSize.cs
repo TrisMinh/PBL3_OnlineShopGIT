@@ -6,7 +6,11 @@ namespace PBL3_OnlineShop.Models
     {
         [Key]
         public int Id { get; set; }
-        public string Size { get; set; } // Ví dụ: "S", "M", "L", "XL"
+        [Required]
+        public string Size { get; set; }
+        [Required]
+        public string Color { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Quantity must be a positive number.")]
         public int Quantity { get; set; }
         public int ProductId { get; set; }
         public Products Product { get; set; }

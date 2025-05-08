@@ -471,15 +471,34 @@
                                 <td>@item.UpdatedAt</td>
                                 <td>@item.SalePercentage</td>
                                 <td>@item.Collections</td>
-                                <td>@item.Colors</td>
+                                <td>
+                                    @if (item.ProductSizes != null && item.ProductSizes.Any())
+                                    {
+                                        foreach (var color in item.ProductSizes
+                                        .Where(ps => !string.IsNullOrEmpty(ps.Color))
+                                        .Select(ps => ps.Color)
+                                        .Distinct())
+                                        {
+                                            <div>
+                                                @color
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span>No colors available</span>
+                                    }
+                                </td>
+
+
                                 <td>@item.Gender</td>
                                 <td class="operations">
-                                    <button class="operation-btn edit-btn" title="Edit">
-                                        <img src="~/images/edit-icon.png" alt="Edit">
-                                    </button>
-                                    <button class="operation-btn delete-btn" title="Delete">
+                                    <a asp-controller="Admin" asp-action="Edit" asp-route-id="@item.ProductId" class="operation-btn edit-btn">
+                                        <img src="~/images/edit-icon.png">
+                                    </a>
+                                    <a asp-controller="Admin" asp-action="Delete" asp-route-id="@item.ProductId" class="operation-btn delete-btn">
                                         <img src="~/images/542724.png" alt="Delete">
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
                         }

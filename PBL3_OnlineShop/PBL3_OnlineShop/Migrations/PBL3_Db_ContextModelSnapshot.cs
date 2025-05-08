@@ -45,7 +45,34 @@ namespace PBL3_OnlineShop.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("PBL3_OnlineShop.Models.Product", b =>
+            modelBuilder.Entity("PBL3_OnlineShop.Models.ProductSize", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Size")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductsSize");
+                });
+
+            modelBuilder.Entity("PBL3_OnlineShop.Models.Products", b =>
                 {
                     b.Property<int>("ProductId")
                         .ValueGeneratedOnAdd()
@@ -85,7 +112,6 @@ namespace PBL3_OnlineShop.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Status")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StockQuantity")
@@ -103,30 +129,16 @@ namespace PBL3_OnlineShop.Migrations
 
             modelBuilder.Entity("PBL3_OnlineShop.Models.ProductSize", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.HasOne("PBL3_OnlineShop.Models.Products", "Product")
+                        .WithMany("ProductSizes")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Size")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductsSize");
+                    b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("PBL3_OnlineShop.Models.Product", b =>
+            modelBuilder.Entity("PBL3_OnlineShop.Models.Products", b =>
                 {
                     b.HasOne("PBL3_OnlineShop.Models.Category", "Category")
                         .WithMany()
@@ -137,15 +149,9 @@ namespace PBL3_OnlineShop.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("PBL3_OnlineShop.Models.ProductSize", b =>
+            modelBuilder.Entity("PBL3_OnlineShop.Models.Products", b =>
                 {
-                    b.HasOne("PBL3_OnlineShop.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
+                    b.Navigation("ProductSizes");
                 });
 #pragma warning restore 612, 618
         }

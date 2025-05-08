@@ -1,7 +1,8 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PBL3_OnlineShop.Models;
 using PBL3_OnlineShop.Repository;
+using System.Diagnostics;
 
 namespace PBL3_OnlineShop.Controllers
 {
@@ -18,16 +19,18 @@ namespace PBL3_OnlineShop.Controllers
 
         public IActionResult Index()
         {
-            //Lấy 8 sản phẩm Best sellers(hot products)
+            // Lấy 8 sản phẩm Best sellers(hot products) và bao gồm ProductSizes
             var hotProducts = _context.Products
+                .Include(p => p.ProductSizes)  // Bao gồm ProductSizes
                 .Where(p => p.Status != null && (p.Status == "3" || p.Status.StartsWith("3,") || p.Status.EndsWith(",3") || p.Status.Contains(",3,")))
                 .OrderByDescending(p => p.ProductId)
                 .Take(8)
                 .ToList();
             ViewBag.HotProducts = hotProducts;
 
-            // Lấy 8 sản phẩm Sales (SalePercentage > 0 và Status chứa '2')
+            // Lấy 8 sản phẩm Sales (SalePercentage > 0 và Status chứa '2') và bao gồm ProductSizes
             var saleProducts = _context.Products
+                .Include(p => p.ProductSizes)  // Bao gồm ProductSizes
                 .Where(p => p.SalePercentage != null && p.SalePercentage > 0 &&
                     p.Status != null && (
                         p.Status == "2" ||
@@ -40,8 +43,9 @@ namespace PBL3_OnlineShop.Controllers
                 .ToList();
             ViewBag.SaleProducts = saleProducts;
 
-            // Lấy 9 sản phẩm đầu tiên cho ALL COLLECTIONS (ProductId tăng dần)
+            // Lấy 9 sản phẩm đầu tiên cho ALL COLLECTIONS (ProductId tăng dần) và bao gồm ProductSizes
             var allProducts = _context.Products
+                .Include(p => p.ProductSizes)  // Bao gồm ProductSizes
                 .OrderBy(p => p.ProductId)
                 .Take(9)
                 .ToList();
@@ -49,6 +53,7 @@ namespace PBL3_OnlineShop.Controllers
 
             return View();
         }
+
 
         public IActionResult Privacy()
         {

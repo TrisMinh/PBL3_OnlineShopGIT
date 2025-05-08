@@ -1,9 +1,4 @@
-﻿﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-
-}
+﻿@model IEnumerable<Products>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -18,15 +13,12 @@
 <body>
     <div class="app">
         <div class="container product-page-container">
-            <!-- Main content based on Figma data -->
             <main class="product-content">
-                <!-- Breadcrumbs -->
                 <div class="breadcrumbs">
                     Home / Products
                 </div>
 
                 <div class="product-main">
-                    <!-- Filters Section -->
                     @if (!ViewData.ContainsKey("SelectedCollection"))
                     {
                         @Html.Partial("_FilterPartial", null, new ViewDataDictionary(ViewData) { { "SelectedCollection", ViewBag.SelectedCollection } })
@@ -35,31 +27,31 @@
                     {
                         @Html.Partial("_FilterPartial")
                     }
-                    <!-- Product Grid Section -->
+
                     <section class="product-grid">
-                        <!-- Title and Category Selector (Moved inside grid section) -->
-                        @Html.Partial("_CategoryPartial") <!-- Assuming this is a partial view for categories -->
-                        <!-- Product Card Container -->
+                        @Html.Partial("_CategoryPartial")
+
                         <div class="product-card-container">
                             @foreach (var product in Model)
                             {
                                 var imageArr = (product.ImageUrl ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
                                 var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";
-                                var colorCount = (product.Colors ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
-                                @* var sizeCount = (product.Size ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length; *@
+                                var colors = product.ProductSizes?.Select(ps => ps.Color).Distinct().ToList() ?? new List<string>();
+                                var sizes = product.ProductSizes?.Select(ps => ps.Size).Distinct().ToList() ?? new List<string>();
+
                                 <div class="product-card">
                                     <div class="product-image-container">
                                         <img src="@imageUrl" alt="@product.ProductName" class="product-image">
                                         @if (product.SalePercentage != null && product.SalePercentage > 0 && product.Status != null && (product.Status == "2" || product.Status.StartsWith("2,") || product.Status.EndsWith(",2") || product.Status.Contains(",2,")))
                                         {
-                                            var salePercent = Math.Round(product.SalePercentage * 100, 0);
+                                            var salePercent = Math.Round((decimal)product.SalePercentage *  100, 0);
                                             <div class="product-sale-badge">-@salePercent%</div>
                                         }
                                     </div>
                                     <div class="product-info">
                                         <div class="product-options">
-                                            <span>+@colorCount Color</span>
-                                            @* <span class="right">+@sizeCount Size</span> *@
+                                            <span>+@colors.Count Color</span>
+                                            <span class="right">+@sizes.Count Size</span>
                                         </div>
                                         <div class="product-details">
                                             <span class="product-name">
@@ -84,7 +76,7 @@
                                 </div>
                             }
                         </div>
-                        <!-- Pagination -->
+
                         <nav class="pagination">
                             @if (ViewBag.CurrentPage > 1)
                             {

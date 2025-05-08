@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model IEnumerable<Products>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,16 +63,18 @@
                         {
                             var imageArr = (product.ImageUrl ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
                             var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";
-                            var colorCount = (product.Colors ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
-                            @* var sizeCount = (product.Size ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length; *@
+                            var colors = product.ProductSizes?.Select(ps => ps.Color).Distinct().ToList() ?? new List<string>();
+                            var sizes = product.ProductSizes?.Select(ps => ps.Size).Distinct().ToList() ?? new List<string>();
+
                             <div class="slide col-lg-4 col-sm-6 col-12">
                                 <div class="list">
                                     <a href="/Products/Details/@product.ProductId">
                                         <div class="inner-img"><img src="@imageUrl" alt="@product.ProductName"></div>
                                     </a>
                                     <div class="des-one">
-                                        <span>+@colorCount color</span>
-                                        @* <span class="right">@sizeCount Size</span> *@
+                                        <span>+@colors.Count color</span>
+                                        <span class="right">@sizes.Count size</span>
+
                                     </div>
                                     <div class="des-two">
                                         <span>@product.ProductName</span>
@@ -112,8 +115,8 @@
                         {
                             var imageArr = (product.ImageUrl ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
                             var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";
-                            var colorCount = (product.Colors ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
-                            @* var sizeCount = (product.Size ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length; *@
+                            var colors = product.ProductSizes?.Select(ps => ps.Color).Distinct().ToList() ?? new List<string>();
+                            var sizes = product.ProductSizes?.Select(ps => ps.Size).Distinct().ToList() ?? new List<string>();
                             var salePercent = product.SalePercentage != null ? Math.Round(product.SalePercentage.Value * 100, 0) : 0;
                             var newPrice = product.SellingPrice * (1 - (product.SalePercentage ?? 0));
                             <div class="slide col-lg-4 col-sm-6 col-12">
@@ -122,8 +125,8 @@
                                         <div class="inner-img"><img src="@imageUrl" alt="@product.ProductName"></div>
                                     </a>
                                     <div class="des-one">
-                                        <span>+@colorCount color</span>
-                                        @* <span class="right">@sizeCount Size</span> *@
+                                        <span>+@colors.Count color</span>
+                                        <span class="right">@sizes.Count Size</span>
                                     </div>
                                     <div class="des-two">
                                         <span>@product.ProductName</span>
@@ -170,16 +173,16 @@
                         {
                             var imageArr = (product.ImageUrl ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
                             var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";
-                            var colorCount = (product.Colors ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
-                            @* var sizeCount = (product.Size ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries).Length; *@
+                            var colors = product.ProductSizes?.Select(ps => ps.Color).Distinct().ToList() ?? new List<string>();
+                            var sizes = product.ProductSizes?.Select(ps => ps.Size).Distinct().ToList() ?? new List<string>();
                             <div class="slide col-lg-4 col-sm-6 col-12">
                                 <div class="list">
                                     <a href="/Products/Details/@product.ProductId">
                                         <div class="inner-img"><img src="@imageUrl" alt="@product.ProductName"></div>
                                     </a>
                                     <div class="des-one">
-                                        <span>+@colorCount color</span>
-                                        @* <span class="right">@sizeCount Size</span> *@
+                                        <span>+@colors.Count color</span>
+                                        <span class="right">@sizes.Count Size</span>
                                     </div>
                                     <div class="des-two">
                                         <span>@product.ProductName</span>

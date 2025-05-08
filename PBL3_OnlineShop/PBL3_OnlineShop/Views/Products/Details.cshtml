@@ -1,12 +1,10 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Products
 @{
     var imageUrls = Model.ImageUrl.Split(",", StringSplitOptions.RemoveEmptyEntries);
     var mainImage = imageUrls.FirstOrDefault() ?? "~/images/default.png"; // fallback nếu rỗng
-    var colorsArray = Model.Colors.Split(',').Select(c => c.Trim()).ToArray();
+    var colorsArray = Model.ProductSizes.Select(ps => ps.Color).Distinct().ToArray(); // Lấy tất cả màu sắc có sẵn
+    var sizesArray = Model.ProductSizes.Select(ps => ps.Size).Distinct().ToArray(); // Lấy tất cả kích thước có sẵn
 }
-@model Products
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +18,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Add other font links if needed based on Figma styles -->
 </head>
 <body>
     <div class="app">
@@ -61,6 +58,7 @@
                     </p>
                     <form asp-action="Add" asp-controller="Cart" method="get" class="action-buttons" style="display: block;">
                         <input type="hidden" name="id" value="@Model.ProductId" />
+
                         <!-- Color Selection -->
                         <div class="product-options">
                             <span>Color: </span>
@@ -70,21 +68,15 @@
                                 <label for="@color">@color</label>
                             }
                         </div>
+
                         <!-- Size Selection -->
                         <div class="size-selector" style="margin-bottom: 12px;">
                             <span>Size: </span>
-
-                            <input type="radio" id="sizeS" name="size" value="S" class="size-option" checked>
-                            <label for="sizeS">S</label>
-
-                            <input type="radio" id="sizeM" name="size" value="M" class="size-option">
-                            <label for="sizeM">M</label>
-
-                            <input type="radio" id="sizeL" name="size" value="L" class="size-option">
-                            <label for="sizeL">L</label>
-
-                            <input type="radio" id="sizeXL" name="size" value="XL" class="size-option">
-                            <label for="sizeXL">XL</label>
+                            @foreach (var size in sizesArray)
+                            {
+                                <input type="radio" id="size@size" name="size" value="@size" class="size-option" @(size == "S" ? "checked" : "") />
+                                <label for="size@size">@size</label>
+                            }
                         </div>
 
                         <!-- ADD Button xuống dòng -->
@@ -98,6 +90,7 @@
         </div>
         <!-- End Container -->
     </div>
+
     <script src="~/js/Animate.js"></script>
 </body>
 </html>

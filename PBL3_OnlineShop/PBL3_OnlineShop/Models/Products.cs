@@ -32,8 +32,6 @@ public partial class Products
 
     public string? Collections { get; set; }
 
-    public string? Colors { get; set; }
-
     public string? Gender { get; set; }
 
     public Category Category { get; set; }

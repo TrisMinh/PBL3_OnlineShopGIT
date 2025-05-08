@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PBL3_OnlineShop.Repository;
-using PBL3_OnlineShop.Models;
 
 namespace PBL3_OnlineShop.Controllers
 {

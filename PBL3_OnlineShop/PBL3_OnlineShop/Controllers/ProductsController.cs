@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore; // Bắt buộc để dùng Include
 using PBL3_OnlineShop.Repository;
-using PBL3_OnlineShop.Models;
-using System.Collections.Generic; // Required for List
-using System.Linq; // Required for FirstOrDefault, Contains
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PBL3_OnlineShop.Controllers
 {
@@ -15,12 +16,18 @@ namespace PBL3_OnlineShop.Controllers
         {
             _context = context;
         }
+
         // GET: ProductsController
         public ActionResult Index(string category, string color, string size, string price, string collection, string availability, string gender, string text, int page = 1)
         {
             var categories = new List<string> { "New", "Sales", "Polo Shirts", "Shorts", "Suits", "Best sellers", "T-Shirts", "Jeans", "Jackets", "Coats" };
 
-            var query = _context.Products.AsQueryable();
+            var query = _context.Products
+                .Include(p => p.ProductSizes) // Để lọc theo Size/Color
+                .Include(p => p.Category) // Nếu cần lọc theo category name
+                .AsNoTracking() // Thêm vào để tối ưu truy vấn chỉ đọc
+                .AsQueryable();
+
             if (!string.IsNullOrEmpty(category) && categories.Contains(category))
             {
                 if (category == "New")
@@ -51,17 +58,20 @@ namespace PBL3_OnlineShop.Controllers
                 }
                 else
                 {
-                    query = query.Where(p => p.Category.CategoryName == category);
+                    query = query.Where(p => p.Category != null && p.Category.CategoryName == category);
                 }
             }
+
             if (!string.IsNullOrEmpty(color))
             {
-                query = query.Where(p => p.Colors != null && p.Colors.ToLower().Contains(color.ToLower()));
+                query = query.Where(p => p.ProductSizes.Any(ps => ps.Color.ToLower() == color.ToLower()));
             }
-            //if (!string.IsNullOrEmpty(size))
-            //{
-            //    query = query.Where(p => p.Size != null && p.Size.ToLower().Contains(size.ToLower()));
-            //}
+
+            if (!string.IsNullOrEmpty(size))
+            {
+                query = query.Where(p => p.ProductSizes.Any(ps => ps.Size.ToLower() == size.ToLower()));
+            }
+
             if (!string.IsNullOrEmpty(price))
             {
                 switch (price)
@@ -83,10 +93,12 @@ namespace PBL3_OnlineShop.Controllers
                         break;
                 }
             }
+
             if (!string.IsNullOrEmpty(collection))
             {
                 query = query.Where(p => p.Collections != null && p.Collections.ToLower().Contains(collection.ToLower()));
             }
+
             if (!string.IsNullOrEmpty(availability))
             {
                 if (availability == "available")
@@ -98,15 +110,17 @@ namespace PBL3_OnlineShop.Controllers
                     query = query.Where(p => p.StockQuantity == 0);
                 }
             }
+
             if (!string.IsNullOrEmpty(gender))
             {
                 query = query.Where(p => p.Gender != null && p.Gender.ToLower() == gender.ToLower());
             }
-            // Lọc theo tên sản phẩm nếu có text search
+
             if (!string.IsNullOrEmpty(text))
             {
                 query = query.Where(p => p.ProductName.ToLower().Contains(text.ToLower()));
             }
+
             // Phân trang
             int pageSize = 30;
             int totalProducts = query.Count();
@@ -125,21 +139,22 @@ namespace PBL3_OnlineShop.Controllers
             return View(products);
         }
 
-        // GET: ProductController/Details/5
-        public  ActionResult Details(int id)
+        // GET: ProductsController/Details/5
+        public ActionResult Details(int id)
         {
-            if (id == 0) return View();
+            var product = _context.Products
+                .Include(p => p.ProductSizes)
+                .FirstOrDefault(p => p.ProductId == id);
 
-            var productbyId = _context.Products.FirstOrDefault(p => p.ProductId == id);
-            if (productbyId == null)
+            if (product == null)
             {
                 return RedirectToAction("Index");
             }
 
-            return View(productbyId);
+            return View(product);
         }
 
-        // GET: ProductController/Create
+        // Action Create
         public ActionResult Create()
         {
             return View();
@@ -159,20 +174,18 @@ namespace PBL3_OnlineShop.Controllers
             }
         }
 
-        // GET: ProductController/Edit/5
+        // Action Edit
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: ProductController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
             try
             {
-                // Original code
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -181,20 +194,18 @@ namespace PBL3_OnlineShop.Controllers
             }
         }
 
-        // GET: ProductController/Delete/5
+        // Action Delete
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: ProductController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
-                // Original code
                 return RedirectToAction(nameof(Index));
             }
             catch
