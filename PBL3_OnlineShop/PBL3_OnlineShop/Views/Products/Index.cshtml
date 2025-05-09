@@ -11,6 +11,77 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+    <div class="header">
+        <div class="container">
+            <div class="inner-wrap">
+                <div class="header-menu">
+                    <div class="inner-logo">
+                        <a href="/">
+                            BLUE
+                        </a>
+                    </div>
+                    <div class="inner-menu">
+                        <ul>
+                            <li>
+                                <a href="/">
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/">
+                                    Collections
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/">
+                                    New
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="header-search">
+                    <form id="searchForm" method="get" action="/Products">
+                        <div class="inner-search-wrapper">
+                            <input class="search" type="text" placeholder="Search" id="search-header" name="text" value="@ViewBag.SelectedText">
+                            <img src="~/images/pngegg.png" alt="Search Icon" class="search-icon" onclick="document.getElementById('searchForm').submit();" style="cursor:pointer;">
+                        </div>
+                    </form>
+                </div>
+                <div class="header-utilities">
+                    <div class="inner-utilities">
+                        <ul>
+                            <li>
+                                <a asp-controller="Favourite" asp-action="Index">
+                                    <img src="~/images/Favourite.png" alt="Favourite">
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Cart" asp-action="Index">
+                                    <img src="~/images/Cart.png" alt="Cart">
+                                </a>
+                            </li>
+                            <li>
+                                @if (!string.IsNullOrEmpty(Context.Session.GetString("_Username")))
+                                {
+                                    <a asp-controller="Account" asp-action="Profile">
+                                        <img src="~/images/Account.png" alt="Account" />
+                                        <span class="ms-1"><strong>Hi, @Context.Session.GetString("_Username")</strong></span>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-controller="Account" asp-action="Login">
+                                        <img src="~/images/Account.png" alt="Account" />
+                                    </a>
+                                }
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="app">
         <div class="container product-page-container">
             <main class="product-content">

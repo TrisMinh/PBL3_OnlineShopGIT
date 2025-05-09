@@ -1,6 +1,151 @@
+.header {
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+    background: #F6F6F6;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px;
+}
+
+.header .inner-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header .inner-wrap a{
+    color: #111;
+}
+
+.header .inner-wrap ul{
+    display: flex;
+    list-style-type: none;
+    padding-left: 0;
+}
+.header .inner-wrap .inner-menu{
+    justify-items: center;
+    margin-left: 50px;
+}
+
+.header .inner-wrap .inner-menu ul li{
+    margin-left: 15px;
+    margin-right: 15px;
+    font-family: "Roboto", sans-serif;
+}
+
+.header .inner-wrap .inner-menu ul{
+    margin: 0;
+}
+
+.header .inner-wrap .inner-logo{
+    font-family: "Inknut Antiqua", serif;
+    font-size: 25px;
+    font-weight: 600;
+    margin-left: -30px;
+}
+
+.header .inner-search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-left: 55px;
+}
+
+.header .inner-search-wrapper .search {
+    width: 367px;
+    height: 35px;
+    padding-left: 36px;
+    background: #D9D9D9;
+    border: none;
+    text-align: right;
+    margin: 0;
+    padding-right: 20px;
+    font-size: 16px;
+}
+
+.header .inner-search-wrapper .search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+}
+.header .inner-utilities {
+    margin-left: 20px;
+}
+.header .inner-wrap .inner-utilities{
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+.header .inner-wrap .inner-utilities li {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.header .inner-wrap .inner-utilities ul{
+    margin-right: 20px;
+    padding: 0;
+    margin-top: revert;
+}
+
+.header .inner-wrap .inner-utilities img{
+    height: 40px;
+    width: auto;
+}
+
+.header .inner-wrap .inner-menu-logo{
+    font-size: 25px;
+}
+
+.header .inner-wrap .navbar-toggler{
+    font-size: 32px;
+    display: none;
+    border: none;
+    color: black;
+}
+
+.nav-link{
+    display: none;
+    text-align: center;
+}
+
+.container-fluid{
+    padding: 0;
+}
+
+@media (max-width: 768px){
+    .header .inner-wrap .navbar-toggler{
+        font-size: 32px;
+        display: block;
+    }
+    
+    .nav-link{
+        display: block;
+    }
+
+    .header .inner-wrap .inner-menu ul {
+        display: none;
+    }
+
+    .header .inner-wrap .inner-utilities ul{
+        margin-right: 0;
+    }
+
+    .inner-search{
+        display: none;
+    }
+
+    .footer .container .inner-wrap {
+        flex-direction: column;
+    }
+}
+
 /* Add some top margin to push content below fixed header */
 .product-page-container {
-    padding-top: 80px; /* Adjust as needed based on header height */
+    padding-top: 100px; /* Tăng padding từ 80px lên 100px để tạo khoảng cách lớn hơn với header */
     margin-bottom: 40px; /* Add space before footer */
 }
 
@@ -17,6 +162,8 @@
     /* text-transform: uppercase; / / Letter spacing in Figma often implies uppercase, but text is mixed case */
     color: #000; /* fill_2L9T45 */
     margin-bottom: 15px; /* Spacing */
+    margin-top: 5px; 
+    padding-top: 5px; 
 }
 
 .product-title {
@@ -369,41 +516,6 @@
     pointer-events: none; /* Để click vào input không bị cản */
 }
 
-/* Ghi đè header Products cho nhỏ bằng layout chung */
-.header {
-    height: 60px !important;
-    min-height: 60px !important;
-    background: #F6F6F6;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px;
-}
-
-    .header .inner-wrap {
-        margin: 8px 0 !important;
-        align-items: center !important;
-    }
-
-.inner-search input.search {
-    background: #D9D9D9;
-    border: none;
-    text-align: right;
-    width: 367px;
-    height: 35px;
-    margin: 0;
-    padding-right: 20px;
-    font-size: 16px;
-}
-
-.header .inner-logo {
-    font-size: 25px !important;
-    font-family: "Inknut Antiqua", serif;
-    font-weight: 600;
-}
-
-.header .inner-utilities img {
-    height: 40px !important;
-    width: auto;
-}
-
 .out-of-stock-price {
     text-decoration: line-through;
     text-decoration-thickness: 3px;
@@ -443,4 +555,27 @@
     color: #888;
     font-size: 13px;
     margin-left: 2px;
+}
+
+.header-menu {
+    display: flex;
+    align-items: center;
+    
+}
+.header-menu .inner-menu {
+    padding-left: 20px;
+}
+
+.header-search {
+    width: 450px;
+    flex-shrink: 0;
+    padding-left: -70px;
+    margin-left: 16px;
+}
+
+.header-utilities {
+    width: 500px;
+    display: flex;
+    align-items: center;
+    margin-left: 22px;
 }
