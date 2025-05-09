@@ -1,0 +1,180 @@
+﻿@model IEnumerable<Coupon>
+
+@{
+    ViewData["Title"] = "Search Coupon";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management Coupon</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/base.css">
+    <link rel="stylesheet" href="~/css/Management.css">
+</head>
+<body>
+    <div class="management-system">
+        <aside class="sidebar">
+            <div class="user-profile">
+                <div class="avatar-container">
+                    <img src="~/images/455123067_1470091394391641_5075587184145921216_n.jpg" alt="User Avatar" class="avatar"> <!-- Figma 1:6 -->
+                    <span class="status-indicator"></span> <!-- Figma 1:5 -->
+                </div>
+                <h2 class="user-name">Trung Trung</h2> <!-- Figma 1:7 -->
+                <p class="user-role">Manager</p> <!-- Figma 1:8 -->
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="nav-item">
+                        <a href="ManagementSystemAdd.html">
+                            <img src="~/images/manage-system-icon.png" alt="" class="nav-icon"> <!-- Figma 1:12 -->
+                            <span>Manage System</span> <!-- Figma 1:11 -->
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ManagementCustomerAccount.html">
+                            <img src="~/images/manage-customer-icon.png" alt="" class="nav-icon"> <!-- Figma 1:16 -->
+                            <span>Manage Customer</span> <!-- Figma 1:15 -->
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <img src="~/images/manage-order-icon.png" alt="" class="nav-icon"> <!-- Figma 1:20 -->
+                            <span>Manage Order</span> <!-- Figma 1:19 -->
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="#">
+                            <img src="~/images/manage-coupon-icon.png" alt="" class="nav-icon"> <!-- Figma 1:24 -->
+                            <span>Manage Coupon</span> <!-- Figma 1:23 -->
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <img src="~/images/manage-rank-icon.png" alt="" class="nav-icon"> <!-- Figma 1:28 -->
+                            <span>Management Rank</span> <!-- Figma 1:27 -->
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <img src="~/images/manage-statistics-icon.png" alt="" class="nav-icon"> <!-- Figma 1:32 -->
+                            <span>Manage Statictis</span> <!-- Figma 1:31 -->
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <h1 class="page-title">Management</h1>
+                <div class="account-section">
+                    <a href="ProfileAdminEdit.html" title="Edit Profile">
+                        <img src="~/images/account-icon-large.png" alt="Edit Profile" class="account-icon"> <!-- Link to Admin Edit Profile -->
+                    </a>
+                    <a href="index.html" title="Go to Home">
+                        <img src="~/images/360_F_66468754_86IFi1dhqwtHdXzPeMQNhGtGp8Z2D3yC.jpg" alt="Go to Home" class="account-placeholder"> <!-- Link to Home -->
+                    </a>
+                </div>
+            </header>
+
+            <section class="coupon-filters">
+                <div class="filter-group">
+                    <label for="coupon-id">ID Coupon:</label>
+                    <input type="text" id="coupon-id" name="coupon-id" placeholder="">
+                </div>
+                <div class="filter-group">
+                    <label for="coupon-min">Min:</label>
+                    <input type="number" id="coupon-min" name="coupon-min" placeholder="">
+                </div>
+                <div class="filter-group">
+                    <label for="coupon-max">Max:</label>
+                    <input type="number" id="coupon-max" name="coupon-max" placeholder="">
+                </div>
+                <button class="search-button">Search</button>
+            </section>
+
+            <div class="results-header">
+                <span class="results-count">Show @Model.Count() coupon:</span>
+                <a asp-area="Admin" asp-controller="Coupon" asp-action="Create" class="product-action-btn">Add Coupon</a>
+            </div>
+            <section class="coupon-table-section">
+                <table class="coupon-table">
+                    <thead>
+                        <tr>
+                            <th>ID Coupon</th>
+                            <th>Name Coupon</th>
+                            <th>Description</th>
+                            <th>Discount</th>
+                            <th>Condition</th>
+                            <th>Date Start</th>
+                            <th>Date End</th>
+                            <th>Status</th>
+                            <th>Days left</th>
+                            <th>Operation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Name</td>
+                                <td>@item.Description</td>
+                                <td>@item.Discount</td>
+                                <td>@item.MinOrderValue</td>
+                                <td>@item.StartDate.ToString("dd-MM-yyyy")</td>
+                                <td>@item.EndDate.ToString("dd-MM-yyyy")</td>
+                                <td>
+                                    @if (item.status == 1)
+                                    {
+                                        <span>Active</span>
+                                    }
+                                    else if (item.status == 0)
+                                    {
+                                        <span>Hide</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (DateTime.Now < item.StartDate)
+                                    {
+                                        <span class="text text-danger">Not started</span>
+                                    }
+                                    else
+                                   if (DateTime.Now > item.EndDate)
+                                    {
+                                        <span class="text text-danger">Expired</span>
+                                    }
+                                    else
+                                    {
+                                        TimeSpan remainingTime = item.EndDate - DateTime.Now;
+                                        int reaminingDay = remainingTime.Days;
+                                        if (reaminingDay == 0)
+                                        {
+                                            <span class="text text-danger">Today</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text text-success">@reaminingDay days left</span>
+                                        }
+                                    }
+                                </td>
+                                <td class="operations">
+                                    <a class="operation-btn edit-btn" asp-area="Admin" asp-action="Edit" asp-controller="Coupon" asp-route-id="@item.Id">
+                                        <img src="~/images/edit-icon.png" alt="Edit">
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </section>
+
+        </main>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+﻿@model PBL3_OnlineShop.Models.Coupon
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_SmallLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management Coupon</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/base.css">
+    <link rel="stylesheet" href="~/css/Management.css">
+</head>
+<body>
+    <div class="management-system">
+        <aside class="sidebar">
+            <div class="user-profile">
+                <div class="avatar-container">
+                    <img src="~/images/455123067_1470091394391641_5075587184145921216_n.jpg" alt="User Avatar" class="avatar">
+                    <span class="status-indicator"></span>
+                </div>
+                <h2 class="user-name">Trung Trung</h2>
+                <p class="user-role">Manager</p>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="nav-item">
+                        <a href="#">
+                            <img src="~/images/manage-system-icon.png" alt="" class="nav-icon">
+                            <span>Manage System</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <img src="~/images/manage-customer-icon.png" alt="" class="nav-icon">
+                            <span>Manage Customer</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <img src="~/images/manage-order-icon.png" alt="" class="nav-icon">
+                            <span>Manage Order</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="#">
+                            <img src="~/images/manage-coupon-icon.png" alt="" class="nav-icon">
+                            <span>Manage Coupon</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#">
+                            <img src="~/images/manage-statistics-icon.png" alt="" class="nav-icon">
+                            <span>Manage Statictis</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <h1 class="page-title">Management</h1>
+                <div class="account-section">
+                    <a href="#" title="Edit Profile">
+                        <img src="~/images/account-icon-large.png" alt="Edit Profile" class="account-icon">
+                    </a>
+                    <a href="#" title="Go to Home">
+                        <img src="~/images/360_F_66468754_86IFi1dhqwtHdXzPeMQNhGtGp8Z2D3yC.jpg" alt="Go to Home" class="account-placeholder">
+                    </a>
+                </div>
+            </header>
+
+
+            <div class="add-coupon-dropdown-section">
+                <a class="add-coupon-btn" asp-action="Index">
+                    ← Back
+                </a>
+            </div>
+
+            <section class="add-coupon-form">
+                <form asp-area="Admin" asp-controller="Coupon" asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Name Coupon:</label>
+                            <input asp-for="Name" placeholder="Enter coupon name">
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Discount:</label>
+                            <input asp-for="Discount" placeholder="e.g., 10% or $5">
+                            <span asp-validation-for="Discount" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Description:</label>
+                            <input asp-for="Description" placeholder="Enter description">
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Status:</label>
+                            <select asp-for="status" class="form-control">
+                                <option value="1">Active</option>
+                                <option value="0">Hide</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Min Order Value:</label>
+                            <input asp-for="MinOrderValue" placeholder="Enter Condition">
+                            <span asp-validation-for="MinOrderValue" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Date Start:</label>
+                            <input asp-for="StartDate">
+                            <span asp-validation-for="StartDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Date End:</label>
+                            <input asp-for="EndDate">
+                            <span asp-validation-for="EndDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-submit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+        </main>
+    </div>
+
+</body>
+</html>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
