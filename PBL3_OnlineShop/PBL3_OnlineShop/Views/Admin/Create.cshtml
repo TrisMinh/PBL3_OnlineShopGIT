@@ -10,12 +10,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Management System</title>
-    <link rel="stylesheet" href="~/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/base.css">
     <link rel="stylesheet" href="~/css/Management.css">
 </head>
 <body>
     <div class="management-system">
+        <aside class="sidebar">
+            <div class="user-profile">
+                <div class="avatar-container">
+                    <img src="~/images/user-profile.png" alt="User Avatar" class="avatar">
+                    <span class="status-indicator"></span>
+                </div>
+                <h2 class="user-name">Trung Trung</h2>
+                <p class="user-role">Manager</p>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <!-- Add 'active' class to the relevant item for this page if needed -->
+                    <li class="nav-item active">
+                        <a href="#">
+                            <!-- Link to Management System 1 or appropriate page -->
+                            <img src="~/images/manage-system-icon.png" alt="" class="nav-icon">
+                            <span>Manage System</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <!-- Link to Customer Management -->
+                            <img src="~/images/manage-customer-icon.png" alt="" class="nav-icon">
+                            <span>Manage Customer</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <!-- Link to Order Management -->
+                            <img src="~/images/manage-order-icon.png" alt="" class="nav-icon">
+                            <span>Manage Order</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <!-- Link to Coupon Management -->
+                            <img src="~/images/manage-coupon-icon.png" alt="" class="nav-icon">
+                            <span>Manage Coupon</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <!-- Link to Rank Management -->
+                            <img src="~/images/manage-rank-icon.png" alt="" class="nav-icon">
+                            <span>Management Rank</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <!-- Link to Statistics -->
+                            <img src="~/images/manage-statistics-icon.png" alt="" class="nav-icon">
+                            <span>Manage Statictis</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
         <!-- Main Content -->
         <main class="main-content">
             <header class="top-bar">
@@ -36,7 +93,7 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label>ProductName</label>
                                 <input asp-for="ProductName" class="form-control" />
@@ -44,7 +101,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label>Category</label>
                                 <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories">
@@ -54,7 +111,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label>Description</label>
                                 <input asp-for="Description" class="form-control" />
@@ -62,7 +119,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label>SellingPrice</label>
                                 <input asp-for="SellingPrice" class="form-control" />
@@ -75,13 +132,13 @@
                         <label>Size and Color</label>
                         <div id="sizes-container">
                             <div class="row mb-2 size-entry">
-                                <div class="col-md-5">
+                                <div class="col-3">
                                     <input type="text" name="Sizes[0].Size" class="form-control" placeholder="Size (ví dụ: M)" />
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-3">
                                     <input type="text" name="Sizes[0].Color" class="form-control" placeholder="Color" />
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-3">
                                     <input type="number" name="Sizes[0].Quantity" class="form-control" placeholder="Quantity" />
                                 </div>
                                 <div class="col-md-2">
@@ -97,28 +154,29 @@
                         <input asp-for="ImageUpload" class="form-control" />
                         <span asp-validation-for="ImageUpload" class="text-danger"></span>
                     </div>
-
-                    <div class="form-group">
+                    <div class="row">
+                    <div class="form-group col-6">
                         <label>Status</label>
                         <input asp-for="Status" class="form-control" />
                         <span asp-validation-for="Status" class="text-danger"></span>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group col-6">
                         <label>SalePercentage</label>
                         <input asp-for="SalePercentage" class="form-control" />
                         <span asp-validation-for="SalePercentage" class="text-danger"></span>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group col-6">
                         <label>Collections</label>
                         <input asp-for="Collections" class="form-control" />
                         <span asp-validation-for="Collections" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-6">
                         <label>Gender</label>
                         <input asp-for="Gender" class="form-control" />
                         <span asp-validation-for="Gender" class="text-danger"></span>
+                    </div>
                     </div>
 
                     <div class="form-actions mt-3">
@@ -137,13 +195,13 @@
             const newEntry = document.createElement('div');
             newEntry.classList.add('row', 'mb-2', 'size-entry');
             newEntry.innerHTML = `
-                <div class="col-md-5">
+                <div class="col-3">
                     <input type="text" name="Sizes[${sizeIndex}].Size" class="form-control" placeholder="Size (ví dụ: M)" />
                 </div>
-                <div class="col-md-5">
+                <div class="col-3">
                     <input type="text" name="Sizes[${sizeIndex}].Color" class="form-control" placeholder="Color" />
                 </div>
-                <div class="col-md-5">
+                <div class="col-3">
                     <input type="number" name="Sizes[${sizeIndex}].Quantity" class="form-control" placeholder="Quantity" />
                 </div>
                 <div class="col-md-2">

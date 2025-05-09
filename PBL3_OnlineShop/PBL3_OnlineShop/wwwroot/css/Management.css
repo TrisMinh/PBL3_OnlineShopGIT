@@ -249,7 +249,7 @@ body {
 .management-system {
     display: flex;
     width: 100%;
-    min-height: 100vh; /* Ensure it takes full viewport height */
+    height: 100vh; /* Ensure it takes full viewport height */
 }
 
 /* === Sidebar Styles (Copied from Management_Customer_Account) === */
@@ -514,7 +514,6 @@ body {
 .form-group {
     display: flex;
     flex-direction: column;
-    width: 100%;
 }
 
 .form-group label {
@@ -1486,4 +1485,8 @@ body {
     line-height: 1;
     color: #888;
     cursor: pointer;
+}
+
+.group {
+    display: flex;
 }
