@@ -160,20 +160,28 @@
 
                     <div class="form-group">
                         <label>ImageUpload</label>
+
+                        <!-- Ảnh hiện tại từ Model.ImageUrl -->
                         @if (!string.IsNullOrEmpty(Model.ImageUrl))
                         {
-                            var imageUrls = Model.ImageUrl.Split(',');
-                            foreach (var imageUrl in imageUrls)
-                            {
-                                <img class="col-3" src="@Url.Content(imageUrl)" alt="Current Image" style="max-width: 200px; margin-right: 10px;" />
-                            }
+                            <div class="d-flex flex-wrap mb-2" id="existingImages">
+                                @foreach (var imageUrl in Model.ImageUrl.Split(','))
+                                {
+                                    <img src="@Url.Content(imageUrl)" alt="Current Image"
+                                         class="img-thumbnail me-2 mb-2"
+                                         style="max-width: 200px;" />
+                                }
+                            </div>
                         }
                         else
                         {
                             <p>No images available.</p>
                         }
-                        <input asp-for="ImageUpload" class="form-control" />
+                        <!-- Input upload ảnh mới -->
+                        <input asp-for="ImageUpload" class="form-control mt-2" multiple />
                         <span asp-validation-for="ImageUpload" class="text-danger"></span>
+                        <!-- Preview ảnh mới -->
+                        <div id="previewImages" class="d-flex flex-wrap mt-2"></div>
                     </div>
                     <div class="row">
                         <div class="form-group col-6">
@@ -239,7 +247,6 @@
             }
         });
     </script>
-
     <script src="~/bootstrap/bootstrap.bundle.min.js"></script>
 </body>
 </html>

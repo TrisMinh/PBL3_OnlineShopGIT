@@ -150,8 +150,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label>ImageUpload</label>
-                        <input asp-for="ImageUpload" class="form-control" />
+                        <label for="ImageUpload">Chọn ảnh sản phẩm</label>
+                        <!-- Khung preview -->
+                        <div id="previewImages" class="d-flex flex-wrap mt-2"></div>
+                        <input asp-for="ImageUpload" class="form-control" multiple />
                         <span asp-validation-for="ImageUpload" class="text-danger"></span>
                     </div>
                     <div class="row">
@@ -218,7 +220,6 @@
             }
         });
     </script>
-
     <script src="~/bootstrap/bootstrap.bundle.min.js"></script>
 </body>
 </html>

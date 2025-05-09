@@ -6,7 +6,7 @@ namespace PBL3_OnlineShop.Repository.Validation
     {
         protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
         {
-            string[] allowedExtensions = { ".jpg", ".jpeg", ".png" };
+            string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".webp"};
             if (value is IEnumerable<IFormFile> files)
             {
                 foreach (var file in files)
