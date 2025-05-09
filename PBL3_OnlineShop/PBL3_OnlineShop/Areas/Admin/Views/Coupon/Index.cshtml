@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="~/css/Management.css">
 </head>
 <body>
+    
     <div class="management-system">
         <aside class="sidebar">
             <div class="user-profile">
@@ -80,7 +81,7 @@
                     </a>
                 </div>
             </header>
-
+            @await Html.PartialAsync("_NavbarPartial")
             <section class="coupon-filters">
                 <div class="filter-group">
                     <label for="coupon-id">ID Coupon:</label>
@@ -97,10 +98,13 @@
                 <button class="search-button">Search</button>
             </section>
 
-            <div class="results-header">
+            <div class="results-header d-flex justify-content-between align-items-center">
                 <span class="results-count">Show @Model.Count() coupon:</span>
-                <a asp-area="Admin" asp-controller="Coupon" asp-action="Create" class="product-action-btn">Add Coupon</a>
+                <a asp-area="Admin" asp-controller="Coupon" asp-action="Create" class="product-action-btn">
+                    Add Coupon
+                </a>
             </div>
+
             <section class="coupon-table-section">
                 <table class="coupon-table">
                     <thead>
