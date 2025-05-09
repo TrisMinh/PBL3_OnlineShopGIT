@@ -41,9 +41,12 @@
                         </li>
                     </ul>
                 </div>
-                <div class="inner-search">
-                    <input class="search" type="text" placeholder="Search" id="search-header" name="text">
-                </div>
+                <form id="searchForm" method="get" action="/Products">
+                            <div class="inner-search-wrapper">
+                                <input class="search" type="text" placeholder="Search" id="search-header" name="text" value="@ViewBag.SelectedText">
+                                <img src="~/images/pngegg.png" alt="Search Icon" class="search-icon" onclick="document.getElementById('searchForm').submit();" style="cursor:pointer;">
+                            </div>
+                </form>
                 <div class="inner-utilities">
                     <ul>
                         <li>
