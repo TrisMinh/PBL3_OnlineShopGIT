@@ -12,7 +12,7 @@ using PBL3_OnlineShop.Repository;
 namespace PBL3_OnlineShop.Migrations
 {
     [DbContext(typeof(PBL3_Db_Context))]
-    [Migration("20250508124330_dbver1")]
+    [Migration("20250509022242_dbver1")]
     partial class dbver1
     {
         /// <inheritdoc />
@@ -57,6 +57,7 @@ namespace PBL3_OnlineShop.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Color")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductId")
@@ -66,6 +67,7 @@ namespace PBL3_OnlineShop.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Size")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -87,9 +89,6 @@ namespace PBL3_OnlineShop.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Collections")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Colors")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")

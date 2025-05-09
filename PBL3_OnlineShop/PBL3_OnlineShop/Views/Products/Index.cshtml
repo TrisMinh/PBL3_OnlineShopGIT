@@ -41,7 +41,9 @@
 
                                 <div class="product-card">
                                     <div class="product-image-container">
-                                        <img src="@imageUrl" alt="@product.ProductName" class="product-image">
+                                        <a href="/products/details/@product.ProductId">
+                                            <img src="@imageUrl" alt="@product.ProductName" class="product-image">
+                                        </a>
                                         @if (product.SalePercentage != null && product.SalePercentage > 0 && product.Status != null && (product.Status == "2" || product.Status.StartsWith("2,") || product.Status.EndsWith(",2") || product.Status.Contains(",2,")))
                                         {
                                             var salePercent = Math.Round((decimal)product.SalePercentage *  100, 0);
