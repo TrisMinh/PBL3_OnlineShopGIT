@@ -6,74 +6,74 @@
 @import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 /* Header */
-.header .inner-wrap{
+.header .inner-wrap {
     display: flex;
     justify-content: space-between;
     justify-items: center;
     align-items: center;
 }
 
-.header .inner-wrap a{
-    color: #111;
-}
+    .header .inner-wrap a {
+        color: #111;
+    }
 
-.header .inner-wrap ul{
-    display: flex;
-    list-style-type: none;
-    padding-left: 0;
-}
+    .header .inner-wrap ul {
+        display: flex;
+        list-style-type: none;
+        padding-left: 0;
+    }
 
-.header .inner-wrap .inner-menu ul li{
-    margin-left: 15px;
-    margin-right: 15px;
-    font-family: "Roboto", sans-serif;
-}
+    .header .inner-wrap .inner-menu ul li {
+        margin-left: 15px;
+        margin-right: 15px;
+        font-family: "Roboto", sans-serif;
+    }
 
-.header .inner-wrap .inner-logo{
-    font-family: "Inknut Antiqua", serif;
-    font-size: 25px;
-    font-weight: 600;
-}
+    .header .inner-wrap .inner-logo {
+        font-family: "Inknut Antiqua", serif;
+        font-size: 25px;
+        font-weight: 600;
+    }
 
-.header .inner-wrap .inner-search input{
-    background: #D9D9D9;
-    border: none;
-    text-align: right;
-    width: 367px;
-    height: 35px;
-    margin-top: 8px;
-    padding-right: 20px;
-}
+    .header .inner-wrap .inner-search input {
+        background: #D9D9D9;
+        border: none;
+        text-align: right;
+        width: 367px;
+        height: 35px;
+        margin-top: 8px;
+        padding-right: 20px;
+    }
 
-.header .inner-wrap .inner-utilities{
-    margin: 0 0 0 0;
-    padding: 0;
-}
+    .header .inner-wrap .inner-utilities {
+        margin: 0 0 0 0;
+        padding: 0;
+    }
 
-.header .inner-wrap .inner-utilities li {
-    margin-left: 10px;
-    margin-right: 10px;
-}
+        .header .inner-wrap .inner-utilities li {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
 
-.header .inner-wrap .inner-utilities ul{
-    margin-right: 20px;
-    margin-top: 25px;
-    padding: 0;
-}
+        .header .inner-wrap .inner-utilities ul {
+            margin-right: 20px;
+            margin-top: 25px;
+            padding: 0;
+        }
 
-.header .inner-wrap .inner-utilities img{
-    height: 40px;
-    width: auto;
-}
+        .header .inner-wrap .inner-utilities img {
+            height: 40px;
+            width: auto;
+        }
 
-.header .inner-wrap .inner-menu-logo{
-    font-size: 25px;
-}
+    .header .inner-wrap .inner-menu-logo {
+        font-size: 25px;
+    }
 
 /* End Header */
 
 /* Line */
-.line{
+.line {
     margin: 20px 0;
     background: #111;
     height: 1px;
@@ -81,127 +81,127 @@
 /* End Line */
 
 /* Section-one */
-.section-one .inner-wrap{
+.section-one .inner-wrap {
     padding-top: 100px;
 }
 
-.section-one .inner-wrap .inner-content{
-    font-family: "Inknut Antiqua", serif;
-    font-size: 10px;
-    margin-left: 10px;
-}
+    .section-one .inner-wrap .inner-content {
+        font-family: "Inknut Antiqua", serif;
+        font-size: 10px;
+        margin-left: 10px;
+    }
 
-.section-one .inner-home{
+.section-one .inner-home {
     position: relative;
 }
 
-.section-one .inner-home img{
-    height: 525px;
-}
+    .section-one .inner-home img {
+        height: 525px;
+    }
 
-.section-one .inner-home .inner-sale{
-    position: absolute;
-    top: 130px;
-    right: 150px;
-}
+    .section-one .inner-home .inner-sale {
+        position: absolute;
+        top: 130px;
+        right: 150px;
+    }
 
-.section-one .inner-home .inner-sale .span1{
-    font-family: "Cardo", serif;
-    font-size: 38px;
-}
+        .section-one .inner-home .inner-sale .span1 {
+            font-family: "Cardo", serif;
+            font-size: 38px;
+        }
 
-.section-one .inner-home .inner-sale .span2{
-    font-family: "Cambo", serif;
-    font-size: 16px;
-}
+        .section-one .inner-home .inner-sale .span2 {
+            font-family: "Cambo", serif;
+            font-size: 16px;
+        }
 /* End Section-one */
 
 /* Section-two */
-.section-two .inner-wrap .inner-content{
+.section-two .inner-wrap .inner-content {
     display: flex;
 }
 
-.section-two .inner-wrap .inner-content .content-left{
-    font-size: 35px;
-    font-weight: 800;
-}
+    .section-two .inner-wrap .inner-content .content-left {
+        font-size: 35px;
+        font-weight: 800;
+    }
 
-.section-two .inner-wrap .inner-content .content-right{
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-}
+    .section-two .inner-wrap .inner-content .content-right {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+    }
 
-.section-two .inner-wrap .inner-content .content-right a{
-    color: #5E5E5E;
-    font-size: 20px;
-}
+        .section-two .inner-wrap .inner-content .content-right a {
+            color: #5E5E5E;
+            font-size: 20px;
+        }
 
-.section-two{
+.section-two {
     overflow: hidden;
 }
 
-.section-two .inner-wrap .line{
-    margin: 20px 0;
-    background: #DFDFDF;
-    height: 1px;
-}
+    .section-two .inner-wrap .line {
+        margin: 20px 0;
+        background: #DFDFDF;
+        height: 1px;
+    }
 
-.section-two .inner-wrap .inner-list{
-    display: flex;
-    transition: transform 0.5s ease;
-}
+    .section-two .inner-wrap .inner-list {
+        display: flex;
+        transition: transform 0.5s ease;
+    }
 
-.section-two .inner-wrap .slide{
-    min-width: 100%;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
+    .section-two .inner-wrap .slide {
+        min-width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
 
-.section-two .inner-wrap .inner-list .list .des-one{
-    margin: 5px 0;
-    display: flex;
-    font-size: 16px;
-}
+    .section-two .inner-wrap .inner-list .list .des-one {
+        margin: 5px 0;
+        display: flex;
+        font-size: 16px;
+    }
 
-.section-two .inner-wrap .inner-list .list .des-two{
-    margin: 5px 0;
-    display: flex;
-    font-size: 14px;
-    font-weight: 500;
-}
+    .section-two .inner-wrap .inner-list .list .des-two {
+        margin: 5px 0;
+        display: flex;
+        font-size: 14px;
+        font-weight: 500;
+    }
 
-.section-two .inner-wrap .inner-list .list .right{
-    margin-left: auto;
-}
+    .section-two .inner-wrap .inner-list .list .right {
+        margin-left: auto;
+    }
 
-.section-two .inner-wrap .inner-button{
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
+    .section-two .inner-wrap .inner-button {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
 
-.section-two .inner-wrap .inner-button button{
-    height: 40px;
-    width: 40px;
-    margin: 0 10px;
-    background: #fff;
-    border: 1px solid #111;
-}
+        .section-two .inner-wrap .inner-button button {
+            height: 40px;
+            width: 40px;
+            margin: 0 10px;
+            background: #fff;
+            border: 1px solid #111;
+        }
 
-.section-two .inner-wrap .inner-button button:hover:not(.disabled){
-    background: #DFDFDF;
-}
+            .section-two .inner-wrap .inner-button button:hover:not(.disabled) {
+                background: #DFDFDF;
+            }
 
-.section-two .inner-wrap .inner-button .disabled {
-    color: #DFDFDF;
-    border: 1px solid #B9B9B9;
-}
+        .section-two .inner-wrap .inner-button .disabled {
+            color: #DFDFDF;
+            border: 1px solid #B9B9B9;
+        }
 /* End Section-two */
 
 /* Footer */
-.footer .container .inner-wrap .inner-box .inner-content{
+.footer .container .inner-wrap .inner-box .inner-content {
     font-size: 24px;
     font-weight: 800;
     color: #B30C0C;
@@ -209,32 +209,32 @@
 }
 
 
-.footer .container .inner-wrap .inner-box .inner-text{
+.footer .container .inner-wrap .inner-box .inner-text {
     font-size: 14px;
     margin: 10px 0;
 }
 
-.footer .container .inner-wrap .inner-box .inner-utilities{
+.footer .container .inner-wrap .inner-box .inner-utilities {
     font-size: 16px;
     font-weight: bold;
     margin: 10px 0;
 }
 
-.footer .container .inner-wrap .inner-box img{
+.footer .container .inner-wrap .inner-box img {
     margin: 0 5px;
     margin-left: 0;
 }
 
-.footer .container .inner-wrap{
+.footer .container .inner-wrap {
     padding: 20px;
     display: flex;
     justify-content: space-between;
     justify-items: left;
 }
 
-.footer .container .inner-wrap li{
-    font-weight: 450;
-}
+    .footer .container .inner-wrap li {
+        font-weight: 450;
+    }
 
 /* End Footer */
 
@@ -320,40 +320,40 @@ body {
     margin-bottom: 5px; /* Space between items */
 }
 
-.main-nav .nav-item a {
-    display: flex;
-    align-items: center;
-    padding: 12px 15px;
-    text-decoration: none;
-    color: #000000; /* Default text color black (Figma 4:38 etc.) */
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    font-family: 'Inria Sans', sans-serif; /* Figma style_PCGL4D */
-    font-size: 18px; /* Adjusted from 24px */
-    background-color: #9194A3; /* Default background (Figma 4:37 etc.) */
-    border: 1px solid #9194A3; /* Match background for non-active */
-}
+    .main-nav .nav-item a {
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        text-decoration: none;
+        color: #000000; /* Default text color black (Figma 4:38 etc.) */
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        font-family: 'Inria Sans', sans-serif; /* Figma style_PCGL4D */
+        font-size: 18px; /* Adjusted from 24px */
+        background-color: #9194A3; /* Default background (Figma 4:37 etc.) */
+        border: 1px solid #9194A3; /* Match background for non-active */
+    }
 
-.main-nav .nav-item .nav-icon {
-    width: 24px; /* Adjust icon size */
-    height: 24px;
-    margin-right: 15px;
-    object-fit: contain; /* Ensure icon fits */
-}
+    .main-nav .nav-item .nav-icon {
+        width: 24px; /* Adjust icon size */
+        height: 24px;
+        margin-right: 15px;
+        object-fit: contain; /* Ensure icon fits */
+    }
 
-.main-nav .nav-item a:hover {
-    background-color: #a1a4b3; /* Darker grey hover effect */
-    border-color: #a1a4b3;
-}
+    .main-nav .nav-item a:hover {
+        background-color: #a1a4b3; /* Darker grey hover effect */
+        border-color: #a1a4b3;
+    }
 
-/* Active state for Manage Coupon (assuming this page relates to it) */
-.main-nav .nav-item.active a {
-    background-color: #FFFFFF; /* White background for active item (e.g., Figma 4:49) */
-    border: 1px solid #2044E3; /* Blue border for active item (e.g., Figma 4:49 stroke_JLKBRT) */
-    color: #000; /* Black text (e.g., Figma 4:50) */
-    font-weight: bold; /* Keep bold for emphasis */
-    padding: 11px 14px; /* Adjust padding slightly for border */
-}
+    /* Active state for Manage Coupon (assuming this page relates to it) */
+    .main-nav .nav-item.active a {
+        background-color: #FFFFFF; /* White background for active item (e.g., Figma 4:49) */
+        border: 1px solid #2044E3; /* Blue border for active item (e.g., Figma 4:49 stroke_JLKBRT) */
+        color: #000; /* Black text (e.g., Figma 4:50) */
+        font-weight: bold; /* Keep bold for emphasis */
+        padding: 11px 14px; /* Adjust padding slightly for border */
+    }
 
 .main-nav .nav-icon {
     width: 24px; /* Adjust icon size */
@@ -384,7 +384,6 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
     padding-bottom: 15px;
     border-bottom: 1px solid #eee; /* Separator */
 }
@@ -401,19 +400,19 @@ body {
     align-items: center;
 }
 
-.account-section img {
-    width: 40px; /* Adjust size */
-    height: 40px;
-    margin-left: 15px;
-    border-radius: 50%; /* Make placeholder circular */
-}
+    .account-section img {
+        width: 40px; /* Adjust size */
+        height: 40px;
+        margin-left: 15px;
+        border-radius: 50%; /* Make placeholder circular */
+    }
 
 .account-icon { /* For Account image 4:5 */
-     border: 1px solid #ccc; /* Example border */
+    border: 1px solid #ccc; /* Example border */
 }
 
 .account-placeholder { /* For placeholder image 4:6 */
-     border: 1px solid #ccc; /* Example border */
+    border: 1px solid #ccc; /* Example border */
 }
 
 /* Add Coupon Form Specific Styles */
@@ -456,49 +455,51 @@ body {
     gap: 5px; /* Space between text and arrow */
 }
 
-.add-coupon-btn:hover {
-    background-color: #ff9999; /* Darker pink on hover */
-}
+    .add-coupon-btn:hover {
+        background-color: #ff9999; /* Darker pink on hover */
+    }
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
-  display: none; /* Hide by default */
-  position: absolute;
-  background-color: #f9f9f9;
-  /* min-width: 160px; /* Remove fixed min-width */
-  width: 100%; /* Make dropdown match button width */
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1; /* Ensure it appears above other content */
-  border-radius: 4px;
-  top: 100%; /* Position below the button */
-  left: 0;
+    display: none; /* Hide by default */
+    position: absolute;
+    background-color: #f9f9f9;
+    /* min-width: 160px; /* Remove fixed min-width */
+    width: 100%; /* Make dropdown match button width */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1; /* Ensure it appears above other content */
+    border-radius: 4px;
+    top: 100%; /* Position below the button */
+    left: 0;
 }
 
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  font-family: 'Inria Sans', sans-serif;
-  font-size: 14px;
-}
+    /* Links inside the dropdown */
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        font-family: 'Inria Sans', sans-serif;
+        font-size: 14px;
+    }
 
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd;}
+        /* Change color of dropdown links on hover */
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
 
 /* Show the dropdown menu on hover (can be changed to click with JS) */
 .dropdown-container:hover .dropdown-content {
-  display: block;
+    display: block;
 }
 
-.search-toggle-section{
+.search-toggle-section {
     margin-bottom: 20px;
     position: relative;
     display: inline-block;
 }
 
-.rank-action-dropdown-section{
+.rank-action-dropdown-section {
     margin-bottom: 20px;
     position: relative;
     display: inline-block;
@@ -516,32 +517,32 @@ body {
     flex-direction: column;
 }
 
-.form-group label {
-    font-family: 'Itim', cursive; /* Figma style_USKVI7 */
-    font-size: 20px; /* Adjusted from 24px */
-    font-weight: 400;
-    color: #000000; /* Figma fill_5FAQ7U */
-    margin-bottom: 8px;
-}
+    .form-group label {
+        font-family: 'Itim', cursive; /* Figma style_USKVI7 */
+        font-size: 20px; /* Adjusted from 24px */
+        font-weight: 400;
+        color: #000000; /* Figma fill_5FAQ7U */
+        margin-bottom: 8px;
+    }
 
-.form-group input[type="text"],
-.form-group input[type="number"],
-.form-group input[type="date"] { /* Added date type */
-    padding: 10px 15px;
-    border: 1px solid #ccc; /* Add a default border */
-    border-radius: 10px; /* Figma borderRadius 4:11 etc. */
-    background-color: #D9D9D9; /* Figma fill_01F8VN */
-    font-size: 16px;
-    font-family: 'Roboto', sans-serif; /* Use default body font */
-    color: #333;
-    width: 100%; /* Make inputs take full width of grid column */
-}
+    .form-group input[type="text"],
+    .form-group input[type="number"],
+    .form-group input[type="date"] { /* Added date type */
+        padding: 10px 15px;
+        border: 1px solid #ccc; /* Add a default border */
+        border-radius: 10px; /* Figma borderRadius 4:11 etc. */
+        background-color: #D9D9D9; /* Figma fill_01F8VN */
+        font-size: 16px;
+        font-family: 'Roboto', sans-serif; /* Use default body font */
+        color: #333;
+        width: 100%; /* Make inputs take full width of grid column */
+    }
 
-.form-group input:focus {
-    outline: none;
-    border-color: #9194A3; /* Match sidebar color on focus */
-    box-shadow: 0 0 5px rgba(145, 148, 163, 0.5);
-}
+    .form-group input:focus {
+        outline: none;
+        border-color: #9194A3; /* Match sidebar color on focus */
+        box-shadow: 0 0 5px rgba(145, 148, 163, 0.5);
+    }
 
 /* Form Actions */
 .form-actions {
@@ -565,10 +566,10 @@ body {
     background-color: #FFFFFF; /* Figma fill_NKHGK5 */
 }
 
-.btn-submit:hover {
-    background-color: #f0f0f0;
-    border-color: #a0a0a0;
-}
+    .btn-submit:hover {
+        background-color: #f0f0f0;
+        border-color: #a0a0a0;
+    }
 
 
 /* Coupon */
@@ -592,10 +593,10 @@ body {
     align-items: center;
 }
 
-.rank-action-btn:hover,
-.add-coupon-btn:hover {
-    background-color: #FFC0C0; /* Lighter hover */
-}
+    .rank-action-btn:hover,
+    .add-coupon-btn:hover {
+        background-color: #FFC0C0; /* Lighter hover */
+    }
 
 .dropdown-arrow {
     margin-left: 10px;
@@ -614,9 +615,9 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.submit-button:hover {
-    background-color: #f0f0f0; /* Simple hover effect */
-}
+    .submit-button:hover {
+        background-color: #f0f0f0; /* Simple hover effect */
+    }
 
 /* Rank Info Section Styles */
 .rank-info-section {
@@ -625,12 +626,12 @@ body {
     border-top: 1px solid #ccc; /* Separator */
 }
 
-.rank-info-section h3 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-family: 'Inria Sans', sans-serif;
-    font-size: 22px;
-}
+    .rank-info-section h3 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-family: 'Inria Sans', sans-serif;
+        font-size: 22px;
+    }
 
 .rank-info-grid {
     display: grid;
@@ -648,27 +649,27 @@ body {
     color: #000; /* Text color from Figma */
 }
 
-.rank-card h4 {
-    font-size: 18px; /* Slightly larger for rank name */
-    font-weight: bold; /* Make rank name bold */
-    margin-bottom: 10px;
-    text-align: center;
-}
+    .rank-card h4 {
+        font-size: 18px; /* Slightly larger for rank name */
+        font-weight: bold; /* Make rank name bold */
+        margin-bottom: 10px;
+        text-align: center;
+    }
 
-.rank-card hr {
-    border: none;
-    border-top: 1px solid #9A9797; /* Line color from Figma 7:77 etc. */
-    margin: 10px 0;
-}
+    .rank-card hr {
+        border: none;
+        border-top: 1px solid #9A9797; /* Line color from Figma 7:77 etc. */
+        margin: 10px 0;
+    }
 
-.rank-card p {
-    margin-bottom: 8px;
-    line-height: 1.4;
-}
+    .rank-card p {
+        margin-bottom: 8px;
+        line-height: 1.4;
+    }
 
-.rank-card p:last-child {
-    margin-bottom: 0;
-}
+        .rank-card p:last-child {
+            margin-bottom: 0;
+        }
 /* End Coupon */
 
 /* Search */
@@ -686,9 +687,9 @@ body {
     gap: 5px; /* Space between text and arrow */
 }
 
-.search-coupon-btn:hover {
-    background-color: #ff9999; /* Darker pink on hover */
-}
+    .search-coupon-btn:hover {
+        background-color: #ff9999; /* Darker pink on hover */
+    }
 
 .coupon-filters { /* Based on Groups 1:39, 1:42, 1:45, 1:36 */
     display: flex;
@@ -706,22 +707,22 @@ body {
     flex-direction: column;
 }
 
-.filter-group label {
-    font-family: 'Itim', cursive; /* Figma style_HI7LVF */
-    font-size: 16px; /* Adjusted from 24px */
-    color: #000000; /* Figma fill_IDIZ6P */
-    margin-bottom: 5px;
-}
+    .filter-group label {
+        font-family: 'Itim', cursive; /* Figma style_HI7LVF */
+        font-size: 16px; /* Adjusted from 24px */
+        color: #000000; /* Figma fill_IDIZ6P */
+        margin-bottom: 5px;
+    }
 
-.filter-group input[type="text"],
-.filter-group input[type="number"] { /* Added number type for Min/Max */
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 10px; /* Figma borderRadius 1:41 etc. */
-    font-size: 14px;
-    background-color: #D9D9D9; /* Figma fill_JTT0K2 */
-    min-width: 150px; /* Adjust width */
-}
+    .filter-group input[type="text"],
+    .filter-group input[type="number"] { /* Added number type for Min/Max */
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 10px; /* Figma borderRadius 1:41 etc. */
+        font-size: 14px;
+        background-color: #D9D9D9; /* Figma fill_JTT0K2 */
+        min-width: 150px; /* Adjust width */
+    }
 
 .search-button { /* Figma Group 1:36 */
     padding: 10px 25px;
@@ -736,9 +737,9 @@ body {
     margin-left: auto; /* Push search button to the right */
 }
 
-.search-button:hover {
-    background-color: #e8e8e8;
-}
+    .search-button:hover {
+        background-color: #e8e8e8;
+    }
 
 /* Coupon Table Section */
 .coupon-table-section { /* Based on Figma Rect 1:48 */
@@ -754,48 +755,49 @@ body {
     border-collapse: collapse; /* Remove space between borders */
 }
 
-.coupon-table th,
-.coupon-table td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #000000; /* Figma Line 1:49 etc. stroke_P61WNB */
-    font-family: 'Itim', cursive; /* Figma style_HI7LVF */
-    font-size: 16px; /* Adjusted */
-    color: #000000; /* Figma fill_IDIZ6P */
-    vertical-align: middle; /* Align content vertically */
-    background-color: #FFFDFD; /* Figma Rect 1:92 etc. fill_POPCB0 */
-}
+    .coupon-table th,
+    .coupon-table td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #000000; /* Figma Line 1:49 etc. stroke_P61WNB */
+        font-family: 'Itim', cursive; /* Figma style_HI7LVF */
+        font-size: 16px; /* Adjusted */
+        color: #000000; /* Figma fill_IDIZ6P */
+        vertical-align: middle; /* Align content vertically */
+        background-color: #FFFDFD; /* Figma Rect 1:92 etc. fill_POPCB0 */
+    }
 
-/* Add vertical borders */
-.coupon-table th,
-.coupon-table td {
-    border-right: 1px solid #000000; /* Figma Line 1:55 etc. stroke_P61WNB */
-}
-.coupon-table th:last-child,
-.coupon-table td:last-child {
-    border-right: none; /* Remove border from last column */
-}
+    /* Add vertical borders */
+    .coupon-table th,
+    .coupon-table td {
+        border-right: 1px solid #000000; /* Figma Line 1:55 etc. stroke_P61WNB */
+    }
+
+        .coupon-table th:last-child,
+        .coupon-table td:last-child {
+            border-right: none; /* Remove border from last column */
+        }
 
 
-.coupon-table thead th {
-    background-color: #f2f2f2; /* Light grey header */
-    font-weight: bold;
-}
+    .coupon-table thead th {
+        background-color: #f2f2f2; /* Light grey header */
+        font-weight: bold;
+    }
 
-/* Remove zebra striping if background is set per cell */
-/* .coupon-table tbody tr:nth-child(even) {
+    /* Remove zebra striping if background is set per cell */
+    /* .coupon-table tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 } */
 
-.coupon-table tbody tr:hover td { /* Hover effect on cells */
-    background-color: #f1f1f1;
-}
+    .coupon-table tbody tr:hover td { /* Hover effect on cells */
+        background-color: #f1f1f1;
+    }
 
-/* Action Buttons in Table - Styles from Management_Customer_Account */
-.coupon-table td.operations { /* Target the specific class */
-    text-align: center;
-    background-color: #FFFDFD; /* Ensure operations cell matches row bg */
-}
+    /* Action Buttons in Table - Styles from Management_Customer_Account */
+    .coupon-table td.operations { /* Target the specific class */
+        text-align: center;
+        background-color: #FFFDFD; /* Ensure operations cell matches row bg */
+    }
 
 .operation-btn { /* Use the correct class name */
     background: none;
@@ -806,13 +808,13 @@ body {
     vertical-align: middle;
 }
 
-.operation-btn img {
-    width: 20px;
-    height: 20px; /* Explicit height */
-    vertical-align: middle;
-    display: inline-block;
-    object-fit: contain; /* Ensure icons scale nicely */
-}
+    .operation-btn img {
+        width: 20px;
+        height: 20px; /* Explicit height */
+        vertical-align: middle;
+        display: inline-block;
+        object-fit: contain; /* Ensure icons scale nicely */
+    }
 
 /* Table Footer */
 .table-footer { /* Based on Figma Text 1:113 */
@@ -845,21 +847,21 @@ body {
     flex-direction: column;
 }
 
-.filter-group label {
-    font-family: 'Itim', cursive; /* Figma style_AHWAYQ */
-    font-size: 16px; /* Adjusted from 24px */
-    color: #333;
-    margin-bottom: 5px;
-}
+    .filter-group label {
+        font-family: 'Itim', cursive; /* Figma style_AHWAYQ */
+        font-size: 16px; /* Adjusted from 24px */
+        color: #333;
+        margin-bottom: 5px;
+    }
 
-.filter-group input[type="text"] {
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-    background-color: #D9D9D9; /* Figma fill_8GZIAG */
-    min-width: 180px; /* Ensure inputs have some width */
-}
+    .filter-group input[type="text"] {
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        background-color: #D9D9D9; /* Figma fill_8GZIAG */
+        min-width: 180px; /* Ensure inputs have some width */
+    }
 
 .search-button {
     padding: 10px 25px;
@@ -874,9 +876,9 @@ body {
     margin-left: auto; /* Push search button to the right */
 }
 
-.search-button:hover {
-    background-color: #e8e8e8;
-}
+    .search-button:hover {
+        background-color: #e8e8e8;
+    }
 
 /* Customer Table */
 .customer-table-section {
@@ -891,45 +893,46 @@ body {
     border-collapse: collapse; /* Remove space between borders */
 }
 
-.customer-table th,
-.customer-table td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #000000; /* Figma Line 1:55 etc. stroke_3IDS7R */
-    font-family: 'Itim', cursive; /* Figma style_AHWAYQ */
-    font-size: 16px; /* Adjusted */
-    color: #000000; /* Figma fill_LU3YJF */
-    vertical-align: middle; /* Align content vertically */
-}
+    .customer-table th,
+    .customer-table td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #000000; /* Figma Line 1:55 etc. stroke_3IDS7R */
+        font-family: 'Itim', cursive; /* Figma style_AHWAYQ */
+        font-size: 16px; /* Adjusted */
+        color: #000000; /* Figma fill_LU3YJF */
+        vertical-align: middle; /* Align content vertically */
+    }
 
-/* Add vertical borders */
-.customer-table th,
-.customer-table td {
-    border-right: 1px solid #000000; /* Figma Line 1:52 etc. stroke_3IDS7R */
-}
-.customer-table th:last-child,
-.customer-table td:last-child {
-    border-right: none; /* Remove border from last column */
-}
+    /* Add vertical borders */
+    .customer-table th,
+    .customer-table td {
+        border-right: 1px solid #000000; /* Figma Line 1:52 etc. stroke_3IDS7R */
+    }
+
+        .customer-table th:last-child,
+        .customer-table td:last-child {
+            border-right: none; /* Remove border from last column */
+        }
 
 
-.customer-table thead th {
-    background-color: #f2f2f2; /* Light grey header */
-    font-weight: bold;
-}
+    .customer-table thead th {
+        background-color: #f2f2f2; /* Light grey header */
+        font-weight: bold;
+    }
 
-.customer-table tbody tr:nth-child(even) {
-    background-color: #f9f9f9; /* Zebra striping for readability */
-}
+    .customer-table tbody tr:nth-child(even) {
+        background-color: #f9f9f9; /* Zebra striping for readability */
+    }
 
-.customer-table tbody tr:hover {
-    background-color: #f1f1f1; /* Hover effect */
-}
+    .customer-table tbody tr:hover {
+        background-color: #f1f1f1; /* Hover effect */
+    }
 
-/* Action Buttons in Table - Styles from Management_SystemSearch */
-.customer-table td.operations { /* Target the specific class */
-    text-align: center;
-}
+    /* Action Buttons in Table - Styles from Management_SystemSearch */
+    .customer-table td.operations { /* Target the specific class */
+        text-align: center;
+    }
 
 .operation-btn { /* Use the correct class name */
     background: none;
@@ -940,20 +943,20 @@ body {
     vertical-align: middle; /* Ensure vertical alignment */
 }
 
-.operation-btn img {
-    width: 20px; /* Use size from Search */
-    /* height: 20px; /* Let aspect ratio determine height */
-    vertical-align: middle; /* Ensure vertical alignment */
-    display: inline-block; /* Adjust display if needed */
-}
+    .operation-btn img {
+        width: 20px; /* Use size from Search */
+        /* height: 20px; /* Let aspect ratio determine height */
+        vertical-align: middle; /* Ensure vertical alignment */
+        display: inline-block; /* Adjust display if needed */
+    }
 
 /* Remove specific hover effects for now to match Search */
 .edit-btn:hover {
-   /* background-color: #e0f7fa; */
+    /* background-color: #e0f7fa; */
 }
 
 .delete-btn:hover {
-   /* background-color: #ffebee; */
+    /* background-color: #ffebee; */
 }
 
 /* Table Footer */
@@ -1022,24 +1025,24 @@ body {
     border-top: 1px solid #000000; /* Figma Line 0:39/0:40 stroke_FYU5FF */
 }
 
-.reset-password-section label { /* For "Reset Password:" text 0:42 */
-    font-family: 'Itim', cursive; /* Figma style_FJMRVV */
-    font-size: 20px; /* Adjusted */
-    font-weight: 400;
-    color: #000000; /* Figma fill_KKAZ5O */
-    margin-bottom: 8px;
-    display: block; /* Make it block for spacing */
-}
+    .reset-password-section label { /* For "Reset Password:" text 0:42 */
+        font-family: 'Itim', cursive; /* Figma style_FJMRVV */
+        font-size: 20px; /* Adjusted */
+        font-weight: 400;
+        color: #000000; /* Figma fill_KKAZ5O */
+        margin-bottom: 8px;
+        display: block; /* Make it block for spacing */
+    }
 
 .reset-password-inputs {
     display: flex;
     gap: 20px;
 }
 
-.reset-password-inputs .form-group {
-    flex: 1; /* Make inputs share space */
-    margin-bottom: 0;
-}
+    .reset-password-inputs .form-group {
+        flex: 1; /* Make inputs share space */
+        margin-bottom: 0;
+    }
 
 /* End Edit Customer Account */
 
@@ -1062,9 +1065,9 @@ body {
     align-items: center;
 }
 
-.rank-action-btn:hover {
-    background-color: #FFC0C0;
-}
+    .rank-action-btn:hover {
+        background-color: #FFC0C0;
+    }
 
 .edit-rank-section { /* Changed class */
     background-color: #fff;
@@ -1109,14 +1112,14 @@ body {
     margin-bottom: 40px;
 }
 
-.remove-rank-form .form-row { /* Specific styling for remove form row */
-    justify-content: center; /* Center the single input group */
-}
+    .remove-rank-form .form-row { /* Specific styling for remove form row */
+        justify-content: center; /* Center the single input group */
+    }
 
-.remove-rank-form .form-group {
-    flex: 0 1 400px; /* Allow shrinking, base width 400px, don't grow */
-    max-width: 400px; /* Max width for the input group */
-}
+    .remove-rank-form .form-group {
+        flex: 0 1 400px; /* Allow shrinking, base width 400px, don't grow */
+        max-width: 400px; /* Max width for the input group */
+    }
 
 .remove-button {
     padding: 12px 30px;
@@ -1131,9 +1134,9 @@ body {
     margin: 0 10px; /* Add some margin like submit button */
 }
 
-.remove-button:hover {
-    background-color: #f0f0f0;
-}
+    .remove-button:hover {
+        background-color: #f0f0f0;
+    }
 
 /* End Remove Rank */
 
@@ -1252,29 +1255,29 @@ body {
     border: 1px solid #080808; /* Figma 11:325, 11:379 */
 }
 
-.data-table th,
-.data-table td {
-    border: 1px solid #645F5F; /* Figma 11:364 etc. */
-    padding: 10px;
-    text-align: left;
-    font-family: 'Itim', cursive; /* Figma style_CXZW41 */
-    font-size: 16px; /* Adjusted size */
-    color: #000; /* Figma style_CXZW41 */
-    vertical-align: middle;
-}
+    .data-table th,
+    .data-table td {
+        border: 1px solid #645F5F; /* Figma 11:364 etc. */
+        padding: 10px;
+        text-align: left;
+        font-family: 'Itim', cursive; /* Figma style_CXZW41 */
+        font-size: 16px; /* Adjusted size */
+        color: #000; /* Figma style_CXZW41 */
+        vertical-align: middle;
+    }
 
-.data-table thead th {
-    background-color: #f2f2f2; /* Light grey header */
-    font-weight: bold;
-}
+    .data-table thead th {
+        background-color: #f2f2f2; /* Light grey header */
+        font-weight: bold;
+    }
 
-.data-table tbody tr:nth-child(even) {
-    background-color: #f9f9f9; /* Zebra striping */
-}
+    .data-table tbody tr:nth-child(even) {
+        background-color: #f9f9f9; /* Zebra striping */
+    }
 
-.data-table tbody tr:hover {
-    background-color: #e9e9e9; /* Hover effect */
-}
+    .data-table tbody tr:hover {
+        background-color: #e9e9e9; /* Hover effect */
+    }
 
 /* End Statictis */
 
@@ -1324,14 +1327,14 @@ body {
     text-decoration: none;
 }
 
-.product-action-btn .dropdown-arrow {
-    font-size: 16px; /* Adjust arrow size */
-}
+    .product-action-btn .dropdown-arrow {
+        font-size: 16px; /* Adjust arrow size */
+    }
 
-.product-action-btn:hover {
-    background-color: #ff9999; /* Darker pink on hover */
-    text-decoration: none;
-}
+    .product-action-btn:hover {
+        background-color: #ff9999; /* Darker pink on hover */
+        text-decoration: none;
+    }
 
 .add-product-form {
     padding: 30px;
@@ -1378,7 +1381,7 @@ body {
     background-color: #f0f0f0; /* Slight hover effect */
 }
 
-.modal-content{
+.modal-content {
     border-radius: 20px;
 }
 
@@ -1418,15 +1421,15 @@ body {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.modal-my-content .picture-option:hover {
-    transform: scale(1.05);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
+    .modal-my-content .picture-option:hover {
+        transform: scale(1.05);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
 
-/* Add style for selected option if needed */
-.modal-my-content .picture-option.selected {
-    border: 2px solid #258DEE; /* Example selection indicator */
-}
+    /* Add style for selected option if needed */
+    .modal-my-content .picture-option.selected {
+        border: 2px solid #258DEE; /* Example selection indicator */
+    }
 
 
 .modal-my-content .upload-area {
@@ -1441,12 +1444,12 @@ body {
     margin-bottom: 15px;
 }
 
-.modal-my-content .upload-placeholder img {
-    width: 100px; /* Adjust size */
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-}
+    .modal-my-content .upload-placeholder img {
+        width: 100px; /* Adjust size */
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
 
 .modal-my-content .upload-btn {
     font-size: 20px; /* style_96L8AQ (slightly smaller for button) */
@@ -1473,9 +1476,9 @@ body {
     cursor: pointer;
 }
 
-.modal-my-content .submit-btn:hover {
-    background-color: #f0f0f0;
-}
+    .modal-my-content .submit-btn:hover {
+        background-color: #f0f0f0;
+    }
 
 .modal-my-content .close-btn {
     position: absolute;

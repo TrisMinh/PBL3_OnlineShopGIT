@@ -131,7 +131,6 @@
             align-items: center;
             padding-bottom: 15px;
             border-bottom: 1px solid #B7B2B2; /* From Rectangle 71 stroke */
-            margin-bottom: 20px;
         }
 
         .page-title {
@@ -292,7 +291,7 @@
     </style>
 </head>
 <body>
-    @await Html.PartialAsync("_NavbarPartial")
+    
     <div class="management-system">
         <!-- Sidebar (Copied from Management_System1) -->
         <aside class="sidebar">
@@ -366,6 +365,7 @@
                     </a>
                 </div>
             </header>
+                @await Html.PartialAsync("_NavbarPartial")
             <section class="product-results-section">
                 <div class="results-header">
                     <span class="results-count">Show @Model.Count() Categories:</span>

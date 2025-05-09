@@ -131,7 +131,6 @@
             align-items: center;
             padding-bottom: 15px;
             border-bottom: 1px solid #B7B2B2; /* From Rectangle 71 stroke */
-            margin-bottom: 20px;
         }
 
         .page-title {
@@ -292,7 +291,6 @@
     </style>
 </head>
 <body>
-    @await Html.PartialAsync("_NavbarPartial")
     <div class="management-system">
         <!-- Sidebar (Copied from Management_System1) -->
         <aside class="sidebar">
@@ -304,7 +302,7 @@
                 <h2 class="user-name">Trung Trung</h2>
                 <p class="user-role">Manager</p>
             </div>
-            
+
             <nav class="main-nav">
                 <ul>
                     <!-- Add 'active' class to the relevant item for this page if needed -->
@@ -367,7 +365,7 @@
                     </a>
                 </div>
             </header>
-
+            @await Html.PartialAsync("_NavbarPartial")  
             <section class="search-product-section">
                 <h2 class="search-title">Search Product</h2>
                 <form class="search-form" id="search-product-form">
@@ -501,7 +499,7 @@
                                     <a asp-area="Admin" asp-controller="Products" asp-action="Edit" asp-route-id="@item.ProductId" class="operation-btn edit-btn">
                                         <img src="~/images/edit-icon.png">
                                     </a>
-                                    <a asp-area="Admin" asp-controller="Products" asp-action="Delete" asp-route-id="@item.ProductId" class="operation-btn delete-btn confirmDeletion">
+                                    <a asp-area="Admin" asp-controller="Products" asp-action="Delete" asp-route-id="@item.ProductId" class="operation-btn delete-btn">
                                         <img src="~/images/542724.png" alt="Delete">
                                     </a>
                                 </td>
@@ -512,7 +510,7 @@
             </section>
         </main>
     </div>
-    <script src="~/js/site.js"></script>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
