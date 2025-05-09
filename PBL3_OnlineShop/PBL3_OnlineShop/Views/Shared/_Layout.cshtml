@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var username = Context.Session.GetString("_Username");
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -54,10 +57,19 @@
                             </a>
                         </li>
                         <li>
-                            <!-- Thêm modal đăng nhập vào khi nhấn vào Account icon -->
-                            <a asp-controller="Account" asp-action="Login">
-                                <img src="~/images/Account.png" alt="Account">
-                            </a>
+                            @if (!string.IsNullOrEmpty(username))
+                            {
+                                <a asp-controller="Account" asp-action="Profile">
+                                    <img src="~/images/Account.png" alt="Account" />
+                                    <span class="ms-1"><strong>Hi, @username</strong></span>
+                                </a>
+                            }
+                            else
+                            {
+                                <a asp-controller="Account" asp-action="Login">
+                                    <img src="~/images/Account.png" alt="Account" />
+                                </a>
+                            }
                         </li>
                     </ul>
                 </div>

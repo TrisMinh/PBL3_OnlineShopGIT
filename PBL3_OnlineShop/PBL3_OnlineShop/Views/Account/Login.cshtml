@@ -1,7 +1,8 @@
 ﻿@{  
-    Layout = null; // Hoặc bỏ dòng này nếu bạn không dùng layout chung  
+    Layout = "~/Views/Shared/_SmallLayout.cshtml";
     ViewData["Title"] = "Login";  
 }  
+@model PBL3_OnlineShop.Models.ViewModels.LoginView
 <head>  
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
@@ -12,15 +13,17 @@
 </head>  
 <div class="container mt-5" style="max-width:400px;">  
     <h2 class="text-center mb-4">Login</h2>  
-    @* <form asp-action="Login" asp-controller="Account">   *@
+    <form asp-action="Login" method="post" asp-controller="Account">  
         <div class="mb-3">  
-            <label for="username" class="form-label" ">Username:</label>
-            <input type="username" class="form-control" id="username" name="username" required>
+            <label>Username:</label>
+            <input asp-for="Username" class="form-control" />
+            <span asp-validation-for="Username" class="text-danger"></span>
         </div>  
-        <div class="mb-3">  
-            <label for="password" class="form-label">Password:</label>  
-            <input type="password" class="form-control" id="password" name="password" required>  
-        </div>  
+        <div class="mb-3">
+            <label>Password:</label>
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
         <div class="d-grid">  
             <button type="submit" class="btn btn-primary">Login</button>  
         </div>  
@@ -34,9 +37,8 @@
     </div>  
 </div>  
 
-@if (ViewBag.Error != null)  
-{  
-    <div class="alert alert-danger mt-3">  
-        @ViewBag.Error  
-    </div>  
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

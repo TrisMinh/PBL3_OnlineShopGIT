@@ -12,5 +12,6 @@ namespace PBL3_OnlineShop.Repository
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProductSize> ProductsSize { get; set; }
         public DbSet<Coupon> Coupons { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
