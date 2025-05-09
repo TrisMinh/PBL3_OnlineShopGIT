@@ -1,4 +1,4 @@
-﻿@model PBL3_OnlineShop.Models.Products
+﻿@model PBL3_OnlineShop.Models.Category
 
 @{
     ViewData["Title"] = "Create";
@@ -89,25 +89,15 @@
 
             <section class="add-product-section">
                 <!-- Form for Adding Product -->
-                <form asp-action="Create" method="post" enctype="multipart/form-data" class="add-product-form">
+                <form asp-action="Create" method="post" class="add-product-form">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label>ProductName</label>
-                                <input asp-for="ProductName" class="form-control" />
-                                <span asp-validation-for="ProductName" class="text-danger"></span>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>Category</label>
-                                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories">
-                                    <option>Choose a category</option>
-                                </select>
-                                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                <label>Category Name</label>
+                                <input asp-for="CategoryName" class="form-control" />
+                                <span asp-validation-for="CategoryName" class="text-danger"></span>
                             </div>
                         </div>
 
@@ -118,64 +108,12 @@
                                 <span asp-validation-for="Description" class="text-danger"></span>
                             </div>
                         </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label>SellingPrice</label>
-                                <input asp-for="SellingPrice" class="form-control" />
-                                <span asp-validation-for="SellingPrice" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Size and Color</label>
-                        <div id="sizes-container">
-                            <div class="row mb-2 size-entry">
-                                <div class="col-3">
-                                    <input type="text" name="Sizes[0].Size" class="form-control" placeholder="Size (ví dụ: M)" />
-                                </div>
-                                <div class="col-3">
-                                    <input type="text" name="Sizes[0].Color" class="form-control" placeholder="Color" />
-                                </div>
-                                <div class="col-3">
-                                    <input type="number" name="Sizes[0].Quantity" class="form-control" placeholder="Quantity" />
-                                </div>
-                                <div class="col-md-2">
-                                    <button type="button" class="btn btn-danger remove-size">X</button>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="button" id="add-size" class="btn btn-secondary mt-2">+ Thêm Size</button>
-                    </div>
-
-                    <div class="form-group">
-                        <label>ImageUpload</label>
-                        <input asp-for="ImageUpload" class="form-control" />
-                        <span asp-validation-for="ImageUpload" class="text-danger"></span>
                     </div>
                     <div class="row">
                         <div class="form-group col-6">
                             <label>Status</label>
                             <input asp-for="Status" class="form-control" />
                             <span asp-validation-for="Status" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group col-6">
-                            <label>SalePercentage</label>
-                            <input asp-for="SalePercentage" class="form-control" />
-                            <span asp-validation-for="SalePercentage" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group col-6">
-                            <label>Collections</label>
-                            <input asp-for="Collections" class="form-control" />
-                            <span asp-validation-for="Collections" class="text-danger"></span>
-                        </div>
-                        <div class="form-group col-6">
-                            <label>Gender</label>
-                            <input asp-for="Gender" class="form-control" />
-                            <span asp-validation-for="Gender" class="text-danger"></span>
                         </div>
                     </div>
 
@@ -188,36 +126,6 @@
         </main>
     </div>
 
-    <script>
-        let sizeIndex = 1;
-        document.getElementById('add-size').addEventListener('click', function () {
-            const container = document.getElementById('sizes-container');
-            const newEntry = document.createElement('div');
-            newEntry.classList.add('row', 'mb-2', 'size-entry');
-            newEntry.innerHTML = `
-                <div class="col-3">
-                    <input type="text" name="Sizes[${sizeIndex}].Size" class="form-control" placeholder="Size (ví dụ: M)" />
-                </div>
-                <div class="col-3">
-                    <input type="text" name="Sizes[${sizeIndex}].Color" class="form-control" placeholder="Color" />
-                </div>
-                <div class="col-3">
-                    <input type="number" name="Sizes[${sizeIndex}].Quantity" class="form-control" placeholder="Quantity" />
-                </div>
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-danger remove-size">X</button>
-                </div>
-            `;
-            container.appendChild(newEntry);
-            sizeIndex++;
-        });
-
-        document.getElementById('sizes-container').addEventListener('click', function (e) {
-            if (e.target.classList.contains('remove-size')) {
-                e.target.closest('.size-entry').remove();
-            }
-        });
-    </script>
 
     <script src="~/bootstrap/bootstrap.bundle.min.js"></script>
 </body>

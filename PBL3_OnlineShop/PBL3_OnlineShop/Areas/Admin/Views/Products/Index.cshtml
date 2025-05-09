@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Products>
 @{
     ViewData["Title"] = "Search Product";
-    Layout = "~/Views/Shared/_SmallLayout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_SmallLayout.cshtml";
 }
 <!DOCTYPE html>
 <html lang="vi">
@@ -501,7 +501,7 @@
                                     <a asp-area="Admin" asp-controller="Products" asp-action="Edit" asp-route-id="@item.ProductId" class="operation-btn edit-btn">
                                         <img src="~/images/edit-icon.png">
                                     </a>
-                                    <a asp-area="Admin" asp-controller="Products" asp-action="Delete" asp-route-id="@item.ProductId" class="operation-btn delete-btn">
+                                    <a asp-area="Admin" asp-controller="Products" asp-action="Delete" asp-route-id="@item.ProductId" class="operation-btn delete-btn confirmDeletion">
                                         <img src="~/images/542724.png" alt="Delete">
                                     </a>
                                 </td>
@@ -512,7 +512,7 @@
             </section>
         </main>
     </div>
-
+    <script src="~/js/site.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>

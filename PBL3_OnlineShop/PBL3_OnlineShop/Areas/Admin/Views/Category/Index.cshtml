@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Category>
 @{
     ViewData["Title"] = "Category";
-    Layout = "~/Views/Shared/_SmallLayout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_SmallLayout.cshtml";
 }
 <!DOCTYPE html>
 <html lang="vi">
@@ -391,10 +391,10 @@
                                 <td>@item.Description</td>
                                 <td>@item.Status</td>
                                 <td class="operations">
-                                    <a asp-area="Admin" asp-controller="Products" asp-action="Edit" asp-route-id="@item.CategoryId" class="operation-btn edit-btn">
+                                    <a asp-area="Admin" asp-controller="Category" asp-action="Edit" asp-route-id="@item.CategoryId" class="operation-btn edit-btn">
                                         <img src="~/images/edit-icon.png">
                                     </a>
-                                    <a asp-area="Admin" asp-controller="Products" asp-action="Delete" asp-route-id="@item.CategoryId" class="operation-btn delete-btn">
+                                    <a asp-area="Admin" asp-controller="Category" asp-action="Delete" asp-route-id="@item.CategoryId" class="operation-btn delete-btn confirmDeletion">
                                         <img src="~/images/542724.png" alt="Delete">
                                     </a>
                                 </td>
@@ -408,16 +408,5 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        function confirmDelete(productId) {
-            if(confirm('Bạn có chắc muốn xóa sản phẩm này?')) {
-                window.location.href = '@Url.Action("Delete", "Products")?id=' + productId;
-            }
-        }
-
-        function editProduct(productId) {
-            window.location.href = '@Url.Action("Edit", "Products")?id=' + productId;
-        }
-    </script>
 </body>
 </html>

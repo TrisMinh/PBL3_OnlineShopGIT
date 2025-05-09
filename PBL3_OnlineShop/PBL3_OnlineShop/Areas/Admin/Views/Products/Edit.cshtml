@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit Products";
-    Layout = "~/Views/Shared/_SmallLayout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_SmallLayout.cshtml";
 
     var productSizes = Model.ProductSizes?.ToList() ?? new List<ProductSize>();
 }
