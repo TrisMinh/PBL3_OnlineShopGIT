@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Products>
 @{
     ViewData["Title"] = "Search Product";
-    Layout = null;
+    Layout = "~/Views/Shared/_SmallLayout.cshtml";
 }
 <!DOCTYPE html>
 <html lang="vi">
@@ -11,6 +11,7 @@
     <title>Admin Area - Manage Products</title>
     <link rel="stylesheet" href="~/css/base.css">
     <link rel="stylesheet" href="~/css/Management.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     <!-- Add specific styles for Management System Search if needed, or modify style.css -->
     <style>
         /* Basic styles based on Figma structure - Refine as needed in style.css */
@@ -291,6 +292,7 @@
     </style>
 </head>
 <body>
+    @await Html.PartialAsync("_NavbarPartial")
     <div class="management-system">
         <!-- Sidebar (Copied from Management_System1) -->
         <aside class="sidebar">
@@ -302,6 +304,7 @@
                 <h2 class="user-name">Trung Trung</h2>
                 <p class="user-role">Manager</p>
             </div>
+            
             <nav class="main-nav">
                 <ul>
                     <!-- Add 'active' class to the relevant item for this page if needed -->
@@ -512,16 +515,5 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        function confirmDelete(productId) {
-            if(confirm('Bạn có chắc muốn xóa sản phẩm này?')) {
-                window.location.href = '@Url.Action("Delete", "Products")?id=' + productId;
-            }
-        }
-
-        function editProduct(productId) {
-            window.location.href = '@Url.Action("Edit", "Products")?id=' + productId;
-        }
-    </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Category>
 @{
     ViewData["Title"] = "Category";
-    Layout = null;
+    Layout = "~/Views/Shared/_SmallLayout.cshtml";
 }
 <!DOCTYPE html>
 <html lang="vi">
@@ -11,6 +11,7 @@
     <title>Admin Area - Manage Category</title>
     <link rel="stylesheet" href="~/css/base.css">
     <link rel="stylesheet" href="~/css/Management.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     <!-- Add specific styles for Management System Search if needed, or modify style.css -->
     <style>
         /* Basic styles based on Figma structure - Refine as needed in style.css */
@@ -291,6 +292,7 @@
     </style>
 </head>
 <body>
+    @await Html.PartialAsync("_NavbarPartial")
     <div class="management-system">
         <!-- Sidebar (Copied from Management_System1) -->
         <aside class="sidebar">
@@ -377,84 +379,28 @@
                             <th>Name Category</th>
                             <th>Description</th>
                             <th>Status</th>
-                            <th>Quantity</th>
+                            <th>Operations</th>
                         </tr>
                     </thead>
                     <tbody>
-                    @*     @foreach (var item in Model)
+                        @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@item.ProductId</td>
-                                <td>@item.Category.CategoryName</td>
-                                <td>@item.ProductName</td>
+                                <td>@item.CategoryId</td>
+                                <td>@item.CategoryName</td>
                                 <td>@item.Description</td>
-                                <td>$@item.SellingPrice</td>
-                                <td>@item.StockQuantity</td>
-                                <td>
-                                    @{
-                                        var firstImage = item.ImageUrl?.Split(",", StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
-                                    }
-                                    @if (!string.IsNullOrEmpty(firstImage))
-                                    {
-                                        <img src="@Url.Content(firstImage)" alt="Product Image" width="80" height="80" />
-                                    }
-                                    else
-                                    {
-                                        <span>No image</span>
-                                    }
-                                </td>
-                                <td>
-                                    @if (item.ProductSizes != null && item.ProductSizes.Any())
-                                    {
-                                        @foreach (var size in item.ProductSizes)
-                                        {
-                                            <div>@size.Size (x @size.Quantity)</div>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <span>No sizes available</span>
-                                    }
-                                </td>
-
-
-
-                                <td>@item.CreatedAt</td>
-                                <td>@item.UpdatedAt</td>
-                                <td>@item.SalePercentage</td>
-                                <td>@item.Collections</td>
-                                <td>
-                                    @if (item.ProductSizes != null && item.ProductSizes.Any())
-                                    {
-                                        foreach (var color in item.ProductSizes
-                                        .Where(ps => !string.IsNullOrEmpty(ps.Color))
-                                        .Select(ps => ps.Color)
-                                        .Distinct())
-                                        {
-                                            <div>
-                                                @color
-                                            </div>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <span>No colors available</span>
-                                    }
-                                </td>
-
-
-                                <td>@item.Gender</td>
+                                <td>@item.Status</td>
                                 <td class="operations">
-                                    <a asp-area="Admin" asp-controller="Products" asp-action="Edit" asp-route-id="@item.ProductId" class="operation-btn edit-btn">
+                                    <a asp-area="Admin" asp-controller="Products" asp-action="Edit" asp-route-id="@item.CategoryId" class="operation-btn edit-btn">
                                         <img src="~/images/edit-icon.png">
                                     </a>
-                                    <a asp-area="Admin" asp-controller="Products" asp-action="Delete" asp-route-id="@item.ProductId" class="operation-btn delete-btn">
+                                    <a asp-area="Admin" asp-controller="Products" asp-action="Delete" asp-route-id="@item.CategoryId" class="operation-btn delete-btn">
                                         <img src="~/images/542724.png" alt="Delete">
                                     </a>
                                 </td>
                             </tr>
                         }
-                    </tbody> *@
+                    </tbody>
                 </table>
             </section>
         </main>

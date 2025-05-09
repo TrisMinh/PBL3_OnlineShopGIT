@@ -1321,6 +1321,7 @@ body {
     align-items: center;
     gap: 8px; /* Space between text and arrow */
     width: 190px;
+    text-decoration: none;
 }
 
 .product-action-btn .dropdown-arrow {
@@ -1329,6 +1330,7 @@ body {
 
 .product-action-btn:hover {
     background-color: #ff9999; /* Darker pink on hover */
+    text-decoration: none;
 }
 
 .add-product-form {
