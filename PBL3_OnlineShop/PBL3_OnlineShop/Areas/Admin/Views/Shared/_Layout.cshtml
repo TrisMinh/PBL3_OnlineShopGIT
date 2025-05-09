@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/base.css">
+    <link rel="stylesheet" href="~/css/Home.css">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="container">
+            <div class="inner-wrap">
+                <div class="inner-logo">
+                    <a href="/">
+                        BLUE
+                    </a>
+                </div>
+                <div class="inner-menu">
+                    <ul>
+                        <li>
+                            <a href="/">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/">
+                                Collections
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/">
+                                New
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="inner-search">
+                    <input class="search" type="text" placeholder="Search" id="search-header" name="text">
+                </div>
+                <div class="inner-utilities">
+                    <ul>
+                        <li>
+                            <a asp-controller="Favourite" asp-action="Index">
+                                <img src="~/images/Favourite.png" alt="Favourite">
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Cart" asp-action="Index">
+                                <img src="~/images/Cart.png" alt="Cart">
+                            </a>
+                        </li>
+                        <li>
+                            <!-- Thêm modal đăng nhập vào khi nhấn vào Account icon -->
+                            <a asp-controller="Account" asp-action="Login">
+                                <img src="~/images/Account.png" alt="Account">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                    <div class="container-fluid">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+                    </div>
+                </nav>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Collections</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">News</a>
+                    </li>
+                    <li class="inner-search nav-item nav-link">
+                        <input class="search " type="text" placeholder="Search" id="search-header" name="text">
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- End Header -->
+    <main>
+        @RenderBody()  <!-- 🚨 Quan trọng: cần có dòng này -->
+        @Html.Partial("_Notification")
+    </main>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="inner-wrap">
+                <div class="inner-box">
+                    <div class="inner-content">
+                        Fashion BLUE
+                    </div>
+                    <div class="inner-text">
+                        The leading fashion system in Vietnam.
+                    </div>
+                    <div class="inner-utilities">
+                        Payment method
+                    </div>
+                    <div class="inner-utilities-img">
+                        <img src="~/images/VNPAY.png" alt="VNPAY">
+                        <img src="~/images/ZaloPay.png" alt="ZaloPay">
+                    </div>
+                </div>
+                <div class="inner-box">
+                    <div class="inner-content">
+                        Contact information
+                    </div>
+                    <div class="inner-text">
+                        <b>Address</b>: Lien Chieu District, Da Nang City.<br>
+                        <b>Fax</b>: 000000000<br>
+                        <b>Email</b>: cskh@blue.com
+                    </div>
+                    <div class="inner-utilities">
+                        Shipping methods
+                    </div>
+                    <div class="inner-utilities-img">
+                        <img src="~/images/Ninja.png" alt="VNPAY">
+                        <img src="~/images/Ahamove.png" alt="ZaloPay">
+                        <img src="~/images/J&T.png" alt="J&T">
+                    </div>
+                </div>
+                <div class="inner-box">
+                    <div class="inner-content">
+                        Affiliated Group
+                    </div>
+                    <ul>
+                        <li>
+                            Search
+                        </li>
+                        <li>
+                            Privacy Policy
+                        </li>
+                        <li>
+                            Introduction
+                        </li>
+                        <li>
+                            Contact
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer -->
+</body>
+
+</html>

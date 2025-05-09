@@ -1,12 +1,9 @@
 ﻿@model PBL3_OnlineShop.Models.Products
 
 @{
-    ViewData["Title"] = "Edit Products";
+    ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_SmallLayout.cshtml";
-
-    var productSizes = Model.ProductSizes?.ToList() ?? new List<ProductSize>();
 }
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -19,7 +16,6 @@
 </head>
 <body>
     <div class="management-system">
-
         <aside class="sidebar">
             <div class="user-profile">
                 <div class="avatar-container">
@@ -77,10 +73,10 @@
                 </ul>
             </nav>
         </aside>
-
+        <!-- Main Content -->
         <main class="main-content">
             <header class="top-bar">
-                <h1 class="page-title">Edit Product</h1>
+                <h1 class="page-title">Management</h1>
                 <div class="account-section">
                     <a href="ProfileAdminEdit.html" title="Edit Profile">
                         <img src="~/images/account-icon-large.png" alt="Edit Profile" class="account-icon">
@@ -92,9 +88,8 @@
             </header>
 
             <section class="add-product-section">
-                <form asp-action="Edit" method="post" enctype="multipart/form-data" class="add-product-form">
-                    <input type="hidden" asp-for="ProductId" />
-
+                <!-- Form for Adding Product -->
+                <form asp-action="Create" method="post" enctype="multipart/form-data" class="add-product-form">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="row">
@@ -136,73 +131,57 @@
                     <div class="form-group">
                         <label>Size and Color</label>
                         <div id="sizes-container">
-                            @for (int i = 0; i < productSizes.Count; i++)
-                            {
-                                <div class="row mb-2 size-entry">
-                                    <div class="col-3">
-                                        <input type="text" name="Sizes[@i].Size" value="@productSizes[i].Size" class="form-control" placeholder="Size" />
-                                    </div>
-                                    <div class="col-3">
-                                        <input type="text" name="Sizes[@i].Color" value="@productSizes[i].Color" class="form-control" placeholder="Color" />
-                                    </div>
-                                    <div class="col-3">
-                                        <input type="number" name="Sizes[@i].Quantity" value="@productSizes[i].Quantity" class="form-control" placeholder="Quantity" />
-                                    </div>
-                                    <div class="col-md-1">
-                                        <button type="button" class="btn btn-danger remove-size">X</button>
-                                    </div>
+                            <div class="row mb-2 size-entry">
+                                <div class="col-3">
+                                    <input type="text" name="Sizes[0].Size" class="form-control" placeholder="Size (ví dụ: M)" />
                                 </div>
-                            }
-
+                                <div class="col-3">
+                                    <input type="text" name="Sizes[0].Color" class="form-control" placeholder="Color" />
+                                </div>
+                                <div class="col-3">
+                                    <input type="number" name="Sizes[0].Quantity" class="form-control" placeholder="Quantity" />
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-danger remove-size">X</button>
+                                </div>
+                            </div>
                         </div>
                         <button type="button" id="add-size" class="btn btn-secondary mt-2">+ Thêm Size</button>
                     </div>
 
                     <div class="form-group">
                         <label>ImageUpload</label>
-                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
-                        {
-                            var imageUrls = Model.ImageUrl.Split(',');
-                            foreach (var imageUrl in imageUrls)
-                            {
-                                <img class="col-3" src="@Url.Content(imageUrl)" alt="Current Image" style="max-width: 200px; margin-right: 10px;" />
-                            }
-                        }
-                        else
-                        {
-                            <p>No images available.</p>
-                        }
                         <input asp-for="ImageUpload" class="form-control" />
                         <span asp-validation-for="ImageUpload" class="text-danger"></span>
                     </div>
                     <div class="row">
-                    <div class="form-group col-6">
-                        <label>Status</label>
-                        <input asp-for="Status" class="form-control" />
-                        <span asp-validation-for="Status" class="text-danger"></span>
+                        <div class="form-group col-6">
+                            <label>Status</label>
+                            <input asp-for="Status" class="form-control" />
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label>SalePercentage</label>
+                            <input asp-for="SalePercentage" class="form-control" />
+                            <span asp-validation-for="SalePercentage" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label>Collections</label>
+                            <input asp-for="Collections" class="form-control" />
+                            <span asp-validation-for="Collections" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Gender</label>
+                            <input asp-for="Gender" class="form-control" />
+                            <span asp-validation-for="Gender" class="text-danger"></span>
+                        </div>
                     </div>
 
-                    <div class="form-group col-6">
-                        <label>SalePercentage</label>
-                        <input asp-for="SalePercentage" class="form-control" />
-                        <span asp-validation-for="SalePercentage" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group col-6">
-                        <label>Collections</label>
-                        <input asp-for="Collections" class="form-control" />
-                        <span asp-validation-for="Collections" class="text-danger"></span>
-                    </div>
-
-                    <div class="form-group col-6">
-                        <label>Gender</label>
-                        <input asp-for="Gender" class="form-control" />
-                        <span asp-validation-for="Gender" class="text-danger"></span>
-                    </div>
-                    </div>
                     <div class="form-actions mt-3">
                         <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <button type="submit" class="btn btn-primary">Create</button>
                     </div>
                 </form>
             </section>
@@ -210,14 +189,14 @@
     </div>
 
     <script>
-        let sizeIndex = @Model.ProductSizes?.Count ?? 0;
+        let sizeIndex = 1;
         document.getElementById('add-size').addEventListener('click', function () {
             const container = document.getElementById('sizes-container');
             const newEntry = document.createElement('div');
             newEntry.classList.add('row', 'mb-2', 'size-entry');
             newEntry.innerHTML = `
                 <div class="col-3">
-                    <input type="text" name="Sizes[${sizeIndex}].Size" class="form-control" placeholder="Size" />
+                    <input type="text" name="Sizes[${sizeIndex}].Size" class="form-control" placeholder="Size (ví dụ: M)" />
                 </div>
                 <div class="col-3">
                     <input type="text" name="Sizes[${sizeIndex}].Color" class="form-control" placeholder="Color" />
@@ -225,7 +204,7 @@
                 <div class="col-3">
                     <input type="number" name="Sizes[${sizeIndex}].Quantity" class="form-control" placeholder="Quantity" />
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <button type="button" class="btn btn-danger remove-size">X</button>
                 </div>
             `;

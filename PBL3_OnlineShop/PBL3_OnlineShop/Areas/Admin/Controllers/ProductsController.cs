@@ -4,13 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using PBL3_OnlineShop.Models;
 using PBL3_OnlineShop.Repository;
 
-namespace PBL3_OnlineShop.Controllers
+namespace PBL3_OnlineShop.Areas.Admin.Controllers
 {
-    public class AdminController : Controller
+    [Area("Admin")]
+    public class ProductsController : Controller
     {
         private readonly PBL3_Db_Context _context;
 
-        public AdminController(PBL3_Db_Context context)
+        public ProductsController(PBL3_Db_Context context)
         {
             _context = context;
         }
@@ -46,18 +47,14 @@ namespace PBL3_OnlineShop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Products product, List<ProductSize> Sizes)
         {
-            // Cập nhật danh sách các Category để hiển thị trong dropdown
             ViewBag.Categories = new SelectList(_context.Categories.ToList(), "CategoryId", "CategoryName", product.CategoryId);
 
-            // Kiểm tra tính hợp lệ của mô hình
             if (ModelState.IsValid)
             {
-                // Gán giá trị thời gian tạo và cập nhật cho sản phẩm
                 product.CreatedAt = DateTime.Now;
                 product.UpdatedAt = DateTime.Now;
-                product.Status = "Available"; // Trạng thái mặc định
+                product.Status = "Available";
 
-                // Xử lý ảnh tải lên
                 if (product.ImageUpload != null && product.ImageUpload.Count > 0)
                 {
                     var imagePaths = new List<string>();
@@ -65,34 +62,38 @@ namespace PBL3_OnlineShop.Controllers
                     {
                         if (file.Length > 0)
                         {
-                            // Tạo tên file duy nhất
                             var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagesProducts", fileName);
                             using (var stream = new FileStream(path, FileMode.Create))
                             {
                                 await file.CopyToAsync(stream);
                             }
-                            // Lưu đường dẫn ảnh
                             imagePaths.Add("~/imagesProducts/" + fileName);
                         }
                     }
-                    // Lưu lại URL ảnh
                     product.ImageUrl = string.Join(",", imagePaths);
                 }
 
-                // Lưu sản phẩm vào cơ sở dữ liệu
+                // Thêm sản phẩm
                 _context.Products.Add(product);
-                await _context.SaveChangesAsync(); // Lưu sản phẩm
+                await _context.SaveChangesAsync(); // Lưu để lấy ProductId
 
-                // Lưu các size, color và quantity vào bảng ProductSizes
-                if (Sizes != null && Sizes.Any())
-                {
-                    foreach (var size in Sizes)
+                // Gộp các bản ghi Size + Color trùng
+                var groupedSizes = Sizes
+                    .GroupBy(s => new { s.Size, s.Color })
+                    .Select(g => new ProductSize
                     {
-                        size.ProductId = product.ProductId; // Gán ProductId cho từng ProductSize
-                        _context.ProductsSize.Add(size); // Thêm từng ProductSize vào bảng ProductSizes
-                    }
-                    await _context.SaveChangesAsync(); // Lưu ProductSizes
+                        Size = g.Key.Size,
+                        Color = g.Key.Color,
+                        Quantity = g.Sum(x => x.Quantity),
+                        ProductId = product.ProductId
+                    }).ToList();
+
+                // Lưu ProductSizes
+                if (groupedSizes.Any())
+                {
+                    _context.ProductsSize.AddRange(groupedSizes);
+                    await _context.SaveChangesAsync();
                 }
 
                 return RedirectToAction("Index");
@@ -104,6 +105,7 @@ namespace PBL3_OnlineShop.Controllers
 
             return View(product);
         }
+
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -195,19 +197,30 @@ namespace PBL3_OnlineShop.Controllers
             // Cập nhật sản phẩm
             _context.Products.Update(product);
 
-            // Xử lý cập nhật ProductSize
+            // Gộp các bản ghi trùng Size + Color
+            var groupedSizes = Sizes
+                .GroupBy(s => new { s.Size, s.Color })
+                .Select(g => new ProductSize
+                {
+                    Size = g.Key.Size,
+                    Color = g.Key.Color,
+                    Quantity = g.Sum(x => x.Quantity)
+                }).ToList();
+
+            // Lấy danh sách size hiện tại từ DB
             var existingSizes = await _context.ProductsSize
                 .Where(ps => ps.ProductId == product.ProductId)
                 .ToListAsync();
 
+            // Xóa những size không còn
             var sizesToDelete = existingSizes
-                .Where(existingSize => !Sizes
+                .Where(existingSize => !groupedSizes
                     .Any(newSize => newSize.Size == existingSize.Size && newSize.Color == existingSize.Color))
                 .ToList();
-
             _context.ProductsSize.RemoveRange(sizesToDelete);
 
-            foreach (var sizeColor in Sizes)
+            // Thêm mới hoặc cập nhật size/color
+            foreach (var sizeColor in groupedSizes)
             {
                 var existingSize = existingSizes
                     .FirstOrDefault(ps => ps.Size == sizeColor.Size && ps.Color == sizeColor.Color);
@@ -224,8 +237,8 @@ namespace PBL3_OnlineShop.Controllers
                 }
             }
 
-            // Tính lại tổng tồn kho
-            product.StockQuantity = Sizes.Sum(s => s.Quantity);
+            // Cập nhật tổng tồn kho
+            product.StockQuantity = groupedSizes.Sum(s => s.Quantity);
 
             // Lưu thay đổi
             await _context.SaveChangesAsync();
@@ -233,6 +246,7 @@ namespace PBL3_OnlineShop.Controllers
             TempData["Success"] = "Cập nhật sản phẩm thành công!";
             return RedirectToAction("Index");
         }
+
 
         public async Task<IActionResult> Delete(int id)
         {

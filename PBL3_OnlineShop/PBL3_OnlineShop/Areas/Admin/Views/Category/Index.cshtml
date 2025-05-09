@@ -1,6 +1,6 @@
-﻿@model IEnumerable<Products>
+﻿@model IEnumerable<Category>
 @{
-    ViewData["Title"] = "Search Product";
+    ViewData["Title"] = "Category";
     Layout = null;
 }
 <!DOCTYPE html>
@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Management System - Search</title>
+    <title>Admin Area - Manage Category</title>
     <link rel="stylesheet" href="~/css/base.css">
     <link rel="stylesheet" href="~/css/Management.css">
     <!-- Add specific styles for Management System Search if needed, or modify style.css -->
@@ -364,72 +364,24 @@
                     </a>
                 </div>
             </header>
-
-            <section class="search-product-section">
-                <h2 class="search-title">Search Product</h2>
-                <form class="search-form" id="search-product-form">
-                    <div class="form-group">
-                        <label for="search-product-id">ID Products:</label>
-                        <input type="text" id="search-product-id" name="product-id">
-                    </div>
-                    <div class="form-group">
-                        <label for="search-product-name">Name Product:</label>
-                        <input type="text" id="search-product-name" name="product-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="search-price">Price:</label>
-                        <input type="text" id="search-price" name="price">
-                    </div>
-                    <div class="form-group">
-                        <label for="search-category">Category:</label>
-                        <input type="text" id="search-category" name="category">
-                    </div>
-                    <div class="form-group">
-                        <label for="search-status">Status</label>
-                        <select id="search-status" name="status">
-                            <option value="available">Available</option>
-                            <option value="out-of-stock">Out of Stock</option>
-                            <option value="coming-soon">Coming Soon</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="search-date">Date:</label>
-                        <input type="date" id="search-date" name="date">
-                    </div>
-                </form>
-                <div class="search-actions">
-                    <button type="submit" form="search-product-form" class="search-btn">Search</button>
-                </div>
-            </section>
-
             <section class="product-results-section">
                 <div class="results-header">
-                    <span class="results-count">Show 7 products:</span>
-                    <a asp-controller="Admin" asp-action="Create" class="product-action-btn">Add Products</a>
+                    <span class="results-count">Show @Model.Count() Categories:</span>
+                    <a asp-area="Admin" asp-controller="Category" asp-action="Create" class="product-action-btn">Add Category</a>
                     <!-- Add pagination or other controls if needed -->
                 </div>
                 <table class="product-table">
                     <thead>
                         <tr>
-                            <th>ID Product</th>
-                            <th>Category</th>
-                            <th>Name Product</th>
+                            <th>ID Category</th>
+                            <th>Name Category</th>
                             <th>Description</th>
-                            <th>Price</th>
+                            <th>Status</th>
                             <th>Quantity</th>
-                            <th>Image</th>
-                            <th>Size</th>
-                            <th>Create At</th>
-                            <th>Update At</th>
-                            <th>Sale Percentage</th>
-                            <th>Collection</th>
-                            <th>Colors</th>
-                            <th>Gender</th>
-                            <th>Operation</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
+                    @*     @foreach (var item in Model)
                         {
                             <tr>
                                 <td>@item.ProductId</td>
@@ -493,16 +445,16 @@
 
                                 <td>@item.Gender</td>
                                 <td class="operations">
-                                    <a asp-controller="Admin" asp-action="Edit" asp-route-id="@item.ProductId" class="operation-btn edit-btn">
+                                    <a asp-area="Admin" asp-controller="Products" asp-action="Edit" asp-route-id="@item.ProductId" class="operation-btn edit-btn">
                                         <img src="~/images/edit-icon.png">
                                     </a>
-                                    <a asp-controller="Admin" asp-action="Delete" asp-route-id="@item.ProductId" class="operation-btn delete-btn">
+                                    <a asp-area="Admin" asp-controller="Products" asp-action="Delete" asp-route-id="@item.ProductId" class="operation-btn delete-btn">
                                         <img src="~/images/542724.png" alt="Delete">
                                     </a>
                                 </td>
                             </tr>
                         }
-                    </tbody>
+                    </tbody> *@
                 </table>
             </section>
         </main>

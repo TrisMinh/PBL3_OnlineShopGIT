@@ -1,0 +1,349 @@
+﻿﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    // Placeholder for model if needed
+    var selectedCollection = ViewData["SelectedCollection"] as string ?? "";
+}
+
+<aside class="filters">
+    <h2 class="filters-title">Filters</h2>
+    <!-- Category Filter -->
+    <div class="filter-group">
+        <div class="custom-toggle-header filter-group-header" style="cursor: pointer;">
+            <span>Category</span>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="custom-toggle-content" style="display: none;">
+            <div class="filter-group-content filter-category-grid">
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="">All</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="Jackets">Jackets</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="T-Shirts">T-Shirts</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="Polo Shirts">Polo Shirts</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="Suits">Suits</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="Jeans">Jeans</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="Trousers">Trousers</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="Shorts">Shorts</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="Sportswear">Sportswear</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="Dresses">Dresses</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="Skirts">Skirts</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="Coats">Coats</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Colors Filter -->
+    <div class="filter-group">
+        <div class="custom-toggle-header filter-group-header" style="cursor: pointer;">
+            <span>Colors</span>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="custom-toggle-content" style="display: none;">
+            <div class="filter-group-content filter-colors-grid">
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="color" data-filter-value="">All</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="color" data-filter-value="Black">Black</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="color" data-filter-value="White">White</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="color" data-filter-value="Blue">Blue</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="color" data-filter-value="Red">Red</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="color" data-filter-value="Green">Green</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="color" data-filter-value="Yellow">Yellow</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="color" data-filter-value="Brown">Brown</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Price Range Filter -->
+    <div class="filter-group">
+        <div class="custom-toggle-header filter-group-header" style="cursor: pointer;">
+            <span>Price Range</span>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="custom-toggle-content" style="display: none;">
+            <div class="filter-group-content">
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="price" data-filter-value="">All</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="price" data-filter-value="under-500">Under 500,000đ</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="price" data-filter-value="500-to-1m">From 500,000đ - 1 million</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="price" data-filter-value="1m-to-2m">From 1 - 2 million</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="price" data-filter-value="2m-to-4m">From 2 - 4 million</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="price" data-filter-value="above-4m">Above 4 million</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Collections Filter -->
+    <div class="filter-group">
+        <div class="custom-toggle-header filter-group-header" style="cursor: pointer;">
+            <span>Collections</span>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="custom-toggle-content" style="display: none;">
+            <div class="filter-group-content filter-collections-grid">
+                <a href="javascript:void(0)" class="filter-category-button @(string.IsNullOrEmpty(selectedCollection) ? "active" : "")" data-filter-type="collection" data-filter-value="">All</a>
+                <a href="javascript:void(0)" class="filter-category-button @(selectedCollection.ToLower() == "spring" ? "active" : "")" data-filter-type="collection" data-filter-value="spring">Spring</a>
+                <a href="javascript:void(0)" class="filter-category-button @(selectedCollection.ToLower() == "summer" ? "active" : "")" data-filter-type="collection" data-filter-value="summer">Summer</a>
+                <a href="javascript:void(0)" class="filter-category-button @(selectedCollection.ToLower() == "autumn" ? "active" : "")" data-filter-type="collection" data-filter-value="autumn">Autumn</a>
+                <a href="javascript:void(0)" class="filter-category-button @(selectedCollection.ToLower() == "winter" ? "active" : "")" data-filter-type="collection" data-filter-value="winter">Winter</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Availability Filter -->
+    <div class="filter-group">
+        <div class="custom-toggle-header filter-group-header" style="cursor: pointer;">
+            <span>Availability</span>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="custom-toggle-content" style="display: none;">
+            <div class="filter-group-content">
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="availability" data-filter-value="">All</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="availability" data-filter-value="available">Availability (@ViewBag.AvailableCount)</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="availability" data-filter-value="out-of-stock">Out Of Stock (@ViewBag.OutOfStockCount)</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gender Filter (Changed from Tags) -->
+    <div class="filter-group">
+        <div class="custom-toggle-header filter-group-header" style="cursor: pointer;">
+            <span>Gender</span>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="custom-toggle-content" style="display: none;">
+            <div class="filter-group-content filter-gender-grid">
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="gender" data-filter-value="">All</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="gender" data-filter-value="male">Male</a>
+                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="gender" data-filter-value="female">Female</a>
+            </div>
+        </div>
+    </div>
+
+</aside>
+<style>
+    /* Base styles for chevron rotation */
+    .custom-toggle-header .fa-chevron-down {
+        transition: transform 0.3s ease;
+    }
+    .custom-toggle-header.is-active .fa-chevron-down {
+        transform: rotate(180deg);
+    }
+
+    /* Custom Toggle Content CSS */
+    .custom-toggle-content {
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+    
+    /* Highlight active filters */
+    .filter-category-button.active {
+        background-color: #f0f0f0;
+        font-weight: bold;
+    }
+    
+    /* Uniform style for all filter buttons */
+    .filter-category-button {
+        display: block;
+        width: 100%;
+        padding: 8px 15px;
+        margin-bottom: 5px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        text-align: center;
+        text-decoration: none;
+        color: #333;
+        transition: all 0.2s ease;
+    }
+    
+    .filter-category-button:hover {
+        background-color: #f9f9f9;
+    }
+    
+    /* Category Grid - 2 items per row */
+    .filter-category-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+    }
+    
+    /* Colors Grid - 2 items per row */
+    .filter-colors-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+    }
+    
+    /* Size Grid - 4 items in first row, 3 items in second row */
+    .filter-size-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 5px;
+    }
+    .filter-size-grid > a:nth-child(5),
+    .filter-size-grid > a:nth-child(6),
+    .filter-size-grid > a:nth-child(7) {
+        grid-column: span 1;
+    }
+    
+    /* Collections Grid - 3 items in first row, 2 items in second row */
+    .filter-collections-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
+    }
+    .filter-collections-grid > a:nth-child(4),
+    .filter-collections-grid > a:nth-child(5) {
+        grid-column: span 3/2;
+    }
+    
+    /* Gender Grid - all 3 items in one row */
+    .filter-gender-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
+    }
+</style>
+
+<!-- Mã JavaScript trong file -->
+<script>
+    // IIFE để cô lập biến và tránh xung đột
+    (function() {
+        // Đảm bảo DOM đã tải xong
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initAllFilters);
+        } else {
+            initAllFilters();
+        }
+        
+        // Khởi tạo cả hai chức năng: toggle và filter
+        function initAllFilters() {
+            initToggle();
+            highlightActiveFilters();
+            restoreOpenFilters();
+        }
+        
+        // Khởi tạo chức năng toggle ẩn/hiện danh mục
+        function initToggle() {
+            // Lấy tất cả các header filter
+            var headers = document.querySelectorAll('.custom-toggle-header');
+            
+            // Đăng ký sự kiện click cho từng header
+            headers.forEach(function(header) {
+                header.addEventListener('click', function(e) {
+                    // Ngăn chặn hành vi mặc định
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Toggle class active cho header
+                    this.classList.toggle('is-active');
+                    
+                    // Toggle hiển thị cho content
+                    var content = this.nextElementSibling;
+                    if (content) {
+                        if (content.style.display === 'block') {
+                            content.style.display = 'none';
+                            removeOpenFilter(getFilterType(this));
+                        } else {
+                            content.style.display = 'block';
+                            addOpenFilter(getFilterType(this));
+                        }
+                    }
+                });
+            });
+        }
+        
+        // Lấy trạng thái filter đang mở từ sessionStorage
+        function getOpenFilters() {
+            var openFilters = sessionStorage.getItem('openFilters');
+            return openFilters ? JSON.parse(openFilters) : [];
+        }
+        
+        // Thêm một filter vào danh sách đang mở
+        function addOpenFilter(filterType) {
+            var openFilters = getOpenFilters();
+            if (!openFilters.includes(filterType)) {
+                openFilters.push(filterType);
+                sessionStorage.setItem('openFilters', JSON.stringify(openFilters));
+            }
+        }
+        
+        // Xóa một filter khỏi danh sách đang mở
+        function removeOpenFilter(filterType) {
+            var openFilters = getOpenFilters();
+            var index = openFilters.indexOf(filterType);
+            if (index > -1) {
+                openFilters.splice(index, 1);
+                sessionStorage.setItem('openFilters', JSON.stringify(openFilters));
+            }
+        }
+        
+        // Lấy loại filter từ header
+        function getFilterType(header) {
+            var headerText = header.querySelector('span').textContent.toLowerCase();
+            return headerText.replace(/\s+/g, ''); // Loại bỏ khoảng trắng
+        }
+        
+        // Khôi phục trạng thái mở của các filter
+        function restoreOpenFilters() {
+            var openFilters = getOpenFilters();
+            
+            // Duyệt qua tất cả các header
+            document.querySelectorAll('.custom-toggle-header').forEach(function(header) {
+                var filterType = getFilterType(header);
+                
+                // Nếu filter này cần được mở
+                if (openFilters.includes(filterType)) {
+                    header.classList.add('is-active');
+                    var content = header.nextElementSibling;
+                    if (content) {
+                        content.style.display = 'block';
+                    }
+                }
+            });
+        }
+        
+        // Highlight các filter đang active dựa trên URL hiện tại
+        function highlightActiveFilters() {
+            // Lấy các tham số từ URL
+            var urlParams = new URLSearchParams(window.location.search);
+            
+            // Lấy tất cả các nút filter
+            var filterButtons = document.querySelectorAll('[data-filter-type]');
+            
+            // Kiểm tra từng nút
+            filterButtons.forEach(function(button) {
+                var filterType = button.getAttribute('data-filter-type');
+                var filterValue = button.getAttribute('data-filter-value');
+                
+                // Nếu filter này đang active (có trong URL)
+                if (urlParams.get(filterType) === filterValue) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+        }
+
+        // Xử lý click filter động
+        document.querySelectorAll('.filter-category-button').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                var type = this.getAttribute('data-filter-type');
+                var value = this.getAttribute('data-filter-value');
+                var url = new URL(window.location.href);
+
+                if (this.classList.contains('active')) {
+                    url.searchParams.delete(type); // Nếu đang active thì bỏ chọn
+                } else if (value === "" || value === null) {
+                    url.searchParams.delete(type); // Bấm All thì xóa filter này
+                } else {
+                    url.searchParams.set(type, value); // Đổi filter này
+                }
+
+                // Reset page về 1 khi filter
+                url.searchParams.delete('page');
+
+                window.location.href = url.toString();
+            });
+        });
+    })();
+</script>

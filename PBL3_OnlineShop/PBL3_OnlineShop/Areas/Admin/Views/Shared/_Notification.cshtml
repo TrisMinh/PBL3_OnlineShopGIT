@@ -1,0 +1,35 @@
+﻿<link rel="stylesheet" href="~/css/notification.css" asp-append-version="true" />
+<script src="~/js/notification.js" asp-append-version="true"></script>
+<div class="custom-notification">
+    @if (TempData["Success"] != null)
+    {
+        <div class="notification-card notification-success">
+            @TempData["Success"]
+            <button class="notification-close">&times;</button>
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="notification-card notification-error">
+            @TempData["Error"]
+            <button class="notification-close">&times;</button>
+        </div>
+    }
+
+    @if (TempData["Warning"] != null)
+    {
+        <div class="notification-card notification-warning">
+            @TempData["Warning"]
+            <button class="notification-close">&times;</button>
+        </div>
+    }
+
+    @if (TempData["Info"] != null)
+    {
+        <div class="notification-card notification-info">
+            @TempData["Info"]
+            <button class="notification-close">&times;</button>
+        </div>
+    }
+</div>

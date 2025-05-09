@@ -1,0 +1,14 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Area</title>
+</head>
+<body>
+    <main style="width : 100%">
+        @RenderBody()
+        @Html.Partial("_Notification")
+    </main>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
