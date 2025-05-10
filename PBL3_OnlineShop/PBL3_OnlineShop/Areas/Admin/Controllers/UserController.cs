@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PBL3_OnlineShop.Models;
 using PBL3_OnlineShop.Repository;
@@ -21,14 +22,21 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         }
         public IActionResult Create()
         {
+            ViewBag.RoleList = new List<SelectListItem>
+            {
+                new SelectListItem { Text = "Customer", Value = "Customer" },
+                new SelectListItem { Text = "Admin", Value = "Admin" }
+            };
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(User user)
         {
+            
             if (ModelState.IsValid)
             {
+                user.Password = _passwordHasher.HashPassword(user, user.Password);
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync(); // Lưu để lấy ProductId
                 return RedirectToAction("Index");
@@ -44,7 +52,11 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var user = await _context.Users.FindAsync(id);
-
+            ViewBag.RoleList = new List<SelectListItem>
+            {
+                new SelectListItem { Text = "Customer", Value = "Customer" },
+                new SelectListItem { Text = "Admin", Value = "Admin" }
+            };
             if (user == null)
             {
                 return NotFound();
@@ -55,6 +67,11 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, User user)
         {
+            ViewBag.RoleList = new List<SelectListItem>
+            {
+                new SelectListItem { Text = "Customer", Value = "Customer" },
+                new SelectListItem { Text = "Admin", Value = "Admin" }
+            };
             // Kiểm tra tính hợp lệ của model
             if (!ModelState.IsValid)
             {
