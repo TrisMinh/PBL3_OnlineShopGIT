@@ -6,21 +6,21 @@
 }
 
 /* Modal */
-.modal .login-main{
+.modal .login-main {
     gap: 2;
 }
 
-.modal .login-main div{
-    display: flex;
-    flex-direction: column;
-}
+    .modal .login-main div {
+        display: flex;
+        flex-direction: column;
+    }
 
-.modal label{
+.modal label {
     margin-top: 10px;
     margin-bottom: 5px;
 }
 
-.modal input{
+.modal input {
     border-radius: 15px;
     height: 45px;
     border: 1px solid #A5A4A4;
@@ -28,63 +28,63 @@
     padding: 0 10px;
 }
 
-.modal .modal-inter{
+.modal .modal-inter {
     display: flex;
     flex-direction: column;
 }
 
-.modal .modal-inter .button{
-    text-align: center;
-    margin-top: 10px;
-}
+    .modal .modal-inter .button {
+        text-align: center;
+        margin-top: 10px;
+    }
 
-.modal .modal-inter .button button{
-    width: 200px;
-    height: 40px;
-    border-radius: 10px;
-    background: #32D663;
-    margin-top: 20px;
-    border: none;
-}
+        .modal .modal-inter .button button {
+            width: 200px;
+            height: 40px;
+            border-radius: 10px;
+            background: #32D663;
+            margin-top: 20px;
+            border: none;
+        }
 
-.modal .modal-inter .forgot-pass{
-    font-size: 13px;
-}
+    .modal .modal-inter .forgot-pass {
+        font-size: 13px;
+    }
 
-.modal .modal-inter .modal-sign-up{
-    text-align: center;
-}
+    .modal .modal-inter .modal-sign-up {
+        text-align: center;
+    }
 
-.modal .modal-inter .modal-sign-up .btn{
-    color: #0A58CA;
-    background: none;
-    border: none;
-    font-size: 13px;
-    padding: 0 0;
-}
+        .modal .modal-inter .modal-sign-up .btn {
+            color: #0A58CA;
+            background: none;
+            border: none;
+            font-size: 13px;
+            padding: 0 0;
+        }
 
-.modal-title{
+.modal-title {
     color: #333A98;
     font-size: 50px;
     font-weight: 600;
 }
 
-.body-two .modal-main{
+.body-two .modal-main {
     display: flex;
     justify-content: space-between;
 }
 
-.body-two .modal-main div{
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-}
+    .body-two .modal-main div {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+    }
 
-.body-two .modal-button{
+.body-two .modal-button {
     text-align: center;
 }
 
-.body-two .signup-button{
+.body-two .signup-button {
     width: 200px;
     height: 40px;
     border-radius: 10px;
@@ -93,80 +93,80 @@
     border: none;
 }
 
-.modal-header .header-main{
+.modal-header .header-main {
     display: flex;
     flex-direction: column;
 }
 
-.modal-header .header-main button{
-    border: none;
-    background: none;
-    text-align: left;
-    padding: 0;
-    margin-bottom: 10px;
-}
+    .modal-header .header-main button {
+        border: none;
+        background: none;
+        text-align: left;
+        padding: 0;
+        margin-bottom: 10px;
+    }
 
-.modal-header .header-main img{
-    height: 30px;
-    width: 30px;
-}
+    .modal-header .header-main img {
+        height: 30px;
+        width: 30px;
+    }
 
-.modal-content-two{
+.modal-content-two {
     width: 600px;
 }
 
-.modal-text{
+.modal-text {
     display: flex;
     justify-content: space-between;
 }
 
-.body-three .modal-button{
+.body-three .modal-button {
     display: inline;
     width: 20%;
 }
 
-.body-three .modal-button button{
-    margin-top: 40px;
-    height: 43px;
-    width: 80px;
-    border-radius: 12px;
-    background: #28D96F;
-    border: 1px solid #475A4A;
-}
+    .body-three .modal-button button {
+        margin-top: 40px;
+        height: 43px;
+        width: 80px;
+        border-radius: 12px;
+        background: #28D96F;
+        border: 1px solid #475A4A;
+    }
 
-.body-three .modal-main{
+.body-three .modal-main {
     display: flex;
     flex-direction: column;
     width: 70%;
 }
 
-.body-three .modal-comfirm{
+.body-three .modal-comfirm {
     text-align: center;
     margin-top: 10px;
 }
 
-.body-three .modal-comfirm button{
-    width: 200px;
-    height: 40px;
-    border-radius: 10px;
-    background: #32D663;
-    margin-top: 20px;
-    border: none;
-}
+    .body-three .modal-comfirm button {
+        width: 200px;
+        height: 40px;
+        border-radius: 10px;
+        background: #32D663;
+        margin-top: 20px;
+        border: none;
+    }
 
-.body-three .modal-text-four{
+.body-three .modal-text-four {
     display: flex;
     flex-direction: column;
 }
 
-.body-three .modal-main-four{
+.body-three .modal-main-four {
     display: flex;
     flex-direction: column;
 }
 /* End Modal */
 
 /* Line */
-.line{
+.line {
     margin: 20px 0;
     background: #111;
     height: 1px;
@@ -175,94 +175,116 @@
 
 /* Section-one */
 @keyframes float {
-    0%   { transform: translateY(0px); }
-    50%  { transform: translateY(-20px); }
-    100% { transform: translateY(0px); }
-  }  
+    0% {
+        transform: translateY(0px);
+    }
 
-  @keyframes pulse {
-    0%   { opacity: 0.5; }
-    25%  { opacity: 0.7; }
-    50%  { opacity: 1; }
-    75%  { opacity: 0.7; }
-    100% { opacity: 0.5; }
-  }
-  
+    50% {
+        transform: translateY(-20px);
+    }
 
-.section-one .inner-wrap{
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.5;
+    }
+
+    25% {
+        opacity: 0.7;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 0.7;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
+}
+
+
+.section-one .inner-wrap {
     padding-top: 100px;
 }
 
-.section-one .inner-wrap .inner-content{
-    font-family: "Inknut Antiqua", serif;
-    font-size: 17px;
-    margin-left: 10px;
-}
+    .section-one .inner-wrap .inner-content {
+        font-family: "Inknut Antiqua", serif;
+        font-size: 17px;
+        margin-left: 10px;
+    }
 
-.section-one .inner-home{
+.section-one .inner-home {
     position: relative;
 }
 
-.section-one .inner-home img{
-    height: 600px;
-    animation: float 4s ease-in-out infinite;
-}
+    .section-one .inner-home img {
+        height: 600px;
+        animation: float 4s ease-in-out infinite;
+    }
 
-.section-one .inner-home .inner-sale {
-    position: absolute;
-    top: 150px;
-    right: 100px;
-}
+    .section-one .inner-home .inner-sale {
+        position: absolute;
+        top: 150px;
+        right: 100px;
+    }
 
-.section-one .inner-home .inner-sale .span1{
-    font-family: "Cardo", serif;
-    font-size: 38px;
-    font-weight: 500;
-    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
+        .section-one .inner-home .inner-sale .span1 {
+            font-family: "Cardo", serif;
+            font-size: 38px;
+            font-weight: 500;
+            animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
 
-.section-one .inner-home .inner-sale .span2{
-    font-family: "Cambo", serif;
-    font-size: 16px;
-}
+        .section-one .inner-home .inner-sale .span2 {
+            font-family: "Cambo", serif;
+            font-size: 16px;
+        }
 /* End Section-one */
 
 /* Section-two */
-.section-two .inner-wrap .inner-content{
+.section-two .inner-wrap .inner-content {
     display: flex;
 }
 
-.section-two .inner-wrap .inner-content .content-left{
-    font-size: 35px;
-    font-weight: 800;
-}
+    .section-two .inner-wrap .inner-content .content-left {
+        font-size: 35px;
+        font-weight: 800;
+    }
 
-.section-two .inner-wrap .inner-content .content-right{
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-}
+    .section-two .inner-wrap .inner-content .content-right {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+    }
 
-.section-two .inner-wrap .inner-content .content-right a{
-    color: #5E5E5E;
-    font-size: 20px;
-}
+        .section-two .inner-wrap .inner-content .content-right a {
+            color: #5E5E5E;
+            font-size: 20px;
+        }
 
-.section-two{
+.section-two {
     overflow: hidden;
 }
 
-.section-two .inner-wrap .line{
-    margin: 20px 0;
-    background: #DFDFDF;
-    height: 1px;
-}
+    .section-two .inner-wrap .line {
+        margin: 20px 0;
+        background: #DFDFDF;
+        height: 1px;
+    }
 
-.section-two .inner-wrap .inner-list{
-    display: flex;
-    transition: transform 0.5s ease;
-    margin-bottom: 10px;
-}
+    .section-two .inner-wrap .inner-list {
+        display: flex;
+        transition: transform 0.5s ease;
+        margin-bottom: 10px;
+    }
 
 /* .section-two .inner-wrap .slide{
     min-width: 100%;
@@ -282,9 +304,10 @@
     transition: transform 0.5s ease;
 }
 
-.inner-list::-webkit-scrollbar {
-    display: none;
-}
+    .inner-list::-webkit-scrollbar {
+        display: none;
+    }
+
 .inner-list {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -317,12 +340,15 @@
     overflow: hidden;
 }
 
-.inner-img img {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
-}
+    .inner-img img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
 
 .card-info {
     height: 126px; /* 30% của 420px */
@@ -346,7 +372,7 @@
     margin-top: auto;
 }
 
-@media (max-width: 1150px){
+@media (max-width: 1150px) {
     .section-one .inner-home img {
         height: 450px;
     }
@@ -360,47 +386,53 @@
     }
 }
 
-@media (max-width: 900px){
+@media (max-width: 900px) {
     .section-one .inner-home .inner-sale {
         display: none;
     }
-    .section-two .inner-wrap .inner-content .content-left{
+
+    .section-two .inner-wrap .inner-content .content-left {
         font-size: 28px;
         font-weight: 800;
     }
-    .section-two .inner-wrap .inner-content .content-right a{
+
+    .section-two .inner-wrap .inner-content .content-right a {
         color: #5E5E5E;
         font-size: 15px;
     }
-    .section-one .inner-wrap .inner-content{
+
+    .section-one .inner-wrap .inner-content {
         font-family: "Inknut Antiqua", serif;
         font-size: 13px;
         margin-left: 10px;
     }
 
-    .header .inner-wrap .inner-search input{
+    .header .inner-wrap .inner-search input {
         width: 250px;
     }
 }
 
-@media (max-width: 576px){
-    .section-two .inner-wrap .inner-content .content-left{
+@media (max-width: 576px) {
+    .section-two .inner-wrap .inner-content .content-left {
         font-size: 23px;
         font-weight: 800;
     }
-    .section-two .inner-wrap .inner-content .content-right a{
+
+    .section-two .inner-wrap .inner-content .content-right a {
         color: #5E5E5E;
         font-size: 13px;
     }
+
     .section-one .inner-home img {
         height: 400px;
     }
-    .section-one .inner-home{
+
+    .section-one .inner-home {
         overflow: hidden;
     }
 }
 
-@media (max-width: 500px){
+@media (max-width: 500px) {
     .section-one .inner-home img {
         height: 280px;
     }
@@ -415,9 +447,10 @@
     flex-direction: column;
     gap: 7px;
 }
+
 product-options, .product-details {
     height: 2px;
-    min-height: 1px; 
+    min-height: 1px;
 }
 
 .product-options {
@@ -484,23 +517,23 @@ product-options, .product-details {
     margin-bottom: 0;
 }
 
-.inner-button .nav-btn {
-    height: 40px;
-    width: 40px;
-    margin: 0 5px;
-    background: #fff;
-    border: 2px solid #111;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    cursor: pointer;
-    transition: background 0.2s;
-}
+    .inner-button .nav-btn {
+        height: 40px;
+        width: 40px;
+        margin: 0 5px;
+        background: #fff;
+        border: 2px solid #111;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
 
-.inner-button .nav-btn:hover {
-    background: #eee;
-}
+        .inner-button .nav-btn:hover {
+            background: #eee;
+        }
 
 .nav-btn.disabled {
     opacity: 0.3;
@@ -516,8 +549,8 @@ product-options, .product-details {
 }
 
 .slider-viewport {
-    width: 940px !important; 
-    margin: 0 auto; 
+    width: 940px !important;
+    margin: 0 auto;
     overflow: hidden !important;
 }
 

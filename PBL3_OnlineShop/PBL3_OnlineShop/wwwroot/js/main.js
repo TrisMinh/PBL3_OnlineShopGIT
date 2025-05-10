@@ -89,29 +89,29 @@
 // End Home
 
 // Xóa transform style cho tất cả slider
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
-    
 
-    document.querySelectorAll('.slider-viewport').forEach(function(viewport, sliderIndex) {
+
+    document.querySelectorAll('.slider-viewport').forEach(function (viewport, sliderIndex) {
         const list = viewport.querySelector('.inner-list');
         const slides = list.querySelectorAll('.slide');
         const slideWidth = 320; // 300px width + 20px gap
         const visibleSlides = 3;
         const totalSlides = Math.min(slides.length, 9);
-        
+
         const prevBtn = document.querySelectorAll('.prev')[sliderIndex];
         const nextBtn = document.querySelectorAll('.next')[sliderIndex];
-      
+
         if (totalSlides <= visibleSlides) {
             if (prevBtn) prevBtn.classList.add('disabled');
             if (nextBtn) nextBtn.classList.add('disabled');
-            return; 
+            return;
         }
-        
+
         let currentIndex = 0;
         const maxIndex = totalSlides - visibleSlides;
-        
+
 
         function updateButtonStatus(index) {
 
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     prevBtn.classList.remove('disabled');
                 }
             }
-            
+
             if (nextBtn) {
                 if (index >= maxIndex) {
                     nextBtn.classList.add('disabled');
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (index < 0) index = 0;
             if (index > maxIndex) index = 0;
-  
+
             list.style.transform = `translateX(-${index * slideWidth}px)`;
             currentIndex = index;
 
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }
-        
+
         if (nextBtn) {
             nextBtn.addEventListener('click', () => {
                 if (currentIndex < maxIndex) {

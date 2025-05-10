@@ -199,24 +199,40 @@
     }
 
 .favourite-btn {
-    background-color: rgba(255, 255, 255, 0.88); /* From Figma fill_UFDV9H */
-    border: 1px solid #1E1E1E; /* From Figma stroke_6TUPR6 */
-    color: #1E1E1E; /* Match border color */
-    width: 40px; /* Adjust size */
-    height: 40px; /* Adjust size */
+    background-color: #e0e0e0;      /* Nền xám nhạt */
+    border: 1px solid #888888;      /* Viền xám */
+    color: #1E1E1E;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    font-size: 16px; /* Adjust icon size */
-    border-radius: 4px; /* Slight rounding */
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
+    font-size: 16px;
+    border-radius: 4px;
 }
 
     .favourite-btn:hover {
         background-color: #1E1E1E;
         color: #FFFFFF;
     }
+
+.favourite-btn i {
+    color: #1E1E1E;                /* Icon đen */
+    transition: color 0.3s;
+    font-size: 22px;
+    background: transparent;
+}
+
+.favourite-btn.active {
+    background-color: #fff;         /* Nền trắng */
+    border: 1px solid #1E1E1E;      /* Viền đen */
+}
+
+.favourite-btn.active i {
+    color: #1E1E1E;                /* Icon đen */
+}
 
 @media (max-width: 768px) {
     .product-detail {

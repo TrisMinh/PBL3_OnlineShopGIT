@@ -136,6 +136,16 @@ namespace PBL3_OnlineShop.Controllers
             ViewBag.AvailableCount = query.Count(p => p.StockQuantity > 0);
             ViewBag.OutOfStockCount = query.Count(p => p.StockQuantity == 0);
 
+            int? userId = HttpContext.Session.GetInt32("_UserId");
+            if (userId == null)
+            {
+                Console.WriteLine("Chưa đăng nhập hoặc session không có UserId");
+            }
+            else
+            {
+                Console.WriteLine("UserId trong session: " + userId);
+            }
+
             return View(products);
         }
 
@@ -151,13 +161,22 @@ namespace PBL3_OnlineShop.Controllers
                 return RedirectToAction("Index");
             }
 
+            // Lấy userId từ session
+            int? userId = HttpContext.Session.GetInt32("_UserId");
+            bool isFavourite = false;
+            if (userId != null)
+            {
+                isFavourite = _context.Favourites.Any(f => f.UserId == userId && f.ProductId == id);
+            }
+            ViewBag.IsFavourite = isFavourite;
+
             return View(product);
         }
 
         // Action Create
         public ActionResult Create()
         {
-            return View();
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
