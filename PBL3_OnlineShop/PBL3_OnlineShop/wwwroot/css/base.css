@@ -23,6 +23,7 @@ body{
     background: #F6F6F6;
     /* background: #E4E4E4; */
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px;
+    padding-left:20px;
 }
 
 .footer{

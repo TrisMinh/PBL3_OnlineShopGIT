@@ -86,14 +86,10 @@
 }
 
 .header .inner-wrap .inner-utilities ul{
+    width:100%;
+    min-width:500px;
     margin-right: 20px;
-    padding: 0;
     margin-top: revert;
-}
-
-.header .inner-wrap .inner-utilities img{
-    height: 40px;
-    width: auto;
 }
 
 .header .inner-wrap .inner-menu-logo{
@@ -130,9 +126,6 @@
         display: none;
     }
 
-    .header .inner-wrap .inner-utilities ul{
-        margin-right: 0;
-    }
 
     .inner-search{
         display: none;
@@ -144,13 +137,21 @@
 }
 
 /* Add some top margin to push content below fixed header */
+.app {
+    min-height: calc(100vh - 180px); /* Đảm bảo trang có chiều cao tối thiểu, trừ đi chiều cao của header và footer */
+    display: flex;
+    flex-direction: column;
+}
+
 .product-page-container {
     padding-top: 100px; /* Tăng padding từ 80px lên 100px để tạo khoảng cách lớn hơn với header */
     margin-bottom: 40px; /* Add space before footer */
+    flex: 1;
 }
 
 .product-content {
     /* Styles for the main content area */
+    min-height: 60vh;
 }
 
 .breadcrumbs {
@@ -560,10 +561,6 @@
 .header-menu {
     display: flex;
     align-items: center;
-    
-}
-.header-menu .inner-menu {
-    padding-left: 20px;
 }
 
 .header-search {

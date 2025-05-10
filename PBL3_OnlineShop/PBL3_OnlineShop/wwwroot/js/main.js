@@ -1,90 +1,176 @@
-const prevBtns = document.querySelectorAll('.prev');
-const nextBtns = document.querySelectorAll('.next');
-const slidesList = document.querySelectorAll('.inner-list');
+// const prevBtns = document.querySelectorAll('.prev');
+// const nextBtns = document.querySelectorAll('.next');
+// const slidesList = document.querySelectorAll('.inner-list');
 
-function updateSlide(slides, currentSlide) {
-  const slide = document.querySelector('.slide');
-  const width = slide.offsetWidth;
-  const slide2 = document.querySelector('.section-two');
-  const width2 = slide2.offsetWidth;
-  const offset = -currentSlide * width / width2 * 100;
-  slides.style.transform = `translateX(${offset}%)`;
-}
+// function updateSlide(slides, currentSlide) {
+//   const slide = document.querySelector('.slide');
+//   const width = slide.offsetWidth;
+//   const slide2 = document.querySelector('.section-two');
+//   const width2 = slide2.offsetWidth;
+//   const offset = -currentSlide * width / width2 * 100;
+//   slides.style.transform = `translateX(${offset}%)`;
+// }
 
-function autoSlide(slides, currentSlideRef, totalSlides, intervalTime, prevBtn, nextBtn) {
-  return setInterval(() => {
-    if (currentSlideRef.value < totalSlides - 1) {
-      currentSlideRef.value++;
-    } else {
-      currentSlideRef.value = 0;
-    }
-    updateSlide(slides, currentSlideRef.value);
-    updateNavigation(currentSlideRef.value, totalSlides, prevBtn, nextBtn);
-  }, intervalTime);
-}
+// function autoSlide(slides, currentSlideRef, totalSlides, intervalTime, prevBtn, nextBtn) {
+//   return setInterval(() => {
+//     if (currentSlideRef.value < totalSlides - 1) {
+//       currentSlideRef.value++;
+//     } else {
+//       currentSlideRef.value = 0;
+//     }
+//     updateSlide(slides, currentSlideRef.value);
+//     updateNavigation(currentSlideRef.value, totalSlides, prevBtn, nextBtn);
+//   }, intervalTime);
+// }
 
-function updateNavigation(currentSlide, totalSlides, prevBtn, nextBtn) {
-  if (currentSlide === 0) {
-    prevBtn.classList.add('disabled');
-  } else {
-    prevBtn.classList.remove('disabled');
-  }
+// function updateNavigation(currentSlide, totalSlides, prevBtn, nextBtn) {
+//   if (currentSlide === 0) {
+//     prevBtn.classList.add('disabled');
+//   } else {
+//     prevBtn.classList.remove('disabled');
+//   }
 
-  if (currentSlide === totalSlides - 1) {
-    nextBtn.classList.add('disabled');
-  } else {
-    nextBtn.classList.remove('disabled');
-  }
-}
+//   if (currentSlide === totalSlides - 1) {
+//     nextBtn.classList.add('disabled');
+//   } else {
+//     nextBtn.classList.remove('disabled');
+//   }
+// }
 
-prevBtns.forEach((prevBtn, index) => {
-  const nextBtn = nextBtns[index];
-  const slides = slidesList[index];
-  const currentSlideRef = { value: 0 };
-  const totalSlides = slides.querySelectorAll('.list').length - 2;
+// prevBtns.forEach((prevBtn, index) => {
+//   const nextBtn = nextBtns[index];
+//   const slides = slidesList[index];
+//   const slideItems = slides.querySelectorAll('.slide');
+//   const visibleSlides = 3;
+//   const totalSlides = Math.max(slideItems.length - visibleSlides + 1, 1);
+//   const currentSlideRef = { value: 0 };
 
-  function updateNavigationForManual() {
-    updateNavigation(currentSlideRef.value, totalSlides, prevBtn, nextBtn);
-  }
+//   function updateNavigationForManual() {
+//     updateNavigation(currentSlideRef.value, totalSlides, prevBtn, nextBtn);
+//   }
 
-  prevBtn.addEventListener('click', () => {
-    if (currentSlideRef.value > 0) {
-      currentSlideRef.value--;
-    }
-    updateSlide(slides, currentSlideRef.value);
-    updateNavigationForManual();
-  });
+//   prevBtn.addEventListener('click', () => {
+//     if (currentSlideRef.value > 0) {
+//       currentSlideRef.value--;
+//     }
+//     slides.style.transform = `translateX(-${currentSlideRef.value * 320}px)`;
+//     updateNavigationForManual();
+//   });
 
-  nextBtn.addEventListener('click', () => {
-    if (currentSlideRef.value < totalSlides - 1) {
-      currentSlideRef.value++;
-    }
-    updateSlide(slides, currentSlideRef.value);
-    updateNavigationForManual();
-  });
+//   nextBtn.addEventListener('click', () => {
+//     if (currentSlideRef.value < totalSlides - 1) {
+//       currentSlideRef.value++;
+//     }
+//     slides.style.transform = `translateX(-${currentSlideRef.value * 320}px)`;
+//     updateNavigationForManual();
+//   });
 
-  updateNavigationForManual();
+//   updateNavigationForManual();
 
-  let intervalTime;
-  if (index === 0) intervalTime = 5000;
-  else if (index === 1) intervalTime = 4000;
-  else if (index === 2) intervalTime = 4500;
+//   let intervalTime;
+//   if (index === 0) intervalTime = 5000;
+//   else if (index === 1) intervalTime = 4000;
+//   else if (index === 2) intervalTime = 4500;
 
-  setTimeout(() => {
-    autoSlide(slides, currentSlideRef, totalSlides, intervalTime, prevBtn, nextBtn);
-  }, index * 1000);
+//   setTimeout(() => {
+//     autoSlide(slides, currentSlideRef, totalSlides, intervalTime, prevBtn, nextBtn);
+//   }, index * 1000);
 
-  const mediaQuery = window.matchMedia("(max-width: 992px)");
+//   const mediaQuery = window.matchMedia("(max-width: 992px)");
 
-  function onMediaChange() {
-    updateSlide(slides, currentSlideRef.value);
-  }
+//   function onMediaChange() {
+//     updateSlide(slides, currentSlideRef.value);
+//   }
 
-  mediaQuery.addEventListener("change", onMediaChange);
-  window.addEventListener("resize", onMediaChange);
-});
+//   mediaQuery.addEventListener("change", onMediaChange);
+//   window.addEventListener("resize", onMediaChange);
+// });
 
 // End Home
+
+// Xóa transform style cho tất cả slider
+document.addEventListener('DOMContentLoaded', function() {
+
+    
+
+    document.querySelectorAll('.slider-viewport').forEach(function(viewport, sliderIndex) {
+        const list = viewport.querySelector('.inner-list');
+        const slides = list.querySelectorAll('.slide');
+        const slideWidth = 320; // 300px width + 20px gap
+        const visibleSlides = 3;
+        const totalSlides = Math.min(slides.length, 9);
+        
+        const prevBtn = document.querySelectorAll('.prev')[sliderIndex];
+        const nextBtn = document.querySelectorAll('.next')[sliderIndex];
+      
+        if (totalSlides <= visibleSlides) {
+            if (prevBtn) prevBtn.classList.add('disabled');
+            if (nextBtn) nextBtn.classList.add('disabled');
+            return; 
+        }
+        
+        let currentIndex = 0;
+        const maxIndex = totalSlides - visibleSlides;
+        
+
+        function updateButtonStatus(index) {
+
+            if (prevBtn) {
+                if (index === 0) {
+                    prevBtn.classList.add('disabled');
+                } else {
+                    prevBtn.classList.remove('disabled');
+                }
+            }
+            
+            if (nextBtn) {
+                if (index >= maxIndex) {
+                    nextBtn.classList.add('disabled');
+                } else {
+                    nextBtn.classList.remove('disabled');
+                }
+            }
+        }
+
+        function slideToIndex(index) {
+
+            if (index < 0) index = 0;
+            if (index > maxIndex) index = 0;
+  
+            list.style.transform = `translateX(-${index * slideWidth}px)`;
+            currentIndex = index;
+
+            updateButtonStatus(index);
+        }
+
+        updateButtonStatus(currentIndex);
+
+        setInterval(() => {
+
+            if (currentIndex >= maxIndex) {
+                slideToIndex(0);
+            } else {
+                slideToIndex(currentIndex + 1);
+            }
+        }, 2000);
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    slideToIndex(currentIndex - 1);
+                }
+            });
+        }
+        
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                if (currentIndex < maxIndex) {
+                    slideToIndex(currentIndex + 1);
+                }
+            });
+        }
+    });
+});
 
 // ProfileAdminEdit
 

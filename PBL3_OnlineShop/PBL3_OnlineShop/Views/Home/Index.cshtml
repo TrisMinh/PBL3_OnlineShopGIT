@@ -8,7 +8,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/css/base.css">
     <link rel="stylesheet" href="~/css/Home.css">
     <title>Document</title>
@@ -56,40 +55,49 @@
                     </div>
                 </div>
                 <div class="line"></div>
-                <div class="inner-list">
-                    @if (ViewBag.HotProducts != null)
+            </div>
+        </div>
+    </div>
+    <div class="slider-viewport" style="width:auto; margin:0 auto; overflow:visible;">
+        <div class="slider-wrapper">
+            <div class="inner-list">
+                @if (ViewBag.HotProducts != null)
+                {
+                    foreach (var product in ((List<PBL3_OnlineShop.Models.Products>)ViewBag.HotProducts).Take(9))
                     {
-                        foreach (var product in (List<PBL3_OnlineShop.Models.Products>)ViewBag.HotProducts)
-                        {
-                            var imageArr = (product.ImageUrl ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
-                            var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";
-                            var colors = product.ProductSizes?.Select(ps => ps.Color).Distinct().ToList() ?? new List<string>();
-                            var sizes = product.ProductSizes?.Select(ps => ps.Size).Distinct().ToList() ?? new List<string>();
+                        var imageArr = (product.ImageUrl ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
+                        var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";
+                        var colors = product.ProductSizes?.Select(ps => ps.Color).Distinct().ToList() ?? new List<string>();
+                        var sizes = product.ProductSizes?.Select(ps => ps.Size).Distinct().ToList() ?? new List<string>();
 
-                            <div class="slide col-lg-4 col-sm-6 col-12">
-                                <div class="list">
+                        <div class="slide">
+                            <div class="list">
+                                <div class="inner-img">
                                     <a href="/Products/Details/@product.ProductId">
-                                        <div class="inner-img"><img src="@imageUrl" alt="@product.ProductName"></div>
+                                        <img src="@imageUrl" alt="@product.ProductName">
                                     </a>
-                                    <div class="des-one">
-                                        <span>+@colors.Count color</span>
-                                        <span class="right">@sizes.Count size</span>
-
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-options">
+                                        <span>+@colors.Count Color</span>
+                                        <span class="right">+@sizes.Count Size</span>
                                     </div>
-                                    <div class="des-two">
-                                        <span>@product.ProductName</span>
-                                        <span class="right">@string.Format("{0:N0}đ", product.SellingPrice)</span>
+                                    <div class="product-details">
+                                        <span class="product-name">@product.ProductName</span>
+                                        <span class="product-price">$@string.Format("{0:N0}", product.SellingPrice)</span>
                                     </div>
                                 </div>
                             </div>
-                        }
+                        </div>
                     }
-                </div>
-                <div class="inner-button">
-                    <button class="nav-btn prev">❮</button>
-                    <button class="nav-btn next">❯</button>
-                </div>
+                }
             </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="inner-button">
+            <button class="nav-btn prev">❮</button>
+            <button class="nav-btn next">❯</button>
         </div>
     </div>
     <!-- End Section-two -->
@@ -108,46 +116,56 @@
                     </div>
                 </div>
                 <div class="line"></div>
-                <div class="inner-list">
-                    @if (ViewBag.SaleProducts != null)
+            </div>
+        </div>
+    </div>
+    <div class="slider-viewport" style="width:auto; margin:0 auto; overflow:visible;">
+        <div class="slider-wrapper">
+            <div class="inner-list">
+                @if (ViewBag.SaleProducts != null)
+                {
+                    foreach (var product in ((List<PBL3_OnlineShop.Models.Products>)ViewBag.SaleProducts).Take(9))
                     {
-                        foreach (var product in (List<PBL3_OnlineShop.Models.Products>)ViewBag.SaleProducts)
-                        {
-                            var imageArr = (product.ImageUrl ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
-                            var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";
-                            var colors = product.ProductSizes?.Select(ps => ps.Color).Distinct().ToList() ?? new List<string>();
-                            var sizes = product.ProductSizes?.Select(ps => ps.Size).Distinct().ToList() ?? new List<string>();
-                            var salePercent = product.SalePercentage != null ? Math.Round(product.SalePercentage.Value * 100, 0) : 0;
-                            var newPrice = product.SellingPrice * (1 - (product.SalePercentage ?? 0));
-                            <div class="slide col-lg-4 col-sm-6 col-12">
-                                <div class="list">
+                        var imageArr = (product.ImageUrl ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
+                        var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";
+                        var colors = product.ProductSizes?.Select(ps => ps.Color).Distinct().ToList() ?? new List<string>();
+                        var sizes = product.ProductSizes?.Select(ps => ps.Size).Distinct().ToList() ?? new List<string>();
+                        var salePercent = product.SalePercentage != null ? Math.Round(product.SalePercentage.Value * 100, 0) : 0;
+                        var newPrice = product.SellingPrice * (1 - (product.SalePercentage ?? 0));
+                        <div class="slide">
+                            <div class="list">
+                                <div class="inner-img">
                                     <a href="/Products/Details/@product.ProductId">
-                                        <div class="inner-img"><img src="@imageUrl" alt="@product.ProductName"></div>
+                                        <img src="@imageUrl" alt="@product.ProductName">
                                     </a>
-                                    <div class="des-one">
-                                        <span>+@colors.Count color</span>
-                                        <span class="right">@sizes.Count Size</span>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-options">
+                                        <span>+@colors.Count Color</span>
+                                        <span class="right">+@sizes.Count Size</span>
                                     </div>
-                                    <div class="des-two">
-                                        <span>@product.ProductName</span>
-                                        <span class="right">
-                                            @string.Format("{0:N0}đ", newPrice)
-                                            <em style="text-decoration:line-through; color: #666">@string.Format("{0:N0}đ", product.SellingPrice)</em>
-                                        </span>
+                                    <div class="product-details">
+                                        <span class="product-name">@product.ProductName</span>
+                                        <div class="product-price-container">
+                                            <span class="product-price">$@string.Format("{0:N0}", newPrice)</span>
+                                            <span class="product-price-original">$@string.Format("{0:N0}", product.SellingPrice)</span>
+                                        </div>
                                     </div>
-                                    <div class="inner-sale">
+                                    <div class="product-sale-badge">
                                         <span>-@salePercent%</span>
                                     </div>
                                 </div>
                             </div>
-                        }
+                        </div>
                     }
-                </div>
-                <div class="inner-button">
-                    <button class="nav-btn prev">❮</button>
-                    <button class="nav-btn next">❯</button>
-                </div>
+                }
             </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="inner-button">
+            <button class="nav-btn prev">❮</button>
+            <button class="nav-btn next">❯</button>
         </div>
     </div>
     <!-- End Section-three -->
@@ -160,48 +178,58 @@
                         ALL<br>COLLECTIONS
                     </div>
                     <div class="content-right">
-                        <a asp-controller="Products" asp-action="Index">
+                        <a asp-controller="Products" asp-action="Index" asp-route-collection="spring">
                             See All
                         </a>
                     </div>
                 </div>
                 <div class="line"></div>
-                <div class="inner-list">
-                    @if (ViewBag.AllProducts != null)
+            </div>
+        </div>
+    </div>
+    <div class="slider-viewport" style="width:auto; margin:0 auto; overflow:visible;">
+        <div class="slider-wrapper">
+            <div class="inner-list">
+                @if (ViewBag.AllProducts != null)
+                {
+                    foreach (var product in ((List<PBL3_OnlineShop.Models.Products>)ViewBag.AllProducts).Take(9))
                     {
-                        foreach (var product in (List<PBL3_OnlineShop.Models.Products>)ViewBag.AllProducts)
-                        {
-                            var imageArr = (product.ImageUrl ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
-                            var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";
-                            var colors = product.ProductSizes?.Select(ps => ps.Color).Distinct().ToList() ?? new List<string>();
-                            var sizes = product.ProductSizes?.Select(ps => ps.Size).Distinct().ToList() ?? new List<string>();
-                            <div class="slide col-lg-4 col-sm-6 col-12">
-                                <div class="list">
+                        var imageArr = (product.ImageUrl ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
+                        var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";
+                        var colors = product.ProductSizes?.Select(ps => ps.Color).Distinct().ToList() ?? new List<string>();
+                        var sizes = product.ProductSizes?.Select(ps => ps.Size).Distinct().ToList() ?? new List<string>();
+                        <div class="slide">
+                            <div class="list">
+                                <div class="inner-img">
                                     <a href="/Products/Details/@product.ProductId">
-                                        <div class="inner-img"><img src="@imageUrl" alt="@product.ProductName"></div>
+                                        <img src="@imageUrl" alt="@product.ProductName">
                                     </a>
-                                    <div class="des-one">
-                                        <span>+@colors.Count color</span>
-                                        <span class="right">@sizes.Count Size</span>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-options">
+                                        <span>+@colors.Count Color</span>
+                                        <span class="right">+@sizes.Count Size</span>
                                     </div>
-                                    <div class="des-two">
-                                        <span>@product.ProductName</span>
-                                        <span class="right">@string.Format("{0:N0}đ", product.SellingPrice)</span>
+                                    <div class="product-details">
+                                        <span class="product-name">@product.ProductName</span>
+                                        <span class="product-price">$@string.Format("{0:N0}", product.SellingPrice)</span>
                                     </div>
                                 </div>
                             </div>
-                        }
+                        </div>
                     }
-                </div>
-                <div class="inner-button">
-                    <button class="nav-btn prev">❮</button>
-                    <button class="nav-btn next">❯</button>
-                </div>
+                }
             </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="inner-button">
+            <button class="nav-btn prev">❮</button>
+            <button class="nav-btn next">❯</button>
         </div>
     </div>
     <!-- Section-four -->
     <script src="~/js/main.js"></script> 
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> -->
 </body>
 </html>

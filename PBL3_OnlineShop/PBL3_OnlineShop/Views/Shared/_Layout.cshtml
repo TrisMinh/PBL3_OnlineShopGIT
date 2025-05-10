@@ -1,4 +1,4 @@
-﻿@{
+@{
     var username = Context.Session.GetString("_Username");
 }
 <!DOCTYPE html>
@@ -30,12 +30,12 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/">
+                            <a href="/Products?collection=spring">
                                 Collections
                             </a>
                         </li>
                         <li>
-                            <a href="/">
+                            <a href="/Products?category=New">
                                 New
                             </a>
                         </li>
@@ -90,10 +90,10 @@
                         <a class="nav-link" href="">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Collections</a>
+                        <a class="nav-link" href="/Products?collection=spring">Collections</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">News</a>
+                        <a class="nav-link" href="/Products?category=New">News</a>
                     </li>
                     <li class="inner-search nav-item nav-link">
                         <input class="search " type="text" placeholder="Search" id="search-header" name="text">
@@ -169,6 +169,7 @@
         </div>
     </footer>
     <!-- End Footer -->
+    @RenderSection("Scripts", required: false)
 </body>
 
 </html>
