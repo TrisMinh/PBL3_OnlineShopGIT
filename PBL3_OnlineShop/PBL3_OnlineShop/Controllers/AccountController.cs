@@ -48,7 +48,7 @@ namespace PBL3_OnlineShop.Controllers
                 UserName = model.UserName,
                 Email = model.Email,
                 Password = model.Password,
-                IsAdmin = false,
+                Role = "Customer",
                 Status = 1
             };
             // hash sau khi tạo vì tạo phía trong thì user ch đc khởi tạo
@@ -89,7 +89,7 @@ namespace PBL3_OnlineShop.Controllers
             // set session
             HttpContext.Session.SetInt32("_UserId", user.Id);
             HttpContext.Session.SetString("_Username", user.UserName);
-            HttpContext.Session.SetString("_IsAdmin", user.IsAdmin.ToString());
+            HttpContext.Session.SetString("_Role", user.Role);
             HttpContext.Session.SetString("_Email", user.Email);
 
             var tempCart = HttpContext.Session.GetString("Cart");

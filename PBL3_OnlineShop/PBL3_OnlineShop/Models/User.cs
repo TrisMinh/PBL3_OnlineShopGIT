@@ -15,7 +15,7 @@ namespace PBL3_OnlineShop.Models
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public bool IsAdmin { get; set; } = false;
+        public string Role { get; set; } = "Customer";
         public int Status { get; set; } = 1;
         public Cart Cart { get; set; }
     }
