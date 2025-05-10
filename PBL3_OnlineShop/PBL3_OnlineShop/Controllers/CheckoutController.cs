@@ -1,6 +1,6 @@
 ﻿using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
-using PBL3_OnlineShop.Migrations;
+//using PBL3_OnlineShop.Migrations;
 using PBL3_OnlineShop.Models;
 using PBL3_OnlineShop.Repository;
 
@@ -26,7 +26,7 @@ namespace PBL3_OnlineShop.Controllers
         {
             var userID = HttpContext.Session.GetInt32("_UserId");
             var coupon = _context.Coupons.FirstOrDefault(c => c.Name.ToLower() == name.ToLower());
-            if (coupon == null)
+            if (coupon == null || coupon.status == 0)
             {
                 TempData["Error"] = "Coupon not found.";
                 return RedirectToAction("Index");
@@ -72,6 +72,8 @@ namespace PBL3_OnlineShop.Controllers
                     ProductId = item.ProductId,
                     Quantity = item.Quantity,
                     Price = item.SellingPrice,
+                    Size = item.Size,
+                    Color = item.Color,
                 };
                 _context.OrderDetails.Add(orderDetail);
             }
@@ -95,6 +97,7 @@ namespace PBL3_OnlineShop.Controllers
                 };
 
                 _context.CouponUsages.Add(couponUsage);
+                coupon.Quantity -= 1;
                 _context.SaveChanges();
             }
             return RedirectToAction("Index", "Home");

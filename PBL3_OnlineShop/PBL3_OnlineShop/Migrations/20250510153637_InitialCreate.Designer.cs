@@ -12,8 +12,8 @@ using PBL3_OnlineShop.Repository;
 namespace PBL3_OnlineShop.Migrations
 {
     [DbContext(typeof(PBL3_Db_Context))]
-    [Migration("20250510073400_addrole")]
-    partial class addrole
+    [Migration("20250510153637_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -126,9 +126,6 @@ namespace PBL3_OnlineShop.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("MinOrderValue")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -147,6 +144,25 @@ namespace PBL3_OnlineShop.Migrations
                     b.ToTable("Coupons");
                 });
 
+            modelBuilder.Entity("PBL3_OnlineShop.Models.CouponUsage", b =>
+                {
+                    b.Property<int>("CouponUsageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CouponUsageId"));
+
+                    b.Property<int>("CouponId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CouponUsageId");
+
+                    b.ToTable("CouponUsages");
+                });
+
             modelBuilder.Entity("PBL3_OnlineShop.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -161,10 +177,15 @@ namespace PBL3_OnlineShop.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserName")
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -177,6 +198,9 @@ namespace PBL3_OnlineShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
@@ -188,6 +212,9 @@ namespace PBL3_OnlineShop.Migrations
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
+
+                    b.Property<string>("Size")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -304,8 +331,8 @@ namespace PBL3_OnlineShop.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -347,6 +374,17 @@ namespace PBL3_OnlineShop.Migrations
                     b.Navigation("Cart");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("PBL3_OnlineShop.Models.Order", b =>
+                {
+                    b.HasOne("PBL3_OnlineShop.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("PBL3_OnlineShop.Models.OrderDetail", b =>
