@@ -17,7 +17,6 @@ namespace PBL3_OnlineShop.Models
         [Required(ErrorMessage = "The End Date is required.\r\n")]
         public DateTime EndDate { get; set; }
         public int status { get; set; }
-        public decimal MinOrderValue { get; set; }
         public decimal Discount { get; set; }
     }
 }

@@ -31,7 +31,7 @@ namespace PBL3_OnlineShop.Controllers
             }
             // nếu đăng nhập rồi thì lấy giỏ hàng từ db
             var cart = await _context.Carts.Include(c => c.CartItems)
-                                    .ThenInclude(ci => ci.Product) 
+                                    .ThenInclude(ci => ci.Product)
                                     .FirstOrDefaultAsync(c => c.UserId == userId);
 
             if (cart == null || cart.CartItems == null || !cart.CartItems.Any())
@@ -63,12 +63,6 @@ namespace PBL3_OnlineShop.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            //var cartItems = _context.CartItems.Where(c => c.UserId == userId).ToList();
-            //if (cartItems == null || !cartItems.Any())
-            //{
-            //    TempData["Error"] = "Your cart is empty.";
-            //    return RedirectToAction("Cart", "Shopping");
-            //}
             return RedirectToAction("Index", "Checkout");
         }
         public async Task<IActionResult> Add(int id, string size, string color)
