@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using PBL3_OnlineShop.Models;
 
 namespace PBL3_OnlineShop.Repository
@@ -17,5 +18,6 @@ namespace PBL3_OnlineShop.Repository
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<CouponUsage> CouponUsages { get; set; }
     }
 }

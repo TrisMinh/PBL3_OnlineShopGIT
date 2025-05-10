@@ -17,14 +17,72 @@
 </head>
 <body>
     <div class="management-system">
-        @await Html.PartialAsync("~/Areas/Admin/Views/Shared/_SidebarPartial.cshtml")
+        <aside class="sidebar">
+            <div class="user-profile">
+                <div class="avatar-container">
+                    <img src="~/images/455123067_1470091394391641_5075587184145921216_n.jpg" alt="User Avatar" class="avatar">
+                    <span class="status-indicator"></span>
+                </div>
+                <h2 class="user-name">Trung Trung</h2>
+                <p class="user-role">Manager</p>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li class="nav-item">
+                        <a href="#">
+                            <img src="~/images/manage-system-icon.png" alt="" class="nav-icon">
+                            <span>Manage System</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <img src="~/images/manage-customer-icon.png" alt="" class="nav-icon">
+                            <span>Manage Customer</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <img src="~/images/manage-order-icon.png" alt="" class="nav-icon">
+                            <span>Manage Order</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="#">
+                            <img src="~/images/manage-coupon-icon.png" alt="" class="nav-icon">
+                            <span>Manage Coupon</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#">
+                            <img src="~/images/manage-statistics-icon.png" alt="" class="nav-icon">
+                            <span>Manage Statictis</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
         <main class="main-content">
-            @await Html.PartialAsync("~/Areas/Admin/Views/Shared/_TopbarPartial.cshtml")
+            <header class="top-bar">
+                <h1 class="page-title">Management</h1>
+                <div class="account-section">
+                    <a href="#" title="Edit Profile">
+                        <img src="~/images/account-icon-large.png" alt="Edit Profile" class="account-icon">
+                    </a>
+                    <a href="#" title="Go to Home">
+                        <img src="~/images/360_F_66468754_86IFi1dhqwtHdXzPeMQNhGtGp8Z2D3yC.jpg" alt="Go to Home" class="account-placeholder">
+                    </a>
+                </div>
+            </header>
+
+
             <div class="add-coupon-dropdown-section">
                 <a class="add-coupon-btn" asp-action="Index">
                     ← Back
                 </a>
             </div>
+
             <section class="add-coupon-form">
                 <form asp-area="Admin" asp-controller="Coupon" asp-action="Create" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -38,7 +96,7 @@
 
                         <div class="form-group">
                             <label>Discount:</label>
-                            <input asp-for="Discount" placeholder="e.g., 10% or $5">
+                            <input asp-for="Discount">
                             <span asp-validation-for="Discount" class="text-danger"></span>
                         </div>
 
@@ -49,17 +107,17 @@
                         </div>
 
                         <div class="form-group">
+                            <label>Quantity:</label>
+                            <input asp-for="Quantity">
+                            <span asp-validation-for="Quantity" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
                             <label>Status:</label>
                             <select asp-for="status" class="form-control">
                                 <option value="1">Active</option>
                                 <option value="0">Hide</option>
                             </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Min Order Value:</label>
-                            <input asp-for="MinOrderValue" placeholder="Enter Condition">
-                            <span asp-validation-for="MinOrderValue" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">

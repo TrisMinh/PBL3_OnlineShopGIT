@@ -21,13 +21,19 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View(); // Trả về trang Create.cshtml
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Coupon coupon)
         {
+            var check = _context.Coupons.Any(c => c.Name.ToLower() == coupon.Name.ToLower());
+            if (check)
+            {
+                ModelState.AddModelError("Name", "Coupon name already exists!");
+                return View(coupon);
+            }
             if (ModelState.IsValid)
             {
                 _context.Coupons.Add(coupon);
@@ -36,7 +42,7 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
             }
             else
             {
-                TempData["Error"] = "Thêm không thành công!";
+                TempData["Error"] = "Add failed!";
             }
             return View(coupon);
         }
