@@ -17,5 +17,6 @@ namespace PBL3_OnlineShop.Models
         public DateTime DateOfBirth { get; set; }
         public bool IsAdmin { get; set; } = false;
         public int Status { get; set; } = 1;
+        public Cart Cart { get; set; }
     }
 }

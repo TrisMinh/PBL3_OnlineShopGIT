@@ -84,12 +84,12 @@
     margin-left: 10px;
     margin-right: 10px;
 }
-
-.header .inner-wrap .inner-utilities ul{
-    margin-right: 20px;
-    padding: 0;
-    margin-top: revert;
-}
+    .header .inner-wrap .inner-utilities ul {
+        width: 100%;
+        min-width: 400px;   
+        margin-right: 20px;
+        margin-top: revert;
+    }
 
 .header .inner-wrap .inner-utilities img{
     height: 40px;
@@ -128,10 +128,6 @@
 
     .header .inner-wrap .inner-menu ul {
         display: none;
-    }
-
-    .header .inner-wrap .inner-utilities ul{
-        margin-right: 0;
     }
 
     .inner-search{

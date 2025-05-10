@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PBL3_OnlineShop.Models;
 
-public partial class Products
+public partial class Product
 {
     [Key]
     public int ProductId { get; set; }

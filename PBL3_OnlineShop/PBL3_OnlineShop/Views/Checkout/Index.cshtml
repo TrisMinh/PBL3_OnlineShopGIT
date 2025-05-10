@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="~/css/base.css">
+    <link rel="stylesheet" href="~/css/Checkout.css">
+</head>
+<body>
+    <div class="container">
+        <div class="checkout-container">
+            <div class="checkout-form-section">
+                <h1 class="checkout-title">
+                    <a href="/">
+                        <span class="home">BLUE</span>
+                        <span>| Check Out</span>
+                    </a>
+                </h1> <!-- 16:36800 -->
+
+                <section class="info-section">
+                    <h2 class="section-title">Information</h2> <!-- 16:36801 -->
+
+                    <div class="contact-info">
+                        <h3 class="subsection-title">Contact info</h3> <!-- 16:36802 -->
+                        <div class="form-group">
+                            <label for="email">Email</label> <!-- 16:36804 -->
+                            <input type="email" id="email" name="email" placeholder="Enter your email"> <!-- Based on 16:36813 -->
+                        </div>
+                    </div>
+
+                    <div class="shipping-address">
+                        <h3 class="subsection-title">Shipping address</h3> <!-- 16:36803 -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="first-name">First Name</label> <!-- 16:36805 -->
+                                <input type="text" id="first-name" name="first-name" placeholder="Enter first name"> <!-- Based on 16:36814 -->
+                            </div>
+                            <div class="form-group">
+                                <label for="last-name">Last Name</label> <!-- 16:36807 -->
+                                <input type="text" id="last-name" name="last-name" placeholder="Enter last name"> <!-- Based on 16:36818 -->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label> <!-- 16:36812 -->
+                            <input type="text" id="address" name="address" placeholder="Enter street address"> <!-- Based on 16:36819 -->
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ward">Ward/ Commune</label> <!-- 16:36810 -->
+                                <input type="text" id="ward" name="ward" placeholder="Enter ward/commune"> <!-- Based on 16:36820 -->
+                            </div>
+                            <div class="form-group">
+                                <label for="district">District</label> <!-- 16:36811 -->
+                                <input type="text" id="district" name="district" placeholder="Enter district"> <!-- Based on 16:36821 -->
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">City</label> <!-- 16:36806 -->
+                                <input type="text" id="city" name="city" placeholder="Enter city"> <!-- Based on 16:36815 -->
+                            </div>
+                            <div class="form-group">
+                                <label for="postal-code">Postal Code</label> <!-- 16:36808 -->
+                                <input type="text" id="postal-code" name="postal-code" placeholder="Enter postal code"> <!-- Based on 16:36816 -->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label> <!-- 16:36809 -->
+                            <input type="tel" id="phone" name="phone" placeholder="Enter phone number"> <!-- Based on 16:36817 -->
+                        </div>
+                    </div>
+                    <div class="coupon">
+                        <div class="form coupons">
+                            <label for="coupon">Choose Coupon</label>
+                            <select id="coupon" name="coupon">
+                                <option value="">...</option>
+                                <option value="discount">...</option>
+                            </select>
+                        </div>
+
+                        <div class="form payment">
+                            <label for="payment-method">Payment Method</label>
+                            <select id="payment-method" name="payment-method">
+                                <option value="">Choose Your Payment Method</option>
+                                <option value="credit-card">...</option>
+                                <option value="paypal">...</option>
+                            </select>
+                        </div>
+
+                        <div class="form address">
+                            <label for="address">Delivery Address</label>
+                            <input type="text" id="address" name="address">
+                        </div>
+
+                        <div class="form shipping-cost">
+                            <label for="shipping-cost">Shipping Cost</label>
+                            <input type="text" id="shipping-cost" name="shipping-cost">
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <div class="wrap">
+                <div class="order-summary-section">
+                    <!-- Based on 16:36827 -->
+                    <h2 class="summary-title">YOUR ORDER</h2> <!-- 16:36829 -->
+                    <div class="order-items">
+                        <div class="order-item">
+                            <!-- Based on 16:36834 -->
+                            <img src="~/images/product-polo-logo.png" alt="Polo with logo" class="item-image"> <!-- Based on 16:36835 -->
+                            <div class="item-details">
+                                <p class="item-name">Polo with logo on the chest</p> <!-- 16:36850 -->
+                                <p class="item-variant">Green/L</p> <!-- 16:36836 -->
+                                <span class="item-quantity">(1)</span> <!-- 16:36839 -->
+                            </div>
+                            <div class="item-price">$1</div> <!-- 16:36852 -->
+                            <button class="change-button">Change</button> <!-- 16:36838 -->
+                        </div>
+                        <div class="order-item">
+                            <!-- Based on 16:36840 -->
+                            <img src="~/images/product-polo-basis.png" alt="Polo basis" class="item-image"> <!-- Based on 16:36841 -->
+                            <div class="item-details">
+                                <p class="item-name">Polo basis lange mouw</p> <!-- 16:36851 -->
+                                <p class="item-variant">Yellow/L</p> <!-- 16:36837 -->
+                                <span class="item-quantity">(1)</span> <!-- 16:36843 -->
+                            </div>
+                            <div class="item-price">$1</div> <!-- 16:36853 -->
+                            <button class="change-button">Change</button> <!-- 16:36842 -->
+                        </div>
+                    </div>
+                    <hr class="divider"> <!-- Based on 16:36844 -->
+                    <div class="summary-line">
+                        <span>Subtotal</span> <!-- 16:36846 -->
+                        <span>$2</span> <!-- 16:36854 -->
+                    </div>
+                    <div class="summary-line">
+                        <span>Shipping</span> <!-- 16:36847 -->
+                        <span class="shipping-cost">$1</span> <!-- 16:36830 -->
+                    </div>
+                    <hr class="divider"> <!-- Based on 16:36845 -->
+                    <div class="summary-line total-line">
+                        <span>Total</span> <!-- 16:36848 -->
+                        <span>$2</span> <!-- 16:36855 -->
+                    </div>
+                </div>
+
+                <div class="quantity">
+                    <span>(2)</span>
+                </div>
+
+                <button class="shipping-button">
+                    <span>Order</span> <!-- 16:36826 -->
+                </button> <!-- Based on 16:36823 -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,9 +1,10 @@
-﻿@model Products
+﻿@model Product
 @{
     var imageUrls = Model.ImageUrl.Split(",", StringSplitOptions.RemoveEmptyEntries);
     var mainImage = imageUrls.FirstOrDefault() ?? "~/images/default.png"; // fallback nếu rỗng
     var colorsArray = Model.ProductSizes.Select(ps => ps.Color).Distinct().ToArray(); // Lấy tất cả màu sắc có sẵn
     var sizesArray = Model.ProductSizes.Select(ps => ps.Size).Distinct().ToArray(); // Lấy tất cả kích thước có sẵn
+    int colorindexcheck = 0, sizeindexcheck = 0;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -49,11 +50,13 @@
 
                 <!-- Product Info -->
                 <div class="product-info">
-                    <h2 class="product-name">@Model.ProductName</h2>
+                    <h2 class="product-name"><strong>Name: </strong>@Model.ProductName</h2>
                     <div class="product-price">
+                        <strong>Price: </strong>
                         @Math.Round(Model.SellingPrice - (@Model.SellingPrice * (decimal)@Model.SalePercentage), 2)
                     </div>
-                    <p class="product-description">
+                    <p class="product-options">
+                        <strong>Description: </strong>
                         @Model.Description
                     </p>
                     <form asp-action="Add" asp-controller="Cart" method="get" class="action-buttons" style="display: block;">
@@ -61,31 +64,40 @@
 
                         <!-- Color Selection -->
                         <div class="product-options">
-                            <span>Color: </span>
+                            <span><strong>Color: </strong> </span>
                             @foreach (var color in colorsArray)
                             {
-                                <input type="radio" id="@color" name="color" value="@color" class="color-option" />
+                                <input type="radio" id="@color" name="color" value="@color" class="color-option" @(colorindexcheck == 0 ? "checked" : "") />
                                 <label for="@color">@color</label>
+                                colorindexcheck++;
                             }
                         </div>
 
                         <!-- Size Selection -->
                         <div class="size-selector" style="margin-bottom: 12px;">
-                            <span>Size: </span>
+                            <span><strong>Size: </strong> </span>
                             @foreach (var size in sizesArray)
                             {
-                                <input type="radio" id="size@size" name="size" value="@size" class="size-option" @(size == "S" ? "checked" : "") />
+                                <input type="radio" id="size@size" name="size" value="@size" class="size-option" @(sizeindexcheck == 0 ? "checked" : "") />
                                 <label for="size@size">@size</label>
+                                sizeindexcheck++;
                             }
                         </div>
 
                         <!-- ADD Button xuống dòng -->
-                        <div style="display: block;">
-                            <button type="submit" class="add-to-cart-btn">ADD</button>
-                        </div>
+                        @if (Model.StockQuantity == 0)
+                        {
+                            <label class="add-to-cart-btn">Out of Stock</label>
+                        }
+                        else
+                        {
+                            <div class="add-to-cart-btn-container">
+                                <button type="submit" class="add-to-cart-btn">ADD TO CART</button>
+                            </div>
+                        }
                     </form>
-
                 </div>
+
             </div>
         </div>
         <!-- End Container -->

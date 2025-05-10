@@ -13,7 +13,7 @@ namespace PBL3_OnlineShop.Models
         [Range(1, int.MaxValue, ErrorMessage = "Quantity must be a positive number.")]
         public int Quantity { get; set; }
         public int ProductId { get; set; }
-        public Products Product { get; set; }
+        public Product Product { get; set; }
     }
 
 }
