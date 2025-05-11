@@ -91,9 +91,10 @@
     line-height: 2.7; /* From Figma style_0UBY3H */
     color: #000000; /* From Figma fill_7YTFJ0 */
     margin-top: 0;
-    margin-bottom: 10px;
     font-weight: 600;
     text-transform: uppercase;
+    flex: 0;
+    padding-left: 0;
 }
 
 .product-price {
@@ -101,6 +102,8 @@
     font-size: 16px; /* From Figma style_S9HB3M */
     color: #000000; /* From Figma fill_7YTFJ0 */
     margin-bottom: 15px;
+    text-align: left;
+    padding-left: 0;
 }
 
 .product-description {
@@ -114,6 +117,7 @@
 .product-options {
     margin-bottom: 20px;
     display: flex;
+    min-height: 100px;
 }
 
 .option-label {
@@ -260,4 +264,16 @@
         height: auto;
         width: 400px;    }
     
+}
+
+.add-to-cart-btn-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.product-options-color {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
 }
