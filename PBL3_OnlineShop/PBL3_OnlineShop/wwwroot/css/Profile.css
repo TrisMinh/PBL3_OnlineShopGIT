@@ -414,6 +414,7 @@ body {
     background-color: #f0f0f0;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
 /* Import additional fonts from Figma */
 @import url('https://fonts.googleapis.com/css2?family=Imprima&display=swap'); /* For user name in sidebar */
 @import url('https://fonts.googleapis.com/css2?family=Inria+Sans:wght@400;700&display=swap'); /* For user role, nav items */
@@ -753,6 +754,7 @@ body {
     background-color: #f0f0f0;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
 /* Import additional fonts from Figma */
 @import url('https://fonts.googleapis.com/css2?family=Imprima&display=swap'); /* For user name in sidebar */
 @import url('https://fonts.googleapis.com/css2?family=Inria+Sans:wght@400;700&display=swap'); /* For user role, nav items */
@@ -1049,6 +1051,7 @@ body {
     background-color: #5a6268;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
 /* Import additional fonts from Figma */
 @import url('https://fonts.googleapis.com/css2?family=Imprima&display=swap'); /* For user name in sidebar */
 @import url('https://fonts.googleapis.com/css2?family=Inria+Sans:wght@400;700&display=swap'); /* For user role, nav items */
@@ -1448,6 +1451,7 @@ body {
     background-color: #f0f0f0;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
 /* Import additional fonts from Figma */
 @import url('https://fonts.googleapis.com/css2?family=Imprima&display=swap'); /* For user name in sidebar */
 @import url('https://fonts.googleapis.com/css2?family=Inria+Sans:wght@400;700&display=swap'); /* For user role, nav items */
@@ -1798,6 +1802,7 @@ body {
     background-color: #f0f0f0;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
 /* Import additional fonts from Figma */
 @import url('https://fonts.googleapis.com/css2?family=Imprima&display=swap'); /* For user name in sidebar */
 @import url('https://fonts.googleapis.com/css2?family=Inria+Sans:wght@400;700&display=swap'); /* For user role, nav items */
@@ -2094,6 +2099,7 @@ body {
     background-color: #5a6268;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
 /* Import additional fonts from Figma */
 @import url('https://fonts.googleapis.com/css2?family=Imprima&display=swap'); /* For user name in sidebar */
 @import url('https://fonts.googleapis.com/css2?family=Inria+Sans:wght@400;700&display=swap'); /* For user role, nav items */
@@ -2423,6 +2429,7 @@ body {
     background-color: #f0f0f0;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
 /* Import additional fonts from Figma */
 @import url('https://fonts.googleapis.com/css2?family=Imprima&display=swap'); /* For user name in sidebar */
 @import url('https://fonts.googleapis.com/css2?family=Inria+Sans:wght@400;700&display=swap'); /* For user role, nav items */
@@ -2448,7 +2455,7 @@ body {
 /* === Sidebar Styles (Copied & Adapted from Management_Customer_Account) === */
 .sidebar8 {
     width: 280px; /* Approximate width based on Figma */
-    background-color: #9194A3; /* Sidebar background (Figma 1:6) */
+    background-color: #FFFFFF; /* Thay đổi từ #9194A3 sang #FFFFFF */
     border-right: 1px solid #ABA5A5; /* Sidebar border (Figma 1:6 stroke) */
     padding: 20px;
     display: flex;
@@ -2719,8 +2726,9 @@ body {
 
 .dob-selects8 select {
     appearance: none; /* Remove default arrow */
-    width: 100%;
-    padding: 10px 35px 10px 15px; /* Space for custom arrow */
+    width: auto; /* Thay đổi từ 100% sang auto để phù hợp với nội dung */
+    min-width: 60px; /* Đặt chiều rộng tối thiểu */
+    padding: 10px 25px 10px 15px; /* Space for custom arrow */
     border: 1px solid #000000; /* Figma stroke_NNLTV0 (e.g., 1:66) */
     border-radius: 5px; /* Slight rounding */
     background-color: #FFFFFF; /* Figma fill_Y1E36F */
@@ -2867,4 +2875,61 @@ body {
 .modal-button8:hover {
     background-color: #f0f0f0;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Độ rộng cụ thể cho từng dropdown */
+#dob-day {
+    width: 80px; /* Chỉ vừa đủ cho 2 chữ số ngày */
+}
+
+#dob-month {
+    width: 100px; /* Vừa đủ cho tên tháng viết tắt */
+}
+
+#dob-year {
+    width: 100px; /* Vừa đủ cho 4 chữ số năm */
+}
+
+/* Styles for Address Section */
+.address-group8 {
+    grid-column: 1 / -1; /* Span both columns */
+}
+
+.address-group8 label:first-child {
+    margin-bottom: 10px;
+}
+
+.address-selects8 {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.address-row8 {
+    display: flex;
+    gap: 15px;
+}
+
+.address-row8 select,
+.address-row8 input[type="text"] {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    color: #847D7D;
+    cursor: pointer;
+}
+
+.address-row8 input[type="text"] {
+    background-color: #D9D9D9;
+    border: none;
+}
+
+.address-row8 select:focus,
+.address-row8 select:valid,
+.address-row8 input[type="text"]:focus {
+    color: #000000;
 }

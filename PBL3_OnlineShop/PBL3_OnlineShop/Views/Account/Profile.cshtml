@@ -1,6 +1,8 @@
-﻿@{
+﻿@model PBL3_OnlineShop.Models.User
+@{
     Layout = "~/Views/Shared/_SmallLayout.cshtml";
     ViewData["Title"] = "Profile Customer";
+    string[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
 }
 <!DOCTYPE html>
 <html lang="vi">
@@ -13,14 +15,16 @@
 </head>
 <body>
     <div class="profile-customer-page8">
-        <aside class="sidebar8">
+        <aside class="sidebar8" style="background-color: #FFFFFF; border: 0px solid #FFFFFF; border-right: 0px solid #FFFFFF;">
             <div class="user-profile8">
                 <div class="avatar-container8">
-                    <img id="sidebar-avatar" src="~/images/455123067_1470091394391641_5075587184145921216_n.jpg" alt="User Avatar" class="avatar8" style="cursor: pointer;">
-                    <span class="status-indicator8"></span>
+                    <img id="sidebar-avatar" src="@(string.IsNullOrEmpty(Model.UrlAvatar) ? "~/avatar/def.jpg" : Model.UrlAvatar)" alt="User Avatar" class="avatar8" style="cursor: pointer;">
+                    <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
                 </div>
-                <h2 class="user-name8">Trung Trung</h2>
-                <p class="user-role8">Customer</p>
+                <h2 class="user-name8">@Model.Name</h2>
+                <p class="user-role8">
+                    @(Model.Role == "Admin" ? "Management" : "Customer")
+                </p>
             </div>
             <nav class="profile-nav8">
                 <ul>
@@ -60,40 +64,46 @@
             </header>
 
             <!-- Sections that show/hide based on the navigation -->
-            <section id="edit-profile" class="profile-content-wrapper8 section-active">
-                <div class="profile-details-form8">
-                    <form action="#" method="post">
-                        <div class="form-group8">
+            <div style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+                <section id="profile" class="profile-content-wrapper8" style="width: 100%; max-width: 100%;">
+                    <form id="profile-form" method="post" onsubmit="return false;" style="width: 100%;">
+                        <div class="form-row8" style="display: flex; gap: 20px; margin-bottom: 20px; width: 100%;">
+                            <div class="form-group8" style="flex: 1; width: 50%;">
                             <label for="username">UserName:</label>
-                            <input type="text" id="username" name="username" value="trungtrung">
+                                <input type="text" id="username" name="username" value="@Model.UserName" required style="width: 100%; box-sizing: border-box;">
                         </div>
-                        <div class="form-group8">
+                            <div class="form-group8" style="flex: 1; width: 50%;">
                             <label for="name">Name Customer:</label>
-                            <input type="text" id="name" name="name" value="Trung Trung">
+                                <input type="text" id="name" name="name" value="@Model.Name" required style="width: 100%; box-sizing: border-box;">
+                            </div>
                         </div>
-                        <div class="form-group8">
+                        <div class="form-row8" style="display: flex; gap: 20px; margin-bottom: 20px; width: 100%;">
+                            <div class="form-group8" style="flex: 1; width: 50%;">
                             <label for="email">Email:</label>
-                            <input type="email" id="email" name="email" value="trung.example@email.com">
+                                <input type="email" id="email" name="email" value="@Model.Email" required style="width: 100%; box-sizing: border-box;">
+                                <div id="email-error" class="error-message" style="color: red; font-size: 0.85rem; margin-top: 4px; display: none;">Email không hợp lệ, cần có ký tự @@</div>
                         </div>
-                        <div class="form-group8">
+                            <div class="form-group8" style="flex: 1; width: 50%;">
                             <label for="phone">Phone:</label>
-                            <input type="tel" id="phone" name="phone" value="0123456789">
+                                <input type="tel" id="phone" name="phone" value="@Model.PhoneNumber" placeholder="Nhập 10-11 số" style="width: 100%; box-sizing: border-box;">
+                                <div id="phone-error" class="error-message" style="color: red; font-size: 0.85rem; margin-top: 4px; display: none;">Số điện thoại phải từ 10 đến 11 số!</div>
+                            </div>
                         </div>
                         <div class="form-group8 gender-group8">
                             <label>Gender:</label>
-                            <div class="radio-options8">
-                                <label for="gender-man">
-                                    <input type="radio" id="gender-man" name="gender" value="man" checked>
-                                    <span class="radio-label-text8">Man</span>
-                                </label>
-                                <label for="gender-female">
-                                    <input type="radio" id="gender-female" name="gender" value="female">
-                                    <span class="radio-label-text8">Female</span>
-                                </label>
-                                <label for="gender-other">
-                                    <input type="radio" id="gender-other" name="gender" value="other">
-                                    <span class="radio-label-text8">Other</span>
-                                </label>
+                            <div class="radio-options8" style="display: flex; align-items: flex-start; gap: 25px; margin-top: 10px;">
+                                <div style="display: flex; align-items: center;">
+                                    <input type="radio" id="gender-man" name="gender" value="Man" style="margin: 0; width: 18px; height: 18px; flex-shrink: 0;" @(Model.Gender == "Man" ? "checked" : "")>
+                                    <label for="gender-man" style="margin-left: 8px; cursor: pointer;">Man</label>
+                                </div>
+                                <div style="display: flex; align-items: center; position: relative;">
+                                    <input type="radio" id="gender-female" name="gender" value="Female" style="margin: 0; width: 18px; height: 18px; flex-shrink: 0; position: relative; top: -2px;" @(Model.Gender == "Female" ? "checked" : "")>
+                                    <label for="gender-female" style="margin-left: 8px; cursor: pointer;">Female</label>
+                                </div>
+                                <div style="display: flex; align-items: center;">
+                                    <input type="radio" id="gender-other" name="gender" value="Other" style="margin: 0; width: 18px; height: 18px; flex-shrink: 0;" @(Model.Gender == "Other" ? "checked" : "")>
+                                    <label for="gender-other" style="margin-left: 8px; cursor: pointer;">Other</label>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group8 dob-group8">
@@ -101,56 +111,189 @@
                             <div class="dob-selects8">
                                 <select id="dob-day" name="dob-day" required>
                                     <option value="">Day</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
+                                @for (int day = 1; day <= 31; day++)
+                                {
+                                    if (Model.DateOfBirth.Day == day)
+                                    {
+                                        <option value="@day" selected>@day</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@day">@day</option>
+                                    }
+                                }
                                 </select>
-                                <select id="dob-month" name="dob-month" required>
+                                <select id="dob-month" name="dob-month" required style="min-width: 160px; width: 160px;">
                                     <option value="">Month</option>
-                                    <option value="1">Jan</option>
-                                    <option value="2">Feb</option>
+                                @for (int i = 0; i < months.Length; i++)
+                                {
+                                    int monthNumber = i + 1;
+                                    if (Model.DateOfBirth.Month == monthNumber)
+                                    {
+                                        <option value="@monthNumber" selected>@months[i]</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@monthNumber">@months[i]</option>
+                                    }
+                                }
                                 </select>
                                 <select id="dob-year" name="dob-year" required>
                                     <option value="">Year</option>
-                                    <option value="2025">2025</option>
+                                @for (int year = 1900; year <= 2025; year++)
+                                {
+                                    if (Model.DateOfBirth.Year == year)
+                                    {
+                                        <option value="@year" selected>@year</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@year">@year</option>
+                                    }
+                                }
                                 </select>
                             </div>
+                            <div id="date-error" class="error-message" style="color: red; font-size: 0.85rem; margin-top: 4px; display: none;">Ngày tháng không hợp lệ!</div>
                         </div>
-                        <hr class="form-separator8">
-                        <div class="form-group8 submit-group8">
-                            <button type="submit" class="submit-button8">Submit</button>
+                        <div class="form-group8 address-group8">
+                            <label>Address:</label>
+                            <div style="display: flex; flex-direction: row; gap: 20px; width: 100%; margin-top: 8px;">
+                                <select id="province" name="province" required style="flex: 1; min-width: 0; max-width: 25%;">
+                                    <option value="">Tỉnh/Thành phố</option>
+                                </select>
+                                <select id="district" name="district" required style="flex: 1; min-width: 0; max-width: 25%;">
+                                    <option value="">Quận/Huyện</option>
+                                </select>
+                                <input type="text" id="specific-address" name="specific-address" placeholder="Địa chỉ cụ thể" style="flex: 2; min-width: 0;">
+                            </div>
+                        </div>
+                        <div class="form-actions8" style="display: flex; justify-content: center; width: 100%; margin-top: 20px;">
+                            <button type="button" class="submit-button8" style="padding: 8px 28px; font-size: 1.1rem; margin-top: 18px; min-width: 110px;">Submit</button>
                         </div>
                     </form>
-                </div>
-            </section>
+                </section>
+            </div>
 
-            <section id="change-password" class="profile-content-wrapper8">
-                <h2 class="change-password-title7">Change Your Password</h2>
-                <form action="#" method="post">
-                    <div class="form-group7">
+            <div style="width: 100%; display: flex; justify-content: center;">
+                <div style="height: 1px; background: #ccc; width: 60%; margin: 32px 0 32px 0;"></div>
+                </div>
+            <div style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+                <h3 class="change-password-title7" style="font-size: 1.5rem; margin-bottom: 18px; margin-top: 0; text-align: center; width: 100%;">Change Your Password</h3>
+
+                <section id="change-password" class="profile-content-wrapper8" style="width: 100%; max-width: 90%;">
+                    <form id="password-form" action="#" method="post" onsubmit="return false;" style="display: flex; flex-direction: column; gap: 18px; align-items: center; width: 100%;">
+                        <div style="display: flex; width: 100%; gap: 18px; justify-content: center;">
+                            <div class="form-group7" style="flex: 1; min-width: 140px;">
                         <label for="current-password">Current Password:</label>
                         <input type="password" id="current-password" name="current-password" required>
                     </div>
-                    <div class="form-group7">
+                            <div class="form-group7" style="flex: 1; min-width: 140px;">
                         <label for="new-password">New Password:</label>
                         <input type="password" id="new-password" name="new-password" required>
                     </div>
-                    <div class="form-group7">
-                        <label for="confirm-password">Enter Password Again:</label>
+                            <div class="form-group7" style="flex: 1; min-width: 140px;">
+                                <label for="confirm-password">Confirm Password:</label>
                         <input type="password" id="confirm-password" name="confirm-password" required>
                     </div>
-                    <div class="form-group7 submit-group7">
-                        <button type="submit" class="submit-button7">Submit</button>
+                        </div>
+                        <div style="width: 100%; display: flex; justify-content: center;">
+                            <button type="button" class="change-password-btn7" style="padding: 8px 28px; font-size: 1.1rem; margin-top: 8px; min-width: 110px; background-color: #e9ecef; border: 1px solid #ced4da; border-radius: 5px;">Change Password</button>
                     </div>
                 </form>
             </section>
-
-            <section id="coupon" class="profile-content-wrapper8">
-                <h2>Coupons</h2>
-                <p>Form for managing coupons.</p>
-            </section>
+            </div>
         </main>
     </div>
 
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
+      <div id="profileToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div class="toast-body" id="profileToastMsg">
+            Cập nhật thành công!
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/js/vn-address.js"></script>
     <script src="~/js/Profile.js"></script>
+    <script>
+        // Phân tích địa chỉ từ database
+        window.addEventListener('DOMContentLoaded', function() {
+            // Setup avatar upload
+            const avatarElement = document.getElementById('sidebar-avatar');
+            const fileInput = document.getElementById('avatar-upload');
+
+            if (avatarElement && fileInput) {
+                avatarElement.addEventListener('click', function() {
+                    fileInput.click();
+                });
+
+                fileInput.addEventListener('change', function(e) {
+                    if (this.files && this.files[0]) {
+                        const formData = new FormData();
+                        formData.append('file', this.files[0]);
+
+                        fetch('/Account/UploadAvatar', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Cập nhật avatar trên trang
+                                avatarElement.src = data.avatarUrl;
+                                showProfileToast(data.message, true);
+                            } else {
+                                showProfileToast(data.message, false);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Lỗi khi tải lên avatar:', error);
+                            showProfileToast('Đã xảy ra lỗi khi tải lên avatar', false);
+                        });
+                    }
+                });
+            }
+
+            const addressFromDb = "@Model.Address";
+            if (addressFromDb) {
+                const addressParts = addressFromDb.split(' / ');
+                if (addressParts.length >= 3) {
+                    const provinceId = addressParts[0];
+                    const districtId = addressParts[1];
+                    const specificAddress = addressParts.slice(2).join(' / ');
+
+                    setTimeout(() => {
+                        const provinceSelect = document.getElementById('province');
+                        for (let i = 0; i < provinceSelect.options.length; i++) {
+                            if (provinceSelect.options[i].value === provinceId) {
+                                provinceSelect.selectedIndex = i;
+                                provinceSelect.dispatchEvent(new Event('change'));
+
+                                setTimeout(() => {
+                                    const districtSelect = document.getElementById('district');
+                                    for (let j = 0; j < districtSelect.options.length; j++) {
+                                        if (districtSelect.options[j].value === districtId) {
+                                            districtSelect.selectedIndex = j;
+                                            districtSelect.dispatchEvent(new Event('change'));
+                                            break;
+                                        }
+                                    }
+                                    document.getElementById('specific-address').value = specificAddress;
+                                }, 100);
+                                break;
+                            }
+                        }
+                    }, 200);
+                } else {
+                    document.getElementById('specific-address').value = addressFromDb;
+                }
+            }
+        });
+    </script>
 </body>
 </html>
