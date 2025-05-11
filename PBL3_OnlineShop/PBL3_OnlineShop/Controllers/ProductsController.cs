@@ -172,7 +172,6 @@ namespace PBL3_OnlineShop.Controllers
 
             return View(product);
         }
-
         // Action Create
         public ActionResult Create()
         {

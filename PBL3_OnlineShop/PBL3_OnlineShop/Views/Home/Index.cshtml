@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model IEnumerable<Products>
+@model IEnumerable<Product>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,7 +69,6 @@
                         var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";
                         var colors = product.ProductSizes?.Select(ps => ps.Color).Distinct().ToList() ?? new List<string>();
                         var sizes = product.ProductSizes?.Select(ps => ps.Size).Distinct().ToList() ?? new List<string>();
-
                         <div class="slide">
                             <div class="list">
                                 <div class="inner-img">

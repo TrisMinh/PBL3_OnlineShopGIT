@@ -45,7 +45,7 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Products product, List<ProductSize> Sizes)
+        public async Task<IActionResult> Create(Product product, List<ProductSize> Sizes)
         {
             ViewBag.Categories = new SelectList(_context.Categories.ToList(), "CategoryId", "CategoryName", product.CategoryId);
 
@@ -123,7 +123,7 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Products product, List<ProductSize> Sizes)
+        public async Task<IActionResult> Edit(int id, Product product, List<ProductSize> Sizes)
         {
             // Cập nhật danh sách Category để hiển thị trong dropdown
             ViewBag.Categories = new SelectList(_context.Categories.ToList(), "CategoryId", "CategoryName", product.CategoryId);
@@ -144,7 +144,6 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
             // Gán lại CreatedAt gốc (không thay đổi khi cập nhật)
             product.CreatedAt = existingProduct.CreatedAt;
             product.UpdatedAt = DateTime.Now;
-            product.Status = "Available";
 
             // Gán lại ImageUrl cũ để xử lý nếu không upload ảnh mới
             product.ImageUrl = existingProduct.ImageUrl;

@@ -1,4 +1,4 @@
-﻿@model PBL3_OnlineShop.Models.Products
+﻿@model PBL3_OnlineShop.Models.Product
 
 @{
     ViewData["Title"] = "Create";
@@ -16,77 +16,10 @@
 </head>
 <body>
     <div class="management-system">
-        <aside class="sidebar">
-            <div class="user-profile">
-                <div class="avatar-container">
-                    <img src="~/images/user-profile.png" alt="User Avatar" class="avatar">
-                    <span class="status-indicator"></span>
-                </div>
-                <h2 class="user-name">Trung Trung</h2>
-                <p class="user-role">Manager</p>
-            </div>
-            <nav class="main-nav">
-                <ul>
-                    <!-- Add 'active' class to the relevant item for this page if needed -->
-                    <li class="nav-item active">
-                        <a href="#">
-                            <!-- Link to Management System 1 or appropriate page -->
-                            <img src="~/images/manage-system-icon.png" alt="" class="nav-icon">
-                            <span>Manage System</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#">
-                            <!-- Link to Customer Management -->
-                            <img src="~/images/manage-customer-icon.png" alt="" class="nav-icon">
-                            <span>Manage Customer</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#">
-                            <!-- Link to Order Management -->
-                            <img src="~/images/manage-order-icon.png" alt="" class="nav-icon">
-                            <span>Manage Order</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#">
-                            <!-- Link to Coupon Management -->
-                            <img src="~/images/manage-coupon-icon.png" alt="" class="nav-icon">
-                            <span>Manage Coupon</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#">
-                            <!-- Link to Rank Management -->
-                            <img src="~/images/manage-rank-icon.png" alt="" class="nav-icon">
-                            <span>Management Rank</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#">
-                            <!-- Link to Statistics -->
-                            <img src="~/images/manage-statistics-icon.png" alt="" class="nav-icon">
-                            <span>Manage Statictis</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
+        @await Html.PartialAsync("~/Areas/Admin/Views/Shared/_SidebarPartial.cshtml")
         <!-- Main Content -->
         <main class="main-content">
-            <header class="top-bar">
-                <h1 class="page-title">Management</h1>
-                <div class="account-section">
-                    <a href="ProfileAdminEdit.html" title="Edit Profile">
-                        <img src="~/images/account-icon-large.png" alt="Edit Profile" class="account-icon">
-                    </a>
-                    <a href="index.html" title="Go to Home">
-                        <img src="~/images/360_F_66468754_86IFi1dhqwtHdXzPeMQNhGtGp8Z2D3yC.jpg" alt="Go to Home">
-                    </a>
-                </div>
-            </header>
-
+            @await Html.PartialAsync("~/Areas/Admin/Views/Shared/_TopbarPartial.cshtml")
             <section class="add-product-section">
                 <!-- Form for Adding Product -->
                 <form asp-action="Create" method="post" enctype="multipart/form-data" class="add-product-form">

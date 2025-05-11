@@ -1,6 +1,6 @@
-﻿@model IEnumerable<Category>
+﻿@model IEnumerable<User>
 @{
-    ViewData["Title"] = "Category";
+    ViewData["Title"] = "Users";
     Layout = "~/Areas/Admin/Views/Shared/_SmallLayout.cshtml";
 }
 <!DOCTYPE html>
@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Area - Manage Category</title>
+    <title>Admin Area - Manage Users</title>
     <link rel="stylesheet" href="~/css/base.css">
     <link rel="stylesheet" href="~/css/Management.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
@@ -291,9 +291,8 @@
     </style>
 </head>
 <body>
-    
+
     <div class="management-system">
-        <!-- Sidebar (Copied from Management_System1) -->
         @await Html.PartialAsync("~/Areas/Admin/Views/Shared/_SidebarPartial.cshtml")
         <!-- Main Content -->
         <main class="main-content">
@@ -301,16 +300,16 @@
             @await Html.PartialAsync("_NavbarPartial")
             <section class="product-results-section">
                 <div class="results-header">
-                    <span class="results-count">Show @Model.Count() Categories:</span>
-                    <a asp-area="Admin" asp-controller="Category" asp-action="Create" class="product-action-btn">Add Category</a>
+                    <span class="results-count">Show @Model.Count() Users:</span>
+                    <a asp-area="Admin" asp-controller="User" asp-action="Create" class="product-action-btn">Add User</a>
                     <!-- Add pagination or other controls if needed -->
                 </div>
                 <table class="product-table">
                     <thead>
                         <tr>
-                            <th>ID Category</th>
-                            <th>Name Category</th>
-                            <th>Description</th>
+                            <th>UserID</th>
+                            <th>UserName</th>
+                            <th>Role</th>
                             <th>Status</th>
                             <th>Operations</th>
                         </tr>
@@ -319,15 +318,15 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@item.CategoryId</td>
-                                <td>@item.CategoryName</td>
-                                <td>@item.Description</td>
+                                <td>@item.Id</td>
+                                <td>@item.UserName</td>
+                                <td>@item.Role</td>
                                 <td>@item.Status</td>
                                 <td class="operations">
-                                    <a asp-area="Admin" asp-controller="Category" asp-action="Edit" asp-route-id="@item.CategoryId" class="operation-btn edit-btn">
+                                    <a asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-id="@item.Id" class="operation-btn edit-btn">
                                         <img src="~/images/edit-icon.png">
                                     </a>
-                                    <a asp-area="Admin" asp-controller="Category" asp-action="Delete" asp-route-id="@item.CategoryId" class="operation-btn delete-btn confirmDeletion">
+                                    <a asp-area="Admin" asp-controller="User" asp-action="Delete" asp-route-id="@item.Id" class="operation-btn delete-btn confirmDeletion">
                                         <img src="~/images/542724.png" alt="Delete">
                                     </a>
                                 </td>

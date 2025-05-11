@@ -1,5 +1,6 @@
 @{
     var username = Context.Session.GetString("_Username");
+    var role = Context.Session.GetString("_Role");
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -66,11 +67,22 @@
                                     <img src="~/images/Account.png" alt="Account" />
                                     <span class="ms-1"><strong>Hi, @username</strong></span>
                                 </a>
+                                <a asp-controller="Account" asp-action="Logout">
+                                    <img src="~/images/360_F_66468754_86IFi1dhqwtHdXzPeMQNhGtGp8Z2D3yC.jpg" alt="Logout" class="account-placeholder8"/>
+                                    <span class="ms-1"><strong>Logout</strong></span>
+                                </a>
                             }
                             else
                             {
                                 <a asp-controller="Account" asp-action="Login">
                                     <img src="~/images/Account.png" alt="Account" />
+                                </a>
+                            }
+                            @if (role == "Admin")
+                            {
+                                <a asp-area="Admin" asp-controller="Products" asp-action="Index">
+                                    <img src="~/images/Account.png" alt="System Manage" />
+                                    <span class="ms-1"><strong>System Management</strong></span>
                                 </a>
                             }
                         </li>

@@ -1,0 +1,157 @@
+﻿@model IEnumerable<CartItem>
+
+
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="~/css/base.css">
+    <link rel="stylesheet" href="~/css/Checkout.css">
+</head>
+<body>
+    <div class="container">
+        <div class="checkout-container">
+            <div class="checkout-form-section">
+                <h1 class="checkout-title">
+                    <a href="/">
+                        <span> Check Out</span>
+                    </a>
+                </h1>
+            </div>
+            <section class="info-section">
+                <div class="info">
+                    <h2 class="section-title">Information</h2>
+                    <a class="change-btn">Change</a>
+                </div>
+                <h3 class="subsection-title">Contact info</h3>
+                <div class="form-group">
+                    <P>Your Name:</P>
+                    <p>Email:</p>
+                    <p>Phone Number:</p>
+                </div>
+                <div class="shipping-address">
+                    <h3 class="subsection-title">Shipping address</h3>
+                    <div class="form-row">
+                    </div>
+                    <div class="form-group">
+                        <p>Address:</p>
+                    </div>
+                </div>
+                <div class="coupon">
+                    <div class="form payment">
+                        <label for="payment-method">Payment Method</label>
+                        <select id="payment-method" name="payment-method">
+                            <option value="">Choose Your Payment Method</option>
+                            <option value="credit-card">...</option>
+                            <option value="paypal">...</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="wrap">
+            <div class="order-summary-section">
+                <h2 class="summary-title">YOUR ORDER</h2>
+                <div class="order-items">
+                    @{
+                        decimal subTotal = 0;
+                        int quantity = 0;
+                        string couponUsed = null;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <div class="order-item">
+                            @{
+                                var image = item.ImageUrl?.Split(",", StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
+                                subTotal += item.SellingPrice * item.Quantity;
+                                quantity += 1;
+                            }
+                            <img src="@Url.Content(image)" alt="@item.ProductName" class="item-image">
+                            <div class="item-details">
+                                <p class="item-name">@item.ProductName</p>
+                                <p class="item-variant">@item.Color/@item.Size</p>
+                                <span class="item-quantity">(@item.Quantity)</span>
+                            </div>
+                            <div class="item-price">$@item.SellingPrice</div>
+                            <button class="change-button">Change</button>
+                        </div>
+                    }
+                </div>
+                <hr class="divider">
+                <form method="post" asp-action="ApplyCoupon" style="display: flex; gap:10px;">
+                    <div class="summary-line" style="gap:10px;">
+                        <labelclass ="coupon-label">
+                            Coupon Code</label>
+                            <input type="text" name="name" placeholder="Enter coupon code" />
+                            <button type="submit" class="apply-coupon-button">Apply</button>
+                    </div>
+                    <div>
+                        <span style="font-family: 'Beatrice Deck Trial', sans-serif; font-size: 12px; font-weight: 500;">@TempData["Success"]</span>
+                    </div>
+                </form>
+
+                <div class="summary-line">
+                    <span>Subtotal</span>
+                    <span>$@subTotal</span>
+                </div>
+                <div class="summary-line">
+                    <span>Shipping</span>
+                    <span class="shipping-cost">$50000</span>
+                </div>
+                @if (TempData["Discount"] != null)
+                {
+                    <div class="summary-line">
+                        <span>Coupon</span>
+                        <span>-$@TempData["Discount"]</span>
+                    </div>
+                    {
+                        couponUsed = TempData["NameCoupon"].ToString();
+                    }
+                }
+                <hr class="divider">
+                <div class="summary-line total-line">
+                    @{
+                        decimal discount = 0;
+                        if (TempData["Discount"] != null)
+                        {
+                            decimal.TryParse(TempData["Discount"].ToString(), out discount);
+                        }
+                        decimal totalPrice = subTotal + 50000 - discount;
+                    }
+                    <span>Total</span>
+                    <span>$@totalPrice</span>
+                </div>
+            </div>
+
+            <div class="quantity">
+                <span>(@quantity)</span>
+            </div>
+            <form asp-action="CreateOrder" method="post">
+                <input type="hidden" name="TotalPrice" value="@totalPrice" />
+                <input type="hidden" name="CouponUsed" value="@couponUsed" />
+
+                @{
+                    var modelList = Model.ToList();
+                }
+                @for (int i = 0; i < modelList.Count; i++)
+                {
+                    var item = modelList[i];
+                    <input type="hidden" name="CartItems[@i].ProductId" value="@item.ProductId" />
+                    <input type="hidden" name="CartItems[@i].Quantity" value="@item.Quantity" />
+                    <input type="hidden" name="CartItems[@i].SellingPrice" value="@item.SellingPrice" />
+                }
+
+                <button class="shipping-button">
+                    <span>Order</span>
+                </button>
+            </form>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

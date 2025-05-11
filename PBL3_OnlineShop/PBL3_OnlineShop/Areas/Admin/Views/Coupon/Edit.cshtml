@@ -117,17 +117,17 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Status:</label>
-                            <select asp-for="status" class="form-control">
-                                <option value="1">Active</option>
-                                <option value="0">Hide</option>
-                            </select>
+                            <label>Quantity:</label>
+                            <input asp-for="Quantity">
+                            <span asp-validation-for="Quantity" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
-                            <label>Min Order Value:</label>
-                            <input asp-for="MinOrderValue">
-                            <span asp-validation-for="MinOrderValue" class="text-danger"></span>
+                            <label>Status:</label>
+                            <select asp-for="status" class="form-control">
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
                         </div>
 
                         <div class="form-group">

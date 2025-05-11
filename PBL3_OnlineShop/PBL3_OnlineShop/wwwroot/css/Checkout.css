@@ -13,8 +13,6 @@ input, button {
 
 /* Checkout Page Styles */
 .checkout-container {
-    display: flex;
-    flex-direction: column;
     padding: 40px 60px; /* Adjust padding as needed */
     gap: 60px; /* Space between form and summary */
     max-width: 1200px; /* Limit overall width */
@@ -36,32 +34,30 @@ input, button {
     background-color: #f9f9f9; /* Slightly different background for summary */
 }
 
-.wrap{
+.wrap {
     position: relative;
     display: flex;
     flex-direction: column;
 }
 
-.wrap .quantity{
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: #000E8A;
-}
+    .wrap .quantity {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #000E8A;
+    }
 
-.checkout-title a{
+.checkout-title a {
     color: #000000;
 }
 
-.checkout-form-section .checkout-title .home{
+.checkout-form-section .checkout-title .home {
     font-family: "Inknut Antiqua", serif;
     font-size: 30px;
     font-weight: 600;
 }
 
 .info-section {
-    display: flex;
-    flex-direction: column;
     gap: 25px;
 }
 
@@ -72,13 +68,9 @@ input, button {
     line-height: 2.5; /* Line height from style_9B1L69 */
     text-transform: uppercase; /* Text case from style_9B1L69 */
     margin: 0;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
 }
 
 .contact-info, .shipping-address {
-    display: flex;
-    flex-direction: column;
     gap: 15px;
 }
 
@@ -104,13 +96,13 @@ input, button {
     flex: 1; /* Allow groups in rows to share space */
 }
 
-.form-group label {
-    font-family: 'Beatrice Trial', sans-serif; /* Font from style_WTIH2H / style_EV05K7 */
-    font-size: 12px; /* Font size from style_WTIH2H / style_EV05K7 */
-    font-weight: 400;
-    color: #5E5E5E; /* Fill from fill_ENPNDV */
-    line-height: 1.5; /* Adjusted line height */
-}
+    .form-group label {
+        font-family: 'Beatrice Trial', sans-serif; /* Font from style_WTIH2H / style_EV05K7 */
+        font-size: 12px; /* Font size from style_WTIH2H / style_EV05K7 */
+        font-weight: 400;
+        color: #5E5E5E; /* Fill from fill_ENPNDV */
+        line-height: 1.5; /* Adjusted line height */
+    }
 
 /* Specific label colors */
 label[for="ward"], label[for="district"] {
@@ -147,6 +139,7 @@ label[for="ward"], label[for="district"] {
     font-weight: 500;
     align-self: flex-end; /* Position button to the right */
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 /* Order Summary Styles */
@@ -260,32 +253,48 @@ label[for="ward"], label[for="district"] {
     margin-top: 10px;
 }
 
-/* .checkout-form-section{
-    max-width: 750px;
-} */
+.checkout-form-section {
+    margin-top: 70px;
+}
 
-.checkout-form-section .coupon{
+    .checkout-form-section .coupon {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+        .checkout-form-section .coupon .form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .checkout-form-section .coupon input, select {
+            padding: 10px 15px;
+            border: 1px solid #D9D9D9;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .checkout-form-section .coupon label {
+            font-family: 'Beatrice Trial', sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            color: #5E5E5E;
+            line-height: 1.5;
+        }
+
+.coupon-label {
+    align-items: center;
     display: flex;
-    flex-direction: column;
-    gap: 15px;
 }
 
-.checkout-form-section .coupon .form{
+.info {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
 }
 
-.checkout-form-section .coupon input, select{
-    padding: 10px 15px;
-    border: 1px solid #D9D9D9;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-.checkout-form-section .coupon label{
-    font-family: 'Beatrice Trial', sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-    color: #5E5E5E;
-    line-height: 1.5;
+.change-btn {
+    display: flex;
+    align-items: center;
 }

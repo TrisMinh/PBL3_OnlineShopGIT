@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using PBL3_OnlineShop.Models;
 using PBL3_OnlineShop.Models.ViewModels;
 using PBL3_OnlineShop.Repository;
@@ -49,9 +50,9 @@ namespace PBL3_OnlineShop.Controllers
                 Email = model.Email,
                 Password = model.Password,
                 Gender = "Man",
-                IsAdmin = false,
-                Status = 1,
                 UrlAvatar = "/avatar/def.jpg"
+                Role = "Customer",
+                Status = 1
             };
             // hash sau khi tạo vì tạo phía trong thì user ch đc khởi tạo
             user.Password = _passwordHasher.HashPassword(user, model.Password);
@@ -91,12 +92,41 @@ namespace PBL3_OnlineShop.Controllers
             // set session
             HttpContext.Session.SetInt32("_UserId", user.Id);
             HttpContext.Session.SetString("_Username", user.UserName);
-            HttpContext.Session.SetString("_IsAdmin", user.IsAdmin.ToString());
+            HttpContext.Session.SetString("_Role", user.Role);
             HttpContext.Session.SetString("_Email", user.Email);
+
+            var tempCart = HttpContext.Session.GetString("Cart");
+            if (!string.IsNullOrEmpty(tempCart))
+            {
+                var cartItems = JsonConvert.DeserializeObject<List<CartItem>>(tempCart); // conver từ json về list<CartItem>
+                var cart = await _context.Carts.Include(c => c.CartItems).FirstOrDefaultAsync(c => c.UserId == user.Id);
+
+                if (cart == null)
+                {
+                    cart = new Cart { UserId = user.Id };
+                    _context.Carts.Add(cart);
+                }
+
+                foreach (var item in cartItems)
+                {
+                    var existingItem = cart.CartItems.FirstOrDefault(ci => ci.ProductId == item.ProductId && ci.Size == item.Size && ci.Color == item.Color);
+                    if (existingItem != null)
+                    {
+                        existingItem.Quantity += item.Quantity;  // Cập nhật số lượng nếu sản phẩm đã có trong giỏ
+                    }
+                    else
+                    {
+                        cart.CartItems.Add(item);
+                    }
+                }
+
+                await _context.SaveChangesAsync();
+                HttpContext.Session.Remove("Cart");  // Xóa giỏ hàng tạm thời sau khi đã chuyển vào cơ sở dữ liệu
+            }
 
             return RedirectToAction("Index", "Home");
         }
-        [HttpPost]
+        [HttpGet]
         public ActionResult Logout()
         {
             // Clear authentication cookie or session here

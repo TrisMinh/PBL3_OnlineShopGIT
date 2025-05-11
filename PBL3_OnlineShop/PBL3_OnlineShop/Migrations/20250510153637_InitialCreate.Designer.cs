@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PBL3_OnlineShop.Repository;
 
@@ -11,9 +12,11 @@ using PBL3_OnlineShop.Repository;
 namespace PBL3_OnlineShop.Migrations
 {
     [DbContext(typeof(PBL3_Db_Context))]
-    partial class PBL3_Db_ContextModelSnapshot : ModelSnapshot
+    [Migration("20250510153637_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,7 +144,26 @@ namespace PBL3_OnlineShop.Migrations
                     b.ToTable("Coupons");
                 });
 
-            modelBuilder.Entity("PBL3_OnlineShop.Models.Favourite", b =>
+            modelBuilder.Entity("PBL3_OnlineShop.Models.CouponUsage", b =>
+                {
+                    b.Property<int>("CouponUsageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CouponUsageId"));
+
+                    b.Property<int>("CouponId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CouponUsageId");
+
+                    b.ToTable("CouponUsages");
+                });
+
+            modelBuilder.Entity("PBL3_OnlineShop.Models.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -149,22 +171,26 @@ namespace PBL3_OnlineShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ProductId")
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
-
                     b.HasIndex("UserId");
 
-                    b.ToTable("Favourites");
+                    b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("PBL3_OnlineShop.Models.ProductSize", b =>
+            modelBuilder.Entity("PBL3_OnlineShop.Models.OrderDetail", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -295,18 +321,11 @@ namespace PBL3_OnlineShop.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
@@ -318,9 +337,6 @@ namespace PBL3_OnlineShop.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<string>("UrlAvatar")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -330,26 +346,7 @@ namespace PBL3_OnlineShop.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("PBL3_OnlineShop.Models.Favourite", b =>
-                {
-                    b.HasOne("PBL3_OnlineShop.Models.Products", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PBL3_OnlineShop.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("PBL3_OnlineShop.Models.ProductSize", b =>
+            modelBuilder.Entity("PBL3_OnlineShop.Models.Cart", b =>
                 {
                     b.HasOne("PBL3_OnlineShop.Models.User", "User")
                         .WithOne("Cart")

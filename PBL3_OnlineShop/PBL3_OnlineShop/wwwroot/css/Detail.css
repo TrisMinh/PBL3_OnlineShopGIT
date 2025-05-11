@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 /* Add other font imports based on Figma if needed */
 
 /* Detail Page Specific Styles */
@@ -217,6 +217,13 @@
         background-color: #1E1E1E;
         color: #FFFFFF;
     }
+.product-info {
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
 .favourite-btn i {
     color: #1E1E1E;                /* Icon đen */
@@ -251,4 +258,5 @@
         height: auto;
         width: 400px;
     }
+    
 }

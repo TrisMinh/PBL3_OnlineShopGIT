@@ -72,7 +72,6 @@
             height: 18px;
             pointer-events: none;
         }
-
     .header .inner-utilities {
         margin-left: 20px;
     }
@@ -128,9 +127,7 @@
     .header .inner-wrap .inner-menu ul {
         display: none;
     }
-
-
-    .inner-search {
+    .inner-search{
         display: none;
     }
 
