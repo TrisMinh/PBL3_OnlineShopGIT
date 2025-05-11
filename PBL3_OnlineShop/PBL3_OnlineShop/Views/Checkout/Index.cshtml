@@ -26,16 +26,23 @@
                 </div>
                 <h3 class="subsection-title">Contact info</h3>
                 <div class="form-group">
-                    <P><b>Your Name: </b> @ViewBag.NameCustomer</P>
-                    <p><b>Email: </b>@ViewBag.Email</p>
-                    <p><b>Phone Number: </b>@ViewBag.PhoneNumber</p>
+                    <p>Your Name: @ViewBag.UserName</p>
+                    <p>Email: @ViewBag.Email</p>
+                    <p>Phone Number: @ViewBag.PhoneNumber</p>
                 </div>
                 <div class="shipping-address">
-                    <h3 class="subsection-title"><b>Shipping address: </b>@ViewBag.Address</h3>
-                    <div class="form-row">
-                    </div>
+                    <h3 class="subsection-title">Shipping address</h3>
                     <div class="form-group">
-                        <p>Address:</p>
+                        @if (ViewBag.AddressDetail != null && ViewBag.District != null && ViewBag.Province != null)
+                        {
+                            <p>Detailed address: @ViewBag.AddressDetail</p>
+                            <p>District: @ViewBag.District</p>
+                            <p>Province/City: @ViewBag.Province</p>
+                        }
+                        else
+                        {
+                            <p>Địa chỉ: @ViewBag.Address</p>
+                        }
                     </div>
                 </div>
                 <div class="coupon">
@@ -43,8 +50,8 @@
                         <label for="payment-method">Payment Method</label>
                         <select id="payment-method" name="payment-method">
                             <option value="">Choose Your Payment Method</option>
-                            <option value="credit-card">...</option>
-                            <option value="paypal">...</option>
+                            <option value="credit-card">Credit Card</option>
+                            <option value="COD">COD</option>
                         </select>
                     </div>
                 </div>

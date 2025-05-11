@@ -12,6 +12,59 @@
     <link rel="stylesheet" href="~/css/base.css">
     <link rel="stylesheet" href="~/css/Home.css">
     <title>Document</title>
+    <style>
+        .ms-1 {
+            min-width: 60px;
+            display: inline-block;
+            white-space: nowrap;
+            margin-right: 0;
+        }
+        .inner-utilities ul li a {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 5px;
+            padding-right: 0;
+        }
+        .inner-utilities ul li {
+            padding: 0;
+            margin: 0;
+            display: inline-flex;
+        }
+        .inner-utilities ul {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 2px;
+        }
+        .inner-utilities {
+            display: flex;
+            flex-direction: row;
+        }
+        .inner-logo {
+            margin-right: 20px;
+        }
+        .inner-menu {
+            margin-left: 20px;
+        }
+        
+        /* Sticky footer */
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        main {
+            flex: 1 0 auto;
+            min-height: calc(100vh - 200px);
+        }
+        .footer {
+            flex-shrink: 0;
+            margin-top: auto;
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -63,26 +116,27 @@
                         <li>
                             @if (!string.IsNullOrEmpty(username))
                             {
-                                <a asp-controller="Account" asp-action="Profile">
+                                <a asp-controller="Account" asp-action="Profile" style="margin-right: 2px;">
                                     <img src="~/images/Account.png" alt="Account" />
                                     <span class="ms-1"><strong>Hi, @username</strong></span>
                                 </a>
-                                <a asp-controller="Account" asp-action="Logout">
+                                <a asp-controller="Account" asp-action="Logout" style="margin-right: 2px;">
                                     <img src="~/images/360_F_66468754_86IFi1dhqwtHdXzPeMQNhGtGp8Z2D3yC.jpg" alt="Logout" class="account-placeholder8"/>
                                     <span class="ms-1"><strong>Logout</strong></span>
                                 </a>
+                            
+                                @if (role == "Admin")
+                                {
+                                    <a asp-area="Admin" asp-controller="Products" asp-action="Index" style="margin-right: 2px;">
+                                        <img src="~/images/Account.png" alt="System Manage" />
+                                        <span class="ms-1"><strong>System Management</strong></span>
+                                    </a>
+                                }
                             }
                             else
                             {
                                 <a asp-controller="Account" asp-action="Login">
                                     <img src="~/images/Account.png" alt="Account" />
-                                </a>
-                            }
-                            @if (role == "Admin")
-                            {
-                                <a asp-area="Admin" asp-controller="Products" asp-action="Index">
-                                    <img src="~/images/Account.png" alt="System Manage" />
-                                    <span class="ms-1"><strong>System Management</strong></span>
                                 </a>
                             }
                         </li>
