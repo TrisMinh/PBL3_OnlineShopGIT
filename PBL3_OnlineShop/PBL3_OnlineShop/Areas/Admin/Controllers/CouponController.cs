@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PBL3_OnlineShop.Models;
 using PBL3_OnlineShop.Repository;
+using PBL3_OnlineShop.Validation;
 
 namespace PBL3_OnlineShop.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [RoleAuthorization("Admin")]
     public class CouponController : Controller
     {
         private readonly PBL3_Db_Context _context;
@@ -14,15 +16,6 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            var roll = HttpContext.Session.GetString("_Role");
-            if (roll == null)
-            {
-                return RedirectToAction("Login", "Account", new { area = "" });
-            }
-            if (roll != "Admin")
-            {
-                return RedirectToAction("Index", "Home", new { area = "" });
-            }
             var coupons = _context.Coupons.ToList();
             return View(coupons);
         }

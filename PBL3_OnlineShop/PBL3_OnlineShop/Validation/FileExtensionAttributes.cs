@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PBL3_OnlineShop.Repository.Validation
+namespace PBL3_OnlineShop.Validation
 {
     public class FileExtensionAttributes : ValidationAttribute
     {
-        protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".webp"};
             if (value is IEnumerable<IFormFile> files)

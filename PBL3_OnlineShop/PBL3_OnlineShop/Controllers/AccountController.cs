@@ -12,12 +12,11 @@ namespace PBL3_OnlineShop.Controllers
     public class AccountController : Controller
     {
         private readonly PBL3_Db_Context _context;
-        private readonly PasswordHasher<User> _passwordHasher = new(); // dịch vụ mã hoá
+        private readonly PasswordHasher<User> _passwordHasher = new(); 
         public AccountController(PBL3_Db_Context context)
         {
             _context = context;
         }
-        // Register
         [HttpGet]
         public ActionResult Register()
         {
@@ -63,7 +62,6 @@ namespace PBL3_OnlineShop.Controllers
             TempData["Success"] = "Đăng ký thành công!";
             return RedirectToAction("Login");
         }
-        // Login
         [HttpGet]
         public ActionResult Login()
         {
@@ -90,6 +88,7 @@ namespace PBL3_OnlineShop.Controllers
                 return View(model);
             }
             // set session
+
             HttpContext.Session.SetInt32("_UserId", user.Id);
             HttpContext.Session.SetString("_Username", user.UserName);
             HttpContext.Session.SetString("_Role", user.Role);

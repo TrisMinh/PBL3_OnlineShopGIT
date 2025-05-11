@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PBL3_OnlineShop.Models;
 using PBL3_OnlineShop.Repository;
+using PBL3_OnlineShop.Validation;
 using System.Linq;
 
 namespace PBL3_OnlineShop.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [RoleAuthorization("Admin")]    
     public class ProductsController : Controller
     {
         private readonly PBL3_Db_Context _context;
@@ -18,15 +20,6 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var roll = HttpContext.Session.GetString("_Role");
-            if (roll == null)
-            {
-                return RedirectToAction("Login", "Account", new { area = "" });
-            }
-            if (roll != "Admin")
-            {
-                return RedirectToAction("Index", "Home", new { area = "" });
-            }
             return View(await _context.Products
             .OrderByDescending(p => p.ProductId)
             .Include(p => p.Category)   // Bao gồm Category

@@ -1,4 +1,4 @@
-﻿using PBL3_OnlineShop.Repository.Validation;
+﻿using PBL3_OnlineShop.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
