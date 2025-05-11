@@ -52,9 +52,18 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+                // Kiểm tra xem tên sản phẩm đã tồn tại chưa
+                bool productExists = await _context.Products.AnyAsync(p => p.ProductName.ToLower() == product.ProductName.ToLower());
+                
+                if (productExists)
+                {
+                    ModelState.AddModelError("ProductName", "Name Product already exists");
+                    TempData["Error"] = "Tên sản phẩm đã tồn tại";
+                    return View(product);
+                }
+                
                 product.CreatedAt = DateTime.Now;
                 product.UpdatedAt = DateTime.Now;
-                product.Status = "Available";
 
                 if (product.ImageUpload != null && product.ImageUpload.Count > 0)
                 {
@@ -94,6 +103,11 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
                 if (groupedSizes.Any())
                 {
                     _context.ProductsSize.AddRange(groupedSizes);
+                    await _context.SaveChangesAsync();
+                    
+                    // Cập nhật tổng tồn kho dựa trên ProductSizes
+                    product.StockQuantity = groupedSizes.Sum(s => s.Quantity);
+                    _context.Products.Update(product);
                     await _context.SaveChangesAsync();
                 }
 
