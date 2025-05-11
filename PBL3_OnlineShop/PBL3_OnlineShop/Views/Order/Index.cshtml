@@ -3,6 +3,14 @@
 @{
     ViewData["Title"] = "Order";
     Layout = null;
+    
+    // Lấy thông tin user từ session
+    var userId = Context.Session.GetInt32("_UserId");
+    var username = Context.Session.GetString("_Username");
+    var role = Context.Session.GetString("_Role") ?? "Customer";
+    
+    // Lấy thông tin user từ database nếu cần
+    var user = ViewBag.User as PBL3_OnlineShop.Models.User;
 }
 
 <!DOCTYPE html>
@@ -22,24 +30,41 @@
         <aside class="sidebar8">
             <div class="user-profile8">
                 <div class="avatar-container8">
-                    <img id="sidebar-avatar" src="~/images/455123067_1470091394391641_5075587184145921216_n.jpg" alt="User Avatar" class="avatar8" style="cursor: pointer;">
-                    <span class="status-indicator8"></span>
+                    @{
+                        var avatarPath = "";
+                        var firstOrder = Model.FirstOrDefault();
+                        if (firstOrder != null && firstOrder.User != null && !string.IsNullOrEmpty(firstOrder.User.UrlAvatar))
+                        {
+                            avatarPath = firstOrder.User.UrlAvatar;
+                        }
+                        else
+                        {
+                            avatarPath = "~/avatar/def.jpg";
+                        }
+                    }
+                    <img id="sidebar-avatar" src="@avatarPath" alt="User Avatar" class="avatar8" style="cursor: pointer;">
+                    <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
                 </div>
-                <h2 class="user-name8">Trung Trung</h2>
-                <p class="user-role8">Customer</p>
+                @{
+                    string userName = "Customer";
+                    string userRole = "Customer";
+                    if (firstOrder != null && firstOrder.User != null)
+                    {
+                        userName = firstOrder.User.Name;
+                        userRole = firstOrder.User.Role ?? "Customer";
+                    }
+                }
+                <h2 class="user-name8">@userName</h2>
+                <p class="user-role8">
+                    @(userRole == "Admin" ? "Management" : "Customer")
+                </p>
             </div>
             <nav class="profile-nav8">
                 <ul>
                     <li class="profile-nav-item8" onclick="showSection('edit-profile')">
                         <a asp-action="Profile" asp-controller="Account">
-                            <img src="~/images/gift-coupon-icon-20763.png" alt="" class="profile-nav-icon8">
-                            <span>Edit Profile</span>
-                        </a>
-                    </li>
-                    <li class="profile-nav-item8" onclick="showSection('change-password')">
-                        <a href="#">
                             <img src="~/images/chiakia.png" alt="" class="profile-nav-icon8">
-                            <span>Change Password</span>
+                            <span>Edit Profile</span>
                         </a>
                     </li>
                     <li class="profile-nav-item8" onclick="showSection('coupon')">
@@ -137,5 +162,72 @@
 
         </main>
     </div>
+    
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
+      <div id="profileToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div class="toast-body" id="profileToastMsg">
+            Cập nhật thành công!
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="~/js/vn-address.js"></script>
+    <script src="~/js/Profile.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            // Setup avatar upload
+            const avatarElement = document.getElementById('sidebar-avatar');
+            const fileInput = document.getElementById('avatar-upload');
+
+            if (avatarElement && fileInput) {
+                avatarElement.addEventListener('click', function() {
+                    fileInput.click();
+                });
+
+                fileInput.addEventListener('change', function(e) {
+                    if (this.files && this.files[0]) {
+                        const formData = new FormData();
+                        formData.append('file', this.files[0]);
+
+                        fetch('/Account/UploadAvatar', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Cập nhật avatar trên trang
+                                avatarElement.src = data.avatarUrl;
+                                showProfileToast(data.message, true);
+                            } else {
+                                showProfileToast(data.message, false);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Lỗi khi tải lên avatar:', error);
+                            showProfileToast('Đã xảy ra lỗi khi tải lên avatar', false);
+                        });
+                    }
+                });
+            }
+        });
+        
+        // Thêm hàm toast Bootstrap nếu chưa có trong Profile.js
+        function showProfileToast(message, isSuccess) {
+            const toastEl = document.getElementById('profileToast');
+            const toastMsg = document.getElementById('profileToastMsg');
+            toastMsg.textContent = message;
+            toastEl.classList.remove('text-bg-success', 'text-bg-danger');
+            toastEl.classList.add(isSuccess ? 'text-bg-success' : 'text-bg-danger');
+            const toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        }
+    </script>
 </body>
 </html>

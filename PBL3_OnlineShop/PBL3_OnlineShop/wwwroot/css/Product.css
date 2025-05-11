@@ -1,7 +1,7 @@
 .header {
     position: fixed;
     width: 100%;
-    z-index: 2;
+    z-index: 9999;
     background: #F6F6F6;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px;
 }
@@ -141,12 +141,16 @@
     min-height: calc(100vh - 180px); /* Đảm bảo trang có chiều cao tối thiểu, trừ đi chiều cao của header và footer */
     display: flex;
     flex-direction: column;
+    position: relative;
+    z-index: 1;
 }
 
 .product-page-container {
     padding-top: 100px; /* Tăng padding từ 80px lên 100px để tạo khoảng cách lớn hơn với header */
     margin-bottom: 40px; /* Add space before footer */
     flex: 1;
+    position: relative;
+    z-index: 1;
 }
 
 .product-content {
@@ -362,6 +366,8 @@
     /* Set exactly 3 columns */
     grid-template-columns: repeat(3, 1fr);
     gap: 20px; /* Gap between product cards */
+    position: relative;
+    z-index: 1; /* Giữ z-index thấp hơn header */
 }
 
 .product-card {
@@ -370,21 +376,22 @@
     flex-direction: column;
     border: 1px solid #eee; /* Add a subtle border */
     background-color: #fff; /* fill_DCWY0H */
-    overflow: visible;
+    overflow: hidden;
     border-radius: 4px; /* Added subtle rounding */
     transition: transform 0.3s cubic-bezier(.4,2,.6,1);
-    z-index: 1;
+    z-index: 1; /* Giữ z-index thấp hơn header */
+    position: relative;
 }
 
-    .product-card:hover {
-        transform: scale(1.02);
-        z-index: 10;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-    }
+.product-card:hover {
+    transform: scale(1.02);
+    z-index: 2; /* Cao hơn khi hover nhưng vẫn thấp hơn header */
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+}
 
-        .product-card:hover .product-image {
-            transform: scale(1.02);
-        }
+.product-card:hover .product-image {
+    transform: scale(1.02);
+}
 
 .product-image-container {
     position: relative;
@@ -392,6 +399,7 @@
     padding-top: 150%;
     background-color: #f9f9f9;
     overflow: hidden;
+    z-index: 1; /* Giữ z-index thấp hơn header */
 }
 
 .product-image {
@@ -540,7 +548,7 @@
     justify-content: center;
     font-size: 16px;
     font-weight: bold;
-    z-index: 2;
+    z-index: 3; /* Cao hơn product-card khi hover nhưng vẫn thấp hơn header */
     box-shadow: 0 2px 8px rgba(0,0,0,0.12);
 }
 

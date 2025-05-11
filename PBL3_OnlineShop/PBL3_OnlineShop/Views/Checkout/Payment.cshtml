@@ -1,0 +1,88 @@
+@model Order
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="~/css/base.css">
+    <link rel="stylesheet" href="~/css/Payment.css">
+</head>
+<body>
+    <div class="payment-container">
+        <div class="payment-header">
+            <h1 class="payment-title">PAYMENT</h1>
+        </div>
+        
+        <div class="payment-content">
+            <div class="payment-info">
+                <div class="information-section">
+                    <h2 class="information-title">INFORMATION</h2>
+                    
+                    <div class="information-item">
+                        <div class="information-label">Name:</div>
+                        <div class="information-value">Đinh Công Trung Sỹ</div>
+                    </div>
+                    
+                    <div class="information-item">
+                        <div class="information-label">Account Number:</div>
+                        <div class="information-value">102230211</div>
+                    </div>
+                    
+                    <div class="information-item">
+                        <div class="information-label">Name Back:</div>
+                        <div class="information-value">ABC</div>
+                    </div>
+                    
+                    <div class="information-item">
+                        <div class="information-label">Price:</div>
+                        <div class="information-value">$@Model.TotalPrice</div>
+                    </div>
+                    
+                    <div class="information-item">
+                        <div class="information-label">Order ID:</div>
+                        <div class="information-value">@Model.Id</div>
+                    </div>
+                    
+                    <div class="information-item">
+                        <div class="information-label">Code:</div>
+                        <div class="information-value" id="displayCode"></div>
+                    </div>
+                </div>
+                
+                <form asp-action="CompletePayment" method="post">
+                    <input type="hidden" id="randomCode" name="randomCode" value="" />
+                    <button type="submit" class="action-button">Complete Payment</button>
+                </form>
+            </div>
+            
+            <div class="payment-qr">
+                <!-- Placeholder for QR Code -->
+                <div class="qr-placeholder">
+                    <div class="qr-content">
+                        <div class="qr-text">QR</div>
+                        <div class="qr-scan-text">Scan to pay</div>
+                    </div>
+                </div>
+                <p>Scan this QR code with your banking app to complete the payment</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
+    <script>
+        function generateRandomCode() {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            let code = '';
+            for (let i = 0; i < 5; i++) {
+                code += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            document.getElementById('randomCode').value = code;
+            document.getElementById('displayCode').innerText = code;
+        }
+
+        window.onload = function() {
+            generateRandomCode();
+        };
+    </script>
