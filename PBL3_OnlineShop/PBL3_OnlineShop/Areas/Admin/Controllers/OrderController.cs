@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PBL3_OnlineShop.Repository;
+using PBL3_OnlineShop.Validation;
 
 namespace PBL3_OnlineShop.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [RoleAuthorization("Admin")]
     public class OrderController : Controller
     {
         private readonly PBL3_Db_Context _context;

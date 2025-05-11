@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 //using PBL3_OnlineShop.Migrations;
 using PBL3_OnlineShop.Models;
 using PBL3_OnlineShop.Repository;
+using System.Text.Json;
+using System.IO;
+using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace PBL3_OnlineShop.Controllers
 {
@@ -13,14 +17,143 @@ namespace PBL3_OnlineShop.Controllers
         {
             _context = context;
         }
+        
+        private Dictionary<string, string> GetProvinces()
+        {
+            var provinces = new Dictionary<string, string>();
+            try
+            {
+                string jsFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "js", "vn-address.js");
+                string content = System.IO.File.ReadAllText(jsFilePath);
+                
+                // Dùng regex để trích xuất mã và tên tỉnh
+                var regex = new Regex(@"\{\s*code:\s*""(\d+)"",\s*name:\s*""([^""]+)""\s*\}");
+                var matches = regex.Matches(content);
+                
+                foreach (Match match in matches)
+                {
+                    if (match.Groups.Count >= 3)
+                    {
+                        string code = match.Groups[1].Value;
+                        string name = match.Groups[2].Value;
+                        if (!provinces.ContainsKey(code))
+                        {
+                            provinces.Add(code, name);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log lỗi nếu cần
+            }
+            return provinces;
+        }
+        
+        private Dictionary<string, string> GetDistricts(string provinceCode)
+        {
+            var districts = new Dictionary<string, string>();
+            try
+            {
+                string jsFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "js", "vn-address.js");
+                string content = System.IO.File.ReadAllText(jsFilePath);
+                
+                // Định vị khu vực chứa quận/huyện cho tỉnh cụ thể
+                string pattern = $"\"{provinceCode}\":\\s*\\[(.*?)\\]";
+                var match = Regex.Match(content, pattern, RegexOptions.Singleline);
+                
+                if (match.Success && match.Groups.Count >= 2)
+                {
+                    string districtsContent = match.Groups[1].Value;
+                    var districtRegex = new Regex(@"\{\s*code:\s*""(\d+)"",\s*name:\s*""([^""]+)""\s*\}");
+                    var matches = districtRegex.Matches(districtsContent);
+                    
+                    foreach (Match districtMatch in matches)
+                    {
+                        if (districtMatch.Groups.Count >= 3)
+                        {
+                            string code = districtMatch.Groups[1].Value;
+                            string name = districtMatch.Groups[2].Value;
+                            if (!districts.ContainsKey(code))
+                            {
+                                districts.Add(code, name);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log lỗi nếu cần
+            }
+            return districts;
+        }
+        
         public ActionResult Index()
         {
             var userId = HttpContext.Session.GetInt32("_UserId");
-            var cart = _context.Carts.FirstOrDefault(c => c.UserId == userId);
-            var cartItem = _context.CartItems.Where(c => c.CartId == cart.CartId).ToList();
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            ViewBag.PaymentMethodList = new List<SelectListItem>
+            {
+                new SelectListItem { Text = "COD", Value = "COD" }, 
+                new SelectListItem { Text = "Credit Card", Value = "CreditCard" } 
+            };
 
             var user = _context.Users.FirstOrDefault(u => u.Id == userId);
+            if (user != null)
+            {
+                ViewBag.UserName = user.Name;
+                ViewBag.Email = user.Email;
+                ViewBag.PhoneNumber = user.PhoneNumber;
 
+                // Phân tích địa chỉ thành các phần
+                if (!string.IsNullOrEmpty(user.Address))
+                {
+                    var addressParts = user.Address.Split('/');
+                    if (addressParts.Length >= 3)
+                    {
+                        string provinceCode = addressParts[0].Trim();
+                        string districtCode = addressParts[1].Trim();
+                        string detailAddress = addressParts[2].Trim();
+
+                        // Lấy tên tỉnh/thành phố từ mã
+                        var provinces = GetProvinces();
+                        if (provinces.ContainsKey(provinceCode))
+                        {
+                            ViewBag.Province = provinces[provinceCode];
+
+                            // Lấy tên quận/huyện từ mã
+                            var districts = GetDistricts(provinceCode);
+                            if (districts.ContainsKey(districtCode))
+                            {
+                                ViewBag.District = districts[districtCode];
+                            }
+                            else
+                            {
+                                ViewBag.District = districtCode;
+                            }
+                        }
+                        else
+                        {
+                            ViewBag.Province = provinceCode;
+                        }
+
+                        ViewBag.AddressDetail = detailAddress;
+                    }
+                    else
+                    {
+                        // Nếu địa chỉ không đúng định dạng, giữ nguyên
+                        ViewBag.Address = user.Address;
+                    }
+                }
+            }
+
+            var cart = _context.Carts.FirstOrDefault(c => c.UserId == userId);
+            var cartItem = _context.CartItems.Where(c => c.CartId == cart.CartId).ToList();
             ViewBag.NameCustomer = user.Name;
             ViewBag.Email = user.Email;
             ViewBag.PhoneNumber = user.PhoneNumber;

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PBL3_OnlineShop.Repository;
+using PBL3_OnlineShop.Validation;
 
 namespace PBL3_OnlineShop
 {
@@ -23,7 +24,6 @@ namespace PBL3_OnlineShop
                 options.IdleTimeout = TimeSpan.FromMinutes(30); // thời gian sống của session
                 options.Cookie.IsEssential = true;
             });
-
 
             var app = builder.Build();
 
