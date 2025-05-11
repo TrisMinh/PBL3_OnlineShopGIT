@@ -22,7 +22,6 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         {
             var order = _context.Orders.FirstOrDefault(o => o.Id == id);
             order.Status = 2;
-            _context.Orders.Update(order);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -35,11 +34,9 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
             {
                 var product = _context.ProductsSize.FirstOrDefault(ps => ps.ProductId == item.ProductId && ps.Color == item.Color && ps.Size == item.Size);
                 product.Quantity += item.Quantity;
-                _context.ProductsSize.Update(product);
             }
 
             order.Status = 0;
-            _context.Orders.Update(order);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }

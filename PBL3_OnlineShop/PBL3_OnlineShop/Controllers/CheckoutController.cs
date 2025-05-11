@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.IO;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using PBL3_OnlineShop.Models.ViewModels;
 
 namespace PBL3_OnlineShop.Controllers
 {
@@ -89,7 +90,7 @@ namespace PBL3_OnlineShop.Controllers
             return districts;
         }
         
-        public ActionResult Index()
+        public IActionResult Index()
         {
             var userId = HttpContext.Session.GetInt32("_UserId");
             if (userId == null)
@@ -153,13 +154,34 @@ namespace PBL3_OnlineShop.Controllers
             }
 
             var cart = _context.Carts.FirstOrDefault(c => c.UserId == userId);
-            var cartItem = _context.CartItems.Where(c => c.CartId == cart.CartId).ToList();
+            var cartItems = _context.CartItems.Where(c => c.CartId == cart.CartId).ToList();
+
+            decimal subtotal = cartItems.Sum(item => item.Quantity * item.SellingPrice);
+
+            decimal discount = 0;
+            string couponUsed = null;
+            if (TempData["Discount"] != null)
+            {
+                decimal.TryParse(TempData["Discount"].ToString(), out discount);
+                couponUsed = TempData["NameCoupon"]?.ToString();
+            }
+
+            decimal totalPrice = subtotal - discount + 50000;
+
+            var checkoutViewModel = new CheckoutView
+            {
+                CartItems = cartItems,
+                Subtotal = subtotal,
+                Discount = discount,
+                TotalPrice = totalPrice,
+                CouponUsed = couponUsed
+            };
+
             ViewBag.NameCustomer = user.Name;
             ViewBag.Email = user.Email;
             ViewBag.PhoneNumber = user.PhoneNumber;
             ViewBag.Address = user.Address;
-
-            return View(cartItem);
+            return View(checkoutViewModel);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
