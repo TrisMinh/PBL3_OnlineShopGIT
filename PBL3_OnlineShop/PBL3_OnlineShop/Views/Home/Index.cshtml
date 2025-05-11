@@ -63,7 +63,7 @@
             <div class="inner-list">
                 @if (ViewBag.HotProducts != null)
                 {
-                    foreach (var product in ((List<PBL3_OnlineShop.Models.Products>)ViewBag.HotProducts).Take(9))
+                    foreach (var product in ((List<PBL3_OnlineShop.Models.Product>)ViewBag.HotProducts).Take(9))
                     {
                         var imageArr = (product.ImageUrl ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
                         var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";
@@ -123,7 +123,7 @@
             <div class="inner-list">
                 @if (ViewBag.SaleProducts != null)
                 {
-                    foreach (var product in ((List<PBL3_OnlineShop.Models.Products>)ViewBag.SaleProducts).Take(9))
+                    foreach (var product in ((List<PBL3_OnlineShop.Models.Product>)ViewBag.SaleProducts).Take(9))
                     {
                         var imageArr = (product.ImageUrl ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
                         var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";
@@ -191,7 +191,7 @@
             <div class="inner-list">
                 @if (ViewBag.AllProducts != null)
                 {
-                    foreach (var product in ((List<PBL3_OnlineShop.Models.Products>)ViewBag.AllProducts).Take(9))
+                    foreach (var product in ((List<PBL3_OnlineShop.Models.Product>)ViewBag.AllProducts).Take(9))
                     {
                         var imageArr = (product.ImageUrl ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
                         var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";

@@ -50,7 +50,7 @@ namespace PBL3_OnlineShop.Controllers
                 Email = model.Email,
                 Password = model.Password,
                 Gender = "Man",
-                UrlAvatar = "/avatar/def.jpg"
+                UrlAvatar = "/avatar/def.jpg",
                 Role = "Customer",
                 Status = 1
             };

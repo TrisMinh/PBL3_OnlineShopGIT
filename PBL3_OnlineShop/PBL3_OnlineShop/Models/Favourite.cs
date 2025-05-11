@@ -14,6 +14,6 @@ namespace PBL3_OnlineShop.Models
 
         public int ProductId { get; set; }
         [ForeignKey("ProductId")]
-        public Products Product { get; set; }
+        public Product Product { get; set; }
     }
 }
