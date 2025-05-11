@@ -85,7 +85,12 @@
                         </div>
                         @if (Model.StockQuantity == 0)
                         {
-                            <label class="add-to-cart-btn">Out of Stock</label>
+                            <div class="add-to-cart-btn-container">
+                                <label class="add-to-cart-btn">Out of Stock</label>
+                                <button type="button" id="favouriteBtn" class="favourite-btn @(ViewBag.IsFavourite == true ? "active" : "")" title="Yêu thích" data-product-id="@Model.ProductId">
+                                    <i class="fa@(ViewBag.IsFavourite == true ? "s" : "r") fa-heart"></i>
+                                </button>
+                            </div>
                         }
                         else
                         {

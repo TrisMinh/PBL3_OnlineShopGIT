@@ -57,6 +57,7 @@
         display: block;
         max-width: 600px;
         min-height: 400px;
+        height: 600px;
     }
 
 .thumbnail-images {
@@ -262,7 +263,8 @@
 
     .main-image img {
         height: auto;
-        width: 400px;    }
+        width: 400px;    
+    }
     
 }
 
