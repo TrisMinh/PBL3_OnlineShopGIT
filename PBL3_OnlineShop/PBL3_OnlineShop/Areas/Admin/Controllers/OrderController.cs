@@ -46,7 +46,7 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         {
             var query = from p in _context.Orders.Include(o => o.OrderDetails).ThenInclude(od => od.Product).Include(o => o.User)
                         where (!orderID.HasValue || orderID == p.Id) &&
-                        (string.IsNullOrEmpty(customerName) || p.User.Name.Contains(customerName))&&
+                        (string.IsNullOrEmpty(customerName) || p.User.UserName.Contains(customerName))&&
                         (!status.HasValue || status == p.Status)
                         select p;
             var orders = query.ToList();
