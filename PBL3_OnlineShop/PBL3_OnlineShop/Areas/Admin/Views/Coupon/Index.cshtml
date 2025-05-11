@@ -85,16 +85,24 @@
             @await Html.PartialAsync("_NavbarPartial")
             <section class="coupon-filters">
                 <div class="filter-group">
-                    <label for="coupon-id">ID Coupon:</label>
+                    <label>ID Coupon:</label>
                     <input type="text" id="coupon-id" name="coupon-id" placeholder="">
                 </div>
                 <div class="filter-group">
-                    <label for="coupon-min">Min:</label>
+                    <label>Name:</label>
                     <input type="number" id="coupon-min" name="coupon-min" placeholder="">
                 </div>
                 <div class="filter-group">
-                    <label for="coupon-max">Max:</label>
+                    <label>Discount:</label>
                     <input type="number" id="coupon-max" name="coupon-max" placeholder="">
+                </div>
+                <div class="filter-group">
+                    <label>Status:</label>
+                    <select name="status" class="form-control valid">
+                        <option>All</option>
+                        <option>Active</option>
+                        <option>Inactive</option>
+                    </select>
                 </div>
                 <button class="search-button">Search</button>
             </section>
@@ -114,6 +122,7 @@
                             <th>Name Coupon</th>
                             <th>Description</th>
                             <th>Discount</th>
+                            <th>Quantity</th>
                             <th>Date Start</th>
                             <th>Date End</th>
                             <th>Status</th>
@@ -129,6 +138,7 @@
                                 <td>@item.Name</td>
                                 <td>@item.Description</td>
                                 <td>@item.Discount</td>
+								<td>@item.Quantity</td>
                                 <td>@item.StartDate.ToString("dd-MM-yyyy")</td>
                                 <td>@item.EndDate.ToString("dd-MM-yyyy")</td>
                                 <td>
