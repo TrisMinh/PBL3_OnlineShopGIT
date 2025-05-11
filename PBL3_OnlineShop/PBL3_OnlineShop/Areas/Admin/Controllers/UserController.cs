@@ -67,44 +67,75 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, User user)
         {
-            ViewBag.RoleList = new List<SelectListItem>
+            try
             {
-                new SelectListItem { Text = "Customer", Value = "Customer" },
-                new SelectListItem { Text = "Admin", Value = "Admin" }
-            };
-            // Kiểm tra tính hợp lệ của model
-            if (!ModelState.IsValid)
+                ViewBag.RoleList = new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Customer", Value = "Customer" },
+                    new SelectListItem { Text = "Admin", Value = "Admin" }
+                };
+
+                // Lấy thông tin user hiện tại từ DB trước
+                var existingUser = await _context.Users
+                    .FirstOrDefaultAsync(c => c.Id == id);
+
+                if (existingUser == null)
+                {
+                    return NotFound();
+                }
+
+                // Lấy dữ liệu address từ form (nếu có)
+                var province = Request.Form["province"].ToString();
+                var district = Request.Form["district"].ToString();
+                var specificAddress = Request.Form["specific-address"].ToString();
+
+                if (!string.IsNullOrEmpty(province) && !string.IsNullOrEmpty(district))
+                {
+                    // Cập nhật address mới
+                    existingUser.Address = province + " / " + district + " / " + specificAddress;
+                }
+
+                // Chỉ cập nhật các trường được gửi từ form
+                if (!string.IsNullOrEmpty(user.UserName))
+                {
+                    existingUser.UserName = user.UserName;
+                }
+                // (Giữ nguyên password cũ, không cập nhật)
+                if (!string.IsNullOrEmpty(user.Email))
+                {
+                    existingUser.Email = user.Email;
+                }
+                if (!string.IsNullOrEmpty(user.PhoneNumber))
+                {
+                    existingUser.PhoneNumber = user.PhoneNumber;
+                }
+                if (user.DateOfBirth != DateTime.MinValue)
+                {
+                    existingUser.DateOfBirth = user.DateOfBirth;
+                }
+                if (!string.IsNullOrEmpty(user.Role))
+                {
+                    existingUser.Role = user.Role;
+                }
+                existingUser.Status = user.Status;
+
+                // Cập nhật User trong DB
+                _context.Users.Update(existingUser);
+                await _context.SaveChangesAsync();
+
+                TempData["Success"] = "Cập nhật user thành công!";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
             {
-                TempData["Error"] = "Cập nhật không thành công";
+                // Ghi lại lỗi chi tiết
+                TempData["Error"] = "Lỗi: " + ex.Message;
+                if (ex.InnerException != null)
+                {
+                    TempData["Error"] += " - " + ex.InnerException.Message;
+                }
                 return View(user);
             }
-
-            // Lấy thông tin danh mục hiện tại từ DB
-            var existingUser = await _context.Users
-                .FirstOrDefaultAsync(c => c.Id == id);
-
-            if (existingUser == null)
-            {
-                return NotFound();
-            }
-
-            // Cập nhật các thuộc tính từ Category mới
-            existingUser.UserName = user.UserName;
-            existingUser.Password = _passwordHasher.HashPassword(user, user.Password);
-            existingUser.Email = user.Email;
-            existingUser.PhoneNumber = user.PhoneNumber;
-            existingUser.Address = user.Address;
-            existingUser.DateOfBirth = user.DateOfBirth;
-            existingUser.Role = user.Role;
-            existingUser.Status = user.Status;
-
-            _context.Users.Update(existingUser);
-
-            // Lưu thay đổi vào cơ sở dữ liệu
-            await _context.SaveChangesAsync();
-
-            TempData["Success"] = "Cập nhật user thành công!";
-            return RedirectToAction("Index");
         }
         public async Task<IActionResult> Delete(int id)
         {

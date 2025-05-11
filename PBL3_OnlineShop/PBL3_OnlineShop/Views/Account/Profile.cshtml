@@ -22,7 +22,9 @@
                     <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
                 </div>
                 <h2 class="user-name8">@Model.Name</h2>
-                <p class="user-role8">Customer</p>
+                <p class="user-role8">
+                    @(Model.Role == "Admin" ? "Management" : "Customer")
+                </p>
             </div>
         </aside>
 
