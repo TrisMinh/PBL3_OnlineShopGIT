@@ -18,6 +18,14 @@ namespace PBL3_OnlineShop.Controllers
             var userId = HttpContext.Session.GetInt32("_UserId");
             var cart = _context.Carts.FirstOrDefault(c => c.UserId == userId);
             var cartItem = _context.CartItems.Where(c => c.CartId == cart.CartId).ToList();
+
+            var user = _context.Users.FirstOrDefault(u => u.Id == userId);
+
+            ViewBag.NameCustomer = user.Name;
+            ViewBag.Email = user.Email;
+            ViewBag.PhoneNumber = user.PhoneNumber;
+            ViewBag.Address = user.Address;
+
             return View(cartItem);
         }
         [HttpPost]
@@ -124,7 +132,7 @@ namespace PBL3_OnlineShop.Controllers
             }
 
             TempData["Success"] = "Order placed successfully!";
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Order");
         }
     }
 }
