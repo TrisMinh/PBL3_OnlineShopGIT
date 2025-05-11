@@ -83,29 +83,29 @@
                 </div>
             </header>
             @await Html.PartialAsync("_NavbarPartial")
-            <section class="coupon-filters">
+            <form asp-action="Search" asp-controller="Coupon" method="get" class="coupon-filters">
                 <div class="filter-group">
                     <label>ID Coupon:</label>
-                    <input type="text" id="coupon-id" name="coupon-id" placeholder="">
+                    <input type="text" id="coupon-id" name="couponId" value="@ViewBag.couponId">
                 </div>
                 <div class="filter-group">
                     <label>Name:</label>
-                    <input type="number" id="coupon-min" name="coupon-min" placeholder="">
+                    <input type="number" id="coupon-min" name="couponName" value="@ViewBag.couponName">
                 </div>
                 <div class="filter-group">
                     <label>Discount:</label>
-                    <input type="number" id="coupon-max" name="coupon-max" placeholder="">
+                    <input type="number" id="coupon-max" name="couponDiscount" value="@ViewBag.couponDiscount">
                 </div>
-                <div class="filter-group">
+                <div class="form-group">
                     <label>Status:</label>
-                    <select name="status" class="form-control valid">
-                        <option>All</option>
-                        <option>Active</option>
-                        <option>Inactive</option>
+                    <select name="status" class="form-control valid" style="font-size: 14px;">
+                        <option value="-1" selected="@(ViewBag.status == -1)">All</option>
+                        <option value="1" selected="@(ViewBag.status == 1)">Active</option>
+                        <option value="0" selected="@(ViewBag.status == 0)">Inactive</option>
                     </select>
                 </div>
                 <button class="search-button">Search</button>
-            </section>
+            </form>
 
             <div class="results-header d-flex justify-content-between align-items-center">
                 <span class="results-count">Show @Model.Count() coupon:</span>
@@ -148,7 +148,7 @@
                                     }
                                     else if (item.status == 0)
                                     {
-                                        <span>Hide</span>
+                                        <span>Inactive</span>
                                     }
                                 </td>
                                 <td>

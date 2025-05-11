@@ -54,6 +54,27 @@ namespace PBL3_OnlineShop.Controllers
         public IActionResult CreateOrder(decimal TotalPrice, string CouponUsed, List<CartItem> cartItems)
         {
             var userId = HttpContext.Session.GetInt32("_UserId");
+
+            foreach (var item in cartItems)
+            {
+                var productSize = _context.ProductsSize.FirstOrDefault(ps => ps.ProductId == item.ProductId && ps.Color == item.Color && ps.Size == item.Size);
+                if (productSize != null)
+                {
+                    if (productSize.Quantity < item.Quantity)
+                    {
+                        TempData["Error"] = "Not enough stock for " + item.ProductName + " Color: " + item.Color + " Size: " + item.Size;
+                        return RedirectToAction("Index");
+                    }
+                    productSize.Quantity -= item.Quantity;
+                    _context.ProductsSize.Update(productSize);
+                }
+                else
+                {
+                    TempData["Error"] = "Product not found in stock." + item.ProductId + " " +item.ProductName + " Color: " + item.Color + " Size: " + item.Size;
+                    return RedirectToAction("Index");
+                }
+            }
+
             var order = new Order
             {
                 UserId = userId.Value,
@@ -98,8 +119,11 @@ namespace PBL3_OnlineShop.Controllers
 
                 _context.CouponUsages.Add(couponUsage);
                 coupon.Quantity -= 1;
+                _context.Coupons.Update(coupon);
                 _context.SaveChanges();
             }
+
+            TempData["Success"] = "Order placed successfully!";
             return RedirectToAction("Index", "Home");
         }
     }

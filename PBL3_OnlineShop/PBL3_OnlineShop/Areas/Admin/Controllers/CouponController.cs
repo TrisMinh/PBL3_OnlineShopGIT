@@ -74,5 +74,23 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
             }
             return View(coupon);
         }
+        [HttpGet]
+        public IActionResult Search(int? couponId, string couponName, decimal? couponDiscount, int status)
+        {
+            var query = from p in _context.Coupons
+                        where (!couponId.HasValue || couponId == p.Id) &&
+                        (string.IsNullOrEmpty(couponName) || p.Name.Contains(couponName)) &&
+                        (!couponDiscount.HasValue || couponDiscount == p.Discount) &&
+                        (status == -1 || status == p.status)
+                        select p;
+            var coupons = query.ToList();
+
+            ViewBag.couponID = couponId;
+            ViewBag.couponName = couponName;
+            ViewBag.couponDiscount = couponDiscount;
+            ViewBag.status = status;
+
+            return View("Index", coupons);
+        }
     }
 }

@@ -27,11 +27,35 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
 
         public IActionResult Cancel(int id)
         {
-            var order = _context.Orders.FirstOrDefault(o => o.Id == id);
+            var order = _context.Orders.Include(o => o.OrderDetails).FirstOrDefault(o => o.Id == id);
+
+            foreach(var item in order.OrderDetails)
+            {
+                var product = _context.ProductsSize.FirstOrDefault(ps => ps.ProductId == item.ProductId && ps.Color == item.Color && ps.Size == item.Size);
+                product.Quantity += item.Quantity;
+                _context.ProductsSize.Update(product);
+            }
+
             order.Status = 0;
             _context.Orders.Update(order);
             _context.SaveChanges();
             return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult Search(int? orderID, string customerName, int? status)
+        {
+            var query = from p in _context.Orders.Include(o => o.OrderDetails).ThenInclude(od => od.Product).Include(o => o.User)
+                        where (!orderID.HasValue || orderID == p.Id) &&
+                        (string.IsNullOrEmpty(customerName) || p.User.Name.Contains(customerName))&&
+                        (!status.HasValue || status == p.Status)
+                        select p;
+            var orders = query.ToList();
+
+            ViewBag.orderID = orderID;
+            ViewBag.customerName = customerName;
+            ViewBag.status = status;
+
+            return View("Index", orders);
         }
     }
 }
