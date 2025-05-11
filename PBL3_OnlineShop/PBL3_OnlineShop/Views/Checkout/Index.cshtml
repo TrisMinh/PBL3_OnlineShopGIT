@@ -1,5 +1,6 @@
-﻿@model IEnumerable<CartItem>
-
+﻿@* @model IEnumerable<CartItem> *@
+@using PBL3_OnlineShop.Models.ViewModels
+@model CheckoutView
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -98,7 +99,6 @@
                 <h2 class="summary-title">YOUR ORDER</h2>
                 <div class="order-items">
                     @{
-                        decimal subTotal = 0;
                         int quantity = 0;
                         string couponUsed = null;
                         
@@ -119,12 +119,11 @@
                             }
                         }
                     }
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.CartItems)
                     {
                         <div class="order-item">
                             @{
                                 var image = item.ImageUrl?.Split(",", StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
-                                subTotal += item.SellingPrice * item.Quantity;
                                 quantity += 1;
                             }
                             <img src="@Url.Content(image)" alt="@item.ProductName" class="item-image">
@@ -153,20 +152,20 @@
 
                 <div class="summary-line">
                     <span>Subtotal</span>
-                    <span>$@subTotal</span>
+                    <span>$@Model.Subtotal</span>
                 </div>
                 <div class="summary-line">
                     <span>Shipping</span>
                     <span class="shipping-cost">$@shippingCost</span>
                 </div>
-                @if (TempData["Discount"] != null)
+                @if (Model.CouponUsed != null)
                 {
                     <div class="summary-line">
                         <span>Coupon</span>
-                        <span>-$@TempData["Discount"]</span>
+                        <span>-$@Model.Discount</span>
                     </div>
                     {
-                        couponUsed = TempData["NameCoupon"].ToString();
+                        couponUsed = Model.CouponUsed;
                     }
                 }
                 <hr class="divider">
@@ -180,7 +179,7 @@
                         decimal totalPrice = subTotal + shippingCost - discount;
                     }
                     <span>Total</span>
-                    <span>$@totalPrice</span>
+                    <span>$@Model.TotalPrice</span>
                 </div>
             </div>
 
@@ -193,7 +192,7 @@
                 <input type="hidden" name="PaymentMethod" id="payment-method-hidden" value="" />
 
                 @{
-                    var modelList = Model.ToList();
+                    var modelList = Model.CartItems.ToList();
                 }
                 <div id="cartItemsContainer">
                 @for (int i = 0; i < modelList.Count; i++)
