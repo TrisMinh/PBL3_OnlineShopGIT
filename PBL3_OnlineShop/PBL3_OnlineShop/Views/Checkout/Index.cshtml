@@ -1,7 +1,5 @@
 ﻿@model IEnumerable<CartItem>
 
-
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -28,12 +26,12 @@
                 </div>
                 <h3 class="subsection-title">Contact info</h3>
                 <div class="form-group">
-                    <P>Your Name:</P>
-                    <p>Email:</p>
-                    <p>Phone Number:</p>
+                    <P><b>Your Name: </b> @ViewBag.NameCustomer</P>
+                    <p><b>Email: </b>@ViewBag.Email</p>
+                    <p><b>Phone Number: </b>@ViewBag.PhoneNumber</p>
                 </div>
                 <div class="shipping-address">
-                    <h3 class="subsection-title">Shipping address</h3>
+                    <h3 class="subsection-title"><b>Shipping address: </b>@ViewBag.Address</h3>
                     <div class="form-row">
                     </div>
                     <div class="form-group">

@@ -26,6 +26,28 @@
                     @(Model.Role == "Admin" ? "Management" : "Customer")
                 </p>
             </div>
+            <nav class="profile-nav8">
+                <ul>
+                    <li class="profile-nav-item8" onclick="showSection('edit-profile')">
+                        <a href="#">
+                            <img src="~/images/edit-246.png" alt="" class="profile-nav-icon8">
+                            <span>Edit Profile</span>
+                        </a>
+                    </li>
+                    <li class="profile-nav-item8" onclick="showSection('change-password')">
+                        <a href="#">
+                            <img src="~/images/chiakia.png" alt="" class="profile-nav-icon8">
+                            <span>Change Password</span>
+                        </a>
+                    </li>
+                    <li class="profile-nav-item8" onclick="showSection('coupon')">
+                        <a asp-action="Index" asp-controller="Order">
+                            <img src="~/images/gift-coupon-icon-20763.png" alt="" class="profile-nav-icon8">
+                            <span>Order</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </aside>
 
         <main class="main-content8">
