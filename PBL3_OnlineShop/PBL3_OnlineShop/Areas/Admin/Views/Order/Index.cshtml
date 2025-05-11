@@ -77,34 +77,34 @@
                 <h1 class="page-title">Management</h1>
                 <div class="account-section">
                     <a href="ProfileAdminEdit.html" title="Edit Profile">
-                        <img src="/images/account-icon-large.png" alt="Edit Profile" class="account-icon"> <!-- Link to Admin Edit Profile -->
+                        <img src="/images/account-icon-large.png" alt="Edit Profile" class="account-icon">
                     </a>
                     <a href="index.html" title="Go to Home">
-                        <img src="/images/360_F_66468754_86IFi1dhqwtHdXzPeMQNhGtGp8Z2D3yC.jpg" alt="Go to Home" class="account-placeholder"> <!-- Link to Home -->
+                        <img src="/images/360_F_66468754_86IFi1dhqwtHdXzPeMQNhGtGp8Z2D3yC.jpg" alt="Go to Home" class="account-placeholder">
                     </a>
                 </div>
             </header>
 
-            <section class="coupon-filters">
+            <form asp-action="Search" asp-controller="Order" method="get" class="coupon-filters">
                 <div class="filter-group">
                     <label>ID order:</label>
-                    <input type="text" id="coupon-id" name="coupon-id" placeholder="">
+                    <input type="text" id="coupon-id" name="orderID" value="@ViewBag.orderID">
                 </div>
                 <div class="filter-group">
                     <label>Customer Name:</label>
-                    <input type="text" id="coupon-min" name="coupon-min" placeholder="">
+                    <input type="text" id="coupon-min" name="customerName" value="@ViewBag.customerName">
                 </div>
                 <div class="filter-group">
                     <label>Status:</label>
                     <select name="status" class="form-control valid">
                         <option>All</option>
-                        <option>Pending</option>
-                        <option>Shipped</option>
-                        <option>Cancel</option>
+                        <option value="2" selected="@(ViewBag.status == 2)">Pending</option>
+                        <option value="1" selected="@(ViewBag.status == 1)">Shipped</option>
+                        <option value="0" selected="@(ViewBag.status == 0)">Cancel</option>
                     </select>
                 </div>
                 <button class="search-button">Search</button>
-            </section>
+            </form>
 
             <div class="results-header d-flex justify-content-between align-items-center">
                 <span class="results-count">Show @Model.Count() order:</span>

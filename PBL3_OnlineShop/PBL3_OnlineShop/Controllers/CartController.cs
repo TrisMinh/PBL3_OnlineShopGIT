@@ -63,6 +63,25 @@ namespace PBL3_OnlineShop.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
+            var cart = _context.Carts.Include(c => c.CartItems).FirstOrDefault(c => c.UserId == userId);
+
+            if (cart.CartItems == null || !cart.CartItems.Any())
+            {
+                TempData["Error"] = "Your cart is empty.";
+                return RedirectToAction("Index");
+            }
+
+            foreach (var item in cart.CartItems)
+            {
+                var product = _context.ProductsSize.FirstOrDefault(ps => ps.ProductId == item.ProductId && ps.Color == item.Color && ps.Size == item.Size);
+
+                if (product.Quantity < item.Quantity)
+                {
+                    TempData["Error"] = "Not enough stock for " + item.ProductName + " Color: " +item.Color + " Size: "+item.Size;
+                    return RedirectToAction("Index");
+                }
+            }
+
             return RedirectToAction("Index", "Checkout");
         }
         public async Task<IActionResult> Add(int id, string size, string color)

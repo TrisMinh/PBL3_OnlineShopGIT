@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PBL3_OnlineShop.Models;
 using PBL3_OnlineShop.Repository;
+using System.Linq;
 
 namespace PBL3_OnlineShop.Areas.Admin.Controllers
 {
@@ -291,6 +292,28 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
             TempData["Success"] = "Xóa sản phẩm thành công.";
             return RedirectToAction(nameof(Index));
         }
+        [HttpGet]
+        public IActionResult Search(int? productID, string productName, decimal? price, string category, string status, string gender)
+        {
+            var query = from p in _context.Products.Include(p => p.Category).Include(p => p.ProductSizes)
+                        where (!productID.HasValue || p.ProductId == productID) &&
+                              (string.IsNullOrEmpty(productName) || p.ProductName.Contains(productName)) &&
+                              (!price.HasValue || p.SellingPrice == price) &&
+                              (string.IsNullOrEmpty(category) || p.Category.CategoryName.Contains(category)) &&
+                              (string.IsNullOrEmpty(status) || p.Status == status) &&
+                              (string.IsNullOrEmpty(gender) || p.Gender == gender)
+                        select p;
 
+            var products = query.ToList();
+
+            ViewBag.productID = productID;
+            ViewBag.productName = productName;
+            ViewBag.price = price;
+            ViewBag.category = category;
+            ViewBag.status = status;
+            ViewBag.gender = gender;
+
+            return View("Index", products);
+        }
     }
 }

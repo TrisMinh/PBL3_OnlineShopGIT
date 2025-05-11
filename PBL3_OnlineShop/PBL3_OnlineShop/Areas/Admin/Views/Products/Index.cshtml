@@ -299,34 +299,39 @@
             @await Html.PartialAsync("_NavbarPartial")  
             <section class="search-product-section">
                 <h2 class="search-title">Search Product</h2>
-                <form class="search-form" id="search-product-form">
+                <form asp-action="Search" asp-controller="Products" method="get" class="search-form" id="search-product-form">
                     <div class="form-group">
                         <label for="search-product-id">ID Products:</label>
-                        <input type="text" id="search-product-id" name="product-id">
+                        <input type="number" id="search-product-id" name="productId" value="@ViewBag.productId">
                     </div>
                     <div class="form-group">
                         <label for="search-product-name">Name Product:</label>
-                        <input type="text" id="search-product-name" name="product-name">
+                        <input type="text" id="search-product-name" name="productName" value="@ViewBag.productName">
                     </div>
                     <div class="form-group">
                         <label for="search-price">Price:</label>
-                        <input type="text" id="search-price" name="price">
+                        <input type="number" id="search-price" name="price" value="@ViewBag.price">
                     </div>
                     <div class="form-group">
                         <label for="search-category">Category:</label>
-                        <input type="text" id="search-category" name="category">
+                        <input type="text" id="search-category" name="category" value="@ViewBag.category">
                     </div>
                     <div class="form-group">
                         <label for="search-status">Status</label>
                         <select id="search-status" name="status">
-                            <option value="available">Available</option>
-                            <option value="out-of-stock">Out of Stock</option>
-                            <option value="coming-soon">Coming Soon</option>
+                            <option value="">All</option>
+                            <option value="1" selected="@(ViewBag.status == "1")">Available</option>
+                            <option value="2" selected="@(ViewBag.status == "2")">Out of Stock</option>
+                            <option value="0" selected="@(ViewBag.status == "0")">Coming Soon</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="search-date">Date:</label>
-                        <input type="date" id="search-date" name="date">
+                        <label for="search-status">Gender</label>
+                        <select id="search-status" name="gender">
+                            <option value="">All</option>
+                            <option value="Male" selected="@(Context.Request.Query["gender"] == "Male")">Male</option>
+                            <option value="Female" selected="@(Context.Request.Query["gender"] == "Female")">Female</option>
+                        </select>
                     </div>
                 </form>
                 <div class="search-actions">
