@@ -11,7 +11,7 @@ namespace PBL3_OnlineShop.Models
         [Required(ErrorMessage = "Password is required")]
         public string Name { get; set; }
         public string Password { get; set; }
-        [Required(ErrorMessage = "Email is required"),EmailAddress]
+        [Required(ErrorMessage = "Email is required"), EmailAddress]
         public string Gender { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }

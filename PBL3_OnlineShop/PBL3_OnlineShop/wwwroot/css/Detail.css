@@ -48,13 +48,15 @@
 .main-image {
     flex: 1; /* Allow main image to take remaining space */
     order: 1; /* Place main image first visually (left) */
+    display: flex;
+    justify-content: right;
 }
 
     .main-image img {
-        width: auto;
-        height: 600px;
         border: 1px solid #D9D9D9; /* From Figma stroke_T7A9MG */
         display: block;
+        max-width: 600px;
+        min-height: 400px;
     }
 
 .thumbnail-images {
@@ -256,7 +258,6 @@
 
     .main-image img {
         height: auto;
-        width: 400px;
-    }
+        width: 400px;    }
     
 }
