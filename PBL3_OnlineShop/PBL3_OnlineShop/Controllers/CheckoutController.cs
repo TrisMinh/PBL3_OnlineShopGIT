@@ -89,7 +89,7 @@ namespace PBL3_OnlineShop.Controllers
             return districts;
         }
         
-    public ActionResult Index()
+        public ActionResult Index()
         {
             var userId = HttpContext.Session.GetInt32("_UserId");
             if (userId == null)
@@ -154,9 +154,6 @@ namespace PBL3_OnlineShop.Controllers
 
             var cart = _context.Carts.FirstOrDefault(c => c.UserId == userId);
             var cartItem = _context.CartItems.Where(c => c.CartId == cart.CartId).ToList();
-
-            var user = _context.Users.FirstOrDefault(u => u.Id == userId);
-
             ViewBag.NameCustomer = user.Name;
             ViewBag.Email = user.Email;
             ViewBag.PhoneNumber = user.PhoneNumber;

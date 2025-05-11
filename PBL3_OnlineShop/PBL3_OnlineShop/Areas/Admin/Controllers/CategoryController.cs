@@ -17,6 +17,15 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            var roll = HttpContext.Session.GetString("_Role");
+            if (roll == null)
+            {
+                return RedirectToAction("Login", "Account", new { area = "" });
+            }
+            if (roll != "Admin")
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
             return View(await _context.Categories
             .OrderByDescending(p => p.CategoryId)
             .ToListAsync());

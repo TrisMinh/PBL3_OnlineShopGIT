@@ -14,6 +14,15 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
+            var roll = HttpContext.Session.GetString("_Role");
+            if (roll == null)
+            {
+                return RedirectToAction("Login", "Account", new { area = "" });
+            }
+            if (roll != "Admin")
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
             return View(_context.Orders.Include(o => o.OrderDetails).ThenInclude(od => od.Product).Include(o => o.User).ToList());
         }
         public IActionResult Comfirm(int id)
