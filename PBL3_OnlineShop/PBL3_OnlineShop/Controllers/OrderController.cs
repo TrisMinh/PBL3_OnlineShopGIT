@@ -14,6 +14,15 @@ namespace PBL3_OnlineShop.Controllers
         public IActionResult Index()
         {
             var userId = HttpContext.Session.GetInt32("_UserId");
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            
+            // Tìm người dùng từ database để lấy thông tin đầy đủ
+            var user = _context.Users.FirstOrDefault(u => u.Id == userId);
+            ViewBag.User = user;
+            
             var orders = _context.Orders
                 .OrderByDescending(o => o.Id)
                 .Include(o => o.OrderDetails)

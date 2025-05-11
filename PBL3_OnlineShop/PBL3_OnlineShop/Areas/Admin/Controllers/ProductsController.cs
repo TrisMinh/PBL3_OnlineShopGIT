@@ -20,13 +20,18 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            // Đồng bộ số lượng sản phẩm mỗi khi tải trang Index
+            await UpdateStockQuantitiesInternal();
+            
             return View(await _context.Products
             .OrderByDescending(p => p.ProductId)
             .Include(p => p.Category)   // Bao gồm Category
             .Include(p => p.ProductSizes) // Bao gồm ProductSizes
             .ToListAsync());
         }
-        public async Task<IActionResult> UpdateStockQuantities()
+        
+        // Phương thức nội bộ để đồng bộ StockQuantity với ProductSize
+        private async Task UpdateStockQuantitiesInternal()
         {
             var products = await _context.Products
                 .Include(p => p.ProductSizes)
@@ -38,8 +43,8 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return Content("Stock quantities updated successfully.");
         }
+        
         [HttpGet]
         public IActionResult Create()
         {

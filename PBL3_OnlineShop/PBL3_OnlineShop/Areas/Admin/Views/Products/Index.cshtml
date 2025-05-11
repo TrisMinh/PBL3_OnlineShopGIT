@@ -341,9 +341,12 @@
             <section class="product-results-section">
                 <div class="results-header">
                     <span class="results-count">Show @Model.Count() products:</span>
-                    <a asp-area="Admin" asp-controller="Products" asp-action="Create" class="product-action-btn">Add Products</a>
+                    <div class="action-buttons">
+                        <a asp-area="Admin" asp-controller="Products" asp-action="Create" class="product-action-btn">Add Products</a>
+                    </div>
                     <!-- Add pagination or other controls if needed -->
                 </div>
+                
                 <table class="product-table">
                     <thead>
                         <tr>
