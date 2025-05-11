@@ -78,10 +78,25 @@
 }
 
 .product-details {
-    display: flex;
-    flex-direction: column;
-    gap: 5px; /* Spacing within details */
-    padding-top: 10px;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 7px !important;
+    padding: 0 !important;
+}
+
+.product-name {
+    flex: unset !important;
+    min-width: unset !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    text-align: left !important;
+    font-size: 14px !important;
+    font-family: 'Inder', sans-serif !important;
+    font-weight: 500 !important;
+    color: #000 !important;
 }
 
 .product-options {
@@ -94,12 +109,60 @@
 }
 
 .product-info {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: stretch !important;
+}
+
+.product-info .product-name {
+    flex: unset !important;
+    min-width: unset !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    text-align: left !important;
+    font-size: 14px !important;
+    font-family: 'Inder', sans-serif !important;
+    font-weight: 500 !important;
+    color: #000 !important;
+}
+
+.product-info .product-options {
+    display: flex;
+    justify-content: space-between; /* Based on Frame 282 layout_Y9KBVJ */
+    font-family: 'Indie Flower', cursive; /* From Figma style_KE8TB1 */
+    font-size: 16px; /* From Figma style_KE8TB1 */
+    color: #000000; /* From Figma fill_MD2IBW */
+    text-align: center; /* From Figma style_KE8TB1 */
+}
+
+.product-info .product-info {
+    flex-direction: row !important;
     display: flex;
     justify-content: space-between;
     font-family: 'Inder', sans-serif; /* From Figma style_NITA7U */
     font-size: 14px; /* From Figma style_NITA7U */
     color: #000000; /* From Figma fill_MD2IBW */
     line-height: 1.25; /* From Figma style_NITA7U */
+}
+
+.product-price-container {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+}
+
+.product-price {
+    font-weight: bold;
+    color: #000;
+    margin-right: 0 !important;
+}
+
+.product-price-original {
+    color: #888;
+    text-decoration: line-through;
+    font-size: 14px;
+    margin-left: 0 !important;
 }
 
 /* End Main Content */
@@ -216,4 +279,19 @@
     .product-options{
         font-size: 12px;
     }
+}
+
+.remove-favourite {
+    position: absolute !important;
+    top: 8px !important;
+    right: 8px !important;
+    z-index: 10 !important;
+    color: #1976d2;
+    font-size: 24px;
+    text-decoration: none;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
 }

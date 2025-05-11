@@ -85,6 +85,12 @@
                         </div>
 
                         <!-- ADD Button xuống dòng -->
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <button type="submit" class="add-to-cart-btn">ADD</button>
+                            <button type="button" id="favouriteBtn" class="favourite-btn @(ViewBag.IsFavourite == true ? "active" : "")" title="Yêu thích" data-product-id="@Model.ProductId">
+                                <i class="fa@(ViewBag.IsFavourite == true ? "s" : "r") fa-heart"></i>
+                            </button>
+                        </div>
                         @if (Model.StockQuantity == 0)
                         {
                             <label class="add-to-cart-btn">Out of Stock</label>
@@ -104,5 +110,6 @@
     </div>
 
     <script src="~/js/Animate.js"></script>
+    <script src="~/js/Detail.js"></script>
 </body>
 </html>

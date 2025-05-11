@@ -1,6 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model List<Favourite>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -12,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/css/base.css">
     <link rel="stylesheet" href="~/css/Favourite.css">
+    <link rel="stylesheet" href="~/css/Home.css">
     <title>Favourite</title>
 </head>
 <body>
@@ -19,215 +21,96 @@
     <div class="main-content">
         <div class="container">
             <div class="page-title-container">
-                <a href="~/Cart/index.html" class="page-title-link cart-title">Your Cart</a>
-                <a href="index.html" class="page-title-link favourite-title active">Favourite</a> <!-- Added 'active' class -->
+                <a href="/Cart" class="page-title-link cart-title">Your Cart</a>
+                <a href="/Favourite" class="page-title-link favourite-title active">Favourite</a> <!-- Added 'active' class -->
             </div>
             <div class="line"></div>
-            <div class="product-grid">
-                <!-- Product Item 1 (Based on Frame 292) -->
-                <div class="product-item">
-                    <div class="product-image">
-                        <img src="~/images/Polo.png" alt="Polo with logo on the chest"> <!-- Assuming imageRef 86b2... is Polo.png -->
-                    </div>
-                    <div class="product-details">
-                        <div class="product-options">
-                            <span>+6 Color</span>
-                            <span>+3 Size</span>
-                        </div>
-                        <div class="product-info">
-                            <span>Polo with logo on the chest</span>
-                            <span>$1</span>
-                        </div>
-                    </div>
+            
+            @if (Model == null || !Model.Any())
+            {
+                <div class="empty-favourites">
+                    <p>Bạn chưa có sản phẩm yêu thích nào.</p>
+                    <a href="/Products" class="continue-shopping-btn">Tiếp tục mua sắm</a>
                 </div>
-                <!-- Product Item 2 (Based on Frame 293) -->
-                <div class="product-item">
-                    <div class="product-image">
-                        <img src="~/images/Polo.png" alt="Polo with logo on the chest"> <!-- Assuming imageRef 86b2... is Polo.png -->
-                    </div>
-                    <div class="product-details">
-                        <div class="product-options">
-                            <span>+6 Color</span>
-                            <span>+3 Size</span>
+            }
+            else
+            {
+                <div class="product-grid">
+                    @foreach (var item in Model)
+                    {
+                        var product = item.Product;
+                        if (product == null)
+                        {
+                            continue;
+                        }
+                        var imageUrl = product.ImageUrl.Split(",", StringSplitOptions.RemoveEmptyEntries).FirstOrDefault() ?? "~/images/default.png";
+                        imageUrl = imageUrl.Replace("~", "");
+                        var colors = product.ProductSizes?.Select(ps => ps.Color).Where(c => !string.IsNullOrEmpty(c)).Distinct().ToList() ?? new List<string>();
+                        var sizes = product.ProductSizes?.Select(ps => ps.Size).Where(s => !string.IsNullOrEmpty(s)).Distinct().ToList() ?? new List<string>();
+                        
+                        <div class="slide">
+                            <div class="list">
+                                <div class="inner-img" style="position: relative;">
+                                    <a href="/Products/Details/@product.ProductId">
+                                        <img src="@imageUrl" alt="@product.ProductName">
+                                    </a>
+                                    @if (product.SalePercentage != null && product.SalePercentage > 0 && product.Status != null && (product.Status == "2" || product.Status.StartsWith("2,") || product.Status.EndsWith(",2") || product.Status.Contains(",2,")))
+                                    {
+                                        var salePercent = Math.Round(product.SalePercentage.Value * 100, 0);
+                                        <div class="product-sale-badge">-@salePercent%</div>
+                                    }
+                                    <a asp-controller="Favourite" asp-action="Delete" asp-route-id="@item.Id" class="remove-favourite" style="position: absolute; top: 10px; right: 10px; color: #1976d2; font-size: 24px; text-decoration: none;">
+                                        <i class="fas fa-times"></i>
+                                    </a>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-options">
+                                        <span>+@colors.Count Color</span>
+                                        <span class="right">+@sizes.Count Size</span>
+                                    </div>
+                                    <div class="product-details" style="width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 7px; padding: 0;">
+                                        <span class="product-name" style="text-align: left;">@product.ProductName</span>
+                                        @if (product.SalePercentage != null && product.SalePercentage > 0)
+                                        {
+                                            var newPrice = product.SellingPrice * (1 - product.SalePercentage);
+                                            <div class="product-price-container">
+                                                <span class="product-price">$@string.Format("{0:N0}", newPrice)</span>
+                                                <span class="product-price-original">$@string.Format("{0:N0}", product.SellingPrice)</span>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <span class="product-price">$@string.Format("{0:N0}", product.SellingPrice)</span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="product-info">
-                            <span>Polo with logo on the chest</span>
-                            <span>$1</span>
-                        </div>
-                    </div>
+                    }
                 </div>
-                <!-- Product Item 3 (Based on Frame 294) -->
-                <div class="product-item">
-                    <div class="product-image">
-                        <img src="~/images/Polo.png" alt="Polo with logo on the chest"> <!-- Assuming imageRef 86b2... is Polo.png -->
-                    </div>
-                    <div class="product-details">
-                        <div class="product-options">
-                            <span>+6 Color</span>
-                            <span>+3 Size</span>
-                        </div>
-                        <div class="product-info">
-                            <span>Polo with logo on the chest</span>
-                            <span>$1</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Product Item 4 (Duplicate) -->
-                <div class="product-item">
-                    <div class="product-image">
-                        <img src="~/images/Polo.png" alt="Polo with logo on the chest">
-                    </div>
-                    <div class="product-details">
-                        <div class="product-options">
-                            <span>+6 Color</span>
-                            <span>+3 Size</span>
-                        </div>
-                        <div class="product-info">
-                            <span>Polo with logo on the chest</span>
-                            <span>$1</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Product Item 5 (Duplicate) -->
-                <div class="product-item">
-                    <div class="product-image">
-                        <img src="~/images/Polo.png" alt="Polo with logo on the chest">
-                    </div>
-                    <div class="product-details">
-                        <div class="product-options">
-                            <span>+6 Color</span>
-                            <span>+3 Size</span>
-                        </div>
-                        <div class="product-info">
-                            <span>Polo with logo on the chest</span>
-                            <span>$1</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Product Item 6 (Duplicate) -->
-                <div class="product-item">
-                    <div class="product-image">
-                        <img src="~/images/Polo.png" alt="Polo with logo on the chest">
-                    </div>
-                    <div class="product-details">
-                        <div class="product-options">
-                            <span>+6 Color</span>
-                            <span>+3 Size</span>
-                        </div>
-                        <div class="product-info">
-                            <span>Polo with logo on the chest</span>
-                            <span>$1</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Product Item 7 (Duplicate) -->
-                <div class="product-item">
-                    <div class="product-image">
-                        <img src="~/images/Polo.png" alt="Polo with logo on the chest">
-                    </div>
-                    <div class="product-details">
-                        <div class="product-options">
-                            <span>+6 Color</span>
-                            <span>+3 Size</span>
-                        </div>
-                        <div class="product-info">
-                            <span>Polo with logo on the chest</span>
-                            <span>$1</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Product Item 8 (Duplicate) -->
-                <div class="product-item">
-                    <div class="product-image">
-                        <img src="~/images/Polo.png" alt="Polo with logo on the chest">
-                    </div>
-                    <div class="product-details">
-                        <div class="product-options">
-                            <span>+6 Color</span>
-                            <span>+3 Size</span>
-                        </div>
-                        <div class="product-info">
-                            <span>Polo with logo on the chest</span>
-                            <span>$1</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Product Item 9 (Duplicate) -->
-                <div class="product-item">
-                    <div class="product-image">
-                        <img src="~/images/Polo.png" alt="Polo with logo on the chest">
-                    </div>
-                    <div class="product-details">
-                        <div class="product-options">
-                            <span>+6 Color</span>
-                            <span>+3 Size</span>
-                        </div>
-                        <div class="product-info">
-                            <span>Polo with logo on the chest</span>
-                            <span>$1</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Product Item 10 (Duplicate) -->
-                <div class="product-item">
-                    <div class="product-image">
-                        <img src="~/images/Polo.png" alt="Polo with logo on the chest">
-                    </div>
-                    <div class="product-details">
-                        <div class="product-options">
-                            <span>+6 Color</span>
-                            <span>+3 Size</span>
-                        </div>
-                        <div class="product-info">
-                            <span>Polo with logo on the chest</span>
-                            <span>$1</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Product Item 11 (Duplicate) -->
-                <div class="product-item">
-                    <div class="product-image">
-                        <img src="~/images/Polo.png" alt="Polo with logo on the chest">
-                    </div>
-                    <div class="product-details">
-                        <div class="product-options">
-                            <span>+6 Color</span>
-                            <span>+3 Size</span>
-                        </div>
-                        <div class="product-info">
-                            <span>Polo with logo on the chest</span>
-                            <span>$1</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Product Item 12 (Duplicate) -->
-                <div class="product-item">
-                    <div class="product-image">
-                        <img src="~/images/Polo.png" alt="Polo with logo on the chest">
-                    </div>
-                    <div class="product-details">
-                        <div class="product-options">
-                            <span>+6 Color</span>
-                            <span>+3 Size</span>
-                        </div>
-                        <div class="product-info">
-                            <span>Polo with logo on the chest</span>
-                            <span>$1</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            }
 
             <!-- Pagination -->
             <div class="pagination">
-                <a href="#" class="arrow prev"><</a>
-                <a href="#">1</a>
-                <a href="#" class="active">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <span>...</span>
-                <a href="#" class="arrow next">></a>
+                @if (ViewBag.CurrentPage > 1)
+                {
+                    <a href="?page=@(ViewBag.CurrentPage - 1)" class="arrow prev">&lt;</a>
+                }
+                @for (int i = 1; i <= (int)ViewBag.TotalPages; i++)
+                {
+                    if (i == (int)ViewBag.CurrentPage)
+                    {
+                        <a href="?page=@i" class="active">@i</a>
+                    }
+                    else
+                    {
+                        <a href="?page=@i">@i</a>
+                    }
+                }
+                @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                {
+                    <a href="?page=@(ViewBag.CurrentPage + 1)" class="arrow next">&gt;</a>
+                }
             </div>
             <!-- End Pagination -->
 

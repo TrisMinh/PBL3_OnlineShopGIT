@@ -1,127 +1,122 @@
-﻿@model IEnumerable<Product>
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sản phẩm</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/css/base.css">
-    <link rel="stylesheet" href="~/css/Product.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<body>
-    <div class="app">
-        <div class="container product-page-container">
-            <main class="product-content">
-                <div class="breadcrumbs">
-                    Home / Products
-                </div>
+﻿@model IEnumerable<Products>
+@{
+    ViewData["Title"] = "Sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-                <div class="product-main">
-                    @if (!ViewData.ContainsKey("SelectedCollection"))
-                    {
-                        @Html.Partial("_FilterPartial", null, new ViewDataDictionary(ViewData) { { "SelectedCollection", ViewBag.SelectedCollection } })
-                    }
-                    else
-                    {
-                        @Html.Partial("_FilterPartial")
-                    }
+<link rel="stylesheet" href="~/css/Product.css">
 
-                    <section class="product-grid">
-                        @Html.Partial("_CategoryPartial")
+<div class="app">
+    <div class="container product-page-container">
+        <main class="product-content">
+            <div class="breadcrumbs">
+                Home / Products
+            </div>
+            <div class="product-main">
+                @if (!ViewData.ContainsKey("SelectedCollection"))
+                {
+                    @Html.Partial("_FilterPartial", null, new ViewDataDictionary(ViewData) { { "SelectedCollection", ViewBag.SelectedCollection } })
+                }
+                else
+                {
+                    @Html.Partial("_FilterPartial")
+                }
 
-                        <div class="product-card-container">
-                            @foreach (var product in Model)
-                            {
-                                var imageArr = (product.ImageUrl ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
-                                var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";
-                                var colors = product.ProductSizes?.Select(ps => ps.Color).Distinct().ToList() ?? new List<string>();
-                                var sizes = product.ProductSizes?.Select(ps => ps.Size).Distinct().ToList() ?? new List<string>();
+                <section class="product-grid">
+                    @Html.Partial("_CategoryPartial")
 
-                                <div class="product-card">
-                                    <div class="product-image-container">
-                                        <a href="/products/details/@product.ProductId">
-                                            <img src="@imageUrl" alt="@product.ProductName" class="product-image">
-                                        </a>
-                                        @if (product.SalePercentage != null && product.SalePercentage > 0 && product.Status != null && (product.Status == "2" || product.Status.StartsWith("2,") || product.Status.EndsWith(",2") || product.Status.Contains(",2,")))
+                    <div class="product-card-container">
+                        @foreach (var product in Model)
+                        {
+                            var imageArr = (product.ImageUrl ?? "").Split(',', StringSplitOptions.RemoveEmptyEntries);
+                            var imageUrl = imageArr.Length > 0 ? imageArr[0].Replace("~", "") : "";
+                            var colors = product.ProductSizes?.Select(ps => ps.Color).Distinct().ToList() ?? new List<string>();
+                            var sizes = product.ProductSizes?.Select(ps => ps.Size).Distinct().ToList() ?? new List<string>();
+
+                            <div class="product-card">
+                                <div class="product-image-container">
+                                    <a href="/products/details/@product.ProductId">
+                                        <img src="@imageUrl" alt="@product.ProductName" class="product-image">
+                                    </a>
+                                    @if (product.SalePercentage != null && product.SalePercentage > 0 && product.Status != null && (product.Status == "2" || product.Status.StartsWith("2,") || product.Status.EndsWith(",2") || product.Status.Contains(",2,")))
+                                    {
+                                        var salePercent = Math.Round((decimal)product.SalePercentage * 100, 0);
+                                        <div class="product-sale-badge">-@salePercent%</div>
+                                    }
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-options">
+                                        <span>+@colors.Count Color</span>
+                                        <span class="right">+@sizes.Count Size</span>
+                                    </div>
+                                    <div class="product-details">
+                                        <span class="product-name">
+                                            @(product.StockQuantity == 0 ? "Out Of Stock" : product.ProductName)
+                                        </span>
+                                        @if (product.StockQuantity == 0)
                                         {
-                                            var salePercent = Math.Round((decimal)product.SalePercentage *  100, 0);
-                                            <div class="product-sale-badge">-@salePercent%</div>
+                                            <!-- Không hiển thị giá tiền nếu hết hàng -->
+                                        }
+                                        else if (product.SalePercentage != null && product.SalePercentage > 0 && product.Status != null && (product.Status == "2" || product.Status.StartsWith("2,") || product.Status.EndsWith(",2") || product.Status.Contains(",2,")))
+                                        {
+                                            var newPrice = product.SellingPrice * (1 - product.SalePercentage);
+                                            <div class="product-price-container">
+                                                <span class="product-price">$@string.Format("{0:N0}", newPrice)</span>
+                                                <span class="product-price-original">$@string.Format("{0:N0}", product.SellingPrice)</span>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <span class="product-price">$@string.Format("{0:N0}", product.SellingPrice)</span>
                                         }
                                     </div>
-                                    <div class="product-info">
-                                        <div class="product-options">
-                                            <span>+@colors.Count Color</span>
-                                            <span class="right">+@sizes.Count Size</span>
-                                        </div>
-                                        <div class="product-details">
-                                            <span class="product-name">
-                                                @(product.StockQuantity == 0 ? "Out Of Stock" : product.ProductName)
-                                            </span>
-                                            @if (product.StockQuantity == 0)
-                                            {
-                                                <!-- Không hiển thị giá tiền nếu hết hàng -->
-                                            }
-                                            else if (product.SalePercentage != null && product.SalePercentage > 0 && product.Status != null && (product.Status == "2" || product.Status.StartsWith("2,") || product.Status.EndsWith(",2") || product.Status.Contains(",2,")))
-                                            {
-                                                var newPrice = product.SellingPrice * (1 - product.SalePercentage);
-                                                <span class="product-price sale-price">@string.Format("{0:N0}đ", newPrice)</span>
-                                                <em class="old-price" style="margin-left:6px;">@string.Format("{0:N0}đ", product.SellingPrice)</em>
-                                            }
-                                            else
-                                            {
-                                                <span class="product-price">@string.Format("{0:N0}đ", product.SellingPrice)</span>
-                                            }
-                                        </div>
-                                    </div>
                                 </div>
-                            }
-                        </div>
+                            </div>
+                        }
+                    </div>
 
-                        <nav class="pagination">
-                            @if (ViewBag.CurrentPage > 1)
+                    <nav class="pagination">
+                        @if (ViewBag.CurrentPage > 1)
+                        {
+                            <a href="?page=@(ViewBag.CurrentPage - 1)" class="page-link prev">&lt;</a>
+                        }
+                        @for (int i = 1; i <= (int)ViewBag.TotalPages; i++)
+                        {
+                            if (i == (int)ViewBag.CurrentPage)
                             {
-                                <a href="?page=@(ViewBag.CurrentPage - 1)" class="page-link prev">&lt;</a>
+                                <a href="?page=@i" class="page-link active">@i</a>
                             }
-                            @for (int i = 1; i <= (int)ViewBag.TotalPages; i++)
+                            else
                             {
-                                if (i == (int)ViewBag.CurrentPage)
-                                {
-                                    <a href="?page=@i" class="page-link active">@i</a>
-                                }
-                                else
-                                {
-                                    <a href="?page=@i" class="page-link">@i</a>
-                                }
+                                <a href="?page=@i" class="page-link">@i</a>
                             }
-                            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
-                            {
-                                <a href="?page=@(ViewBag.CurrentPage + 1)" class="page-link next">&gt;</a>
-                            }
-                        </nav>
-                    </section>
-                </div>
-            </main>
-        </div>
+                        }
+                        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                        {
+                            <a href="?page=@(ViewBag.CurrentPage + 1)" class="page-link next">&gt;</a>
+                        }
+                    </nav>
+                </section>
+            </div>
+        </main>
     </div>
-    <script>
-        // Giữ lại các filter khác khi search
-        const searchForm = document.getElementById('searchForm');
-        if (searchForm) {
-            searchForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const url = new URL(window.location.href);
-                const params = new URLSearchParams(url.search);
-                // Lấy text search mới
-                const text = document.getElementById('search-header').value;
-                params.set('text', text);
-                // Xóa tham số page khi search mới
-                params.delete('page');
-                // Tạo url mới giữ lại các filter khác
-                window.location.href = '/Products?' + params.toString();
-            });
-        }
-    </script>
-</body>
-</html>
+</div>
+
+<script>
+    // Giữ lại các filter khác khi search
+    const searchForm = document.getElementById('searchForm');
+    if (searchForm) {
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const url = new URL(window.location.href);
+            const params = new URLSearchParams(url.search);
+            // Lấy text search mới
+            const text = document.getElementById('search-header').value;
+            params.set('text', text);
+            // Xóa tham số page khi search mới
+            params.delete('page');
+            // Tạo url mới giữ lại các filter khác
+            window.location.href = '/Products?' + params.toString();
+        });
+    }
+</script>

@@ -19,5 +19,6 @@ namespace PBL3_OnlineShop.Repository
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<CouponUsage> CouponUsages { get; set; }
+        public DbSet<Favourite> Favourites { get; set; }
     }
 }
