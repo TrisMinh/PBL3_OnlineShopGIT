@@ -63,7 +63,7 @@
                         <input type="hidden" name="id" value="@Model.ProductId" />
 
                         <!-- Color Selection -->
-                        <div class="product-options">
+                        <div class="product-options-color">
                             <span><strong>Color: </strong> </span>
                             @foreach (var color in colorsArray)
                             {
@@ -75,7 +75,7 @@
 
                         <!-- Size Selection -->
                         <div class="size-selector" style="margin-bottom: 12px;">
-                            <span><strong>Size: </strong> </span>
+                            <span style="margin-right: 10px;"><strong>Size: </strong> </span>
                             @foreach (var size in sizesArray)
                             {
                                 <input type="radio" id="size@size" name="size" value="@size" class="size-option" @(sizeindexcheck == 0 ? "checked" : "") />
@@ -84,13 +84,6 @@
                             }
                         </div>
 
-                        <!-- ADD Button xuống dòng -->
-                        <div style="display: flex; gap: 10px; align-items: center;">
-                            <button type="submit" class="add-to-cart-btn">ADD</button>
-                            <button type="button" id="favouriteBtn" class="favourite-btn @(ViewBag.IsFavourite == true ? "active" : "")" title="Yêu thích" data-product-id="@Model.ProductId">
-                                <i class="fa@(ViewBag.IsFavourite == true ? "s" : "r") fa-heart"></i>
-                            </button>
-                        </div>
                         @if (Model.StockQuantity == 0)
                         {
                             <label class="add-to-cart-btn">Out of Stock</label>
@@ -99,6 +92,9 @@
                         {
                             <div class="add-to-cart-btn-container">
                                 <button type="submit" class="add-to-cart-btn">ADD TO CART</button>
+                                <button type="button" id="favouriteBtn" class="favourite-btn @(ViewBag.IsFavourite == true ? "active" : "")" title="Yêu thích" data-product-id="@Model.ProductId">
+                                    <i class="fa@(ViewBag.IsFavourite == true ? "s" : "r") fa-heart"></i>
+                                </button>
                             </div>
                         }
                     </form>
