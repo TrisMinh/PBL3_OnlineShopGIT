@@ -20,8 +20,8 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
             var viewmodel = new AllStatisticView()
             {
                 Transactions = _service.GetRecentTransactions(5),
-                ChartData = _service.GetMonthlyRevenueData()
-
+                ChartData = _service.GetMonthlyRevenueData(),
+                DashboardStatistics = _service.GetDashboardStatistics()
             };
             return View(viewmodel);
         }
