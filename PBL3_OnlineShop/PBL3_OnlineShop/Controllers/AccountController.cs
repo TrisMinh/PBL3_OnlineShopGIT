@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using PBL3_OnlineShop.Models;
 using PBL3_OnlineShop.Models.ViewModels;
-using PBL3_OnlineShop.Repository;
+using PBL3_OnlineShop.Data;
 
 namespace PBL3_OnlineShop.Controllers
 {
@@ -16,6 +16,33 @@ namespace PBL3_OnlineShop.Controllers
         public AccountController(PBL3_Db_Context context)
         {
             _context = context;
+        }
+        [HttpGet]
+        public ActionResult ForgotPassword()
+        {
+            return View("ForgotPassword");
+        }
+        [HttpPost]
+        public ActionResult ForgotPassword(ForgotPasswordView model)
+        {
+            // rỗng
+            if (string.IsNullOrEmpty(model.ForgotUsername))
+            {
+                ModelState.AddModelError(string.Empty, "Username or email is required.");
+                return View(model);
+            }
+            var user = _context.Users.FirstOrDefault(u => u.UserName == model.ForgotUsername || u.Email == model.ForgotUsername);
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "No user found with the provided username or email.");
+                return View(model);
+            }
+            var newPassword = "123";
+            user.Password = _passwordHasher.HashPassword(user, newPassword);
+
+            _context.Users.Update(user);
+            _context.SaveChanges();
+            return RedirectToAction("Login");
         }
         [HttpGet]
         public ActionResult Register()
@@ -51,6 +78,7 @@ namespace PBL3_OnlineShop.Controllers
                 Gender = "Man",
                 UrlAvatar = "/avatar/def.jpg",
                 Role = "Customer",
+                CreatedAt = DateTime.Now,
                 Status = 1
             };
             // hash sau khi tạo vì tạo phía trong thì user ch đc khởi tạo

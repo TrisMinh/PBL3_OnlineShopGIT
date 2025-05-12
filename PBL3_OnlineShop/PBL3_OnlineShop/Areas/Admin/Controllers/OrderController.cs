@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PBL3_OnlineShop.Repository;
+using PBL3_OnlineShop.Data;
 using PBL3_OnlineShop.Validation;
 
 namespace PBL3_OnlineShop.Areas.Admin.Controllers
@@ -16,7 +16,7 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            return View(_context.Orders.Include(o => o.OrderDetails).ThenInclude(od => od.Product).Include(o => o.User).ToList());
+            return View(_context.Orders.OrderByDescending(o => o.Id).Include(o => o.OrderDetails).ThenInclude(od => od.Product).Include(o => o.User).ToList());
         }
         public IActionResult Comfirm(int id)
         {

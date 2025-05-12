@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore; // Bắt buộc để dùng Include
-using PBL3_OnlineShop.Repository;
+using PBL3_OnlineShop.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -172,64 +172,21 @@ namespace PBL3_OnlineShop.Controllers
 
             return View(product);
         }
-        // Action Create
-        public ActionResult Create()
+
+        [HttpGet]
+        public IActionResult GetAvailableColors(int productId, string size)
         {
-            return RedirectToAction("Index");
+            if (string.IsNullOrEmpty(size))
+                return Json(new List<string>());
+
+            // Lấy từ database
+            var colors = _context.ProductsSize
+                .Where(ps => ps.ProductId == productId && ps.Size == size && ps.Quantity > 0)
+                .Select(ps => ps.Color)
+                .Distinct()
+                .ToList();
+            return Json(colors);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // Action Edit
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // Action Delete
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

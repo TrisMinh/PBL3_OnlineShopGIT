@@ -1,5 +1,4 @@
-﻿<!-- Sidebar (Copied from Management_System1) -->
-<aside class="sidebar">
+﻿<aside class="sidebar">
     <div class="user-profile">
         <div class="avatar-container">
             <img src="~/images/user-profile.png" alt="User Avatar" class="avatar">
@@ -11,45 +10,32 @@
 
     <nav class="main-nav">
         <ul>
-            <!-- Add 'active' class to the relevant item for this page if needed -->
-            <li class="nav-item active">
-                <a href="#">
-                    <!-- Link to Management System 1 or appropriate page -->
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="Products" asp-action="Index">
                     <img src="~/images/manage-system-icon.png" alt="" class="nav-icon">
                     <span>Manage System</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#">
-                    <!-- Link to Customer Management -->
+                <a class="nav-link" asp-area="Admin" asp-controller="User" asp-action="Index">
                     <img src="~/images/manage-customer-icon.png" alt="" class="nav-icon">
                     <span>Manage Customer</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#">
-                    <!-- Link to Order Management -->
+                <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">
                     <img src="~/images/manage-order-icon.png" alt="" class="nav-icon">
                     <span>Manage Order</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#">
-                    <!-- Link to Coupon Management -->
+                <a class="nav-link" asp-area="Admin" asp-controller="Coupon" asp-action="Index">
                     <img src="~/images/manage-coupon-icon.png" alt="" class="nav-icon">
                     <span>Manage Coupon</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#">
-                    <!-- Link to Rank Management -->
-                    <img src="~/images/manage-rank-icon.png" alt="" class="nav-icon">
-                    <span>Management Rank</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#">
-                    <!-- Link to Statistics -->
+                <a class="nav-link" asp-area="Admin" asp-controller="Statistic" asp-action="Index">
                     <img src="~/images/manage-statistics-icon.png" alt="" class="nav-icon">
                     <span>Manage Statictis</span>
                 </a>

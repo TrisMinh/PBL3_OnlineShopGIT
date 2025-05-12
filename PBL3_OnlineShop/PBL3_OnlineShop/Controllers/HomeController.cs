@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PBL3_OnlineShop.Models;
-using PBL3_OnlineShop.Repository;
+using PBL3_OnlineShop.Data;
 using System.Diagnostics;
 
 namespace PBL3_OnlineShop.Controllers

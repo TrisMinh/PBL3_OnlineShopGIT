@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PBL3_OnlineShop.Models;
-using PBL3_OnlineShop.Repository;
+using PBL3_OnlineShop.Data;
 using PBL3_OnlineShop.Validation;
 
 namespace PBL3_OnlineShop.Areas.Admin.Controllers
@@ -46,7 +46,7 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
             {
                 TempData["Error"] = "Add failed!";
             }
-            return View(coupon);
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -74,7 +74,7 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
             {
                 TempData["Error"] = "Cập nhật không thành công!";
             }
-            return View(coupon);
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public IActionResult Search(int? couponId, string couponName, decimal? couponDiscount, int status)
@@ -93,6 +93,14 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
             ViewBag.status = status;
 
             return View("Index", coupons);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var coupon = _context.Coupons.FirstOrDefault(c => c.Id == id);
+            _context.Coupons.Remove(coupon);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

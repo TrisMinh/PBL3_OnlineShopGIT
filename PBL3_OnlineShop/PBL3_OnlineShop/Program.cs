@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PBL3_OnlineShop.Repository;
+using PBL3_OnlineShop.Data;
+using PBL3_OnlineShop.Services;
 using PBL3_OnlineShop.Validation;
 
 namespace PBL3_OnlineShop
@@ -17,6 +18,8 @@ namespace PBL3_OnlineShop
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            // Đk dịch vụ cho các controller 
+            builder.Services.AddScoped<StatisticService>();
 
             builder.Services.AddDistributedMemoryCache(); // Bộ nhớ để lưu session
             builder.Services.AddSession(options =>

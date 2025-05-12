@@ -32,18 +32,6 @@
     </style>
 </head>
 <body>
-    @if (TempData["Error"] != null)
-    {
-        <div class="toast-message">
-            @TempData["Error"]
-        </div>
-    }
-    @if (TempData["Success"] != null && !string.IsNullOrEmpty(TempData["Success"].ToString()) && !TempData["Success"].ToString().Contains("applied successfully"))
-    {
-        <div class="toast-message toast-success">
-            @TempData["Success"]
-        </div>
-    }
     <div class="container">
         <div class="checkout-container">
             <div class="checkout-form-section">

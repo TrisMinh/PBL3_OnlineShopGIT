@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PBL3_OnlineShop.Migrations;
 using PBL3_OnlineShop.Models;
-using PBL3_OnlineShop.Repository;
+using PBL3_OnlineShop.Data;
 using System.Text.Json;
 using System.IO;
 using System.Text.RegularExpressions;

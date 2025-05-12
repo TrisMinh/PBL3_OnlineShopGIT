@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PBL3_OnlineShop.Repository;
+using PBL3_OnlineShop.Data;
 
 namespace PBL3_OnlineShop.Controllers
 {
