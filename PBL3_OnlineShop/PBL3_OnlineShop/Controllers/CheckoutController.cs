@@ -1,6 +1,6 @@
 ﻿using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
-//using PBL3_OnlineShop.Migrations;
+using PBL3_OnlineShop.Migrations;
 using PBL3_OnlineShop.Models;
 using PBL3_OnlineShop.Repository;
 using System.Text.Json;
@@ -8,6 +8,8 @@ using System.IO;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using PBL3_OnlineShop.Models.ViewModels;
+
 
 namespace PBL3_OnlineShop.Controllers
 {
@@ -103,6 +105,7 @@ namespace PBL3_OnlineShop.Controllers
                 new SelectListItem { Text = "COD", Value = "COD" }, 
                 new SelectListItem { Text = "Credit Card", Value = "CreditCard" } 
             };
+            decimal shippingCost = 5000;
 
             var user = _context.Users.FirstOrDefault(u => u.Id == userId);
             if (user != null)
@@ -147,11 +150,23 @@ namespace PBL3_OnlineShop.Controllers
                     }
                     else
                     {
-                        // Nếu địa chỉ không đúng định dạng, giữ nguyên
                         ViewBag.Address = user.Address;
+                    }
+                    if (ViewBag.Address != null)
+                    {
+                        if (addressParts.Length >= 1)
+                        {
+                            string provinceCode = addressParts[0].Trim();
+                            if (int.TryParse(provinceCode, out int provinceCodeInt))
+                            {
+                                int daNangCode = 48;
+                                shippingCost = Math.Abs(daNangCode - provinceCodeInt) * 100;
+                            }
+                        }
                     }
                 }
             }
+
 
             var cart = _context.Carts.FirstOrDefault(c => c.UserId == userId);
             var cartItems = _context.CartItems.Where(c => c.CartId == cart.CartId).ToList();
@@ -166,12 +181,13 @@ namespace PBL3_OnlineShop.Controllers
                 couponUsed = TempData["NameCoupon"]?.ToString();
             }
 
-            decimal totalPrice = subtotal - discount + 50000;
+            decimal totalPrice = subtotal - discount + shippingCost;
 
             var checkoutViewModel = new CheckoutView
             {
                 CartItems = cartItems,
                 Subtotal = subtotal,
+                ShippingCost = shippingCost,
                 Discount = discount,
                 TotalPrice = totalPrice,
                 CouponUsed = couponUsed
@@ -214,7 +230,7 @@ namespace PBL3_OnlineShop.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateOrder(decimal TotalPrice, string CouponUsed, List<CartItem> cartItems, string PaymentMethod)
+        public IActionResult CreateOrder(string CouponUsed, string PaymentMethod)
         {
             var userId = HttpContext.Session.GetInt32("_UserId");
             if (userId == null)
@@ -222,7 +238,50 @@ namespace PBL3_OnlineShop.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            // Kiểm tra xem giỏ hàng có trống không - log để debug
+            var cart = _context.Carts.FirstOrDefault(c => c.UserId == userId);
+            var cartItems = _context.CartItems.Where(c => c.CartId == cart.CartId).ToList();
+
+            decimal subtotal = cartItems.Sum(item => item.Quantity * item.SellingPrice);
+            decimal shippingCost = 5000;
+            var user = _context.Users.FirstOrDefault(u => u.Id == userId);
+
+            if (!string.IsNullOrEmpty(user.Address))
+            {
+                var addressParts = user.Address.Split('/');
+                if (addressParts.Length >= 3)
+                {
+                    string provinceCode = addressParts[0].Trim();
+                    string districtCode = addressParts[1].Trim();
+                    string detailAddress = addressParts[2].Trim();
+                }
+                else
+                {
+                    ViewBag.Address = user.Address;
+                }
+                if (ViewBag.Address != null)
+                {
+                    if (addressParts.Length >= 1)
+                    {
+                        string provinceCode = addressParts[0].Trim();
+                        if (int.TryParse(provinceCode, out int provinceCodeInt))
+                        {
+                            int daNangCode = 48;
+                            shippingCost = Math.Abs(daNangCode - provinceCodeInt) * 100;
+                        }
+                    }
+                }
+            }
+
+            decimal discount = 0;
+            string couponUsed = null;
+            if (!string.IsNullOrEmpty(couponUsed))
+            {
+                var coupon = _context.Coupons.FirstOrDefault(c => c.Name.ToLower() == couponUsed.ToLower());
+                discount = coupon.Discount;
+            }
+
+            decimal totalPrice = subtotal - discount + shippingCost;
+
             if (cartItems == null)
             {
                 TempData["Error"] = "Cart items is null";
@@ -235,14 +294,12 @@ namespace PBL3_OnlineShop.Controllers
                 return RedirectToAction("Index");
             }
 
-            // Kiểm tra phương thức thanh toán
             if (string.IsNullOrWhiteSpace(PaymentMethod))
             {
                 TempData["Error"] = "Vui lòng chọn phương thức thanh toán.";
                 return RedirectToAction("Index");
             }
 
-            // Kiểm tra số lượng tồn kho
             var productIds = new HashSet<int>();
             foreach (var item in cartItems)
             {
@@ -267,7 +324,7 @@ namespace PBL3_OnlineShop.Controllers
             if (PaymentMethod == "CreditCard")
             {
                 // Lưu thông tin cần thiết vào TempData
-                TempData["TotalPrice"] = TotalPrice.ToString();
+                TempData["TotalPrice"] = totalPrice.ToString();
                 TempData["CouponUsed"] = CouponUsed;
                 
                 // Lưu danh sách CartItems vào TempData
@@ -279,7 +336,7 @@ namespace PBL3_OnlineShop.Controllers
             }
             
             // Nếu là COD, tiếp tục quy trình lưu đơn hàng với Code = "0"
-            var order = CreateOrderInDatabase(TotalPrice, CouponUsed, cartItems, userId.Value, productIds, "0");
+            var order = CreateOrderInDatabase(totalPrice, CouponUsed, cartItems, userId.Value, productIds, "0");
             
             TempData["Success"] = "Order placed successfully!";
             return RedirectToAction("Index", "Order");

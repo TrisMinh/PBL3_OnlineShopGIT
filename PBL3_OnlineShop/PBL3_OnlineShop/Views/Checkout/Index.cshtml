@@ -1,5 +1,4 @@
-﻿@* @model IEnumerable<CartItem> *@
-@using PBL3_OnlineShop.Models.ViewModels
+﻿@using PBL3_OnlineShop.Models.ViewModels
 @model CheckoutView
 <!DOCTYPE html>
 <html lang="vi">
@@ -100,24 +99,7 @@
                 <div class="order-items">
                     @{
                         int quantity = 0;
-                        string couponUsed = null;
-                        
-                        // Tính phí shipping dựa trên mã tỉnh
-                        decimal shippingCost = 5000; // Giá trị mặc định
-                        if (ViewBag.Address != null)
-                        {
-                            var addressParts = ViewBag.Address.Split('/');
-                            if (addressParts.Length >= 1)
-                            {
-                                string provinceCode = addressParts[0].Trim();
-                                if (int.TryParse(provinceCode, out int provinceCodeInt))
-                                {
-                                    // Mã Đà Nẵng là 48
-                                    int daNangCode = 48;
-                                    shippingCost = Math.Abs(daNangCode - provinceCodeInt) * 100;
-                                }
-                            }
-                        }
+                        string couponUsed = null;                        
                     }
                     @foreach (var item in Model.CartItems)
                     {
@@ -133,7 +115,6 @@
                                 <span class="item-quantity">(@item.Quantity)</span>
                             </div>
                             <div class="item-price">$@item.SellingPrice</div>
-                            <button class="remove-button" onclick="removeItemFromCheckout(@item.ProductId, '@item.Size', '@item.Color')">Xóa</button>
                         </div>
                     }
                 </div>
@@ -156,7 +137,7 @@
                 </div>
                 <div class="summary-line">
                     <span>Shipping</span>
-                    <span class="shipping-cost">$@shippingCost</span>
+                    <span class="shipping-cost">$@Model.ShippingCost</span>
                 </div>
                 @if (Model.CouponUsed != null)
                 {
@@ -170,14 +151,6 @@
                 }
                 <hr class="divider">
                 <div class="summary-line total-line">
-                    @{
-                        decimal discount = 0;
-                        if (TempData["Discount"] != null)
-                        {
-                            decimal.TryParse(TempData["Discount"].ToString(), out discount);
-                        }
-                        decimal totalPrice = subTotal + shippingCost - discount;
-                    }
                     <span>Total</span>
                     <span>$@Model.TotalPrice</span>
                 </div>
@@ -187,27 +160,8 @@
                 <span>(@quantity)</span>
             </div>
             <form asp-action="CreateOrder" method="post" id="checkoutForm">
-                <input type="hidden" name="TotalPrice" value="@totalPrice" />
                 <input type="hidden" name="CouponUsed" value="@couponUsed" />
                 <input type="hidden" name="PaymentMethod" id="payment-method-hidden" value="" />
-
-                @{
-                    var modelList = Model.CartItems.ToList();
-                }
-                <div id="cartItemsContainer">
-                @for (int i = 0; i < modelList.Count; i++)
-                {
-                    var item = modelList[i];
-                    <div class="cart-item-inputs" data-product-id="@item.ProductId" data-size="@item.Size" data-color="@item.Color">
-                        <input type="hidden" name="CartItems[@i].ProductId" value="@item.ProductId" />
-                        <input type="hidden" name="CartItems[@i].Quantity" value="@item.Quantity" />
-                        <input type="hidden" name="CartItems[@i].SellingPrice" value="@item.SellingPrice" />
-                        <input type="hidden" name="CartItems[@i].Size" value="@item.Size" />
-                        <input type="hidden" name="CartItems[@i].Color" value="@item.Color" />
-                    </div>
-                }
-                </div>
-
                 <button class="shipping-button">
                     <span>Order</span>
                 </button>
