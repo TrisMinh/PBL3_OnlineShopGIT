@@ -67,16 +67,7 @@
                 <div class="shipping-address">
                     <h3 class="subsection-title">Shipping address</h3>
                     <div class="form-group">
-                        @if (ViewBag.AddressDetail != null && ViewBag.District != null && ViewBag.Province != null)
-                        {
-                            <p>Detailed address: @ViewBag.AddressDetail</p>
-                            <p>District: @ViewBag.District</p>
-                            <p>Province/City: @ViewBag.Province</p>
-                        }
-                        else
-                        {
-                            <p>Địa chỉ: @ViewBag.Address</p>
-                        }
+                        <p>Địa chỉ: @ViewBag.Address</p>
                     </div>
                 </div>
             </section>

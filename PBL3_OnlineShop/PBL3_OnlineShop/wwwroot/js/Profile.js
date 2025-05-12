@@ -165,14 +165,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const dobDay = document.getElementById('dob-day').value || '1';
             const dobMonth = document.getElementById('dob-month').value || '1';
             const dobYear = document.getElementById('dob-year').value || new Date().getFullYear().toString();
-            const province = document.getElementById('province').value || '';
-            const district = document.getElementById('district').value || '';
-            const specificAddress = document.getElementById('specific-address').value || '';
+            const address = document.getElementById('address').value || '';
 
             console.log('Form data collected:', { 
                 username, name, email, phone, gender, 
                 dob: `${dobDay}/${dobMonth}/${dobYear}`,
-                address: `${province} / ${district} / ${specificAddress}`
+                address: address
             });
 
             // Kiểm tra email hợp lệ
@@ -223,28 +221,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            // Định dạng địa chỉ: tỉnh / huyện / địa chỉ cụ thể
-            const fullAddress = province && district ? 
-                `${province} / ${district} / ${specificAddress}` : specificAddress;
-
             // Tạo đối tượng FormData để gửi dữ liệu
-            const formData = new FormData();
-            formData.append('UserName', username);
-            formData.append('Name', name);
-            formData.append('Email', email);
-            formData.append('PhoneNumber', phone);
-            formData.append('Gender', gender);
-            formData.append('Day', dobDay);
-            formData.append('Month', dobMonth);
-            formData.append('Year', dobYear);
-            formData.append('Address', fullAddress);
-
-            console.log('Sending AJAX request to /Account/UpdateProfile');
-            
-            // Gửi request cập nhật profile
             fetch('/Account/UpdateProfile', {
                 method: 'POST',
-                body: formData
+                body: new URLSearchParams({
+                    UserName: username,
+                    Name: name,
+                    Email: email,
+                    PhoneNumber: phone,
+                    Gender: gender,
+                    Day: dobDay,
+                    Month: dobMonth,
+                    Year: dobYear,
+                    Address: address
+                }),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
             })
             .then(response => {
                 console.log('Response received:', response);
