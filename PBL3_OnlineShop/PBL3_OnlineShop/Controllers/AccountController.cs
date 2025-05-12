@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using PBL3_OnlineShop.Models;
 using PBL3_OnlineShop.Models.ViewModels;
-using PBL3_OnlineShop.Repository;
+using PBL3_OnlineShop.Data;
 
 namespace PBL3_OnlineShop.Controllers
 {
@@ -78,6 +78,7 @@ namespace PBL3_OnlineShop.Controllers
                 Gender = "Man",
                 UrlAvatar = "/avatar/def.jpg",
                 Role = "Customer",
+                CreatedAt = DateTime.Now,
                 Status = 1
             };
             // hash sau khi tạo vì tạo phía trong thì user ch đc khởi tạo

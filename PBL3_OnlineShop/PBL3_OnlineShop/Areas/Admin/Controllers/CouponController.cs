@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PBL3_OnlineShop.Models;
-using PBL3_OnlineShop.Repository;
+using PBL3_OnlineShop.Data;
 using PBL3_OnlineShop.Validation;
 
 namespace PBL3_OnlineShop.Areas.Admin.Controllers

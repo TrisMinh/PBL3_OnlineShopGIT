@@ -2,7 +2,7 @@
 using Microsoft.Identity.Client;
 using PBL3_OnlineShop.Models;
 
-namespace PBL3_OnlineShop.Repository
+namespace PBL3_OnlineShop.Data
 {
     public class PBL3_Db_Context : DbContext
     {

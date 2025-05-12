@@ -1,0 +1,4 @@
+﻿.chart-btn.active {
+    background-color: #4CAF50; /* Màu nền khi nút được chọn */
+    color: white; /* Màu chữ khi nút được chọn */
+}

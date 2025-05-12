@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using PBL3_OnlineShop.Repository;
+using PBL3_OnlineShop.Data;
 using System.Linq;
 
 namespace PBL3_OnlineShop.Controllers

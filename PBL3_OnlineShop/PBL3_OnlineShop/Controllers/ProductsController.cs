@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore; // Bắt buộc để dùng Include
-using PBL3_OnlineShop.Repository;
+using PBL3_OnlineShop.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;

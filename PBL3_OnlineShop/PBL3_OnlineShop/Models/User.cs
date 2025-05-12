@@ -20,6 +20,7 @@ namespace PBL3_OnlineShop.Models
         public string UrlAvatar { get; set; }
         public string Role { get; set; } = "Customer";
         public int Status { get; set; } = 1;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public Cart Cart { get; set; }
     }
 }
