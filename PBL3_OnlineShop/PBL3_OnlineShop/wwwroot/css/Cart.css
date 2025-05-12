@@ -259,10 +259,6 @@ body{
     flex-direction: column;
 }
 
-main {
-    flex: 1;
-}
-
 /* End Cart Section Styles */
 
 @media (max-width: 768px){
