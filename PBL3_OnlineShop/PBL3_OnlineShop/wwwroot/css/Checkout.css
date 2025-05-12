@@ -106,3 +106,7 @@
     margin-right: 15px;
     object-fit: contain;
 }
+
+.form-payment {
+    margin-top: 10px;
+}
