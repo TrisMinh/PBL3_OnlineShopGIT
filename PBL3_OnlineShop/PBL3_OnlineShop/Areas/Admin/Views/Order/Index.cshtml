@@ -18,19 +18,8 @@
 </head>
 <body>
     <div class="management-system">
-        <aside class="sidebar">
-            <div class="user-profile">
-                <div class="avatar-container">
-                    <!-- Using image from top-level images/ folder -->
-                    <img src="/images/455123067_1470091394391641_5075587184145921216_n.jpg" alt="User Avatar" class="avatar"> <!-- Figma 1:6 -->
-                    <span class="status-indicator"></span> <!-- Figma 1:5 -->
-                </div>
-                <h2 class="user-name">Trung Trung</h2> <!-- Figma 1:7 -->
-                <p class="user-role">Manager</p> <!-- Figma 1:8 -->
-            </div>
-            @await Html.PartialAsync("~/Areas/Admin/Views/Shared/_SidebarPartial.cshtml")
-        </aside>
-
+        @await Html.PartialAsync("~/Areas/Admin/Views/Shared/_SidebarPartial.cshtml")
+        <!-- Main Content -->
         <main class="main-content">
             @await Html.PartialAsync("~/Areas/Admin/Views/Shared/_TopbarPartial.cshtml")
             @await Html.PartialAsync("_NavbarPartial")
