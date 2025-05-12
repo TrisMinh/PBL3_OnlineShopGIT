@@ -57,7 +57,7 @@
                     <div class="row">
                         <div class="form-group col-6">
                             <label>Address</label>
-                            <input asp-for="Address" class="form-control" placeholder="Nhập địa chỉ cụ thể" />
+                            <input asp-for="Address" class="form-control" />
                             <span asp-validation-for="Address" class="text-danger"></span>
                         </div>
                         <div class="form-group col-6">
@@ -94,42 +94,9 @@
 
 
     <script src="~/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="~/js/vn-address.js"></script>
     <script>
-        window.addEventListener('DOMContentLoaded', function() {
-            const addressFromDb = "@Model.Address";
-            if (addressFromDb) {
-                document.querySelector('input[asp-for="Address"]').value = addressFromDb;
-            }
-        });
-
-        document.querySelector('.add-product-form').addEventListener('submit', function(e) {
-            const province = document.getElementById('province').value;
-            const district = document.getElementById('district').value;
-            const specificAddress = document.getElementById('specific-address').value;
-            
-            console.log('Province value:', province);
-            console.log('Province text:', document.getElementById('province').options[document.getElementById('province').selectedIndex].text);
-            console.log('District value:', district);
-            console.log('District text:', document.getElementById('district').options[document.getElementById('district').selectedIndex].text);
-            console.log('Address:', specificAddress);
-            
-            // Lấy giá trị từ các input thường và gán vào hidden input
-            const passwordInput = document.querySelector('input[name="Password"]');
-            const emailInput = document.querySelector('input[name="Email"]');
-            
-            document.getElementById('hidden-password').value = passwordInput ? passwordInput.value || '@Model.Password' : '@Model.Password';
-            document.getElementById('hidden-email').value = emailInput ? emailInput.value || '@Model.Email' : '@Model.Email';
-            
-            if (province && district) {
-                document.getElementById('hidden-address').value = province + " / " + district + " / " + specificAddress;
-                console.log('Final address saved:', document.getElementById('hidden-address').value);
-            } else {
-                console.log('Không đủ dữ liệu province/district');
-                // Ngăn submit nếu thiếu dữ liệu
-                e.preventDefault();
-                alert('Vui lòng chọn đủ Tỉnh/Thành phố và Quận/Huyện');
-            }
-        });
+        // Xóa hết các đoạn script xử lý province, district, specific-address nếu còn
     </script>
 </body>
 </html>
