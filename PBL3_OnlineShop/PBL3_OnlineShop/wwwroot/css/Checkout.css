@@ -298,3 +298,7 @@ label[for="ward"], label[for="district"] {
     display: flex;
     align-items: center;
 }
+
+.form-payment {
+    margin-top: 10px;
+}

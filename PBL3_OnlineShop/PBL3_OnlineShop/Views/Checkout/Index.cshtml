@@ -79,16 +79,6 @@
                         }
                     </div>
                 </div>
-                <div class="coupon">
-                    <div class="form payment">
-                        <label for="payment-method">Payment Method</label>
-                        <select id="payment-method" name="PaymentMethod">
-                            <option value="">Choose Your Payment Method</option>
-                            <option value="CreditCard">Credit Card</option>
-                            <option value="COD">COD</option>
-                        </select>
-                    </div>
-                </div>
             </section>
 
         </div>
@@ -161,196 +151,23 @@
             </div>
             <form asp-action="CreateOrder" method="post" id="checkoutForm">
                 <input type="hidden" name="CouponUsed" value="@couponUsed" />
-                <input type="hidden" name="PaymentMethod" id="payment-method-hidden" value="" />
+                @* <input type="hidden" name="PaymentMethod" id="payment-method-hidden" value="" /> *@
+                <div class="coupon">
+                    <div class="form-payment">
+                        <label for="payment-method">Payment Method</label>
+                        <select id="payment-method" name="PaymentMethod">
+                            <option value="">Choose Your Payment Method</option>
+                            <option value="CreditCard">Credit Card</option>
+                            <option value="COD">COD</option>
+                        </select>
+                    </div>
+                </div>
                 <button class="shipping-button">
                     <span>Order</span>
                 </button>
             </form>
         </div>
     </div>
-    </div>
 
-    <script>
-    // Hàm hiển thị thông báo lỗi
-    function showToastMessage(message, isSuccess = false) {
-        // Xóa toast message cũ nếu có
-        const oldToast = document.querySelector('.toast-message');
-        if (oldToast) {
-            oldToast.remove();
-        }
-        
-        // Tạo toast message mới
-        const toast = document.createElement('div');
-        toast.className = 'toast-message';
-        if (isSuccess) {
-            toast.classList.add('toast-success');
-        }
-        toast.textContent = message;
-        
-        // Thêm vào body
-        document.body.appendChild(toast);
-        
-        // Tự động xóa sau 5 giây
-        setTimeout(() => {
-            toast.style.opacity = '0';
-            setTimeout(() => {
-                toast.remove();
-            }, 500);
-        }, 5000);
-    }
-    
-    // Thêm kiểm tra phương thức thanh toán khi submit form
-    document.getElementById('checkoutForm').addEventListener('submit', function(event) {
-        // Kiểm tra xem có sản phẩm nào trong giỏ hàng không bị loại trừ
-        const visibleCartItems = Array.from(document.querySelectorAll('.cart-item-inputs')).filter(item => item.getAttribute('data-excluded') !== 'true');
-        console.log('Visible cart items:', visibleCartItems.length);
-        
-        if (visibleCartItems.length === 0) {
-            event.preventDefault();
-            showToastMessage('Không có sản phẩm nào trong giỏ hàng!');
-            return false;
-        }
-        
-        // Kiểm tra phương thức thanh toán
-        const paymentMethod = document.getElementById('payment-method-hidden').value;
-        if (!paymentMethod) {
-            event.preventDefault();
-            showToastMessage('Please select payment method');
-            document.getElementById('payment-method').focus();
-            return false;
-        }
-        
-        // Đảm bảo chỉ những phần tử không bị loại trừ được gửi lên server
-        document.querySelectorAll('.cart-item-inputs[data-excluded="true"]').forEach(item => {
-            item.parentNode.removeChild(item);
-        });
-        
-        // Cập nhật lại index của các cart items để đảm bảo chúng liên tục
-        visibleCartItems.forEach((container, index) => {
-            const inputs = container.querySelectorAll('input');
-            inputs.forEach(input => {
-                const name = input.name;
-                const newName = name.replace(/CartItems\[\d+\]/, `CartItems[${index}]`);
-                input.name = newName;
-            });
-        });
-        
-        console.log('Form is being submitted with', visibleCartItems.length, 'items');
-        return true;
-    });
-    
-    function removeItemFromCheckout(productId, size, color) {
-        // Tìm và xóa item khỏi form checkout
-        const itemContainer = document.querySelector(`.cart-item-inputs[data-product-id="${productId}"][data-size="${size}"][data-color="${color}"]`);
-        if (itemContainer) {
-            // Thay vì xóa trực tiếp,thì  dấu sản phẩm này không được đặt hàng rồi cho nó vào cart lại
-            itemContainer.setAttribute('data-excluded', 'true');
-            itemContainer.style.display = 'none';
-        }
-        
-        // Tìm và xóa item khỏi hiển thị
-        const orderItem = event.target.closest('.order-item');
-        if (orderItem) {
-            orderItem.remove();
-        }
-        
-        // Cập nhật lại số lượng và tính toán lại tổng tiền
-        recalculateTotal();
-        
-        // Ngăn chặn form submit
-        event.preventDefault();
-        return false;
-    }
-    
-    function recalculateTotal() {
-        // Cập nhật lại các inputs trong form
-        const cartItemContainers = document.querySelectorAll('.cart-item-inputs');
-        cartItemContainers.forEach((container, index) => {
-            const inputs = container.querySelectorAll('input');
-            inputs.forEach(input => {
-                const name = input.name;
-                const newName = name.replace(/CartItems\[\d+\]/, `CartItems[${index}]`);
-                input.name = newName;
-            });
-        });
-        
-        // Cập nhật lại subtotal, quantity và total
-        let subTotal = 0;
-        let quantity = 0;
-        
-        document.querySelectorAll('.order-item').forEach(item => {
-            const priceText = item.querySelector('.item-price').textContent;
-            const price = parseFloat(priceText.replace('$', ''));
-            const quantityText = item.querySelector('.item-quantity').textContent;
-            const itemQuantity = parseInt(quantityText.replace(/[()]/g, ''));
-            
-            subTotal += price * itemQuantity;
-            quantity += 1;
-        });
-        
-        // Cập nhật subtotal hiển thị (tìm phần tử có nhãn "Subtotal")
-        const subtotalElements = document.querySelectorAll('.summary-line');
-        subtotalElements.forEach(element => {
-            if (element.firstElementChild && element.firstElementChild.textContent === 'Subtotal') {
-                element.lastElementChild.textContent = '$' + subTotal.toFixed(2);
-            }
-        });
-        
-        // Lấy giá shipping
-        const shippingText = document.querySelector('.shipping-cost').textContent;
-        const shippingCost = parseFloat(shippingText.replace('$', ''));
-        
-        // Lấy giảm giá nếu có
-        let discount = 0;
-        const discountElements = document.querySelectorAll('.summary-line');
-        discountElements.forEach(element => {
-            if (element.firstElementChild && element.firstElementChild.textContent === 'Coupon') {
-                const discountText = element.lastElementChild.textContent;
-                discount = parseFloat(discountText.replace('-$', ''));
-            }
-        });
-        
-        // Cập nhật tổng tiền
-        const totalPrice = subTotal + shippingCost - discount;
-        
-        // Tìm phần tử hiển thị tổng tiền (có nhãn "Total")
-        const totalElements = document.querySelectorAll('.summary-line');
-        totalElements.forEach(element => {
-            if (element.firstElementChild && element.firstElementChild.textContent === 'Total') {
-                element.lastElementChild.textContent = '$' + totalPrice.toFixed(2);
-            }
-        });
-        
-        // Cập nhật số lượng sản phẩm
-        const quantityElement = document.querySelector('.quantity span');
-        if (quantityElement) {
-            quantityElement.textContent = `(${quantity})`;
-        }
-        
-        // Cập nhật giá trị input hidden
-        const totalPriceInput = document.querySelector('input[name="TotalPrice"]');
-        if (totalPriceInput) {
-            totalPriceInput.value = totalPrice.toFixed(2);
-        }
-        
-        console.log("Recalculated: Subtotal=" + subTotal + ", Shipping=" + shippingCost + ", Discount=" + discount + ", Total=" + totalPrice);
-    }
-
-    // Cập nhật giá trị PaymentMethod khi người dùng thay đổi
-    document.addEventListener('DOMContentLoaded', function() {
-        const paymentMethodSelect = document.getElementById('payment-method');
-        const paymentMethodHidden = document.getElementById('payment-method-hidden');
-        
-        // Cập nhật giá trị ban đầu
-        if (paymentMethodSelect && paymentMethodHidden) {
-            paymentMethodHidden.value = paymentMethodSelect.value;
-            
-            // Lắng nghe sự kiện thay đổi
-            paymentMethodSelect.addEventListener('change', function() {
-                paymentMethodHidden.value = this.value;
-            });
-        }
-    });
-    </script>
 </body>
 </html>
