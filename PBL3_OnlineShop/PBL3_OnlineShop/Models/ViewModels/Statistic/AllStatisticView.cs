@@ -4,5 +4,6 @@
     {
         public List<TransactionsView> Transactions { get; set; }
         public ChartDataView ChartData { get; set; }
+        public DashboardStatisticsView DashboardStatistics { get; set; }
     }
 }
