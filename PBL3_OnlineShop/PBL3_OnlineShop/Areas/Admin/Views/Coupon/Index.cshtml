@@ -24,18 +24,6 @@
         <main class="main-content">
             @await Html.PartialAsync("~/Areas/Admin/Views/Shared/_TopbarPartial.cshtml")
             @await Html.PartialAsync("_NavbarPartial")
-            <header class="top-bar">
-                <h1 class="page-title">Management</h1>
-                <div class="account-section">
-                    <a href="ProfileAdminEdit.html" title="Edit Profile">
-                        <img src="~/images/account-icon-large.png" alt="Edit Profile" class="account-icon"> <!-- Link to Admin Edit Profile -->
-                    </a>
-                    <a href="index.html" title="Go to Home">
-                        <img src="~/images/360_F_66468754_86IFi1dhqwtHdXzPeMQNhGtGp8Z2D3yC.jpg" alt="Go to Home" class="account-placeholder"> <!-- Link to Home -->
-                    </a>
-                </div>
-            </header>
-            @await Html.PartialAsync("_NavbarPartial")
             <form asp-action="Search" asp-controller="Coupon" method="get" class="coupon-filters">
                 <div class="filter-group">
                     <label>ID Coupon:</label>
@@ -131,6 +119,9 @@
                                 <td class="operations">
                                     <a class="operation-btn edit-btn" asp-area="Admin" asp-action="Edit" asp-controller="Coupon" asp-route-id="@item.Id">
                                         <img src="~/images/edit-icon.png" alt="Edit">
+                                    </a>
+                                    <a asp-area="Admin" asp-controller="Coupon" asp-action="Delete" asp-route-id="@item.Id" class="operation-btn delete-btn">
+                                        <img src="~/images/542724.png" alt="Delete">
                                     </a>
                                 </td>
                             </tr>

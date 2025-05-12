@@ -17,70 +17,11 @@
 </head>
 <body>
     <div class="management-system">
-        <aside class="sidebar">
-            <div class="user-profile">
-                <div class="avatar-container">
-                    <img src="~/images/455123067_1470091394391641_5075587184145921216_n.jpg" alt="User Avatar" class="avatar">
-                    <span class="status-indicator"></span>
-                </div>
-                <h2 class="user-name">Trung Trung</h2>
-                <p class="user-role">Manager</p>
-            </div>
-            <nav class="main-nav">
-                <ul>
-                    <li class="nav-item">
-                        <a href="ManagementSystemAdd.html">
-                            <img src="~/images/manage-system-icon.png" alt="" class="nav-icon">
-                            <span>Manage System</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="ManagementCustomerAccount.html">
-                            <img src="~/images/manage-customer-icon.png" alt="" class="nav-icon">
-                            <span>Manage Customer</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#">
-                            <img src="~/images/manage-order-icon.png" alt="" class="nav-icon">
-                            <span>Manage Order</span>
-                        </a>
-                    </li>
-                    <li class="nav-item active">
-                        <a href="ManagementCouponSearch.html">
-                            <img src="~/images/manage-coupon-icon.png" alt="" class="nav-icon">
-                            <span>Manage Coupon</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#">
-                            <img src="~/images/manage-rank-icon.png" alt="" class="nav-icon">
-                            <img src="~/images/manage-rank-icon.png" alt="" class="nav-icon">
-                            <span>Management Rank</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#">
-                            <img src="~/images/manage-statistics-icon.png" alt="" class="nav-icon">
-                            <span>Manage Statictis</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
-
+        @await Html.PartialAsync("~/Areas/Admin/Views/Shared/_SidebarPartial.cshtml")
+        <!-- Main Content -->
         <main class="main-content">
-            <header class="top-bar">
-                <h1 class="page-title">Management</h1>
-                <div class="account-section">
-                    <a href="ProfileAdminEdit.html" title="Edit Profile">
-                        <img src="~/images/account-icon-large.png" alt="Edit Profile" class="account-icon">
-                    </a>
-                    <a href="index.html" title="Go to Home">
-                        <img src="~/images/360_F_66468754_86IFi1dhqwtHdXzPeMQNhGtGp8Z2D3yC.jpg" alt="Go to Home" class="account-placeholder">
-                    </a>
-                </div>
-            </header>
+            @await Html.PartialAsync("~/Areas/Admin/Views/Shared/_TopbarPartial.cshtml")
+            @await Html.PartialAsync("_NavbarPartial")
 
             <div class="add-coupon-dropdown-section">
                 <a class="add-coupon-btn" asp-action="Index">
