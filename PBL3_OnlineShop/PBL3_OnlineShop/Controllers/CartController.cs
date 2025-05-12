@@ -94,6 +94,14 @@ namespace PBL3_OnlineShop.Controllers
         }
         public async Task<IActionResult> Add(int id, string size, string color)
         {
+            // Kiểm tra
+            var productSize = await _context.ProductsSize.FirstOrDefaultAsync(ps => ps.ProductId == id && ps.Size == size && ps.Color == color);
+            if(productSize == null)
+            {
+                TempData["Error"] = "Product not found or size/color not available.";
+                return Redirect(Request.Headers["Referer"].ToString()); // trả về trang hiện tại
+            }
+
             var userId = HttpContext.Session.GetInt32("_UserId");
             Product product = await _context.Products.FindAsync(id);
             if (product == null) return NotFound();

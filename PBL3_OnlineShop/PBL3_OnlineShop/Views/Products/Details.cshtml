@@ -4,6 +4,7 @@
     var mainImage = imageUrls.FirstOrDefault() ?? "~/images/default.png"; // fallback nếu rỗng
     var colorsArray = Model.ProductSizes.Select(ps => ps.Color).Distinct().ToArray(); // Lấy tất cả màu sắc có sẵn
     var sizesArray = Model.ProductSizes.Select(ps => ps.Size).Distinct().ToArray(); // Lấy tất cả kích thước có sẵn
+    var productSizes = Model.ProductSizes.ToList(); // Lấy danh sách ProductSize từ model
     int colorindexcheck = 0, sizeindexcheck = 0;
 }
 <!DOCTYPE html>
@@ -19,6 +20,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .flex-row {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start; /* hoặc center nếu bạn muốn căn giữa */
+        }
+        .flex-row .form-group {
+            display: flex;
+            flex-direction: column;
+            min-width: 150px;
+        }
+    </style>
 </head>
 <body>
     <div class="app">
@@ -62,27 +75,33 @@
                     <form asp-action="Add" asp-controller="Cart" method="get" class="action-buttons" style="display: block;">
                         <input type="hidden" name="id" value="@Model.ProductId" />
 
-                        <!-- Color Selection -->
-                        <div class="product-options-color">
-                            <span><strong>Color: </strong> </span>
-                            @foreach (var color in colorsArray)
-                            {
-                                <input type="radio" id="@color" name="color" value="@color" class="color-option" @(colorindexcheck == 0 ? "checked" : "") />
-                                <label for="@color">@color</label>
-                                colorindexcheck++;
-                            }
+                        <div class="product-options-select flex-row">
+                            <input type="hidden" id="productId" value="@Model.ProductId" />
+
+                            <!-- Select Size -->
+                            <div class="form-group">
+                                <label for="sizeSelect"><strong>Size:</strong></label>
+                                <select id="sizeSelect" name="Size" class="form-control">
+                                    <option value="">-- Select a size --</option>
+                                    @foreach (var size in sizesArray)
+                                    {
+                                        <option value="@size">@size</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <!-- Select Color -->
+                            <div class="form-group">
+                                <label for="colorSelect"><strong>Color:</strong></label>
+                                <select id="colorSelect" name="Color" class="form-control" disabled>
+                                    <option value="">-- Select a size first --</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <!-- Size Selection -->
-                        <div class="size-selector" style="margin-bottom: 12px;">
-                            <span style="margin-right: 10px;"><strong>Size: </strong> </span>
-                            @foreach (var size in sizesArray)
-                            {
-                                <input type="radio" id="size@size" name="size" value="@size" class="size-option" @(sizeindexcheck == 0 ? "checked" : "") />
-                                <label for="size@size">@size</label>
-                                sizeindexcheck++;
-                            }
-                        </div>
+
+
+
                         @if (Model.StockQuantity == 0)
                         {
                             <div class="add-to-cart-btn-container">
@@ -111,5 +130,46 @@
 
     <script src="~/js/Animate.js"></script>
     <script src="~/js/Detail.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#sizeSelect").change(function () {
+                var selectedSize = $(this).val();
+                var productId = $("#productId").val();
+
+                if (selectedSize) {
+                    $.ajax({
+                        url: "/Products/GetAvailableColors",
+                        type: "GET",
+                        data: {
+                            productId: productId,
+                            size: selectedSize
+                        },
+                        success: function (colors) {
+                            var colorSelect = $("#colorSelect");
+                            colorSelect.empty().prop("disabled", false);
+
+                            if (colors.length > 0) {
+                                colorSelect.append('<option value="">-- Select a color --</option>');
+                                $.each(colors, function (index, color) {
+                                    colorSelect.append('<option value="' + color + '">' + color + '</option>');
+                                });
+                            } else {
+                                colorSelect.append('<option value="">No colors available</option>');
+                            }
+                        },
+                        error: function () {
+                            alert("Error retrieving colors.");
+                        }
+                    });
+                } else {
+                    $("#colorSelect").empty().prop("disabled", true).append('<option value="">-- Select a size first --</option>');
+                }
+            });
+        });
+    </script>
+
+
+
 </body>
 </html>
