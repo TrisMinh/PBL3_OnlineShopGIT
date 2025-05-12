@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using PBL3_OnlineShop.Models;
 using PBL3_OnlineShop.Models.ViewModels;
 using PBL3_OnlineShop.Repository;
+using PBL3_OnlineShop.SessionHelper;
 using System.Drawing;
 
 namespace PBL3_OnlineShop.Controllers

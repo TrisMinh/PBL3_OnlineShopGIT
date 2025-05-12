@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace PBL3_OnlineShop.Repository
+namespace PBL3_OnlineShop.SessionHelper
 {
     // Dùng get set json để lưu trữ dữ liệu vào session
     public static class SessionExtensions
