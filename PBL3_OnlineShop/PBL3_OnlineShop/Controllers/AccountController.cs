@@ -18,6 +18,33 @@ namespace PBL3_OnlineShop.Controllers
             _context = context;
         }
         [HttpGet]
+        public ActionResult ForgotPassword()
+        {
+            return View("ForgotPassword");
+        }
+        [HttpPost]
+        public ActionResult ForgotPassword(ForgotPasswordView model)
+        {
+            // rỗng
+            if (string.IsNullOrEmpty(model.ForgotUsername))
+            {
+                ModelState.AddModelError(string.Empty, "Username or email is required.");
+                return View(model);
+            }
+            var user = _context.Users.FirstOrDefault(u => u.UserName == model.ForgotUsername || u.Email == model.ForgotUsername);
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "No user found with the provided username or email.");
+                return View(model);
+            }
+            var newPassword = "123";
+            user.Password = _passwordHasher.HashPassword(user, newPassword);
+
+            _context.Users.Update(user);
+            _context.SaveChanges();
+            return RedirectToAction("Login");
+        }
+        [HttpGet]
         public ActionResult Register()
         {
             return View();

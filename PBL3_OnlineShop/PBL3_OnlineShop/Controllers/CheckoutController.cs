@@ -8,6 +8,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using PBL3_OnlineShop.Models.ViewModels;
 
 namespace PBL3_OnlineShop.Controllers
 {

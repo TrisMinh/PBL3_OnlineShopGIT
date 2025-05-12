@@ -176,7 +176,7 @@
                         {
                             decimal.TryParse(TempData["Discount"].ToString(), out discount);
                         }
-                        decimal totalPrice = subTotal + shippingCost - discount;
+                        decimal totalPrice = Model.Subtotal + shippingCost - discount;
                     }
                     <span>Total</span>
                     <span>$@Model.TotalPrice</span>
