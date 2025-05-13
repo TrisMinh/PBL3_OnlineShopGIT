@@ -101,6 +101,7 @@ body {
     align-items: center;
     padding-bottom: 15px;
     border-bottom: 1px solid #B7B2B2; /* From Rectangle 71 stroke */
+    height: 40px;
 }
 
 .page-title {
@@ -257,6 +258,7 @@ body {
 .delete-btn img {
     /* Removed background styling to show only the trash icon */
 }
+
 .sidebar {
     width: 280px; /* Approximate width based on Figma */
     background-color: #9194A3; /* Correct grey background from Figma 4:31 etc. */
