@@ -12,11 +12,9 @@ namespace PBL3_OnlineShop.Controllers
 {
     public class CartController : Controller
     {
-        private readonly PBL3_Db_Context _context;
         private readonly ICartService _cartService;
-        public CartController(PBL3_Db_Context context, ICartService cartService)
+        public CartController(ICartService cartService)
         {
-            _context = context;
             _cartService = cartService;
         }
         // GET: CartController

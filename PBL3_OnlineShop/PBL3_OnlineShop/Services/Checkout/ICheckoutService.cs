@@ -1,4 +1,5 @@
-﻿using PBL3_OnlineShop.Models.ViewModels;
+﻿using PBL3_OnlineShop.Models;
+using PBL3_OnlineShop.Models.ViewModels;
 
 namespace PBL3_OnlineShop.Services.Checkout
 {
@@ -7,5 +8,13 @@ namespace PBL3_OnlineShop.Services.Checkout
         public CheckoutView GetCheckoutView(int? userId, string couponUsed);
         public Models.Coupon GetCouponByName(string couponName);
         public string CheckCoupon(int? userId, string couponName);
+        public decimal CaculateTotalPrice(int? userId, string couponName);
+        public string CheckProductSize(List<CartItem> cartItems);
+        public Models.Cart GetCartByUserId(int? userId);
+        public List<CartItem> GetListCartItemsByCartId(int cartId);
+        public void CreateOrderInDatabase(decimal TotalPrice, string CouponUsed, List<CartItem> cartItems, int userId, List<int> productIds, string randomCode = null);
+        public void UpdateProductsStockQuantity(List<int> productIds);
+        public List<int> GetListProductIdFromCartItems(List<CartItem> cartItems, int cartId);
+        public Models.User GetUserById(int? userId);
     }
 }
