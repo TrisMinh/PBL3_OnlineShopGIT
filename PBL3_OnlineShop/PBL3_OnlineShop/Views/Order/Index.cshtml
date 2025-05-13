@@ -50,7 +50,7 @@
                     string userRole = "Customer";
                     if (firstOrder != null && firstOrder.User != null)
                     {
-                        userName = firstOrder.User.Name;
+                        userName = firstOrder.User.UserName;
                         userRole = firstOrder.User.Role ?? "Customer";
                     }
                 }

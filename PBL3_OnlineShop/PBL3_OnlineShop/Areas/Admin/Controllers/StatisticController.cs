@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PBL3_OnlineShop.Validation;
-using PBL3_OnlineShop.Services;
 using PBL3_OnlineShop.Models.ViewModels.Statistic;
+using PBL3_OnlineShop.Services.Admin.Statistic;
 
 namespace PBL3_OnlineShop.Areas.Admin.Controllers
 {
@@ -9,8 +9,8 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
     [RoleAuthorization("Admin")]
     public class StatisticController : Controller
     {
-        private readonly StatisticService _service;
-        public StatisticController(StatisticService service)
+        private readonly IStatisticService _service;
+        public StatisticController(IStatisticService service)
         {
             _service = service;
         }

@@ -70,7 +70,7 @@
                         <div class="form-group col-6">
                             <label>Role</label>
                             <select asp-for="Role" class="form-control" asp-items="ViewBag.RoleList">
-                                <option>Choose a role</option>
+                                <option disabled selected>Choose a role</option>
                             </select>
                             <span asp-validation-for="Role" class="text-danger"></span>
                         </div>

@@ -58,7 +58,7 @@ namespace PBL3_OnlineShop.Controllers
                 CouponUsed = couponUsed
             };
 
-            ViewBag.NameCustomer = user.Name;
+            ViewBag.NameCustomer = user.UserName;
             ViewBag.Email = user.Email;
             ViewBag.PhoneNumber = user.PhoneNumber;
             ViewBag.Address = user.Address;

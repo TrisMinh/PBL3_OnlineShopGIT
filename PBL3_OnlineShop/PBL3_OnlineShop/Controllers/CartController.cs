@@ -84,7 +84,7 @@ namespace PBL3_OnlineShop.Controllers
             }
 
             var user = _context.Users.FirstOrDefault(u => u.Id == userId);
-            if (user.Name == null || user.PhoneNumber == null || user.Address == null)
+            if (user.UserName == null || user.PhoneNumber == null || user.Address == null)
             {
                 TempData["Error"] = "Please enter complete contact information";
                 return RedirectToAction("Profile", "Account");

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using PBL3_OnlineShop.Models;
 using PBL3_OnlineShop.Data;
 using PBL3_OnlineShop.Validation;
+using PBL3_OnlineShop.Services.Admin.Category;
 
 namespace PBL3_OnlineShop.Areas.Admin.Controllers
 {
@@ -11,102 +12,73 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
     [RoleAuthorization("Admin")]
     public class CategoryController : Controller
     {
-        private readonly PBL3_Db_Context _context;
-
-        public CategoryController(PBL3_Db_Context context)
+        private readonly ICategoryService _categoryService;
+        public CategoryController(ICategoryService categoryService)
         {
-            _context = context;
+            _categoryService = categoryService;
         }
-        public async Task<IActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await _context.Categories
-            .OrderByDescending(p => p.CategoryId)
-            .ToListAsync());
+            return View(_categoryService.GetAllCategories());
         }
 
-        public IActionResult Create()
+        [HttpGet]
+        public ActionResult Create()
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Category category)
+        public ActionResult Create(Category category)
         {
-            if (ModelState.IsValid)
+            var result = _categoryService.CreateCategory(category);
+            if (!result)
             {
-                category.Status = 1;
-                // Thêm sản phẩm
-                _context.Categories.Add(category);
-                await _context.SaveChangesAsync(); // Lưu để lấy ProductId
-                return RedirectToAction("Index");
+                TempData["Error"] = "Thêm danh mục không thành công!";
+                return View(category);
+                
             }
-            else
-            {
-                TempData["Error"] = "Thêm không thành công";
-            }
-
-            return View(category);
+            TempData["Success"] = "Thêm danh mục thành công!";
+            return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> Edit(int id)
+        [HttpGet]
+        public ActionResult Edit(int id)
         {
-            var categories = await _context.Categories.FindAsync(id);
-
+            var categories = _categoryService.GetCategoryById(id);
             if (categories == null)
             {
                 return NotFound();
             }
             return View(categories);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Category category)
+        public ActionResult Edit(int id, Category category)
         {
-            // Kiểm tra tính hợp lệ của model
-            if (!ModelState.IsValid)
+            var result = _categoryService.UpdateCategory(category);
+            if (!result)
             {
-                TempData["Error"] = "Cập nhật không thành công";
+                TempData["Error"] = "Cập nhật danh mục không thành công!";
                 return View(category);
             }
-
-            // Lấy thông tin danh mục hiện tại từ DB
-            var existingCategory = await _context.Categories
-                .FirstOrDefaultAsync(c => c.CategoryId == id);
-
-            if (existingCategory == null)
-            {
-                return NotFound();
-            }
-
-            // Cập nhật các thuộc tính từ Category mới
-            existingCategory.CategoryName = category.CategoryName;
-            existingCategory.Description = category.Description;
-            existingCategory.Status = category.Status;
-
-            // Cập nhật Category trong cơ sở dữ liệu
-            _context.Categories.Update(existingCategory);
-
-            // Lưu thay đổi vào cơ sở dữ liệu
-            await _context.SaveChangesAsync();
 
             TempData["Success"] = "Cập nhật danh mục thành công!";
             return RedirectToAction("Index");
         }
-        public async Task<IActionResult> Delete(int id)
+        public ActionResult Delete(int id)
         {
-            var existingCategory = await _context.Categories
-                .FirstOrDefaultAsync(c => c.CategoryId == id);
-
-            if (existingCategory == null)
+            var result = _categoryService.DeleteCategory(id);
+            if (!result)
             {
-                return NotFound();
+                TempData["Error"] = "Xóa danh mục không thành công!";
+                return RedirectToAction(nameof(Index));
             }
-            // Xóa sản phẩm
-            _context.Categories.Remove(existingCategory);
-            await _context.SaveChangesAsync();
 
             TempData["Success"] = "Xóa sản phẩm thành công.";
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
     }
 }

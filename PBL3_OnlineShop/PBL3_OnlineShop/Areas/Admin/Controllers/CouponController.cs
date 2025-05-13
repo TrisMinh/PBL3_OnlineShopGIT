@@ -2,6 +2,7 @@
 using PBL3_OnlineShop.Models;
 using PBL3_OnlineShop.Data;
 using PBL3_OnlineShop.Validation;
+using PBL3_OnlineShop.Services.Admin.Coupon;
 
 namespace PBL3_OnlineShop.Areas.Admin.Controllers
 {
@@ -9,50 +10,40 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
     [RoleAuthorization("Admin")]
     public class CouponController : Controller
     {
-        private readonly PBL3_Db_Context _context;
-        public CouponController(PBL3_Db_Context context)
+        private readonly ICouponService _couponService;
+        public CouponController(ICouponService couponService)
         {
-            _context = context;
+            _couponService = couponService;
         }
-        public IActionResult Index()
+        public ActionResult Index()
         {
-            var coupons = _context.Coupons.ToList();
-            return View(coupons);
+            return View(_couponService.GetAllCoupons());
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Coupon coupon)
+        public ActionResult Create(Coupon coupon)
         {
-            var check = _context.Coupons.Any(c => c.Name.ToLower() == coupon.Name.ToLower());
-            if (check)
+            var result = _couponService.CreateCoupon(coupon);
+            if(!result)
             {
-                ModelState.AddModelError("Name", "Coupon name already exists!");
+                TempData["Error"] = "Mã giảm giá đã tồn tại!";
                 return View(coupon);
             }
-            if (ModelState.IsValid)
-            {
-                _context.Coupons.Add(coupon);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                TempData["Error"] = "Add failed!";
-            }
+            TempData["Success"] = "Thêm mã giảm giá thành công!";   
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult Edit(int id)
+        public ActionResult Edit(int id)
         {
-            var coupon = _context.Coupons.FirstOrDefault(p => p.Id == id);
+            var coupon = _couponService.GetCouponById(id);
             if (coupon == null)
             {
                 return NotFound();
@@ -62,44 +53,38 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Coupon coupon)
+        public ActionResult Edit(Coupon coupon)
         {
-            if (ModelState.IsValid)
+            var result = _couponService.UpdateCoupon(coupon);
+            if (!result)
             {
-                _context.Coupons.Update(coupon);
-                _context.SaveChanges();
+                TempData["Error"] = "Mã giảm giá không tồn tại!";
                 return RedirectToAction("Index");
             }
-            else
-            {
-                TempData["Error"] = "Cập nhật không thành công!";
-            }
+            TempData["Success"] = "Cập nhật mã giảm giá thành công!";
             return RedirectToAction("Index");
         }
-        [HttpGet]
-        public IActionResult Search(int? couponId, string couponName, decimal? couponDiscount, int status)
-        {
-            var query = from p in _context.Coupons
-                        where (!couponId.HasValue || couponId == p.Id) &&
-                        (string.IsNullOrEmpty(couponName) || p.Name.Contains(couponName)) &&
-                        (!couponDiscount.HasValue || couponDiscount == p.Discount) &&
-                        (status == -1 || status == p.status)
-                        select p;
-            var coupons = query.ToList();
 
+        [HttpGet]
+        public ActionResult Search(int? couponId, string couponName, decimal? couponDiscount, int status)
+        {
             ViewBag.couponID = couponId;
             ViewBag.couponName = couponName;
             ViewBag.couponDiscount = couponDiscount;
             ViewBag.status = status;
 
-            return View("Index", coupons);
+            return View("Index", _couponService.SearchCoupon(couponId,couponName,couponDiscount,status));
         }
 
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
-            var coupon = _context.Coupons.FirstOrDefault(c => c.Id == id);
-            _context.Coupons.Remove(coupon);
-            _context.SaveChanges();
+            var result = _couponService.DeleteCoupon(id);
+            if (!result)
+            {
+                TempData["Error"] = "Mã giảm giá không tồn tại!";
+                return RedirectToAction("Index");
+            }
+            TempData["Success"] = "Xóa mã giảm giá thành công!";
             return RedirectToAction("Index");
         }
     }

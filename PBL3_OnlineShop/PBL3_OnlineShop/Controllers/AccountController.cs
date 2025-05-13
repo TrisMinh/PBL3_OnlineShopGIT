@@ -72,7 +72,6 @@ namespace PBL3_OnlineShop.Controllers
             var user = new User
             {
                 UserName = model.UserName,
-                Name = model.UserName,
                 Email = model.Email,
                 Password = model.Password,
                 Gender = "Man",
@@ -260,7 +259,6 @@ namespace PBL3_OnlineShop.Controllers
                 
                 // Cập nhật thông tin người dùng từ form
                 user.UserName = form["UserName"].ToString();
-                user.Name = form["Name"].ToString();
                 user.Email = form["Email"].ToString();
                 
                 // Kiểm tra số điện thoại
