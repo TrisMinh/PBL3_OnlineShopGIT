@@ -1,26 +1,29 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PBL3_OnlineShop.Data;
 
-namespace PBL3_OnlineShop.Services.Admin.Order
+namespace PBL3_OnlineShop.Services.Order
 {
-    public class OrderService : IOrderService
+    public class OrderCusService : IOrderCusService
     {
         private readonly PBL3_Db_Context _context;
-        public OrderService(PBL3_Db_Context context)
+        public OrderCusService(PBL3_Db_Context context)
         {
             _context = context;
         }
-        public List<Models.Order> GetAllOrders()
+        public List<Models.Order> GetAllOrdersByUserId(int? userId)
         {
-            return _context.Orders.OrderByDescending(o => o.Id).Include(o => o.OrderDetails).ThenInclude(od => od.Product).Include(o => o.User).ToList();
+            return _context.Orders
+                .OrderByDescending(o => o.Id)
+                .Include(o => o.OrderDetails)
+                .ThenInclude(od => od.Product)
+                .Include(o => o.User)
+                .Where(o => o.UserId == userId)
+                .ToList();
         }
 
-        public void ConfirmOrder(int id)
+        public Models.User GetUserById(int? userId)
         {
-            var order = _context.Orders.FirstOrDefault(o => o.Id == id);
-            order.Status = 2;
-            _context.SaveChanges();
-            return;
+            return _context.Users.FirstOrDefault(u => u.Id == userId);
         }
 
         public void CancelOrder(int id)
@@ -39,16 +42,13 @@ namespace PBL3_OnlineShop.Services.Admin.Order
             UpdateProductsStockQuantity(productIds);
             return;
         }
-        
-        public List<Models.Order> SearchOrders(int? orderID, string customerName, int? status)
+
+        public List<Models.Order> SearchOrder(int? status)
         {
-            var query = from p in _context.Orders.Include(p => p.OrderDetails).ThenInclude(od => od.Product).Include(p => p.User)
-                        where (!orderID.HasValue || orderID == p.Id) &&
-                        (string.IsNullOrEmpty(customerName) || p.User.UserName.Contains(customerName)) &&
-                        (!status.HasValue || status == p.Status)
+            var query = from p in _context.Orders.OrderByDescending(p => p.Id).Include(p => p.OrderDetails).ThenInclude(od => od.Product).Include(p => p.User)
+                        where (!status.HasValue || status == p.Status)
                         select p;
-            var orders = query.ToList();        
-            return orders;
+            return query.ToList();
         }
 
         public void UpdateProductsStockQuantity(List<int> productIds)
