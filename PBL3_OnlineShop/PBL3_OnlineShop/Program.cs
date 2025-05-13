@@ -10,6 +10,7 @@ using PBL3_OnlineShop.Services.Admin.Statistic;
 using PBL3_OnlineShop.Services.Admin.User;
 using PBL3_OnlineShop.Services.Cart;
 using PBL3_OnlineShop.Services.Checkout;
+using PBL3_OnlineShop.Services.Order;
 
 namespace PBL3_OnlineShop
 {
@@ -27,7 +28,7 @@ namespace PBL3_OnlineShop
             builder.Services.AddControllersWithViews();
 
             // Đk dịch vụ cho các controller 
-            builder.Services.AddScoped<IStatisticService,StatisticService>();
+            builder.Services.AddScoped<IStatisticService, StatisticService>();
             builder.Services.AddScoped<IOrderService, OrderService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IProductService, ProductService>();
@@ -36,6 +37,7 @@ namespace PBL3_OnlineShop
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<ICartService, CartService>();
             builder.Services.AddScoped<ICheckoutService, CheckoutService>();
+            builder.Services.AddScoped<IOrderCusService, OrderCusService>();
 
             builder.Services.AddDistributedMemoryCache(); // Bộ nhớ để lưu session
             builder.Services.AddSession(options =>
@@ -46,7 +48,7 @@ namespace PBL3_OnlineShop
 
             var app = builder.Build();
 
-            app.UseSession();     
+            app.UseSession();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -60,7 +62,7 @@ namespace PBL3_OnlineShop
 
             app.UseRouting();
 
-            
+
             app.UseAuthorization();
 
             app.MapControllerRoute(
