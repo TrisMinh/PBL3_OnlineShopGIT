@@ -1,11 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using PBL3_OnlineShop.Data;
+using PBL3_OnlineShop.Services.Account;
 using PBL3_OnlineShop.Services.Admin.Category;
 using PBL3_OnlineShop.Services.Admin.Coupon;
 using PBL3_OnlineShop.Services.Admin.Order;
 using PBL3_OnlineShop.Services.Admin.Product;
 using PBL3_OnlineShop.Services.Admin.Statistic;
 using PBL3_OnlineShop.Services.Admin.User;
+using PBL3_OnlineShop.Services.Cart;
+using PBL3_OnlineShop.Services.Checkout;
 
 namespace PBL3_OnlineShop
 {
@@ -29,6 +33,9 @@ namespace PBL3_OnlineShop
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ICouponService, CouponService>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<ICartService, CartService>();
+            builder.Services.AddScoped<ICheckoutService, CheckoutService>();
 
             builder.Services.AddDistributedMemoryCache(); // Bộ nhớ để lưu session
             builder.Services.AddSession(options =>

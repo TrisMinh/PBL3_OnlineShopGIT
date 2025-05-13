@@ -9,6 +9,8 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PBL3_OnlineShop.Models.ViewModels;
+using PBL3_OnlineShop.Services;
+using PBL3_OnlineShop.Services.Checkout;
 
 
 namespace PBL3_OnlineShop.Controllers
@@ -16,9 +18,11 @@ namespace PBL3_OnlineShop.Controllers
     public class CheckoutController : Controller
     {
         private readonly PBL3_Db_Context _context;
-        public CheckoutController(PBL3_Db_Context context)
+        private readonly ICheckoutService _checkoutService;
+        public CheckoutController(PBL3_Db_Context context, ICheckoutService checkoutService)
         {
             _context = context;
+            _checkoutService = checkoutService;
         }  
         
         public IActionResult Index()
@@ -29,70 +33,42 @@ namespace PBL3_OnlineShop.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            decimal shippingCost = 50;
-
-            var user = _context.Users.FirstOrDefault(u => u.Id == userId);
-
-            var cart = _context.Carts.FirstOrDefault(c => c.UserId == userId);
-            var cartItems = _context.CartItems.Where(c => c.CartId == cart.CartId).ToList();
-
-            decimal subtotal = cartItems.Sum(item => item.Quantity * item.SellingPrice);
-
-            decimal discount = 0;
             string couponUsed = null;
-            if (TempData["Discount"] != null)
+            if (TempData["NameCoupon"] != null)
             {
-                decimal.TryParse(TempData["Discount"].ToString(), out discount);
                 couponUsed = TempData["NameCoupon"]?.ToString();
             }
 
-            decimal totalPrice = subtotal - discount + shippingCost;
+            CheckoutView checkoutView = _checkoutService.GetCheckoutView(userId, couponUsed);
 
-            var checkoutViewModel = new CheckoutView
-            {
-                CartItems = cartItems,
-                Subtotal = subtotal,
-                ShippingCost = shippingCost,
-                Discount = discount,
-                TotalPrice = totalPrice,
-                CouponUsed = couponUsed
-            };
+            var user = _context.Users.FirstOrDefault(u => u.Id == userId);
 
             ViewBag.NameCustomer = user.UserName;
             ViewBag.Email = user.Email;
             ViewBag.PhoneNumber = user.PhoneNumber;
             ViewBag.Address = user.Address;
-            return View(checkoutViewModel);
+            return View(checkoutView);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ApplyCoupon(string name)
         {
             var userID = HttpContext.Session.GetInt32("_UserId");
-            var coupon = _context.Coupons.FirstOrDefault(c => c.Name.ToLower() == name.ToLower());
-            if (coupon == null || coupon.status == 0)
-            {
-                TempData["Error"] = "Coupon not found.";
-                return RedirectToAction("Index");
-            }
-            if (coupon.Quantity <= 0 || coupon.EndDate < DateTime.Now)
-            {
-                TempData["Error"] = "Coupon has expired.";
-                return RedirectToAction("Index");
-            }
-            var couponUsage = _context.CouponUsages.Any(c => c.CouponId == coupon.Id && c.UserId == userID);
-            if (couponUsage)
-            {
-                TempData["Error"] = "You have already used this coupon.";
-                return RedirectToAction("Index");
-            }
 
+            if (_checkoutService.CheckCoupon(userID, name) != "OK")
+            {
+                TempData["Error"] = _checkoutService.CheckCoupon(userID, name);
+                return RedirectToAction("Index");
+            } 
+
+            var coupon = _checkoutService.GetCouponByName(name);
             TempData["Success"] = "Coupon " + coupon.Name + " applied successfully! " + coupon.Description;
-            TempData["Discount"] = coupon.Discount.ToString();
             TempData["NameCoupon"] = coupon.Name;
 
             return RedirectToAction("Index");
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult CreateOrder(string CouponUsed, string PaymentMethod)

@@ -6,16 +6,19 @@ using Newtonsoft.Json;
 using PBL3_OnlineShop.Models;
 using PBL3_OnlineShop.Models.ViewModels;
 using PBL3_OnlineShop.Data;
+using PBL3_OnlineShop.Services.Account;
 
 namespace PBL3_OnlineShop.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly IAccountService _accountService;
         private readonly PBL3_Db_Context _context;
         private readonly PasswordHasher<User> _passwordHasher = new(); 
-        public AccountController(PBL3_Db_Context context)
+        public AccountController(PBL3_Db_Context context, IAccountService accountService)
         {
             _context = context;
+            _accountService = accountService;
         }
         [HttpGet]
         public ActionResult ForgotPassword()
@@ -25,23 +28,18 @@ namespace PBL3_OnlineShop.Controllers
         [HttpPost]
         public ActionResult ForgotPassword(ForgotPasswordView model)
         {
-            // rỗng
             if (string.IsNullOrEmpty(model.ForgotUsername))
             {
                 ModelState.AddModelError(string.Empty, "Username or email is required.");
                 return View(model);
             }
-            var user = _context.Users.FirstOrDefault(u => u.UserName == model.ForgotUsername || u.Email == model.ForgotUsername);
+            var user = _accountService.FindByUsernameOrEmail(model.ForgotUsername);
             if (user == null)
             {
                 ModelState.AddModelError(string.Empty, "No user found with the provided username or email.");
                 return View(model);
             }
-            var newPassword = "123";
-            user.Password = _passwordHasher.HashPassword(user, newPassword);
-
-            _context.Users.Update(user);
-            _context.SaveChanges();
+            _accountService.ResetPassword(user, "123");
             return RedirectToAction("Login");
         }
         [HttpGet]
@@ -50,41 +48,26 @@ namespace PBL3_OnlineShop.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterView model)
+        public IActionResult Register(RegisterView model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
             
-            bool isUserNameExists = await _context.Users.AnyAsync(u => u.UserName == model.UserName);
-            if (isUserNameExists)
+            if (_accountService.IsUserNameExists(model.UserName))
             {
                 ModelState.AddModelError("UserName", "Tên đăng nhập đã tồn tại.");
                 return View(model);
             }
-            bool isEmailExists = await _context.Users.AnyAsync(u => u.Email == model.Email);
-            if (isEmailExists)
+
+             if (_accountService.IsEmailExists(model.Email))
             {
                 ModelState.AddModelError("Email", "Email đã tồn tại.");
                 return View(model);
             }
-            var user = new User
-            {
-                UserName = model.UserName,
-                Email = model.Email,
-                Password = model.Password,
-                Gender = "Man",
-                UrlAvatar = "/avatar/def.jpg",
-                Role = "Customer",
-                CreatedAt = DateTime.Now,
-                Status = 1
-            };
-            // hash sau khi tạo vì tạo phía trong thì user ch đc khởi tạo
-            user.Password = _passwordHasher.HashPassword(user, model.Password);
 
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            _accountService.CreateUser(model);
 
             TempData["Success"] = "Đăng ký thành công!";
             return RedirectToAction("Login");
@@ -95,21 +78,21 @@ namespace PBL3_OnlineShop.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Login(LoginView model)
+        public IActionResult Login(LoginView model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == model.Username);
+            var user = _accountService.FindByUsername(model.Username);
             if (user == null)
             {
                 ModelState.AddModelError("Username", "Tên đăng nhập không tồn tại.");
                 return View(model);
             }
-            var pass = _passwordHasher.VerifyHashedPassword(user, user.Password, model.Password);
-            if (pass == PasswordVerificationResult.Failed) // passverificationresult g so sánh pass
+
+            if (!_accountService.VerifyPassword(user, model.Password)) // passverificationresult g so sánh pass
             {
                 ModelState.AddModelError("Password", "Mật khẩu không đúng.");
                 return View(model);
@@ -125,7 +108,7 @@ namespace PBL3_OnlineShop.Controllers
             if (!string.IsNullOrEmpty(tempCart))
             {
                 var cartItems = JsonConvert.DeserializeObject<List<CartItem>>(tempCart); // conver từ json về list<CartItem>
-                var cart = await _context.Carts.Include(c => c.CartItems).FirstOrDefaultAsync(c => c.UserId == user.Id);
+                var cart = _context.Carts.Include(c => c.CartItems).FirstOrDefault(c => c.UserId == user.Id);
 
                 if (cart == null)
                 {
@@ -146,7 +129,7 @@ namespace PBL3_OnlineShop.Controllers
                     }
                 }
 
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 HttpContext.Session.Remove("Cart");  // Xóa giỏ hàng tạm thời sau khi đã chuyển vào cơ sở dữ liệu
             }
 
@@ -169,7 +152,7 @@ namespace PBL3_OnlineShop.Controllers
 
                 return RedirectToAction("Login");
             }
-            var user = _context.Users.Find(userId);
+            var user = _accountService.GetUserById(userId.Value);
             if (user == null)
             {
                 return NotFound();
