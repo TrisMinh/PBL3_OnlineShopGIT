@@ -42,10 +42,11 @@ namespace PBL3_OnlineShop.Services.Checkout
         {
             return _context.Coupons.FirstOrDefault(c => c.Name.ToLower() == couponName.ToLower());
         }
+
         public string CheckCoupon(int? userId, string couponName)
         {
             var coupon = _context.Coupons.FirstOrDefault(c => c.Name.ToLower() == couponName.ToLower());
-            if (coupon == null || coupon.status == 0)
+            if (coupon == null || coupon.status == 0 || coupon.StartDate > DateTime.Now)
             {
                 return "Coupon not found.";
             }

@@ -6,20 +6,21 @@ namespace PBL3_OnlineShop.Services.Account
     public interface IAccountService
     {
         // Register
-        bool IsUserNameExists(string username);
-        bool IsEmailExists(string email);
-        void CreateUser(RegisterView model);
+        public bool IsUserNameExists(string username);
+        public bool IsEmailExists(string email);
+        public void CreateUser(RegisterView model);
 
         // Forgot Password
-        User FindByUsernameOrEmail(string input);
-        void ResetPassword(User user, string newPassword);
+        public User FindByUsernameOrEmail(string input);
+        public void ResetPassword(User user, string newPassword);
 
         // Login
-        User FindByUsername(string username);
-        bool VerifyPassword(User user, string password);
+        public User FindByUsername(string username);
 
         // Profile
-        User GetUserById(int id);
+        public User GetUserById(int id);
+
+        public void ApplySessionCartToUser(string tempCart, int? userId, ISession session);
     }
 
 }

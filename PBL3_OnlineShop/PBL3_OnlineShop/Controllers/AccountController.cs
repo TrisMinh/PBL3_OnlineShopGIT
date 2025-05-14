@@ -20,11 +20,13 @@ namespace PBL3_OnlineShop.Controllers
             _context = context;
             _accountService = accountService;
         }
+
         [HttpGet]
         public ActionResult ForgotPassword()
         {
             return View("ForgotPassword");
         }
+
         [HttpPost]
         public ActionResult ForgotPassword(ForgotPasswordView model)
         {
@@ -42,6 +44,7 @@ namespace PBL3_OnlineShop.Controllers
             _accountService.ResetPassword(user, "123");
             return RedirectToAction("Login");
         }
+
         [HttpGet]
         public ActionResult Register()
         {
@@ -92,7 +95,8 @@ namespace PBL3_OnlineShop.Controllers
                 return View(model);
             }
 
-            if (!_accountService.VerifyPassword(user, model.Password)) // passverificationresult g so sánh pass
+            var passwordCheck = _passwordHasher.VerifyHashedPassword(user, user.Password, model.Password);
+            if (passwordCheck == PasswordVerificationResult.Failed)
             {
                 ModelState.AddModelError("Password", "Mật khẩu không đúng.");
                 return View(model);
@@ -107,30 +111,7 @@ namespace PBL3_OnlineShop.Controllers
             var tempCart = HttpContext.Session.GetString("Cart");
             if (!string.IsNullOrEmpty(tempCart))
             {
-                var cartItems = JsonConvert.DeserializeObject<List<CartItem>>(tempCart); // conver từ json về list<CartItem>
-                var cart = _context.Carts.Include(c => c.CartItems).FirstOrDefault(c => c.UserId == user.Id);
-
-                if (cart == null)
-                {
-                    cart = new Cart { UserId = user.Id };
-                    _context.Carts.Add(cart);
-                }
-
-                foreach (var item in cartItems)
-                {
-                    var existingItem = cart.CartItems.FirstOrDefault(ci => ci.ProductId == item.ProductId && ci.Size == item.Size && ci.Color == item.Color);
-                    if (existingItem != null)
-                    {
-                        existingItem.Quantity += item.Quantity;  // Cập nhật số lượng nếu sản phẩm đã có trong giỏ
-                    }
-                    else
-                    {
-                        cart.CartItems.Add(item);
-                    }
-                }
-
-                _context.SaveChanges();
-                HttpContext.Session.Remove("Cart");  // Xóa giỏ hàng tạm thời sau khi đã chuyển vào cơ sở dữ liệu
+                _accountService.ApplySessionCartToUser(tempCart, user.Id, HttpContext.Session);
             }
 
             return RedirectToAction("Index", "Home");
@@ -173,21 +154,17 @@ namespace PBL3_OnlineShop.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordModel model)
+        public IActionResult ChangePassword([FromBody] ChangePasswordModel model)
         {
             try
             {
                 var userId = HttpContext.Session.GetInt32("_UserId");
                 if (userId == null)
                 {
-                    return Unauthorized(new { success = false, message = "Bạn chưa đăng nhập" });
+                    return RedirectToAction("Login");
                 }
 
-                var user = await _context.Users.FindAsync(userId);
-                if (user == null)
-                {
-                    return NotFound(new { success = false, message = "Không tìm thấy người dùng" });
-                }
+                var user = _context.Users.Find(userId);
 
                 // Kiểm tra mật khẩu hiện tại
                 var passwordCheck = _passwordHasher.VerifyHashedPassword(user, user.Password, model.CurrentPassword);
@@ -204,7 +181,7 @@ namespace PBL3_OnlineShop.Controllers
 
                 // Mã hóa và lưu mật khẩu mới
                 user.Password = _passwordHasher.HashPassword(user, model.NewPassword);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
 
                 return Ok(new { success = true, message = "Đổi mật khẩu thành công" });
             }
@@ -215,7 +192,7 @@ namespace PBL3_OnlineShop.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateProfile(IFormCollection form)
+        public IActionResult UpdateProfile(IFormCollection form)
         {
             Console.WriteLine("UpdateProfile method được gọi");
             try 
@@ -227,7 +204,7 @@ namespace PBL3_OnlineShop.Controllers
                     return RedirectToAction("Login", "Account");
                 }
                 
-                var user = await _context.Users.FindAsync(userId);
+                var user = _context.Users.Find(userId);
                 if (user == null)
                 {
                     Console.WriteLine("Không tìm thấy user với ID: " + userId);
@@ -287,7 +264,7 @@ namespace PBL3_OnlineShop.Controllers
                 Console.WriteLine("Address value: " + user.Address);
                 
                 // Lưu thay đổi
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 Console.WriteLine("Đã lưu thông tin người dùng thành công");
                 
                 // Cập nhật session nếu cần
