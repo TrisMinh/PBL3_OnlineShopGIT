@@ -12,6 +12,7 @@ using PBL3_OnlineShop.Services.Cart;
 using PBL3_OnlineShop.Services.Checkout;
 using PBL3_OnlineShop.Services.Product;
 using PBL3_OnlineShop.Services.Order;
+using PBL3_OnlineShop.Services.Home;
 
 namespace PBL3_OnlineShop
 {
@@ -41,6 +42,7 @@ namespace PBL3_OnlineShop
             builder.Services.AddScoped<IOrderCusService, OrderCusService>();
             // Đăng ký dịch vụ ProductService cho phía người dùng
             builder.Services.AddScoped<Services.Product.IProductService, Services.Product.ProductService>();
+            builder.Services.AddScoped<IHomeService, HomeService>();
             builder.Services.AddDistributedMemoryCache(); // Bộ nhớ để lưu session
             builder.Services.AddSession(options =>
             {
