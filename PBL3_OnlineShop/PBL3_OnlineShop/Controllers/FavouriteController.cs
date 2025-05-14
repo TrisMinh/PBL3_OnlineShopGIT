@@ -43,6 +43,9 @@ namespace PBL3_OnlineShop.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
+            // Sử dụng ToggleFavourite để thêm hoặc xóa
+            bool isAdded = _favouriteService.ToggleFavourite(userId.Value, id);
+
             return RedirectToAction("Details", "Products", new { id = id });
         }
 
@@ -56,6 +59,7 @@ namespace PBL3_OnlineShop.Controllers
             }
 
             bool result = _favouriteService.RemoveFavourite(id, userId.Value);
+
 
             return RedirectToAction(nameof(Index));
         }

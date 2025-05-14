@@ -99,25 +99,22 @@
                             </div>
                         </div>
 
-
-
-
                         @if (Model.StockQuantity == 0)
                         {
                             <div class="add-to-cart-btn-container">
                                 <label class="add-to-cart-btn">Out of Stock</label>
-                                <button type="button" id="favouriteBtn" class="favourite-btn @(ViewBag.IsFavourite == true ? "active" : "")" title="Yêu thích" data-product-id="@Model.ProductId">
+                                <a href="@Url.Action("Create", "Favourite", new { id = Model.ProductId })" class="favourite-btn @(ViewBag.IsFavourite == true ? "active" : "")" title="Yêu thích">
                                     <i class="fa@(ViewBag.IsFavourite == true ? "s" : "r") fa-heart"></i>
-                                </button>
+                                </a>
                             </div>
                         }
                         else
                         {
                             <div class="add-to-cart-btn-container">
                                 <button type="submit" class="add-to-cart-btn">ADD TO CART</button>
-                                <button type="button" id="favouriteBtn" class="favourite-btn @(ViewBag.IsFavourite == true ? "active" : "")" title="Yêu thích" data-product-id="@Model.ProductId">
+                                <a href="@Url.Action("Create", "Favourite", new { id = Model.ProductId })" class="favourite-btn @(ViewBag.IsFavourite == true ? "active" : "")" title="Yêu thích">
                                     <i class="fa@(ViewBag.IsFavourite == true ? "s" : "r") fa-heart"></i>
-                                </button>
+                                </a>
                             </div>
                         }
                     </form>
@@ -129,7 +126,7 @@
     </div>
 
     <script src="~/js/Animate.js"></script>
-    <script src="~/js/Detail.js"></script>
+    <!-- <script src="~/js/Detail.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
         $(document).ready(function () {
