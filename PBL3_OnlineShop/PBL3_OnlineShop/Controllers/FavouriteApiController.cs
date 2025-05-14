@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using PBL3_OnlineShop.Data;
-using System.Linq;
+using PBL3_OnlineShop.Services.Favourite;
 
 namespace PBL3_OnlineShop.Controllers
 {
@@ -9,10 +8,11 @@ namespace PBL3_OnlineShop.Controllers
     [ApiController]
     public class FavouriteApiController : ControllerBase
     {
-        private readonly PBL3_Db_Context _db;
-        public FavouriteApiController(PBL3_Db_Context db)
+        private readonly IFavouriteService _favouriteService;
+        
+        public FavouriteApiController(IFavouriteService favouriteService)
         {
-            _db = db;
+            _favouriteService = favouriteService;
         }
 
         [HttpPost("toggle/{productId}")]
@@ -23,19 +23,9 @@ namespace PBL3_OnlineShop.Controllers
             {
                 return Unauthorized(new { success = false, message = "Bạn cần đăng nhập để sử dụng chức năng này." });
             }
-            var fav = _db.Favourites.FirstOrDefault(f => f.UserId == userId && f.ProductId == productId);
-            if (fav != null)
-            {
-                _db.Favourites.Remove(fav);
-                _db.SaveChanges();
-                return Ok(new { success = true, isFavourite = false });
-            }
-            else
-            {
-                _db.Favourites.Add(new Models.Favourite { UserId = userId.Value, ProductId = productId });
-                _db.SaveChanges();
-                return Ok(new { success = true, isFavourite = true });
-            }
+            
+            bool isFavourite = _favouriteService.ToggleFavourite(userId.Value, productId);
+            return Ok(new { success = true, isFavourite = isFavourite });
         }
     }
 } 
