@@ -25,18 +25,19 @@ namespace PBL3_OnlineShop.Services.Admin.Statistic
         public DashboardStatisticsView GetDashboardStatistics()
         {
             var now = DateTime.Now;
+            var lastMonthDateTime = now.AddMonths(-1);
 
-            var increlastmonth = _context.Users.Count(u => u.Role == "Customer" && u.CreatedAt.Month == now.AddMonths(-1).Month);
-            var nowmonthUser = _context.Users.Count(u => u.Role == "Customer" && u.CreatedAt.Month == now.Month);
+            var increlastmonth = _context.Users.Count(u => u.Role == "Customer" && u.CreatedAt.Month == lastMonthDateTime.Month && u.CreatedAt.Year == lastMonthDateTime.Year);
+            var nowmonthUser = _context.Users.Count(u => u.Role == "Customer" && u.CreatedAt.Month == now.Month && u.CreatedAt.Year == now.Year);
 
-            var increlastmonthSale = _context.Orders.Where(o => o.Status == 2 && o.OrderDate.Month == now.AddMonths(-1).Month).Sum(o => o.TotalPrice);
-            var nowmonthSale = _context.Orders.Where(o => o.Status == 2 && o.OrderDate.Month == now.Month).Sum(o => o.TotalPrice);
+            var increlastmonthSale = _context.Orders.Where(o => o.Status == 2 && o.OrderDate.Month == lastMonthDateTime.Month && o.OrderDate.Year == lastMonthDateTime.Year).Sum(o => o.TotalPrice);
+            var nowmonthSale = _context.Orders.Where(o => o.Status == 2 && o.OrderDate.Month == now.Month && o.OrderDate.Year == now.Year).Sum(o => o.TotalPrice);
 
-            var increlastmonthOrder = _context.Orders.Count(o => o.Status == 2 && o.OrderDate.Month == now.AddMonths(-1).Month);
-            var nowmonthOrder = _context.Orders.Count(o => o.Status == 2 && o.OrderDate.Month == now.Month);
+            var increlastmonthOrder = _context.Orders.Count(o => o.Status == 2 && o.OrderDate.Month == lastMonthDateTime.Month && o.OrderDate.Year == lastMonthDateTime.Year);
+            var nowmonthOrder = _context.Orders.Count(o => o.Status == 2 && o.OrderDate.Month == now.Month && o.OrderDate.Year == now.Year);
 
-            var increlastmonthPendingOrder = _context.Orders.Count(o => o.Status == 1 && o.OrderDate.Month == now.AddMonths(-1).Month);
-            var nowmonthPendingOrder = _context.Orders.Count(o => o.Status == 1 && o.OrderDate.Month == now.Month);
+            var increlastmonthPendingOrder = _context.Orders.Count(o => o.Status == 1 && o.OrderDate.Month == lastMonthDateTime.Month && o.OrderDate.Year == lastMonthDateTime.Year);
+            var nowmonthPendingOrder = _context.Orders.Count(o => o.Status == 1 && o.OrderDate.Month == now.Month && o.OrderDate.Year == now.Year);
 
             return new DashboardStatisticsView
             {
