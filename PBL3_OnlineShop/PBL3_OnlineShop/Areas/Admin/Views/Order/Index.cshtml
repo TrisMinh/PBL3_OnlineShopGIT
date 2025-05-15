@@ -59,6 +59,7 @@
                             <th>Product Name</th>
                             <th>Total Price</th>
                             <th>Order Date</th>
+							<th>Coupon Used</th>
                             <th>Code</th>
                             <th>status</th>
                             <th>Action</th>
@@ -93,6 +94,7 @@
                                 </td>
                                 <td>@item.TotalPrice.ToString("C")</td>
                                 <td>@item.OrderDate.ToString("dd-MM-yyyy")</td>
+                                <td>@item.CouponUsed</td>
                                 <td>
                                     @foreach (var product in item.OrderDetails)
                                     {

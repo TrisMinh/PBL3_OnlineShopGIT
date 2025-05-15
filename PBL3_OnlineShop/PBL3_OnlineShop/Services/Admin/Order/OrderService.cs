@@ -37,6 +37,20 @@ namespace PBL3_OnlineShop.Services.Admin.Order
                 product.Quantity += item.Quantity;
                 productIds.Add(item.ProductId);
             }
+
+            if (order.CouponUsed != "No")
+            {
+                var coupon = _context.Coupons.FirstOrDefault(c => c.Name == order.CouponUsed);
+                var couponusage = _context.CouponUsages.FirstOrDefault(cu => cu.CouponId == coupon.Id && cu.UserId == order.UserId);
+                if (couponusage != null)
+                {
+                    _context.CouponUsages.Remove(couponusage);
+                    coupon.Quantity += 1;
+                    _context.Coupons.Update(coupon);
+                    _context.SaveChanges();
+                }
+            }
+
             order.Status = 0;
             _context.SaveChanges();
             _inventoryService.UpdateProductsStockQuantity(productIds);

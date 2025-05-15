@@ -51,6 +51,14 @@ namespace PBL3_OnlineShop.Services.Admin.Coupon
             {
                 return false;
             }
+
+            var relatedUsages = _context.CouponUsages.Where(cu => cu.CouponId == id).ToList();
+            if (relatedUsages.Any()) 
+            {
+                _context.CouponUsages.RemoveRange(relatedUsages);
+                _context.SaveChanges();
+            }
+
             _context.Coupons.Remove(coupon);
             _context.SaveChanges();
             return true;

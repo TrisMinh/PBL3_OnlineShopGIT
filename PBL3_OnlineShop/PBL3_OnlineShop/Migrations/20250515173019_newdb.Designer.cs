@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PBL3_OnlineShop.Data;
 
@@ -11,9 +12,11 @@ using PBL3_OnlineShop.Data;
 namespace PBL3_OnlineShop.Migrations
 {
     [DbContext(typeof(PBL3_Db_Context))]
-    partial class PBL3_Db_ContextModelSnapshot : ModelSnapshot
+    [Migration("20250515173019_newdb")]
+    partial class newdb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -194,9 +197,6 @@ namespace PBL3_OnlineShop.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CouponUsed")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");

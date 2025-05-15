@@ -124,12 +124,18 @@ namespace PBL3_OnlineShop.Services.Checkout
                 }
             }
 
+            if(string.IsNullOrEmpty(CouponUsed))
+            {
+                CouponUsed = "No";
+            }
+
             var order = new Models.Order
             {
                 UserId = userId,
                 OrderDate = DateTime.Now,
                 Status = 1,
                 TotalPrice = TotalPrice,
+                CouponUsed = CouponUsed,
             };
             _context.Orders.Add(order);
             _context.SaveChanges();
