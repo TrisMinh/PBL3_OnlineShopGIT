@@ -29,11 +29,11 @@ namespace PBL3_OnlineShop.Services.Admin.Coupon
         }
         public bool UpdateCoupon(Models.Coupon coupon)
         {
-            var existingCoupon = _context.Coupons.FirstOrDefault(p => p.Id == coupon.Id);
-            if (existingCoupon == null)
+            if (_context.Coupons.Any(p => p.Name == coupon.Name && p.Id != coupon.Id))
             {
                 return false;
             }
+            var existingCoupon = _context.Coupons.FirstOrDefault(p => p.Id == coupon.Id);
             existingCoupon.Name = coupon.Name;
             existingCoupon.Description = coupon.Description;
             existingCoupon.Quantity = coupon.Quantity;
