@@ -2,15 +2,18 @@
 using PBL3_OnlineShop.Data;
 using PBL3_OnlineShop.Models;
 using PBL3_OnlineShop.Models.ViewModels;
+using PBL3_OnlineShop.Services.Inventory;
 
 namespace PBL3_OnlineShop.Services.Checkout
 {
     public class CheckoutService : ICheckoutService
     {
         private readonly PBL3_Db_Context _context;
-        public CheckoutService(PBL3_Db_Context context)
+        private readonly IInventoryService _inventoryService;
+        public CheckoutService(PBL3_Db_Context context, IInventoryService inventoryService)
         {
             _context = context;
+            _inventoryService = inventoryService;
         }
         public CheckoutView GetCheckoutView(int? userId, string couponUsed)
         {
@@ -167,7 +170,7 @@ namespace PBL3_OnlineShop.Services.Checkout
                 _context.SaveChanges();
             }
 
-            UpdateProductsStockQuantity(productIds);
+            _inventoryService.UpdateProductsStockQuantity(productIds);
 
             if (!string.IsNullOrEmpty(CouponUsed))
             {
@@ -186,26 +189,6 @@ namespace PBL3_OnlineShop.Services.Checkout
                     _context.SaveChanges();
                 }
             }
-        }
-
-        public void UpdateProductsStockQuantity(List<int> productIds)
-        {
-            foreach (var productId in productIds)
-            {
-                var product = _context.Products.FirstOrDefault(p => p.ProductId == productId);
-                if (product != null)
-                {
-                    // Tính tổng số lượng từ ProductsSize
-                    var totalQuantity = _context.ProductsSize
-                        .Where(ps => ps.ProductId == productId)
-                        .Sum(ps => ps.Quantity);
-
-                    // Cập nhật StockQuantity
-                    product.StockQuantity = totalQuantity;
-                    _context.Products.Update(product);
-                }
-            }
-            _context.SaveChanges();
         }
 
         public List<int> GetListProductIdFromCartItems(List<CartItem> cartItems, int cartId)

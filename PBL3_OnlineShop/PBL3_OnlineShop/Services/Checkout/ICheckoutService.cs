@@ -13,7 +13,6 @@ namespace PBL3_OnlineShop.Services.Checkout
         public Models.Cart GetCartByUserId(int? userId);
         public List<CartItem> GetListCartItemsByCartId(int cartId);
         public void CreateOrderInDatabase(decimal TotalPrice, string CouponUsed, List<CartItem> cartItems, int userId, List<int> productIds, string randomCode = null);
-        public void UpdateProductsStockQuantity(List<int> productIds);
         public List<int> GetListProductIdFromCartItems(List<CartItem> cartItems, int cartId);
         public Models.User GetUserById(int? userId);
     }

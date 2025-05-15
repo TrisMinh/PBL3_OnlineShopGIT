@@ -14,6 +14,7 @@ using PBL3_OnlineShop.Services.Product;
 using PBL3_OnlineShop.Services.Order;
 using PBL3_OnlineShop.Services.Home;
 using PBL3_OnlineShop.Services.Favourite;
+using PBL3_OnlineShop.Services.Inventory;
 
 namespace PBL3_OnlineShop
 {
@@ -41,6 +42,7 @@ namespace PBL3_OnlineShop
             builder.Services.AddScoped<ICartService, CartService>();
             builder.Services.AddScoped<ICheckoutService, CheckoutService>();
             builder.Services.AddScoped<IOrderCusService, OrderCusService>();
+            builder.Services.AddScoped<IInventoryService, InventoryService>();
             // Đăng ký dịch vụ ProductService cho phía người dùng
             builder.Services.AddScoped<Services.Product.IProductService, Services.Product.ProductService>();
             builder.Services.AddScoped<IHomeService, HomeService>();

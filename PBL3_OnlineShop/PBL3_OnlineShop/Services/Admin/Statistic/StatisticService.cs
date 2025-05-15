@@ -12,6 +12,16 @@ namespace PBL3_OnlineShop.Services.Admin.Statistic
         {
             _context = context;
         }
+
+        public decimal CalculatePercentageChange(decimal currentValue, decimal previousValue)
+        {
+            if (previousValue == 0)
+            {
+                return currentValue == 0 ? 0 : 100;
+            }
+            return Math.Round((decimal) ((currentValue - previousValue) / previousValue * 100), 2);
+        }
+
         public DashboardStatisticsView GetDashboardStatistics()
         {
             var now = DateTime.Now;
@@ -31,16 +41,16 @@ namespace PBL3_OnlineShop.Services.Admin.Statistic
             return new DashboardStatisticsView
             {
                 UserCount = _context.Users.Count(u => u.Role == "Customer"),
-                IncreaseUserPercentage = increlastmonth == 0 ? 100 : (decimal)(nowmonthUser - increlastmonth) / increlastmonth * 100,
+                IncreaseUserPercentage = CalculatePercentageChange(nowmonthUser, increlastmonth),
 
                 TotalSale = _context.Orders.Where(o => o.Status == 2).Sum(o => o.TotalPrice),
-                IncreaseSalePercentage = Math.Round(increlastmonthSale == 0 ? 100 : (nowmonthSale - increlastmonthSale) / increlastmonthSale * 100, 2),
+                IncreaseSalePercentage = CalculatePercentageChange(nowmonthSale, increlastmonthSale),
 
                 OrderCount = _context.Orders.Count(),
-                IncreaseOrderPercentage = Math.Round(increlastmonthOrder == 0 ? 100 : (decimal)(nowmonthOrder - increlastmonthOrder) / increlastmonthOrder * 100, 2),
+                IncreaseOrderPercentage = CalculatePercentageChange(nowmonthOrder, increlastmonthOrder),
 
                 OrderStatusCount = _context.Orders.Count(o => o.Status == 1),
-                IncreasePendingOrderPercentage = Math.Round(increlastmonthPendingOrder == 0 ? 100 : (decimal)(nowmonthPendingOrder - increlastmonthPendingOrder) / increlastmonthPendingOrder * 100, 2),
+                IncreasePendingOrderPercentage = CalculatePercentageChange(nowmonthPendingOrder, increlastmonthPendingOrder),
             };
         }
         public List<TransactionsView> GetRecentTransactions(int count = 5)

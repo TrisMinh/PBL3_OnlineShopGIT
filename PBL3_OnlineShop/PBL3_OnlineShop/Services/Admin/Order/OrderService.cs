@@ -1,14 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PBL3_OnlineShop.Data;
+using PBL3_OnlineShop.Services.Inventory;
 
 namespace PBL3_OnlineShop.Services.Admin.Order
 {
     public class OrderService : IOrderService
     {
         private readonly PBL3_Db_Context _context;
-        public OrderService(PBL3_Db_Context context)
+        private readonly IInventoryService _inventoryService;
+        public OrderService(PBL3_Db_Context context, IInventoryService inventoryService)
         {
             _context = context;
+            _inventoryService = inventoryService;
         }
         public List<Models.Order> GetAllOrders()
         {
@@ -36,7 +39,7 @@ namespace PBL3_OnlineShop.Services.Admin.Order
             }
             order.Status = 0;
             _context.SaveChanges();
-            UpdateProductsStockQuantity(productIds);
+            _inventoryService.UpdateProductsStockQuantity(productIds);
             return;
         }
         
@@ -49,26 +52,6 @@ namespace PBL3_OnlineShop.Services.Admin.Order
                         select p;
             var orders = query.ToList();        
             return orders;
-        }
-
-        public void UpdateProductsStockQuantity(List<int> productIds)
-        {
-            foreach (var productId in productIds)
-            {
-                var product = _context.Products.FirstOrDefault(p => p.ProductId == productId);
-                if (product != null)
-                {
-                    // Tính tổng số lượng từ ProductsSize
-                    var totalQuantity = _context.ProductsSize
-                        .Where(ps => ps.ProductId == productId)
-                        .Sum(ps => ps.Quantity);
-
-                    // Cập nhật StockQuantity
-                    product.StockQuantity = totalQuantity;
-                    _context.Products.Update(product);
-                }
-            }
-            _context.SaveChanges();
         }
     }
 }
