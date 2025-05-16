@@ -15,7 +15,7 @@ namespace PBL3_OnlineShop.Services.Checkout
             _context = context;
             _inventoryService = inventoryService;
         }
-        public CheckoutView GetCheckoutView(int userId, string couponUsed)
+        public CheckoutView GetCheckoutView(int? userId, string couponUsed)
         {
             var cart = _context.Carts.FirstOrDefault(c => c.UserId == userId);
             var cartItems = _context.CartItems.Where(ci => ci.CartId == cart.CartId).ToList();
@@ -46,7 +46,7 @@ namespace PBL3_OnlineShop.Services.Checkout
             return _context.Coupons.FirstOrDefault(c => c.Name.ToLower() == couponName.ToLower());
         }
 
-        public string CheckCoupon(int userId, string couponName)
+        public string CheckCoupon(int? userId, string couponName)
         {
             var coupon = _context.Coupons.FirstOrDefault(c => c.Name.ToLower() == couponName.ToLower());
             if (coupon == null || coupon.status == 0 || coupon.StartDate > DateTime.Now)
@@ -65,7 +65,7 @@ namespace PBL3_OnlineShop.Services.Checkout
             return "OK";
         }
 
-        public decimal CalculateTotalPrice(int userId, string couponName)
+        public decimal CalculateTotalPrice(int? userId, string couponName)
         {
             var cart = _context.Carts.FirstOrDefault(c => c.UserId == userId);
             var cartItems = _context.CartItems.Where(ci => ci.CartId == cart.CartId).ToList();
@@ -103,7 +103,7 @@ namespace PBL3_OnlineShop.Services.Checkout
             return "OK";
         }
 
-        public Models.Cart GetCartByUserId(int userId)
+        public Models.Cart GetCartByUserId(int? userId)
         {
             return _context.Carts.FirstOrDefault(c => c.UserId == userId);
         }
@@ -202,7 +202,7 @@ namespace PBL3_OnlineShop.Services.Checkout
             return _context.CartItems.Where(c => c.CartId == cartId).Select(c => c.ProductId).ToList();
         }
 
-        public Models.User GetUserById(int userId)
+        public Models.User GetUserById(int? userId)
         {
             return _context.Users.FirstOrDefault(u => u.Id == userId);
         }
