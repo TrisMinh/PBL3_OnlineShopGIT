@@ -46,7 +46,7 @@ namespace PBL3_OnlineShop.Services.Cart
             };
         }
 
-        public Models.Cart GetCartByIdUser(int? userId)
+        public Models.Cart GetCartByIdUser(int userId)
         {
             return _context.Carts.Include(c => c.CartItems).FirstOrDefault(c => c.UserId == userId);
         }
@@ -56,7 +56,7 @@ namespace PBL3_OnlineShop.Services.Cart
             return _context.ProductsSize.FirstOrDefault(ps => ps.ProductId == productId && ps.Color == color && ps.Size == size);
         }
 
-        public Models.User GetUserById(int? userId)
+        public Models.User GetUserById(int userId)
         {
             return _context.Users.FirstOrDefault(u => u.Id == userId);
         }
@@ -66,7 +66,7 @@ namespace PBL3_OnlineShop.Services.Cart
             return _context.Products.Find(productId);
         }
 
-        public string CheckCartItem(int? userId)
+        public string CheckCartItem(int userId)
         {
             var cart = _context.Carts.Include(c => c.CartItems).FirstOrDefault(c => c.UserId == userId);
 

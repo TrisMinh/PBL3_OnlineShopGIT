@@ -13,7 +13,7 @@ namespace PBL3_OnlineShop.Services.Order
             _context = context;
             _inventoryService = inventoryService;
         }
-        public List<Models.Order> GetAllOrdersByUserId(int? userId)
+        public List<Models.Order> GetAllOrdersByUserId(int userId)
         {
             return _context.Orders
                 .OrderByDescending(o => o.Id)
@@ -24,7 +24,7 @@ namespace PBL3_OnlineShop.Services.Order
                 .ToList();
         }
 
-        public Models.User GetUserById(int? userId)
+        public Models.User GetUserById(int userId)
         {
             return _context.Users.FirstOrDefault(u => u.Id == userId);
         }
