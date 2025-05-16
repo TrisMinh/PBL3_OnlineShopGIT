@@ -31,11 +31,7 @@ namespace PBL3_OnlineShop.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            string couponUsed = null;
-            if (TempData["NameCoupon"] != null)
-            {
-                couponUsed = TempData["NameCoupon"]?.ToString();
-            }
+            string couponUsed = TempData["NameCoupon"]?.ToString();
 
             CheckoutView checkoutView = _checkoutService.GetCheckoutView(userId, couponUsed);
 
@@ -52,18 +48,22 @@ namespace PBL3_OnlineShop.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ApplyCoupon(string name)
         {
-            var userID = HttpContext.Session.GetInt32("_UserId");
-
-            if (_checkoutService.CheckCoupon(userID, name) != "OK")
+            if (!string.IsNullOrEmpty(name))
             {
-                TempData["Error"] = _checkoutService.CheckCoupon(userID, name);
+                var userID = HttpContext.Session.GetInt32("_UserId");
+
+                if (_checkoutService.CheckCoupon(userID, name) != "OK")
+                {
+                    TempData["Error"] = _checkoutService.CheckCoupon(userID, name);
+                    return RedirectToAction("Index");
+                }
+
+                var coupon = _checkoutService.GetCouponByName(name);
+                TempData["OK"] = "Coupon " + coupon.Name + " applied successfully! " + coupon.Description;
+                TempData["NameCoupon"] = coupon.Name;
+
                 return RedirectToAction("Index");
             }
-
-            var coupon = _checkoutService.GetCouponByName(name);
-            TempData["Success"] = "Coupon " + coupon.Name + " applied successfully! " + coupon.Description;
-            TempData["NameCoupon"] = coupon.Name;
-
             return RedirectToAction("Index");
         }
 

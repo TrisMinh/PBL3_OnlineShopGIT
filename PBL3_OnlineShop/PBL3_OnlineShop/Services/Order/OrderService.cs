@@ -1,16 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PBL3_OnlineShop.Data;
+using PBL3_OnlineShop.Services.Inventory;
 
 namespace PBL3_OnlineShop.Services.Order
 {
     public class OrderCusService : IOrderCusService
     {
         private readonly PBL3_Db_Context _context;
-        public OrderCusService(PBL3_Db_Context context)
+        private readonly IInventoryService _inventoryService;
+        public OrderCusService(PBL3_Db_Context context, IInventoryService inventoryService)
         {
             _context = context;
+            _inventoryService = inventoryService;
         }
-        public List<Models.Order> GetAllOrdersByUserId(int? userId)
+        public List<Models.Order> GetAllOrdersByUserId(int userId)
         {
             return _context.Orders
                 .OrderByDescending(o => o.Id)
@@ -21,7 +24,7 @@ namespace PBL3_OnlineShop.Services.Order
                 .ToList();
         }
 
-        public Models.User GetUserById(int? userId)
+        public Models.User GetUserById(int userId)
         {
             return _context.Users.FirstOrDefault(u => u.Id == userId);
         }
@@ -39,7 +42,7 @@ namespace PBL3_OnlineShop.Services.Order
             }
             order.Status = 0;
             _context.SaveChanges();
-            UpdateProductsStockQuantity(productIds);
+            _inventoryService.UpdateProductsStockQuantity(productIds);
             return;
         }
 
@@ -49,26 +52,6 @@ namespace PBL3_OnlineShop.Services.Order
                         where (!status.HasValue || status == p.Status)
                         select p;
             return query.ToList();
-        }
-
-        public void UpdateProductsStockQuantity(List<int> productIds)
-        {
-            foreach (var productId in productIds)
-            {
-                var product = _context.Products.FirstOrDefault(p => p.ProductId == productId);
-                if (product != null)
-                {
-                    // Tính tổng số lượng từ ProductsSize
-                    var totalQuantity = _context.ProductsSize
-                        .Where(ps => ps.ProductId == productId)
-                        .Sum(ps => ps.Quantity);
-
-                    // Cập nhật StockQuantity
-                    product.StockQuantity = totalQuantity;
-                    _context.Products.Update(product);
-                }
-            }
-            _context.SaveChanges();
         }
     }
 }

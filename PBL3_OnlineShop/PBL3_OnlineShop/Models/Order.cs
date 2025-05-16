@@ -8,6 +8,7 @@
         public DateTime OrderDate { get; set; }
         public int Status { get; set; }
         public decimal TotalPrice { get; set; }
+        public string CouponUsed { get; set; }
         public ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

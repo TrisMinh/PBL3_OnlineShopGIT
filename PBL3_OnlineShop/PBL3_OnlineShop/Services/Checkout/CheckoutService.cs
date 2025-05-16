@@ -2,17 +2,20 @@
 using PBL3_OnlineShop.Data;
 using PBL3_OnlineShop.Models;
 using PBL3_OnlineShop.Models.ViewModels;
+using PBL3_OnlineShop.Services.Inventory;
 
 namespace PBL3_OnlineShop.Services.Checkout
 {
     public class CheckoutService : ICheckoutService
     {
         private readonly PBL3_Db_Context _context;
-        public CheckoutService(PBL3_Db_Context context)
+        private readonly IInventoryService _inventoryService;
+        public CheckoutService(PBL3_Db_Context context, IInventoryService inventoryService)
         {
             _context = context;
+            _inventoryService = inventoryService;
         }
-        public CheckoutView GetCheckoutView(int? userId, string couponUsed)
+        public CheckoutView GetCheckoutView(int userId, string couponUsed)
         {
             var cart = _context.Carts.FirstOrDefault(c => c.UserId == userId);
             var cartItems = _context.CartItems.Where(ci => ci.CartId == cart.CartId).ToList();
@@ -43,7 +46,7 @@ namespace PBL3_OnlineShop.Services.Checkout
             return _context.Coupons.FirstOrDefault(c => c.Name.ToLower() == couponName.ToLower());
         }
 
-        public string CheckCoupon(int? userId, string couponName)
+        public string CheckCoupon(int userId, string couponName)
         {
             var coupon = _context.Coupons.FirstOrDefault(c => c.Name.ToLower() == couponName.ToLower());
             if (coupon == null || coupon.status == 0 || coupon.StartDate > DateTime.Now)
@@ -62,7 +65,7 @@ namespace PBL3_OnlineShop.Services.Checkout
             return "OK";
         }
 
-        public decimal CaculateTotalPrice(int? userId, string couponName)
+        public decimal CalculateTotalPrice(int userId, string couponName)
         {
             var cart = _context.Carts.FirstOrDefault(c => c.UserId == userId);
             var cartItems = _context.CartItems.Where(ci => ci.CartId == cart.CartId).ToList();
@@ -100,7 +103,7 @@ namespace PBL3_OnlineShop.Services.Checkout
             return "OK";
         }
 
-        public Models.Cart GetCartByUserId(int? userId)
+        public Models.Cart GetCartByUserId(int userId)
         {
             return _context.Carts.FirstOrDefault(c => c.UserId == userId);
         }
@@ -121,12 +124,18 @@ namespace PBL3_OnlineShop.Services.Checkout
                 }
             }
 
+            if(string.IsNullOrEmpty(CouponUsed))
+            {
+                CouponUsed = "No";
+            }
+
             var order = new Models.Order
             {
                 UserId = userId,
                 OrderDate = DateTime.Now,
                 Status = 1,
                 TotalPrice = TotalPrice,
+                CouponUsed = CouponUsed,
             };
             _context.Orders.Add(order);
             _context.SaveChanges();
@@ -167,7 +176,7 @@ namespace PBL3_OnlineShop.Services.Checkout
                 _context.SaveChanges();
             }
 
-            UpdateProductsStockQuantity(productIds);
+            _inventoryService.UpdateProductsStockQuantity(productIds);
 
             if (!string.IsNullOrEmpty(CouponUsed))
             {
@@ -188,32 +197,12 @@ namespace PBL3_OnlineShop.Services.Checkout
             }
         }
 
-        public void UpdateProductsStockQuantity(List<int> productIds)
-        {
-            foreach (var productId in productIds)
-            {
-                var product = _context.Products.FirstOrDefault(p => p.ProductId == productId);
-                if (product != null)
-                {
-                    // Tính tổng số lượng từ ProductsSize
-                    var totalQuantity = _context.ProductsSize
-                        .Where(ps => ps.ProductId == productId)
-                        .Sum(ps => ps.Quantity);
-
-                    // Cập nhật StockQuantity
-                    product.StockQuantity = totalQuantity;
-                    _context.Products.Update(product);
-                }
-            }
-            _context.SaveChanges();
-        }
-
         public List<int> GetListProductIdFromCartItems(List<CartItem> cartItems, int cartId)
         {
             return _context.CartItems.Where(c => c.CartId == cartId).Select(c => c.ProductId).ToList();
         }
 
-        public Models.User GetUserById(int? userId)
+        public Models.User GetUserById(int userId)
         {
             return _context.Users.FirstOrDefault(u => u.Id == userId);
         }

@@ -12,35 +12,46 @@ namespace PBL3_OnlineShop.Services.Admin.Statistic
         {
             _context = context;
         }
+
+        public decimal CalculatePercentageChange(decimal currentValue, decimal previousValue)
+        {
+            if (previousValue == 0)
+            {
+                return currentValue == 0 ? 0 : 100;
+            }
+            return Math.Round((decimal) ((currentValue - previousValue) / previousValue * 100), 2);
+        }
+
         public DashboardStatisticsView GetDashboardStatistics()
         {
             var now = DateTime.Now;
+            var lastMonthDateTime = now.AddMonths(-1);
 
-            var increlastmonth = _context.Users.Count(u => u.Role == "Customer" && u.CreatedAt.Month == now.AddMonths(-1).Month);
-            var nowmonthUser = _context.Users.Count(u => u.Role == "Customer" && u.CreatedAt.Month == now.Month);
+            var increlastmonth = _context.Users.Count(u => u.Role == "Customer" && u.CreatedAt.Month == lastMonthDateTime.Month && u.CreatedAt.Year == lastMonthDateTime.Year);
+            var nowmonthUser = _context.Users.Count(u => u.Role == "Customer" && u.CreatedAt.Month == now.Month && u.CreatedAt.Year == now.Year);
 
-            var increlastmonthSale = _context.Orders.Where(o => o.Status == 2 && o.OrderDate.Month == now.AddMonths(-1).Month).Sum(o => o.TotalPrice);
-            var nowmonthSale = _context.Orders.Where(o => o.Status == 2 && o.OrderDate.Month == now.Month).Sum(o => o.TotalPrice);
+            var increlastmonthSale = _context.Orders.Where(o => o.Status == 2 && o.OrderDate.Month == lastMonthDateTime.Month && o.OrderDate.Year == lastMonthDateTime.Year).Sum(o => o.TotalPrice);
+            var nowmonthSale = _context.Orders.Where(o => o.Status == 2 && o.OrderDate.Month == now.Month && o.OrderDate.Year == now.Year).Sum(o => o.TotalPrice);
 
-            var increlastmonthOrder = _context.Orders.Count(o => o.Status == 2 && o.OrderDate.Month == now.AddMonths(-1).Month);
-            var nowmonthOrder = _context.Orders.Count(o => o.Status == 2 && o.OrderDate.Month == now.Month);
+            var increlastmonthOrder = _context.Orders.Count(o => o.Status == 2 && o.OrderDate.Month == lastMonthDateTime.Month && o.OrderDate.Year == lastMonthDateTime.Year);
+            var nowmonthOrder = _context.Orders.Count(o => o.Status == 2 && o.OrderDate.Month == now.Month && o.OrderDate.Year == now.Year);
 
-            var increlastmonthPendingOrder = _context.Orders.Count(o => o.Status == 1 && o.OrderDate.Month == now.AddMonths(-1).Month);
-            var nowmonthPendingOrder = _context.Orders.Count(o => o.Status == 1 && o.OrderDate.Month == now.Month);
+            var increlastmonthPendingOrder = _context.Orders.Count(o => o.Status == 1 && o.OrderDate.Month == lastMonthDateTime.Month && o.OrderDate.Year == lastMonthDateTime.Year);
+            var nowmonthPendingOrder = _context.Orders.Count(o => o.Status == 1 && o.OrderDate.Month == now.Month && o.OrderDate.Year == now.Year);
 
             return new DashboardStatisticsView
             {
                 UserCount = _context.Users.Count(u => u.Role == "Customer"),
-                IncreaseUserPercentage = increlastmonth == 0 ? 100 : (decimal)(nowmonthUser - increlastmonth) / increlastmonth * 100,
+                IncreaseUserPercentage = CalculatePercentageChange(nowmonthUser, increlastmonth),
 
                 TotalSale = _context.Orders.Where(o => o.Status == 2).Sum(o => o.TotalPrice),
-                IncreaseSalePercentage = Math.Round(increlastmonthSale == 0 ? 100 : (nowmonthSale - increlastmonthSale) / increlastmonthSale * 100, 2),
+                IncreaseSalePercentage = CalculatePercentageChange(nowmonthSale, increlastmonthSale),
 
                 OrderCount = _context.Orders.Count(),
-                IncreaseOrderPercentage = Math.Round(increlastmonthOrder == 0 ? 100 : (decimal)(nowmonthOrder - increlastmonthOrder) / increlastmonthOrder * 100, 2),
+                IncreaseOrderPercentage = CalculatePercentageChange(nowmonthOrder, increlastmonthOrder),
 
                 OrderStatusCount = _context.Orders.Count(o => o.Status == 1),
-                IncreasePendingOrderPercentage = Math.Round(increlastmonthPendingOrder == 0 ? 100 : (decimal)(nowmonthPendingOrder - increlastmonthPendingOrder) / increlastmonthPendingOrder * 100, 2),
+                IncreasePendingOrderPercentage = CalculatePercentageChange(nowmonthPendingOrder, increlastmonthPendingOrder),
             };
         }
         public List<TransactionsView> GetRecentTransactions(int count = 5)

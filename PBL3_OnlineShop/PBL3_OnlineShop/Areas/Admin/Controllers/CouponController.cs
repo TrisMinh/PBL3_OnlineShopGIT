@@ -3,6 +3,7 @@ using PBL3_OnlineShop.Models;
 using PBL3_OnlineShop.Data;
 using PBL3_OnlineShop.Validation;
 using PBL3_OnlineShop.Services.Admin.Coupon;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace PBL3_OnlineShop.Areas.Admin.Controllers
 {
@@ -30,13 +31,18 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Coupon coupon)
         {
-            var result = _couponService.CreateCoupon(coupon);
-            if(!result)
+            if (coupon.StartDate > coupon.EndDate)
             {
-                TempData["Error"] = "Mã giảm giá đã tồn tại!";
+                ModelState.AddModelError("EndDate", "Ngày bắt đầu không được lớn hơn ngày kết thúc");
                 return View(coupon);
             }
-            TempData["Success"] = "Thêm mã giảm giá thành công!";   
+            var result = _couponService.CreateCoupon(coupon);
+            if (!result)
+            {
+                ModelState.AddModelError("Name", "Mã đã tồn tại");
+                return View(coupon);
+            }
+            TempData["Success"] = "Thêm mã giảm giá thành công!";
             return RedirectToAction("Index");
         }
 
@@ -55,11 +61,16 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Coupon coupon)
         {
+            if (coupon.StartDate > coupon.EndDate)
+            {
+                ModelState.AddModelError("EndDate", "Ngày bắt đầu không được lớn hơn ngày kết thúc");
+                return View(coupon);
+            }
             var result = _couponService.UpdateCoupon(coupon);
             if (!result)
             {
-                TempData["Error"] = "Mã giảm giá không tồn tại!";
-                return RedirectToAction("Index");
+                ModelState.AddModelError("Name", "Mã đã tồn tại");
+                return View(coupon);
             }
             TempData["Success"] = "Cập nhật mã giảm giá thành công!";
             return RedirectToAction("Index");
@@ -73,7 +84,7 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
             ViewBag.couponDiscount = couponDiscount;
             ViewBag.status = status;
 
-            return View("Index", _couponService.SearchCoupon(couponId,couponName,couponDiscount,status));
+            return View("Index", _couponService.SearchCoupon(couponId, couponName, couponDiscount, status));
         }
 
         public ActionResult Delete(int id)

@@ -22,12 +22,20 @@
             max-width: 300px;
             animation: fadeOut 0.5s ease 5s forwards;
         }
+
         .toast-success {
             background-color: #4CAF50;
         }
+
         @@keyframes fadeOut {
-            from {opacity: 1;}
-            to {opacity: 0; display: none;}
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+                display: none;
+            }
         }
     </style>
 </head>
@@ -68,7 +76,7 @@
                 <div class="order-items">
                     @{
                         int quantity = 0;
-                        string couponUsed = null;                        
+                        string couponUsed = null;
                     }
                     @foreach (var item in Model.CartItems)
                     {
@@ -91,12 +99,13 @@
                 <form method="post" asp-action="ApplyCoupon" style="display: flex; gap:10px;">
                     <div class="summary-line" style="gap:10px;">
                         <label class="coupon-label">
-                            Coupon Code</label>
-                            <input type="text" name="name" placeholder="Enter coupon code" />
-                            <button type="submit" class="apply-coupon-button">Apply</button>
+                            Coupon Code
+                        </label>
+                        <input type="text" name="name" placeholder="Enter coupon code" />
+                        <button type="submit" class="apply-coupon-button">Apply</button>
                     </div>
                     <div>
-                        <span style="font-family: 'Beatrice Deck Trial', sans-serif; font-size: 12px; font-weight: 500;">@TempData["Success"]</span>
+                        <span style="font-family: 'Beatrice Deck Trial', sans-serif; font-size: 12px; font-weight: 500; color: forestgreen;">@TempData["OK"]</span>
                     </div>
                 </form>
 

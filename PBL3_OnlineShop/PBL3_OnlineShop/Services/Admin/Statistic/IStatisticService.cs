@@ -9,5 +9,6 @@ namespace PBL3_OnlineShop.Services.Admin.Statistic
         public ChartDataView GetYearlyRevenueData();
         public ChartDataView GetMonthlyRevenueData();
         public ChartDataView GetDailyRevenueData();
+        public decimal CalculatePercentageChange(decimal currentValue, decimal previousValue);
     }
 }
