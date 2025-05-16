@@ -4,7 +4,6 @@ using PBL3_OnlineShop.Data;
 using PBL3_OnlineShop.Validation;
 using PBL3_OnlineShop.Services.Admin.Coupon;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace PBL3_OnlineShop.Areas.Admin.Controllers
 {
@@ -19,13 +18,6 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         }
         public ActionResult Index()
         {
-            var couponStatic = new List<SelectListItem>
-            {
-                new SelectListItem { Text = "All", Value = "-1" },
-                new SelectListItem { Text = "Active", Value = "1" },
-                new SelectListItem { Text = "Inactive", Value = "0" }
-            };
-            ViewBag.CouponStatic = couponStatic;
             return View(_couponService.GetAllCoupons());
         }
 
