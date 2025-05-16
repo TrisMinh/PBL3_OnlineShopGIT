@@ -13,14 +13,11 @@ namespace PBL3_OnlineShop.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
-        private readonly PBL3_Db_Context _context;
-        private readonly PasswordHasher<User> _passwordHasher = new(); 
-        public AccountController(PBL3_Db_Context context, IAccountService accountService)
+        
+        public AccountController(IAccountService accountService)
         {
-            _context = context;
             _accountService = accountService;
         }
-
         [HttpGet]
         public ActionResult ForgotPassword()
         {
@@ -50,6 +47,7 @@ namespace PBL3_OnlineShop.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult Register(RegisterView model)
         {
@@ -64,7 +62,7 @@ namespace PBL3_OnlineShop.Controllers
                 return View(model);
             }
 
-             if (_accountService.IsEmailExists(model.Email))
+            if (_accountService.IsEmailExists(model.Email))
             {
                 ModelState.AddModelError("Email", "Email đã tồn tại.");
                 return View(model);
@@ -75,11 +73,13 @@ namespace PBL3_OnlineShop.Controllers
             TempData["Success"] = "Đăng ký thành công!";
             return RedirectToAction("Login");
         }
+
         [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult Login(LoginView model)
         {
@@ -95,19 +95,19 @@ namespace PBL3_OnlineShop.Controllers
                 return View(model);
             }
 
-            var passwordCheck = _passwordHasher.VerifyHashedPassword(user, user.Password, model.Password);
-            if (passwordCheck == PasswordVerificationResult.Failed)
+            if (!_accountService.VerifyPassword(user, model.Password))
             {
                 ModelState.AddModelError("Password", "Mật khẩu không đúng.");
                 return View(model);
             }
-            // set session
 
+            // Thiết lập session
             HttpContext.Session.SetInt32("_UserId", user.Id);
             HttpContext.Session.SetString("_Username", user.UserName);
             HttpContext.Session.SetString("_Role", user.Role);
             HttpContext.Session.SetString("_Email", user.Email);
 
+            // Xử lý giỏ hàng
             var tempCart = HttpContext.Session.GetString("Cart");
             if (!string.IsNullOrEmpty(tempCart))
             {
@@ -116,11 +116,11 @@ namespace PBL3_OnlineShop.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
         [HttpGet]
         public ActionResult Logout()
         {
-            // Clear authentication cookie or session here
-            HttpContext.Session.Clear(); // clear session
+            HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
         }
 
@@ -130,9 +130,9 @@ namespace PBL3_OnlineShop.Controllers
             var userId = HttpContext.Session.GetInt32("_UserId");
             if (userId == null)
             {
-
                 return RedirectToAction("Login");
             }
+            
             var user = _accountService.GetUserById(userId.Value);
             if (user == null)
             {
@@ -154,208 +154,97 @@ namespace PBL3_OnlineShop.Controllers
         }
 
         [HttpPost]
-        public IActionResult ChangePassword([FromBody] ChangePasswordModel model)
+        public IActionResult UpdateProfile(string UserName, string Name, string Email, string PhoneNumber, string Gender, int Day, int Month, int Year, string Address)
         {
-            try
+            var userId = HttpContext.Session.GetInt32("_UserId");
+            if (userId == null)
             {
-                var userId = HttpContext.Session.GetInt32("_UserId");
-                if (userId == null)
-                {
-                    return RedirectToAction("Login");
-                }
-
-                var user = _context.Users.Find(userId);
-
-                // Kiểm tra mật khẩu hiện tại
-                var passwordCheck = _passwordHasher.VerifyHashedPassword(user, user.Password, model.CurrentPassword);
-                if (passwordCheck == PasswordVerificationResult.Failed)
-                {
-                    return BadRequest(new { success = false, message = "Mật khẩu hiện tại không đúng" });
-                }
-
-                // Xác nhận mật khẩu mới
-                if (model.NewPassword != model.ConfirmPassword)
-                {
-                    return BadRequest(new { success = false, message = "Mật khẩu mới và xác nhận mật khẩu không khớp" });
-                }
-
-                // Mã hóa và lưu mật khẩu mới
-                user.Password = _passwordHasher.HashPassword(user, model.NewPassword);
-                _context.SaveChanges();
-
-                return Ok(new { success = true, message = "Đổi mật khẩu thành công" });
+                return RedirectToAction("Login");
             }
-            catch (Exception ex)
+            
+            if (!ModelState.IsValid)
             {
-                return StatusCode(500, new { success = false, message = "Đã xảy ra lỗi: " + ex.Message });
+                var user = _accountService.GetUserById(userId.Value);
+                return View("Profile", user);
             }
+            
+            bool result = _accountService.UpdateProfile(userId.Value, UserName, Email, PhoneNumber, Gender, Day, Month, Year, Address);
+            
+            if (!result)
+            {
+                ModelState.AddModelError("", "Đã xảy ra lỗi khi cập nhật thông tin.");
+                var user = _accountService.GetUserById(userId.Value);
+                return View("Profile", user);
+            }
+            
+            // Cập nhật session
+            HttpContext.Session.SetString("_Username", UserName);
+            HttpContext.Session.SetString("_Email", Email);
+            
+            // Thông báo thành công
+            TempData["SuccessMessage"] = "Cập nhật thông tin thành công!";
+            
+            return RedirectToAction("Profile");
         }
 
         [HttpPost]
-        public IActionResult UpdateProfile(IFormCollection form)
+        public IActionResult ChangePasswordForm(string CurrentPassword, string NewPassword, string ConfirmPassword)
         {
-            Console.WriteLine("UpdateProfile method được gọi");
-            try 
+            var userId = HttpContext.Session.GetInt32("_UserId");
+            if (userId == null)
             {
-                var userId = HttpContext.Session.GetInt32("_UserId");
-                if (userId == null)
-                {
-                    Console.WriteLine("UserId không tồn tại trong session");
-                    return RedirectToAction("Login", "Account");
-                }
-                
-                var user = _context.Users.Find(userId);
-                if (user == null)
-                {
-                    Console.WriteLine("Không tìm thấy user với ID: " + userId);
-                    return NotFound();
-                }
-                
-                // Debug các giá trị từ form
-                foreach (var key in form.Keys)
-                {
-                    Console.WriteLine($"Form key: {key}, value: {form[key]}");
-                }
-                
-                // Cập nhật thông tin người dùng từ form
-                user.UserName = form["UserName"].ToString();
-                user.Email = form["Email"].ToString();
-                
-                // Kiểm tra số điện thoại
-                var phoneNumber = form["PhoneNumber"].ToString();
-                if (!string.IsNullOrEmpty(phoneNumber))
-                {
-                    if (phoneNumber.Length < 10 || phoneNumber.Length > 11)
-                    {
-                        Console.WriteLine("Số điện thoại không hợp lệ: " + phoneNumber);
-                        return BadRequest("Số điện thoại phải từ 10 đến 11 số.");
-                    }
-                    user.PhoneNumber = phoneNumber;
-                }
-                
-                // Lưu giới tính theo đúng giá trị đã chọn
-                user.Gender = form["Gender"].ToString();
-                Console.WriteLine("Gender value: " + user.Gender);
-                
-                // Xử lý ngày sinh
-                if (int.TryParse(form["Day"], out int day) && 
-                    int.TryParse(form["Month"], out int month) && 
-                    int.TryParse(form["Year"], out int year))
-                {
-                    try
-                    {
-                        user.DateOfBirth = new DateTime(year, month, day);
-                        Console.WriteLine($"Ngày sinh: {day}/{month}/{year}");
-                    }
-                    catch (Exception ex)
-                    {
-                        // Nếu ngày không hợp lệ, trả về lỗi
-                        Console.WriteLine("Lỗi khi thiết lập ngày sinh: " + ex.Message);
-                        return BadRequest("Ngày sinh không hợp lệ.");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine($"Lỗi parse ngày sinh: Day={form["Day"]}, Month={form["Month"]}, Year={form["Year"]}");
-                }
-                
-                // Lưu địa chỉ (đã được định dạng từ client: tỉnh / huyện / địa chỉ cụ thể)
-                user.Address = form["Address"].ToString();
-                Console.WriteLine("Address value: " + user.Address);
-                
-                // Lưu thay đổi
-                _context.SaveChanges();
-                Console.WriteLine("Đã lưu thông tin người dùng thành công");
-                
-                // Cập nhật session nếu cần
-                if (!string.IsNullOrEmpty(user.UserName))
-                {
-                    HttpContext.Session.SetString("_Username", user.UserName);
-                }
-                
-                if (!string.IsNullOrEmpty(user.Email))
-                {
-                    HttpContext.Session.SetString("_Email", user.Email);
-                }
-                
-                return Ok();
+                return RedirectToAction("Login");
             }
-            catch (Exception ex)
+            
+            // Kiểm tra mật khẩu mới và xác nhận mật khẩu
+            if (NewPassword != ConfirmPassword)
             {
-                Console.WriteLine("Lỗi xử lý UpdateProfile: " + ex.Message);
-                return StatusCode(500, "Đã xảy ra lỗi khi cập nhật thông tin: " + ex.Message);
+                TempData["PasswordError"] = "Mật khẩu mới và xác nhận mật khẩu không khớp.";
+                return RedirectToAction("Profile");
             }
+            
+            // Kiểm tra độ dài mật khẩu
+            if (NewPassword.Length < 5)
+            {
+                TempData["PasswordError"] = "Mật khẩu mới phải có ít nhất 5 ký tự.";
+                return RedirectToAction("Profile");
+            }
+            
+            // Gọi service để thay đổi mật khẩu
+            bool result = _accountService.ChangePassword(userId.Value, CurrentPassword, NewPassword);
+            
+            if (!result)
+            {
+                TempData["PasswordError"] = "Mật khẩu hiện tại không đúng hoặc đã xảy ra lỗi.";
+                return RedirectToAction("Profile");
+            }
+            
+            TempData["PasswordSuccess"] = "Đổi mật khẩu thành công!";
+            return RedirectToAction("Profile");
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadAvatar(IFormFile file)
+        public async Task<IActionResult> UploadAvatarForm(IFormFile file)
         {
-            try
+            var userId = HttpContext.Session.GetInt32("_UserId");
+            if (userId == null)
             {
-                var userId = HttpContext.Session.GetInt32("_UserId");
-                if (userId == null)
-                {
-                    return Unauthorized(new { success = false, message = "Bạn chưa đăng nhập" });
-                }
-
-                var user = await _context.Users.FindAsync(userId);
-                if (user == null)
-                {
-                    return NotFound(new { success = false, message = "Không tìm thấy người dùng" });
-                }
-
-                if (file == null || file.Length == 0)
-                {
-                    return BadRequest(new { success = false, message = "Vui lòng chọn ảnh" });
-                }
-
-                // Kiểm tra loại file (chỉ cho phép ảnh)
-                string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
-                string fileExtension = Path.GetExtension(file.FileName).ToLowerInvariant();
-                
-                if (!allowedExtensions.Contains(fileExtension))
-                {
-                    return BadRequest(new { success = false, message = "Chỉ chấp nhận định dạng JPG, JPEG, PNG hoặc GIF" });
-                }
-
-                // Tạo tên file duy nhất để tránh trùng lặp
-                string uniqueFileName = $"{userId}_{DateTime.Now.ToString("yyyyMMddHHmmss")}{fileExtension}";
-                string uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "avatar");
-                
-                // Tạo thư mục nếu chưa tồn tại
-                if (!Directory.Exists(uploadFolder))
-                {
-                    Directory.CreateDirectory(uploadFolder);
-                }
-
-                string filePath = Path.Combine(uploadFolder, uniqueFileName);
-
-                // Lưu file
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
-
-                // Xóa avatar cũ nếu có và không phải ảnh mặc định
-                if (!string.IsNullOrEmpty(user.UrlAvatar) && !user.UrlAvatar.Contains("def"))
-                {
-                    string oldAvatarPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", user.UrlAvatar.TrimStart('/'));
-                    if (System.IO.File.Exists(oldAvatarPath))
-                    {
-                        System.IO.File.Delete(oldAvatarPath);
-                    }
-                }
-
-                // Cập nhật đường dẫn avatar trong database
-                user.UrlAvatar = $"/avatar/{uniqueFileName}";
-                await _context.SaveChangesAsync();
-
-                return Ok(new { success = true, message = "Cập nhật avatar thành công", avatarUrl = user.UrlAvatar });
+                TempData["ErrorMessage"] = "Bạn chưa đăng nhập";
+                return RedirectToAction("Login");
             }
-            catch (Exception ex)
+
+            var result = await _accountService.UploadAvatar(userId.Value, file);
+            
+            if (result.success)
             {
-                return StatusCode(500, new { success = false, message = "Đã xảy ra lỗi: " + ex.Message });
+                TempData["AvatarSuccess"] = result.message;
             }
+            else
+            {
+                TempData["ErrorMessage"] = result.message;
+            }
+            
+            return RedirectToAction("Profile");
         }
     }
 }
