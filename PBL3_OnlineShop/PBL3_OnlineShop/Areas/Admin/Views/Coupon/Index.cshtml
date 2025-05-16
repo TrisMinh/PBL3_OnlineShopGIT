@@ -40,10 +40,10 @@
                 </div>
                 <div class="form-group">
                     <label>Status:</label>
-                    <select name="status" class="form-control valid" style="font-size: 14px;">
-                        <option value="-1" selected="@(ViewBag.status == -1)">All</option>
-                        <option value="1" selected="@(ViewBag.status == 1)">Active</option>
-                        <option value="0" selected="@(ViewBag.status == 0)">Inactive</option>
+                    <select name="status" asp-items=ViewBag.couponStatus class="form-control valid" style="font-size: 14px;">
+                        <option selected="@(ViewBag.status == -1)">All</option>
+                        <option selected="@(ViewBag.status == 1)">Active</option>
+                        <option selected="@(ViewBag.status == 0)">Inactive</option>
                     </select>
                 </div>
                 <button class="search-button">Search</button>

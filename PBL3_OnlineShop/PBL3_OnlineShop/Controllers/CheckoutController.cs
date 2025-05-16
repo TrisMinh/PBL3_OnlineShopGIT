@@ -92,7 +92,7 @@ namespace PBL3_OnlineShop.Controllers
                 return RedirectToAction("Index");
             }
 
-            decimal totalPrice = _checkoutService.CaculateTotalPrice(userId, CouponUsed);
+            decimal totalPrice = _checkoutService.CalculateTotalPrice(userId, CouponUsed);
             if (PaymentMethod == "CreditCard")
             {
                 TempData["TotalPrice"] = totalPrice.ToString();
