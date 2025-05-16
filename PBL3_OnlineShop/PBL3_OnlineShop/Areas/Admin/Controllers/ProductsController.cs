@@ -41,7 +41,7 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
                 return View(product);
             }
             TempData["Success"] = "Thêm sản phẩm thành công!";
-            return View(product);
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

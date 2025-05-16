@@ -34,25 +34,58 @@ namespace PBL3_OnlineShop.Services.Admin.Product
             product.CreatedAt = DateTime.Now;
             product.UpdatedAt = DateTime.Now;
 
+            // lưu ảnh vào thư mục wwwroot/imagesProducts
+            if (product.ImageUpload != null && product.ImageUpload.Count > 0)
+            {
+                var imagePaths = new List<string>();
+                foreach (var file in product.ImageUpload)
+                {
+                    if (file.Length > 0)
+                    {
+                        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagesProducts", fileName);
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            file.CopyTo(stream);
+                        }
+                        imagePaths.Add("~/imagesProducts/" + fileName);
+                    }
+                }
+                product.ImageUrl = string.Join(",", imagePaths);
+            }
+
             _context.Products.Add(product);
             _context.SaveChanges();
 
-            var groupedSizes = sizes.GroupBy(s => new { s.Size, s.Color })
-                .Select(g => new ProductSize
-                {
-                    Size = g.Key.Size,
-                    Color = g.Key.Color,
-                    Quantity = g.Sum(x => x.Quantity),
-                    ProductId = product.ProductId
-                }).ToList();
-
-            if (groupedSizes.Any())
+            if (sizes != null)
             {
-                _context.ProductsSize.AddRange(groupedSizes);
-                _context.SaveChanges();
-                product.StockQuantity = groupedSizes.Sum(s => s.Quantity);
-                _context.Products.Update(product);
-                _context.SaveChanges();
+                var validSizes = sizes
+                    .Where(s =>
+                        !string.IsNullOrWhiteSpace(s.Size) &&
+                        !string.IsNullOrWhiteSpace(s.Color) &&
+                        s.Quantity > 0
+                    )
+                    .ToList();
+
+                if (validSizes.Any())
+                {
+                    var groupedSizes = validSizes
+                        .GroupBy(s => new { s.Size, s.Color })
+                        .Select(g => new ProductSize
+                        {
+                            Size = g.Key.Size,
+                            Color = g.Key.Color,
+                            Quantity = g.Sum(x => x.Quantity),
+                            ProductId = product.ProductId
+                        }).ToList();
+
+                    _context.ProductsSize.AddRange(groupedSizes);
+                    _context.SaveChanges();
+
+                    product.StockQuantity = groupedSizes.Sum(s => s.Quantity);
+                    _context.Products.Update(product);
+                    _context.SaveChanges();
+                }
             }
             return true;
         }
@@ -65,6 +98,47 @@ namespace PBL3_OnlineShop.Services.Admin.Product
             product.CreatedAt = existingProduct.CreatedAt;
             product.UpdatedAt = DateTime.Now;
             product.ImageUrl = existingProduct.ImageUrl;
+
+            // Xử lý ảnh mới
+            if (product.ImageUpload != null && product.ImageUpload.Count > 0)
+            {
+                var imagePaths = new List<string>();
+                foreach (var file in product.ImageUpload)
+                {
+                    if (file.Length > 0)
+                    {
+                        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagesProducts", fileName);
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            file.CopyTo(stream);
+                        }
+                        imagePaths.Add("~/imagesProducts/" + fileName);
+                    }
+                }
+
+                // Xóa ảnh cũ
+                if (!string.IsNullOrEmpty(existingProduct.ImageUrl))
+                {
+                    var oldImages = existingProduct.ImageUrl.Split(',');
+                    foreach (var relativePath in oldImages)
+                    {
+                        var pathToDelete = Path.Combine(
+                            Directory.GetCurrentDirectory(),
+                            "wwwroot",
+                            relativePath.Replace("~/", "").Replace("/", Path.DirectorySeparatorChar.ToString())
+                        );
+
+                        if (System.IO.File.Exists(pathToDelete))
+                        {
+                            System.IO.File.Delete(pathToDelete);
+                        }
+                    }
+                }
+
+                // Cập nhật đường dẫn ảnh mới
+                product.ImageUrl = string.Join(",", imagePaths);
+            }
 
             _context.Products.Update(product);
 
@@ -107,6 +181,27 @@ namespace PBL3_OnlineShop.Services.Admin.Product
             if (product == null) return false;
 
             if (product.ProductSizes.Any()) _context.ProductsSize.RemoveRange(product.ProductSizes);
+
+            // Xóa ảnh trong thư mục wwwroot/imagesProducts nếu có
+            if (!string.IsNullOrEmpty(product.ImageUrl))
+            {
+                var imagePaths = product.ImageUrl.Split(',');
+                foreach (var relativePath in imagePaths)
+                {
+                    var fullPath = Path.Combine(
+                        Directory.GetCurrentDirectory(),
+                        "wwwroot",
+                        relativePath.Replace("~/", "").Replace("/", Path.DirectorySeparatorChar.ToString())
+                    );
+
+                    if (System.IO.File.Exists(fullPath))
+                    {
+                        System.IO.File.Delete(fullPath);
+                    }
+                }
+
+            }
+
             _context.Products.Remove(product);
             _context.SaveChanges();
             return true;
