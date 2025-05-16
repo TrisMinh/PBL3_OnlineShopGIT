@@ -16,9 +16,15 @@ namespace PBL3_OnlineShop.Services.Account
 
         // Login
         public User FindByUsername(string username);
+        public bool VerifyPassword(User user, string password);
 
         // Profile
         public User GetUserById(int id);
+        public bool UpdateProfile(int userId, string userName, string email, string phoneNumber, string gender, int day, int month, int year, string address);
+        public bool ChangePassword(int userId, string currentPassword, string newPassword);
+
+        // Avatar
+        public Task<(bool success, string message, string avatarUrl)> UploadAvatar(int userId, IFormFile file);
 
         public void ApplySessionCartToUser(string tempCart, int? userId, ISession session);
     }
