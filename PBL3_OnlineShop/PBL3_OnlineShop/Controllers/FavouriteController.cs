@@ -45,6 +45,14 @@ namespace PBL3_OnlineShop.Controllers
 
             // Sử dụng ToggleFavourite để thêm hoặc xóa
             bool isAdded = _favouriteService.ToggleFavourite(userId.Value, id);
+            if (isAdded)
+            {
+                TempData["Success"] = "Added to favourite";
+            }
+            else
+            {
+                TempData["Success"] = "Removed from favourite"; 
+            }
 
             return RedirectToAction("Details", "Products", new { id = id });
         }
@@ -60,7 +68,7 @@ namespace PBL3_OnlineShop.Controllers
 
             bool result = _favouriteService.RemoveFavourite(id, userId.Value);
 
-
+            TempData["Success"] = "Removed favourite";
             return RedirectToAction(nameof(Index));
         }
     }

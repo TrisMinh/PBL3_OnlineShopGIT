@@ -40,7 +40,8 @@ namespace PBL3_OnlineShop.Services.Account
                 UrlAvatar = "/avatar/def.jpg",
                 Role = "Customer",
                 CreatedAt = DateTime.Now,
-                Status = 1
+                Status = 1,
+                Cart = new Models.Cart()
             };
             user.Password = _passwordHasher.HashPassword(user, model.Password);
             _context.Users.Add(user);

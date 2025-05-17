@@ -100,17 +100,17 @@ namespace PBL3_OnlineShop.Services.Admin.Statistic
         public ChartDataView GetMonthlyRevenueData()
         {
             var data = _context.Orders
-                .Where(o => o.Status == 2) // Chỉ tính những đơn hàng đã hoàn tất (Status == 2)
-                .GroupBy(o => o.OrderDate.Month) // Nhóm theo tháng
+                .Where(o => o.Status == 2) // status 2 là đã ship, tính tiền r đó
+                .GroupBy(o => o.OrderDate.Month) 
                 .Select(g => new
                 {
                     Month = g.Key,
                     Total = g.Sum(o => o.TotalPrice)
                 })
-                .OrderBy(x => x.Month) // Đảm bảo thứ tự từ tháng 1 đến tháng 12
+                .OrderBy(x => x.Month) 
                 .ToList();
 
-            // Đảm bảo trả về dữ liệu cho tất cả 12 tháng, kể cả tháng không có dữ liệu
+            // làm ri để trả dữ liệu đủ 12 tháng nếu tháng không có dữ liệu
             var allMonths = Enumerable.Range(1, 12).ToList();
             var monthsData = allMonths.Select(month =>
             {

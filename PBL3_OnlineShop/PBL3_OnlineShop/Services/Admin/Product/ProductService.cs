@@ -42,7 +42,9 @@ namespace PBL3_OnlineShop.Services.Admin.Product
                 {
                     if (file.Length > 0)
                     {
+                        // getextension lấy phần mở rộng của file, guild.newguid tạo tên file ngẫu nhiên
                         var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                        // getcurrentdirectory lấy đường dẫn hiện tại của dự án nè rồi ghép với thư mục muốu lưu ảnh
                         var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagesProducts", fileName);
                         using (var stream = new FileStream(path, FileMode.Create))
                         {
@@ -59,6 +61,7 @@ namespace PBL3_OnlineShop.Services.Admin.Product
 
             if (sizes != null)
             {
+                // lấy phần nào đủ thông tin thôi, còn bỏ trống thì bỏ qua 
                 var validSizes = sizes
                     .Where(s =>
                         !string.IsNullOrWhiteSpace(s.Size) &&
@@ -70,9 +73,9 @@ namespace PBL3_OnlineShop.Services.Admin.Product
                 if (validSizes.Any())
                 {
                     var groupedSizes = validSizes
-                        .GroupBy(s => new { s.Size, s.Color })
+                        .GroupBy(s => new { s.Size, s.Color }) // đoạn này gộp lại, xác định bằng size và color giôgns như key
                         .Select(g => new ProductSize
-                        {
+                        {   
                             Size = g.Key.Size,
                             Color = g.Key.Color,
                             Quantity = g.Sum(x => x.Quantity),
@@ -92,7 +95,9 @@ namespace PBL3_OnlineShop.Services.Admin.Product
 
         public bool UpdateProduct(int id, Models.Product product, List<ProductSize> sizes)
         {
-            var existingProduct = _context.Products.AsNoTracking().FirstOrDefault(p => p.ProductId == id);
+            var existingProduct = _context.Products
+                .AsNoTracking()
+                .FirstOrDefault(p => p.ProductId == id);
             if (existingProduct == null) return false;
 
             product.CreatedAt = existingProduct.CreatedAt;
@@ -142,6 +147,7 @@ namespace PBL3_OnlineShop.Services.Admin.Product
 
             _context.Products.Update(product);
 
+            // list productsSizeColor này
             var groupedSizes = sizes.GroupBy(s => new { s.Size, s.Color })
                 .Select(g => new ProductSize
                 {
@@ -150,7 +156,10 @@ namespace PBL3_OnlineShop.Services.Admin.Product
                     Quantity = g.Sum(x => x.Quantity)
                 }).ToList();
 
+            // lấy ra cái nào = id của sản phẩm
             var existingSizes = _context.ProductsSize.Where(ps => ps.ProductId == id).ToList();
+            // ví dụ mà khi update người dùng xoá size nào đó thì kiểm tra trong db xem có cái nào mà không có trong list mới không 
+            // nếu cái đó không có trong list sau khi update thì xóa nó đi
             var toDelete = existingSizes.Where(e => !groupedSizes.Any(n => n.Size == e.Size && n.Color == e.Color)).ToList();
 
             _context.ProductsSize.RemoveRange(toDelete);

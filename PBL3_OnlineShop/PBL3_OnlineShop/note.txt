@@ -1,7 +1,12 @@
 ﻿
-- Sử dụng Service Layer Pattern
+
+			 
+- Note của Trí:
+1/ Sử dụng Service Layer Pattern
 => Mục đích: +) Tách phần xử lí logic ra khỏi controller
 		     +) Giúp clean code và dễ bảo trì hơn
 			 +) Có thể tái sử dụng lại code ở các controller khác nhau (nếu có)
 			 +) Đảm bảo nguyên tắc Single Responsibility Principle (SRP) trong SOLID
-			 +) 
+* Nhưng mà nếu dùng mỗi Service Layer mà không dùng Repository Layer thì cũng không ổn lắm hmm => Nếu có thời gian thì làm thêm Repository Layer nhưng dự án không lớn lắm làm khá tốn time
+
+2/ 

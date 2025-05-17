@@ -29,7 +29,7 @@ namespace PBL3_OnlineShop.Controllers
         {
             if (string.IsNullOrEmpty(model.ForgotUsername))
             {
-                ModelState.AddModelError(string.Empty, "Username or email is required.");
+                TempData["Error"]="Username or email is required.";
                 return View(model);
             }
             var user = _accountService.FindByUsernameOrEmail(model.ForgotUsername);

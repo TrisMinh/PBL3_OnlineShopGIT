@@ -17,10 +17,10 @@
 </head>
 <body>
     <div class="management-system">
-        @await Html.PartialAsync("~/Areas/Admin/Views/Shared/_SidebarPartial.cshtml")
+        @Html.Partial("~/Areas/Admin/Views/Shared/_SidebarPartial.cshtml")
         <!-- Main Content -->
         <main class="main-content">
-            @await Html.PartialAsync("~/Areas/Admin/Views/Shared/_TopbarPartial.cshtml")
+            @Html.Partial("~/Areas/Admin/Views/Shared/_TopbarPartial.cshtml")
             <section class="add-product-section">
                 <!-- Form for Adding Product -->
                 <form asp-action="Create" method="post" enctype="multipart/form-data" class="add-product-form">
@@ -160,6 +160,6 @@
 
 @section Scripts {
     @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        Html.RenderPartial("_ValidationScriptsPartial");
     }
 }

@@ -33,13 +33,13 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         {
             if (coupon.StartDate > coupon.EndDate)
             {
-                ModelState.AddModelError("EndDate", "Ngày bắt đầu không được lớn hơn ngày kết thúc");
+                TempData["Error"] = "Ngày bắt đầu không được lớn hơn ngày kết thúc";
                 return View(coupon);
             }
             var result = _couponService.CreateCoupon(coupon);
             if (!result)
             {
-                ModelState.AddModelError("Name", "Mã đã tồn tại");
+                TempData["Error"] = "Mã giảm giá đã tồn tại!";
                 return View(coupon);
             }
             TempData["Success"] = "Thêm mã giảm giá thành công!";
@@ -63,13 +63,13 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         {
             if (coupon.StartDate > coupon.EndDate)
             {
-                ModelState.AddModelError("EndDate", "Ngày bắt đầu không được lớn hơn ngày kết thúc");
+                TempData["Error"] = "Ngày bắt đầu không được lớn hơn ngày kết thúc";
                 return View(coupon);
             }
             var result = _couponService.UpdateCoupon(coupon);
             if (!result)
             {
-                ModelState.AddModelError("Name", "Mã đã tồn tại");
+                TempData["Error"] = "Mã giảm giá đã tồn tại!";
                 return View(coupon);
             }
             TempData["Success"] = "Cập nhật mã giảm giá thành công!";

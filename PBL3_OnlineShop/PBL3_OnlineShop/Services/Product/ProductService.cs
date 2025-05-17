@@ -26,7 +26,7 @@ namespace PBL3_OnlineShop.Services.Product
             var query = _context.Products
                 .Include(p => p.ProductSizes)
                 .Include(p => p.Category)
-                .AsNoTracking()
+                //.AsNoTracking()
                 .AsQueryable();
 
             // Filter by category

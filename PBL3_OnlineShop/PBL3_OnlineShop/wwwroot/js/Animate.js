@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         window.chart = new Chart(ctx, {
-            type: 'line',  // Chọn kiểu biểu đồ (line, bar, etc.)
+            type: 'line',  // Chọn kiểu biểu đồ (line, bar, pie, scatter, .. cả đống)
             data: {
                 labels: labels,
                 datasets: [{

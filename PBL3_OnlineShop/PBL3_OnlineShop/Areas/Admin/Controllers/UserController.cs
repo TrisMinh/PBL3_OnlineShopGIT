@@ -33,7 +33,6 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(User user)
         {
             ViewBag.RoleList = new List<SelectListItem>
@@ -67,7 +66,6 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
             return View(user);
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, User user)
         {
             try

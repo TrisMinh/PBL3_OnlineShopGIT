@@ -37,7 +37,7 @@ namespace PBL3_OnlineShop.Controllers
 
             var user = _checkoutService.GetUserById(userId);
 
-            ViewBag.NameCustomer = user.UserName;
+            ViewBag.UserName = user.UserName;
             ViewBag.Email = user.Email;
             ViewBag.PhoneNumber = user.PhoneNumber;
             ViewBag.Address = user.Address;
