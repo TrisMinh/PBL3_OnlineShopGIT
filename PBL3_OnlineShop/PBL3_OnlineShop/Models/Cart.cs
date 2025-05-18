@@ -13,7 +13,8 @@ namespace PBL3_OnlineShop.Models
         public int CartId { get; set; }
         [ForeignKey("User")]
         public int UserId { get; set; }
-        public ICollection<CartItem> CartItems { get; set; } 
+        public ICollection<CartItem> CartItems { get; set; }
+        [ForeignKey("UserId")]
         public User User { get; set; } 
     }
 }

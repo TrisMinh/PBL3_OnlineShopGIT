@@ -18,5 +18,6 @@ namespace PBL3_OnlineShop.Models
         public DateTime EndDate { get; set; }
         public int status { get; set; }
         public decimal Discount { get; set; }
+        public ICollection<CouponUsage> couponUsages { get; set; }
     }
 }
