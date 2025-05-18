@@ -30,6 +30,11 @@ namespace PBL3_OnlineShop.Services.Checkout
 
             decimal totalPrice = subtotal + shippingCost - discount;
 
+            if (totalPrice < 0)
+            {
+                totalPrice = 0;
+            }
+
             return new CheckoutView
             {
                 CartItems = cartItems,
@@ -80,6 +85,10 @@ namespace PBL3_OnlineShop.Services.Checkout
             }
 
             decimal totalPrice = subtotal + shippingCost - discount;
+            if (totalPrice < 0)
+            {
+                totalPrice = 0;
+            }
             return totalPrice;
         }
 
