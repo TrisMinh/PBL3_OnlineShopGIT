@@ -16,7 +16,7 @@ namespace PBL3_OnlineShop.Controllers
         }
 
         // GET: ProductsController
-        public ActionResult Index(string category, string color, string size, string price, string collection, string availability, string gender, string text, int page = 1)
+        public IActionResult Index(string category, string color, string size, string price, string collection, string availability, string gender, string text, int page = 1)
         {
             var categories = new List<string> { "New", "Sales", "Polo Shirts", "Shorts", "Suits", "Best sellers", "T-Shirts", "Jeans", "Jackets", "Coats" };
 
@@ -52,7 +52,8 @@ namespace PBL3_OnlineShop.Controllers
         }
 
         // GET: ProductsController/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public IActionResult Details(int id)
         {
             var product = _productService.GetProductDetails(id);
 

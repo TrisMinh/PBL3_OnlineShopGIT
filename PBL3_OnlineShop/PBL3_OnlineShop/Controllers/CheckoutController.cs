@@ -45,7 +45,6 @@ namespace PBL3_OnlineShop.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult ApplyCoupon(string name)
         {
             if (!string.IsNullOrEmpty(name))
@@ -68,7 +67,6 @@ namespace PBL3_OnlineShop.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult CreateOrder(string CouponUsed, string PaymentMethod)
         {
             var userId = HttpContext.Session.GetInt32("_UserId");
@@ -144,7 +142,6 @@ namespace PBL3_OnlineShop.Controllers
 
         // Phương thức xử lý thanh toán hoàn tất đã được sửa đổi
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult CompletePayment(string randomCode)
         {
             var userId = HttpContext.Session.GetInt32("_UserId");

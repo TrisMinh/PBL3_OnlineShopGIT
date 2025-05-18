@@ -158,7 +158,7 @@ namespace PBL3_OnlineShop.Services.Product
             if (string.IsNullOrEmpty(size))
                 return new List<string>();
 
-            return _context.ProductsSize
+            return _context.ProductsSize                
                 .Where(ps => ps.ProductId == productId && ps.Size == size && ps.Quantity > 0)
                 .Select(ps => ps.Color)
                 .Distinct()

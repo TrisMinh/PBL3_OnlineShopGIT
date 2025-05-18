@@ -1,11 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using PBL3_OnlineShop.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using PBL3_OnlineShop.Models.ViewModels;
-using PBL3_OnlineShop.Data;
 using PBL3_OnlineShop.Services.Account;
 
 namespace PBL3_OnlineShop.Controllers
@@ -19,13 +13,13 @@ namespace PBL3_OnlineShop.Controllers
             _accountService = accountService;
         }
         [HttpGet]
-        public ActionResult ForgotPassword()
+        public IActionResult ForgotPassword()
         {
             return View("ForgotPassword");
         }
 
         [HttpPost]
-        public ActionResult ForgotPassword(ForgotPasswordView model)
+        public IActionResult ForgotPassword(ForgotPasswordView model)
         {
             if (string.IsNullOrEmpty(model.ForgotUsername))
             {
@@ -43,7 +37,7 @@ namespace PBL3_OnlineShop.Controllers
         }
 
         [HttpGet]
-        public ActionResult Register()
+        public IActionResult Register()
         {
             return View();
         }
@@ -75,7 +69,7 @@ namespace PBL3_OnlineShop.Controllers
         }
 
         [HttpGet]
-        public ActionResult Login()
+        public IActionResult Login()
         {
             return View();
         }
@@ -118,14 +112,14 @@ namespace PBL3_OnlineShop.Controllers
         }
 
         [HttpGet]
-        public ActionResult Logout()
+        public IActionResult Logout()
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
-        public ActionResult Profile()
+        public IActionResult Profile()
         {
             var userId = HttpContext.Session.GetInt32("_UserId");
             if (userId == null)

@@ -16,20 +16,20 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         {
             _couponService = couponService;
         }
-        public ActionResult Index()
+        public IActionResult Index()
         {
             return View(_couponService.GetAllCoupons());
         }
 
         [HttpGet]
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Coupon coupon)
+        public IActionResult Create(Coupon coupon)
         {
             if (coupon.StartDate > coupon.EndDate)
             {
@@ -47,7 +47,7 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             var coupon = _couponService.GetCouponById(id);
             if (coupon == null)
@@ -59,7 +59,7 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Coupon coupon)
+        public IActionResult Edit(Coupon coupon)
         {
             if (coupon.StartDate > coupon.EndDate)
             {
@@ -77,7 +77,7 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult Search(int? couponId, string couponName, decimal? couponDiscount, int status)
+        public IActionResult Search(int? couponId, string couponName, decimal? couponDiscount, int status)
         {
             ViewBag.couponID = couponId;
             ViewBag.couponName = couponName;
@@ -87,7 +87,7 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
             return View("Index", _couponService.SearchCoupon(couponId, couponName, couponDiscount, status));
         }
 
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             var result = _couponService.DeleteCoupon(id);
             if (!result)

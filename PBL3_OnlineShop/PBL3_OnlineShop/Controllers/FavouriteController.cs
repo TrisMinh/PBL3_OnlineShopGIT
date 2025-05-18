@@ -14,7 +14,7 @@ namespace PBL3_OnlineShop.Controllers
         }
 
         // GET: FavouriteController
-        public ActionResult Index(int page = 1)
+        public IActionResult Index(int page = 1)
         {
             int? userId = HttpContext.Session.GetInt32("_UserId");
             if (userId == null)
@@ -33,7 +33,7 @@ namespace PBL3_OnlineShop.Controllers
         }
 
         // GET: FavouriteController/Create
-        public ActionResult Create(int id)
+        public IActionResult Create(int id)
         {
             int? userId = HttpContext.Session.GetInt32("_UserId");
             Console.WriteLine("Vào action Favourite/Create với id = " + id + ", userId = " + userId);
@@ -58,7 +58,7 @@ namespace PBL3_OnlineShop.Controllers
         }
 
         // GET: FavouriteController/Delete/5
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             int? userId = HttpContext.Session.GetInt32("_UserId");
             if (userId == null)

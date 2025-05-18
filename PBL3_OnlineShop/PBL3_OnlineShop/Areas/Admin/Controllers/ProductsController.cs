@@ -18,19 +18,19 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         {
             _productService = productService;
         }
-        public ActionResult Index()
+        public IActionResult Index()
         {   
             return View(_productService.GetAllProducts());
         }
         [HttpGet]
-        public ActionResult Create()
+        public IActionResult Create()
         {
             ViewBag.Categories = new SelectList(_productService.GetCategorySelectList(), "CategoryId", "CategoryName"); // Lấy danh sách Category từ DbContext
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Product product, List<ProductSize> Sizes)
+        public IActionResult Create(Product product, List<ProductSize> Sizes)
         {
             ViewBag.Categories = new SelectList(_productService.GetCategorySelectList(), "CategoryId", "CategoryName", product.CategoryId);
 
@@ -45,7 +45,7 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             var product = _productService.GetProductById(id);
             ViewBag.Categories = new SelectList(_productService.GetCategorySelectList(),"CategoryId", "CategoryName", product.CategoryId);
@@ -58,7 +58,7 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Product product, List<ProductSize> Sizes)
+        public IActionResult Edit(int id, Product product, List<ProductSize> Sizes)
         {
             ViewBag.Categories = new SelectList(_productService.GetCategorySelectList(), "CategoryId", "CategoryName", product.CategoryId);
             var result = _productService.UpdateProduct(id, product, Sizes);
@@ -71,7 +71,7 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             var result = _productService.DeleteProduct(id);
             if (!result)
@@ -79,11 +79,11 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
                 TempData["Error"] = "Xoá sản phẩm không thành công.";
             }
             TempData["Success"] = "Xóa sản phẩm thành công.";
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public ActionResult Search(int? productID, string productName, decimal? price, string category, string status, string gender)
+        public IActionResult Search(int? productID, string productName, decimal? price, string category, string status, string gender)
         {
             ViewBag.productID = productID;
             ViewBag.productName = productName;

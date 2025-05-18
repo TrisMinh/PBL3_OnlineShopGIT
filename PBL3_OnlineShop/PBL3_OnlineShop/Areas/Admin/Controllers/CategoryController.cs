@@ -17,20 +17,20 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         {
             _categoryService = categoryService;
         }
-        public ActionResult Index()
+        public IActionResult Index()
         {
             return View(_categoryService.GetAllCategories());
         }
 
         [HttpGet]
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Category category)
+        public IActionResult Create(Category category)
         {
             var result = _categoryService.CreateCategory(category);
             if (!result)
@@ -44,7 +44,7 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             var categories = _categoryService.GetCategoryById(id);
             if (categories == null)
@@ -56,7 +56,7 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Category category)
+        public IActionResult Edit(int id, Category category)
         {
             var result = _categoryService.UpdateCategory(category);
             if (!result)
@@ -68,13 +68,13 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
             TempData["Success"] = "Cập nhật danh mục thành công!";
             return RedirectToAction("Index");
         }
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             var result = _categoryService.DeleteCategory(id);
             if (!result)
             {
                 TempData["Error"] = "Xóa danh mục không thành công!";
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
 
             TempData["Success"] = "Xóa sản phẩm thành công.";

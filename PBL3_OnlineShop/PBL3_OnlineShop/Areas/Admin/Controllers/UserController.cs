@@ -18,12 +18,12 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         {
             _userService = userService;
         }
-        public ActionResult Index()
+        public IActionResult Index()
         {
             return View(_userService.GetAllUsers());
         }
         [HttpGet]
-        public ActionResult Create()
+        public IActionResult Create()
         {
             ViewBag.RoleList = new List<SelectListItem>
             {
@@ -33,7 +33,7 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(User user)
+        public IActionResult Create(User user)
         {
             ViewBag.RoleList = new List<SelectListItem>
             {
@@ -51,7 +51,7 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             var user = _userService.GetUserById(id);
             ViewBag.RoleList = new List<SelectListItem>
@@ -66,7 +66,7 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
             return View(user);
         }
         [HttpPost]
-        public ActionResult Edit(int id, User user)
+        public IActionResult Edit(int id, User user)
         {
             try
             {
@@ -93,7 +93,7 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             var result = _userService.DeleteUser(id);
             if (!result)
@@ -102,7 +102,7 @@ namespace PBL3_OnlineShop.Areas.Admin.Controllers
                 return NotFound();
             }
             TempData["Success"] = "Xóa user thành công!";
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
     }
 }

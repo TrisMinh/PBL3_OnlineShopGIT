@@ -58,7 +58,7 @@ namespace PBL3_OnlineShop.Controllers
             if (productSize == null)
             {
                 TempData["Error"] = "Product not found or size/color not available.";
-                return Redirect(Request.Headers["Referer"].ToString()); // trả về trang hiện tại
+                return RedirectToAction("Details","Products", new { id = id }); // trả về trang hiện tại
             }
 
             var userId = HttpContext.Session.GetInt32("_UserId");
@@ -68,7 +68,7 @@ namespace PBL3_OnlineShop.Controllers
             _cartService.AddToCart(userId, id, size, color, HttpContext.Session, product);
 
             TempData["Success"] = "Added product to Cart";
-            return Redirect(Request.Headers["Referer"].ToString()); // trả về trang hiện tại
+            return RedirectToAction("Details","Products", new { id = id }); // trả về trang hiện tại
         }
 
         [HttpPost]
