@@ -33,6 +33,10 @@ namespace PBL3_OnlineShop.Services.Admin.Product
 
             product.CreatedAt = DateTime.Now;
             product.UpdatedAt = DateTime.Now;
+            if(!product.SalePercentage.HasValue)
+            {
+                product.SalePercentage = 0; // mặc định là active
+            }
 
             // lưu ảnh vào thư mục wwwroot/imagesProducts
             if (product.ImageUpload != null && product.ImageUpload.Count > 0)

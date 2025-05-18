@@ -27,6 +27,7 @@ public partial class Product
     public Category Category { get; set; }
     public ICollection<ProductSize> ProductSizes { get; set; }
     [NotMapped]
+    [Required(ErrorMessage = "Please upload at least one image.")]
     [FileExtensionAttributes]
     public List<IFormFile> ImageUpload { get; set; }
 }
