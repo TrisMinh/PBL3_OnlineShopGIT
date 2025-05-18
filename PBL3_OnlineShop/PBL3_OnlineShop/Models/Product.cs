@@ -23,6 +23,7 @@ public partial class Product
     public decimal? SalePercentage { get; set; }
     public string? Collections { get; set; }
     public string? Gender { get; set; }
+    [ForeignKey("CategoryId")]
     public Category Category { get; set; }
     public ICollection<ProductSize> ProductSizes { get; set; }
     [NotMapped]

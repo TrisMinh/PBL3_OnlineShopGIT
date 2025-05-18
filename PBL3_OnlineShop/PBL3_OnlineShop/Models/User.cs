@@ -22,5 +22,7 @@ namespace PBL3_OnlineShop.Models
         public int Status { get; set; } = 1;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public Cart Cart { get; set; }
+        public ICollection<Order> Orders { get; set; }
+        public ICollection<CouponUsage> couponUsages { get; set; }
     }
 }

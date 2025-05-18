@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PBL3_OnlineShop.Models
 {
@@ -30,8 +31,9 @@ namespace PBL3_OnlineShop.Models
             get { return SellingPrice * Quantity; }
         }
         public string ImageUrl { get; set; }
-
+        [ForeignKey("ProductId")]
         public Product Product { get; set; }
+        [ForeignKey("CartId")]
         public Cart Cart { get; set; } = null!;
     }
 }
