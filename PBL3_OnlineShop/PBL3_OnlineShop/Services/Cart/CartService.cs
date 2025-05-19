@@ -123,17 +123,17 @@ namespace PBL3_OnlineShop.Services.Cart
 
                 var cartItem = cart.CartItems.FirstOrDefault(c => c.ProductId == id && c.Size == size && c.Color == color);
                 if (cartItem == null)
-                {
-                    cartItem = new CartItem
-                    {
-                        ProductId = product.ProductId,
-                        ProductName = product.ProductName,
-                        Size = size,
-                        Color = color,
-                        Quantity = 1,
-                        SellingPrice = product.SellingPrice,
-                        ImageUrl = product.ImageUrl
-                    };
+                {                   
+                        cartItem = new CartItem
+                        {
+                            ProductId = product.ProductId,
+                            ProductName = product.ProductName,
+                            Size = size,
+                            Color = color,
+                            Quantity = 1,
+                            SellingPrice = product.SellingPrice,
+                            ImageUrl = product.ImageUrl
+                        };
                     cart.CartItems.Add(cartItem);
                 }
                 else

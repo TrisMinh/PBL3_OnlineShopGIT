@@ -19,7 +19,7 @@ namespace PBL3_OnlineShop.Services.Admin.Coupon
         }
         public bool CreateCoupon(Models.Coupon coupon)
         {
-            if (_context.Coupons.Any(p => p.Name == coupon.Name))
+            if (_context.Coupons.Any(p => p.Name.ToLower() == coupon.Name.ToLower()))
             {
                 return false;
             }

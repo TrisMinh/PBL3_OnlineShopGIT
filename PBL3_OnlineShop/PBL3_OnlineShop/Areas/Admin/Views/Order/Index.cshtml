@@ -54,8 +54,9 @@
                 <table class="coupon-table">
                     <thead>
                         <tr>
-                            <th>ID Order</th>
+                            <th>ID</th>
                             <th>Customer Name</th>
+                            <th>Address</th>
                             <th>Product Name</th>
                             <th>Total Price</th>
                             <th>Order Date</th>
@@ -86,6 +87,7 @@
                                 <td>
                                     @item.User.UserName
                                 </td>
+                                <td>@item.User.Address</td>
                                 <td>
                                     @foreach (var product in item.OrderDetails)
                                     {
@@ -96,9 +98,9 @@
                                 <td>@item.OrderDate.ToString("dd-MM-yyyy")</td>
                                 <td>@item.CouponUsed</td>
                                 <td>
-                                    @foreach (var product in item.OrderDetails)
+                                    @foreach (var code in item.OrderDetails.Select(p => p.Code).Distinct())
                                     {
-                                        <div>@product.Code</div>
+                                        <div>@code</div>
                                     }
                                 </td>
                                 <td>

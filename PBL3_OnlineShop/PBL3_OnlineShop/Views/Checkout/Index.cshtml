@@ -96,7 +96,7 @@
                     }
                 </div>
                 <hr class="divider">
-                <form method="post" asp-action="ApplyCoupon" style="display: flex; gap:10px;">
+                <form method="post" asp-controller="Checkout" asp-action="ApplyCoupon" style="display: flex; gap:10px;">
                     <div class="summary-line" style="gap:10px;">
                         <label class="coupon-label">
                             Coupon Code
@@ -137,7 +137,7 @@
             <div class="quantity">
                 <span>(@quantity)</span>
             </div>
-            <form asp-action="CreateOrder" method="post" id="checkoutForm">
+            <form asp-controller="Checkout" asp-action="CreateOrder"  method="post" id="checkoutForm">
                 <input type="hidden" name="CouponUsed" value="@couponUsed" />
                 @* <input type="hidden" name="PaymentMethod" id="payment-method-hidden" value="" /> *@
                 <div class="coupon">

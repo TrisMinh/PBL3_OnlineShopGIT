@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 
-                <form asp-action="CompletePayment" method="post">
+                <form asp-controller="Checkout" asp-action="CompletePayment" method="post">
                     <input type="hidden" id="randomCode" name="randomCode" value="" />
                     <button type="submit" class="action-button">Complete Payment</button>
                 </form>
