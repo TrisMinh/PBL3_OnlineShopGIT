@@ -1,138 +1,140 @@
 ﻿﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
-    // Placeholder for model if needed
     var selectedCollection = ViewData["SelectedCollection"] as string ?? "";
+    var openFilters = ViewBag.OpenFilters as List<string> ?? new List<string>();
+
+    bool IsFilterOpen(string filterName)
+    {
+        return openFilters.Contains(filterName.ToLower().Replace(" ", ""));
+    }
 }
 
 <aside class="filters">
     <h2 class="filters-title">Filters</h2>
     <!-- Category Filter -->
     <div class="filter-group">
-        <div class="custom-toggle-header filter-group-header" style="cursor: pointer;">
+        <a href="@Url.Action("ToggleFilterState", "Filter", new { filterType = "category" })" class="custom-toggle-header filter-group-header @(IsFilterOpen("Category") ? "is-active" : "")" style="cursor: pointer; display: block; text-decoration: none; color: inherit;">
             <span>Category</span>
             <i class="fa-solid fa-chevron-down"></i>
-        </div>
-        <div class="custom-toggle-content" style="display: none;">
+        </a>
+        <div class="custom-toggle-content" style="display: @(IsFilterOpen("Category") ? "block" : "none");">
             <div class="filter-group-content filter-category-grid">
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="">All</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="Jackets">Jackets</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="T-Shirts">T-Shirts</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="Polo Shirts">Polo Shirts</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="Suits">Suits</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="Jeans">Jeans</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="Trousers">Trousers</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="Shorts">Shorts</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="Sportswear">Sportswear</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="Dresses">Dresses</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="Skirts">Skirts</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="category" data-filter-value="Coats">Coats</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "category", value = "" })" class="filter-category-button @(string.IsNullOrEmpty(ViewBag.SelectedCategory) ? "active" : "")" data-filter-type="category" data-filter-value="">All</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "category", value = "Jackets" })" class="filter-category-button @(ViewBag.SelectedCategory == "Jackets" ? "active" : "")" data-filter-type="category" data-filter-value="Jackets">Jackets</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "category", value = "T-Shirts" })" class="filter-category-button @(ViewBag.SelectedCategory == "T-Shirts" ? "active" : "")" data-filter-type="category" data-filter-value="T-Shirts">T-Shirts</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "category", value = "Polo Shirts" })" class="filter-category-button @(ViewBag.SelectedCategory == "Polo Shirts" ? "active" : "")" data-filter-type="category" data-filter-value="Polo Shirts">Polo Shirts</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "category", value = "Suits" })" class="filter-category-button @(ViewBag.SelectedCategory == "Suits" ? "active" : "")" data-filter-type="category" data-filter-value="Suits">Suits</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "category", value = "Jeans" })" class="filter-category-button @(ViewBag.SelectedCategory == "Jeans" ? "active" : "")" data-filter-type="category" data-filter-value="Jeans">Jeans</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "category", value = "Trousers" })" class="filter-category-button @(ViewBag.SelectedCategory == "Trousers" ? "active" : "")" data-filter-type="category" data-filter-value="Trousers">Trousers</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "category", value = "Shorts" })" class="filter-category-button @(ViewBag.SelectedCategory == "Shorts" ? "active" : "")" data-filter-type="category" data-filter-value="Shorts">Shorts</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "category", value = "Sportswear" })" class="filter-category-button @(ViewBag.SelectedCategory == "Sportswear" ? "active" : "")" data-filter-type="category" data-filter-value="Sportswear">Sportswear</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "category", value = "Dresses" })" class="filter-category-button @(ViewBag.SelectedCategory == "Dresses" ? "active" : "")" data-filter-type="category" data-filter-value="Dresses">Dresses</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "category", value = "Skirts" })" class="filter-category-button @(ViewBag.SelectedCategory == "Skirts" ? "active" : "")" data-filter-type="category" data-filter-value="Skirts">Skirts</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "category", value = "Coats" })" class="filter-category-button @(ViewBag.SelectedCategory == "Coats" ? "active" : "")" data-filter-type="category" data-filter-value="Coats">Coats</a>
             </div>
         </div>
     </div>
 
     <!-- Colors Filter -->
     <div class="filter-group">
-        <div class="custom-toggle-header filter-group-header" style="cursor: pointer;">
+        <a href="@Url.Action("ToggleFilterState", "Filter", new { filterType = "colors" })" class="custom-toggle-header filter-group-header @(IsFilterOpen("Colors") ? "is-active" : "")" style="cursor: pointer; display: block; text-decoration: none; color: inherit;">
             <span>Colors</span>
             <i class="fa-solid fa-chevron-down"></i>
-        </div>
-        <div class="custom-toggle-content" style="display: none;">
+        </a>
+        <div class="custom-toggle-content" style="display: @(IsFilterOpen("Colors") ? "block" : "none");">
             <div class="filter-group-content filter-colors-grid">
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="color" data-filter-value="">All</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="color" data-filter-value="Black">Black</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="color" data-filter-value="White">White</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="color" data-filter-value="Blue">Blue</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="color" data-filter-value="Red">Red</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="color" data-filter-value="Green">Green</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="color" data-filter-value="Yellow">Yellow</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="color" data-filter-value="Brown">Brown</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "color", value = "" })" class="filter-category-button @(string.IsNullOrEmpty(Context.Request.Query["color"]) ? "active" : "")" data-filter-type="color" data-filter-value="">All</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "color", value = "Black" })" class="filter-category-button @(Context.Request.Query["color"] == "Black" ? "active" : "")" data-filter-type="color" data-filter-value="Black">Black</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "color", value = "White" })" class="filter-category-button @(Context.Request.Query["color"] == "White" ? "active" : "")" data-filter-type="color" data-filter-value="White">White</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "color", value = "Blue" })" class="filter-category-button @(Context.Request.Query["color"] == "Blue" ? "active" : "")" data-filter-type="color" data-filter-value="Blue">Blue</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "color", value = "Red" })" class="filter-category-button @(Context.Request.Query["color"] == "Red" ? "active" : "")" data-filter-type="color" data-filter-value="Red">Red</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "color", value = "Green" })" class="filter-category-button @(Context.Request.Query["color"] == "Green" ? "active" : "")" data-filter-type="color" data-filter-value="Green">Green</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "color", value = "Yellow" })" class="filter-category-button @(Context.Request.Query["color"] == "Yellow" ? "active" : "")" data-filter-type="color" data-filter-value="Yellow">Yellow</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "color", value = "Brown" })" class="filter-category-button @(Context.Request.Query["color"] == "Brown" ? "active" : "")" data-filter-type="color" data-filter-value="Brown">Brown</a>
             </div>
         </div>
     </div>
 
     <!-- Size Filter -->
     <div class="filter-group">
-        <div class="custom-toggle-header filter-group-header" style="cursor: pointer;">
+        <a href="@Url.Action("ToggleFilterState", "Filter", new { filterType = "size" })" class="custom-toggle-header filter-group-header @(IsFilterOpen("Size") ? "is-active" : "")" style="cursor: pointer; display: block; text-decoration: none; color: inherit;">
             <span>Size</span>
             <i class="fa-solid fa-chevron-down"></i>
-        </div>
-        <div class="custom-toggle-content" style="display: none;">
+        </a>
+        <div class="custom-toggle-content" style="display: @(IsFilterOpen("Size") ? "block" : "none");">
             <div class="filter-group-content filter-size-grid">
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="size" data-filter-value="">All</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="size" data-filter-value="XS">XS</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="size" data-filter-value="S">S</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="size" data-filter-value="M">M</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="size" data-filter-value="L">L</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="size" data-filter-value="XL">XL</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="size" data-filter-value="2XL">2X</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "size", value = "" })" class="filter-category-button @(string.IsNullOrEmpty(Context.Request.Query["size"]) ? "active" : "")" data-filter-type="size" data-filter-value="">All</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "size", value = "XS" })" class="filter-category-button @(Context.Request.Query["size"] == "XS" ? "active" : "")" data-filter-type="size" data-filter-value="XS">XS</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "size", value = "S" })" class="filter-category-button @(Context.Request.Query["size"] == "S" ? "active" : "")" data-filter-type="size" data-filter-value="S">S</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "size", value = "M" })" class="filter-category-button @(Context.Request.Query["size"] == "M" ? "active" : "")" data-filter-type="size" data-filter-value="M">M</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "size", value = "L" })" class="filter-category-button @(Context.Request.Query["size"] == "L" ? "active" : "")" data-filter-type="size" data-filter-value="L">L</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "size", value = "XL" })" class="filter-category-button @(Context.Request.Query["size"] == "XL" ? "active" : "")" data-filter-type="size" data-filter-value="XL">XL</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "size", value = "2XL" })" class="filter-category-button @(Context.Request.Query["size"] == "2XL" ? "active" : "")" data-filter-type="size" data-filter-value="2XL">2X</a>
             </div>
         </div>
     </div>
 
     <!-- Price Range Filter -->
     <div class="filter-group">
-        <div class="custom-toggle-header filter-group-header" style="cursor: pointer;">
+        <a href="@Url.Action("ToggleFilterState", "Filter", new { filterType = "pricerange" })" class="custom-toggle-header filter-group-header @(IsFilterOpen("PriceRange") ? "is-active" : "")" style="cursor: pointer; display: block; text-decoration: none; color: inherit;">
             <span>Price Range</span>
             <i class="fa-solid fa-chevron-down"></i>
-        </div>
-        <div class="custom-toggle-content" style="display: none;">
+        </a>
+        <div class="custom-toggle-content" style="display: @(IsFilterOpen("PriceRange") ? "block" : "none");">
             <div class="filter-group-content">
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="price" data-filter-value="">All</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="price" data-filter-value="under-500">Under 500,000đ</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="price" data-filter-value="500-to-1m">From 500,000đ - 1 million</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="price" data-filter-value="1m-to-2m">From 1 - 2 million</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="price" data-filter-value="2m-to-4m">From 2 - 4 million</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="price" data-filter-value="above-4m">Above 4 million</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "price", value = "" })" class="filter-category-button @(string.IsNullOrEmpty(Context.Request.Query["price"]) ? "active" : "")" data-filter-type="price" data-filter-value="">All</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "price", value = "under-500" })" class="filter-category-button @(Context.Request.Query["price"] == "under-500" ? "active" : "")" data-filter-type="price" data-filter-value="under-500">Under 500,000đ</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "price", value = "500-to-1m" })" class="filter-category-button @(Context.Request.Query["price"] == "500-to-1m" ? "active" : "")" data-filter-type="price" data-filter-value="500-to-1m">From 500,000đ - 1 million</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "price", value = "1m-to-2m" })" class="filter-category-button @(Context.Request.Query["price"] == "1m-to-2m" ? "active" : "")" data-filter-type="price" data-filter-value="1m-to-2m">From 1 - 2 million</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "price", value = "2m-to-4m" })" class="filter-category-button @(Context.Request.Query["price"] == "2m-to-4m" ? "active" : "")" data-filter-type="price" data-filter-value="2m-to-4m">From 2 - 4 million</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "price", value = "above-4m" })" class="filter-category-button @(Context.Request.Query["price"] == "above-4m" ? "active" : "")" data-filter-type="price" data-filter-value="above-4m">Above 4 million</a>
             </div>
         </div>
     </div>
 
     <!-- Collections Filter -->
     <div class="filter-group">
-        <div class="custom-toggle-header filter-group-header" style="cursor: pointer;">
+        <a href="@Url.Action("ToggleFilterState", "Filter", new { filterType = "collections" })" class="custom-toggle-header filter-group-header @(IsFilterOpen("Collections") ? "is-active" : "")" style="cursor: pointer; display: block; text-decoration: none; color: inherit;">
             <span>Collections</span>
             <i class="fa-solid fa-chevron-down"></i>
-        </div>
-        <div class="custom-toggle-content" style="display: none;">
+        </a>
+        <div class="custom-toggle-content" style="display: @(IsFilterOpen("Collections") ? "block" : "none");">
             <div class="filter-group-content filter-collections-grid">
-                <a href="javascript:void(0)" class="filter-category-button @(string.IsNullOrEmpty(selectedCollection) ? "active" : "")" data-filter-type="collection" data-filter-value="">All</a>
-                <a href="javascript:void(0)" class="filter-category-button @(selectedCollection.ToLower() == "spring" ? "active" : "")" data-filter-type="collection" data-filter-value="spring">Spring</a>
-                <a href="javascript:void(0)" class="filter-category-button @(selectedCollection.ToLower() == "summer" ? "active" : "")" data-filter-type="collection" data-filter-value="summer">Summer</a>
-                <a href="javascript:void(0)" class="filter-category-button @(selectedCollection.ToLower() == "autumn" ? "active" : "")" data-filter-type="collection" data-filter-value="autumn">Autumn</a>
-                <a href="javascript:void(0)" class="filter-category-button @(selectedCollection.ToLower() == "winter" ? "active" : "")" data-filter-type="collection" data-filter-value="winter">Winter</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "collection", value = "" })" class="filter-category-button @(string.IsNullOrEmpty(selectedCollection) ? "active" : "")" data-filter-type="collection" data-filter-value="">All</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "collection", value = "spring" })" class="filter-category-button @(selectedCollection.ToLower() == "spring" ? "active" : "")" data-filter-type="collection" data-filter-value="spring">Spring</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "collection", value = "summer" })" class="filter-category-button @(selectedCollection.ToLower() == "summer" ? "active" : "")" data-filter-type="collection" data-filter-value="summer">Summer</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "collection", value = "autumn" })" class="filter-category-button @(selectedCollection.ToLower() == "autumn" ? "active" : "")" data-filter-type="collection" data-filter-value="autumn">Autumn</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "collection", value = "winter" })" class="filter-category-button @(selectedCollection.ToLower() == "winter" ? "active" : "")" data-filter-type="collection" data-filter-value="winter">Winter</a>
             </div>
         </div>
     </div>
 
     <!-- Availability Filter -->
     <div class="filter-group">
-        <div class="custom-toggle-header filter-group-header" style="cursor: pointer;">
+        <a href="@Url.Action("ToggleFilterState", "Filter", new { filterType = "availability" })" class="custom-toggle-header filter-group-header @(IsFilterOpen("Availability") ? "is-active" : "")" style="cursor: pointer; display: block; text-decoration: none; color: inherit;">
             <span>Availability</span>
             <i class="fa-solid fa-chevron-down"></i>
-        </div>
-        <div class="custom-toggle-content" style="display: none;">
+        </a>
+        <div class="custom-toggle-content" style="display: @(IsFilterOpen("Availability") ? "block" : "none");">
             <div class="filter-group-content">
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="availability" data-filter-value="">All</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="availability" data-filter-value="available">Availability (@ViewBag.AvailableCount)</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="availability" data-filter-value="out-of-stock">Out Of Stock (@ViewBag.OutOfStockCount)</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "availability", value = "" })" class="filter-category-button @(string.IsNullOrEmpty(Context.Request.Query["availability"]) ? "active" : "")" data-filter-type="availability" data-filter-value="">All</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "availability", value = "available" })" class="filter-category-button @(Context.Request.Query["availability"] == "available" ? "active" : "")" data-filter-type="availability" data-filter-value="available">Availability (@ViewBag.AvailableCount)</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "availability", value = "out-of-stock" })" class="filter-category-button @(Context.Request.Query["availability"] == "out-of-stock" ? "active" : "")" data-filter-type="availability" data-filter-value="out-of-stock">Out Of Stock (@ViewBag.OutOfStockCount)</a>
             </div>
         </div>
     </div>
 
     <!-- Gender Filter (Changed from Tags) -->
     <div class="filter-group">
-        <div class="custom-toggle-header filter-group-header" style="cursor: pointer;">
+        <a href="@Url.Action("ToggleFilterState", "Filter", new { filterType = "gender" })" class="custom-toggle-header filter-group-header @(IsFilterOpen("Gender") ? "is-active" : "")" style="cursor: pointer; display: block; text-decoration: none; color: inherit;">
             <span>Gender</span>
             <i class="fa-solid fa-chevron-down"></i>
-        </div>
-        <div class="custom-toggle-content" style="display: none;">
+        </a>
+        <div class="custom-toggle-content" style="display: @(IsFilterOpen("Gender") ? "block" : "none");">
             <div class="filter-group-content filter-gender-grid">
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="gender" data-filter-value="">All</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="gender" data-filter-value="male">Male</a>
-                <a href="javascript:void(0)" class="filter-category-button" data-filter-type="gender" data-filter-value="female">Female</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "gender", value = "" })" class="filter-category-button @(string.IsNullOrEmpty(Context.Request.Query["gender"]) ? "active" : "")" data-filter-type="gender" data-filter-value="">All</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "gender", value = "male" })" class="filter-category-button @(Context.Request.Query["gender"] == "male" ? "active" : "")" data-filter-type="gender" data-filter-value="male">Male</a>
+                <a href="@Url.Action("Apply", "Filter", new { type = "gender", value = "female" })" class="filter-category-button @(Context.Request.Query["gender"] == "female" ? "active" : "")" data-filter-type="gender" data-filter-value="female">Female</a>
             </div>
         </div>
     </div>
@@ -221,148 +223,3 @@
         gap: 5px;
     }
 </style>
-
-<!-- Mã JavaScript trong file -->
-<script>
-    // IIFE để cô lập biến và tránh xung đột
-    (function() {
-        // Đảm bảo DOM đã tải xong
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initAllFilters);
-        } else {
-            initAllFilters();
-        }
-        
-        // Khởi tạo cả hai chức năng: toggle và filter
-        function initAllFilters() {
-            initToggle();
-            highlightActiveFilters();
-            restoreOpenFilters();
-        }
-        
-        // Khởi tạo chức năng toggle ẩn/hiện danh mục
-        function initToggle() {
-            // Lấy tất cả các header filter
-            var headers = document.querySelectorAll('.custom-toggle-header');
-            
-            // Đăng ký sự kiện click cho từng header
-            headers.forEach(function(header) {
-                header.addEventListener('click', function(e) {
-                    // Ngăn chặn hành vi mặc định
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    // Toggle class active cho header
-                    this.classList.toggle('is-active');
-                    
-                    // Toggle hiển thị cho content
-                    var content = this.nextElementSibling;
-                    if (content) {
-                        if (content.style.display === 'block') {
-                            content.style.display = 'none';
-                            removeOpenFilter(getFilterType(this));
-                        } else {
-                            content.style.display = 'block';
-                            addOpenFilter(getFilterType(this));
-                        }
-                    }
-                });
-            });
-        }
-        
-        // Lấy trạng thái filter đang mở từ sessionStorage
-        function getOpenFilters() {
-            var openFilters = sessionStorage.getItem('openFilters');
-            return openFilters ? JSON.parse(openFilters) : [];
-        }
-        
-        // Thêm một filter vào danh sách đang mở
-        function addOpenFilter(filterType) {
-            var openFilters = getOpenFilters();
-            if (!openFilters.includes(filterType)) {
-                openFilters.push(filterType);
-                sessionStorage.setItem('openFilters', JSON.stringify(openFilters));
-            }
-        }
-        
-        // Xóa một filter khỏi danh sách đang mở
-        function removeOpenFilter(filterType) {
-            var openFilters = getOpenFilters();
-            var index = openFilters.indexOf(filterType);
-            if (index > -1) {
-                openFilters.splice(index, 1);
-                sessionStorage.setItem('openFilters', JSON.stringify(openFilters));
-            }
-        }
-        
-        // Lấy loại filter từ header
-        function getFilterType(header) {
-            var headerText = header.querySelector('span').textContent.toLowerCase();
-            return headerText.replace(/\s+/g, ''); // Loại bỏ khoảng trắng
-        }
-        
-        // Khôi phục trạng thái mở của các filter
-        function restoreOpenFilters() {
-            var openFilters = getOpenFilters();
-            
-            // Duyệt qua tất cả các header
-            document.querySelectorAll('.custom-toggle-header').forEach(function(header) {
-                var filterType = getFilterType(header);
-                
-                // Nếu filter này cần được mở
-                if (openFilters.includes(filterType)) {
-                    header.classList.add('is-active');
-                    var content = header.nextElementSibling;
-                    if (content) {
-                        content.style.display = 'block';
-                    }
-                }
-            });
-        }
-        
-        // Highlight các filter đang active dựa trên URL hiện tại
-        function highlightActiveFilters() {
-            // Lấy các tham số từ URL
-            var urlParams = new URLSearchParams(window.location.search);
-            
-            // Lấy tất cả các nút filter
-            var filterButtons = document.querySelectorAll('[data-filter-type]');
-            
-            // Kiểm tra từng nút
-            filterButtons.forEach(function(button) {
-                var filterType = button.getAttribute('data-filter-type');
-                var filterValue = button.getAttribute('data-filter-value');
-                
-                // Nếu filter này đang active (có trong URL)
-                if (urlParams.get(filterType) === filterValue) {
-                    button.classList.add('active');
-                } else {
-                    button.classList.remove('active');
-                }
-            });
-        }
-
-        // Xử lý click filter động
-        document.querySelectorAll('.filter-category-button').forEach(function(btn) {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                var type = this.getAttribute('data-filter-type');
-                var value = this.getAttribute('data-filter-value');
-                var url = new URL(window.location.href);
-
-                if (this.classList.contains('active')) {
-                    url.searchParams.delete(type); // Nếu đang active thì bỏ chọn
-                } else if (value === "" || value === null) {
-                    url.searchParams.delete(type); // Bấm All thì xóa filter này
-                } else {
-                    url.searchParams.set(type, value); // Đổi filter này
-                }
-
-                // Reset page về 1 khi filter
-                url.searchParams.delete('page');
-
-                window.location.href = url.toString();
-            });
-        });
-    })();
-</script>

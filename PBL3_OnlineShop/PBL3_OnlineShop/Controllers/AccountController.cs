@@ -148,7 +148,7 @@ namespace PBL3_OnlineShop.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateProfile(string UserName, string Name, string Email, string PhoneNumber, string Gender, int Day, int Month, int Year, string Address)
+        public IActionResult UpdateProfile(string UserName, string Email, string PhoneNumber, string Gender, int Day, int Month, int Year, string Address)
         {
             var userId = HttpContext.Session.GetInt32("_UserId");
             if (userId == null)
@@ -196,14 +196,11 @@ namespace PBL3_OnlineShop.Controllers
                 TempData["PasswordError"] = "Mật khẩu mới và xác nhận mật khẩu không khớp.";
                 return RedirectToAction("Profile");
             }
-            
-            // Kiểm tra độ dài mật khẩu
             if (NewPassword.Length < 5)
             {
                 TempData["PasswordError"] = "Mật khẩu mới phải có ít nhất 5 ký tự.";
                 return RedirectToAction("Profile");
             }
-            
             // Gọi service để thay đổi mật khẩu
             bool result = _accountService.ChangePassword(userId.Value, CurrentPassword, NewPassword);
             

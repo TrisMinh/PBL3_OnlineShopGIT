@@ -1,15 +1,8 @@
-﻿@*
-    Partial view for displaying product categories.
-    Expects:
-    - ViewBag.Categories: An IEnumerable<string> containing the category names.
-    - ViewBag.SelectedCategory: A string containing the name of the currently selected category.
-*@
+﻿
 @{
-    // Default values if ViewBag is not set (optional, for safety)
     var categories = ViewBag.Categories as IEnumerable<string> ?? new List<string>();
     var selectedCategory = ViewBag.SelectedCategory as string;
 
-    // Split categories into two rows for display (adjust logic if needed)
     int half = (int)Math.Ceiling(categories.Count() / 2.0);
     var firstRowCategories = categories.Take(half);
     var secondRowCategories = categories.Skip(half);

@@ -129,12 +129,11 @@ namespace PBL3_OnlineShop.Services.Product
             {
                 query = query.Where(p => p.ProductName.ToLower().Contains(text.ToLower()));
             }
-
-            // Count products for filters
+            // đếm
             availableCount = query.Count(p => p.StockQuantity > 0);
             outOfStockCount = query.Count(p => p.StockQuantity == 0);
 
-            // Pagination
+            // phân trang
             int totalProducts = query.Count();
             totalPages = (int)Math.Ceiling(totalProducts / (double)pageSize);
             
