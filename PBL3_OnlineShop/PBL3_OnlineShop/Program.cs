@@ -82,6 +82,9 @@ namespace PBL3_OnlineShop
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
+            var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<PBL3_Db_Context>();
+            SeedData.SeedingData(context);
+
             app.Run();
         }
     }
