@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PBL3_OnlineShop.Services.Product;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 
 namespace PBL3_OnlineShop.Controllers
 {
@@ -37,6 +38,14 @@ namespace PBL3_OnlineShop.Controllers
             ViewBag.SelectedText = text;
             ViewBag.AvailableCount = availableCount;
             ViewBag.OutOfStockCount = outOfStockCount;
+            
+            // Lấy danh sách filter đang mở từ session
+            string openFiltersJson = HttpContext.Session.GetString("OpenFilters");
+            List<string> openFilters = string.IsNullOrEmpty(openFiltersJson)
+                ? new List<string>()
+                : JsonSerializer.Deserialize<List<string>>(openFiltersJson);
+            
+            ViewBag.OpenFilters = openFilters;
 
             int? userId = HttpContext.Session.GetInt32("_UserId");
             if (userId == null)
